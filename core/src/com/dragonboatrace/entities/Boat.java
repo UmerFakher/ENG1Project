@@ -3,7 +3,6 @@ package com.dragonboatrace.entities;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
 
@@ -21,16 +20,21 @@ public class Boat extends Entity {
     public Texture getImg(){return this.img;}
 
     public void update(float deltaTime){
-        if (Gdx.input.isKeyPressed(Keys.LEFT)){
-
-
-            this.vel.add(-this.type.getSpeed(), 0).scl(deltaTime);
+        if (this.pos.x >= 0 && (this.pos.x+this.type.getWidth()) <= Gdx.graphics.getWidth()){
+            if (Gdx.input.isKeyPressed(Keys.LEFT)){
+                this.vel.add(-this.type.getSpeed(), 0).scl(deltaTime);
+            }
+            else if (Gdx.input.isKeyPressed(Keys.RIGHT)){
+                this.vel.add(this.type.getSpeed(), 0).scl(deltaTime);
+            }     
+            super.update(deltaTime);
+        } else{
+            if (this.pos.x < 0){
+                this.pos.x += 1;
+            } else{
+                this.pos.x -= 1;
+            }
         }
-        else if (Gdx.input.isKeyPressed(Keys.RIGHT)){
-            this.vel.add(this.type.getSpeed(), 0).scl(deltaTime);
-        }     
-        
-        super.update(deltaTime);
 
     }
 

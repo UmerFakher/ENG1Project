@@ -1,7 +1,7 @@
 package com.dragonboatrace;
 
 import java.util.ArrayList;
-
+import java.util.Iterator;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -10,11 +10,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.dragonboatrace.entities.Boat;
 import com.dragonboatrace.entities.BoatType;
-import com.dragonboatrace.entities.Entity;
 import com.dragonboatrace.entities.Obstacle;
 import com.dragonboatrace.entities.ObstacleType;
-
-import java.util.Iterator;
 
 
 public class DragonBoatRace extends ApplicationAdapter {
@@ -30,6 +27,7 @@ public class DragonBoatRace extends ApplicationAdapter {
 		obstacleList = new ArrayList<Obstacle>();
 		myBoat = new Boat(new Vector2(50, 50), BoatType.FAST);
 		obstacleList.add(new Obstacle(ObstacleType.ROCK));
+		obstacleList.add(new Obstacle(ObstacleType.BIRD));
 	}
 
 	@Override
