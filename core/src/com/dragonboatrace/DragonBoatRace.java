@@ -27,12 +27,13 @@ public class DragonBoatRace extends ApplicationAdapter {
 	public void create () {
 		batch = new SpriteBatch();
 		obstacleList = new ArrayList<Obstacle>();
-		myBoat = new Boat(new Vector2(50, 50), BoatType.SMALL);
+		myBoat = new Boat(new Vector2(50, 100), BoatType.SMALL);
 		frameDelay = 0;
 	}
 
 	@Override
 	public void render () {
+		batch.begin();
 		float deltaTime = Gdx.graphics.getDeltaTime();
 		if (frameDelay <= 0){
 			if ((Math.random()) > 0.5){
@@ -54,7 +55,7 @@ public class DragonBoatRace extends ApplicationAdapter {
 			} else if (myBoat.collision(ent)){
 				eIter.remove();
 				ent.dispose();
-			} else{
+			} else {
 				ent.update(deltaTime);
 				ent.render(batch);
 			}
@@ -64,6 +65,7 @@ public class DragonBoatRace extends ApplicationAdapter {
 		myBoat.update(deltaTime);
 		myBoat.render(batch);
 		frameDelay--;
+		batch.end();
 	}
 	
 	@Override

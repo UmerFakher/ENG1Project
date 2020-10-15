@@ -28,9 +28,7 @@ public abstract class Entity{
     }
 
     public void render(SpriteBatch batch){
-        batch.begin();
         batch.draw(this.img, this.pos.x, this.pos.y);
-        batch.end();
     }
 
     public void dispose() {

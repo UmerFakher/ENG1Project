@@ -4,7 +4,7 @@ package com.dragonboatrace.entities;
 public enum BoatType{
     /* ENUM(BoatID, Width, Height, Speed, Manoverablilty, Condition, Image Source) */
     FAST("Fast Boat", 100, 100, 250, 175, 3, "boat.png"),
-    SMALL("Small Boat", 100, 150, 130, 250, 5, "boat.png"),
+    SMALL("Small Boat", 100, 100, 130, 250, 5, "boat.png"),
     BIG("Big Boat", 100, 100, 100, 125, 10, "boat.png");
 
     private String id, imgSrc;

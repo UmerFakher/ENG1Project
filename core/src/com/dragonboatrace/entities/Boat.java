@@ -44,7 +44,7 @@ public class Boat extends Entity {
             for (int dy = 0; dy < 2; dy++){
                 float x = Obstacle.pos.x+dx*(Obstacle.getType().getWidth());
                 float y = Obstacle.pos.y+dy*(Obstacle.getType().getHeight());
-                if ((x > boatX && x < boatX2) && (y > boatY && y < boatY2)){
+                if ((x >= boatX && x <= boatX2) && (y >= boatY && y <= boatY2)){
                     return true;
                 }
 
