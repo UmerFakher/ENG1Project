@@ -13,10 +13,9 @@ public class Boat extends Entity {
     private BoatType boatType;
     
 
-    public Boat(Vector2 pos, BoatType boatType, String imgPath) {
-        super(pos, new Vector2(0, 0), EntityType.BOAT);
+    public Boat(Vector2 pos, BoatType boatType) {
+        super(pos, EntityType.BOAT, "circle.png");
         this.boatType = boatType;
-        this.img = new Texture(imgPath);
     }
 
 
@@ -26,21 +25,14 @@ public class Boat extends Entity {
         if (Gdx.input.isKeyPressed(Keys.LEFT)){
 
 
-            this.vel.add(-this.boatType.getSpeed()*deltaTime, 0);
+            this.vel.add(-this.boatType.getSpeed(), 0).scl(deltaTime);
         }
         else if (Gdx.input.isKeyPressed(Keys.RIGHT)){
-            this.vel.add(this.boatType.getSpeed()*deltaTime, 0);
+            this.vel.add(this.boatType.getSpeed(), 0).scl(deltaTime);
         }     
         
         super.update(deltaTime);
 
     }
-
-    public void render(SpriteBatch batch){
-        batch.begin();
-        batch.draw(this.img, this.pos.x, this.pos.y);
-        batch.end();
-    }
-
 
 }

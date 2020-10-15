@@ -1,0 +1,26 @@
+package com.dragonboatrace.entities;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Vector2;
+
+import java.lang.Math;
+
+public class Obstacle extends Entity{
+
+    private Texture img;
+
+	public Obstacle() {
+        super(new Vector2((int)(Math.random()*(Gdx.graphics.getWidth())), Gdx.graphics.getHeight()), EntityType.OBSTACLE, "square.jpg");
+        
+    }
+
+    public void update(float deltaTime){
+        this.vel = new Vector2(0, -100).scl(deltaTime);
+        super.update(deltaTime);
+    }
+
+
+
+}
+
