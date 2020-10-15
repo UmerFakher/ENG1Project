@@ -11,27 +11,29 @@ import com.dragonboatrace.entities.BoatType;
 
 public class DragonBoatRace extends ApplicationAdapter {
 	SpriteBatch batch;
-	Texture img;
+	//Texture img;
 	Boat myBoat;
 	
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		myBoat = new Boat(new Vector2(50, 50), BoatType.FAST, "circle.png");
+		myBoat = new Boat(BoatType.FAST, "circle.png");
 	}
 
 	@Override
 	public void render () {
 		Gdx.gl.glClearColor(1, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		batch.begin();
 		myBoat.update(Gdx.graphics.getDeltaTime());
 		myBoat.render(batch);
+		batch.end();
 	}
 	
 	@Override
 	public void dispose () {
 		batch.dispose();
-		img.dispose();
+		//img.dispose();
 	}
 
 }

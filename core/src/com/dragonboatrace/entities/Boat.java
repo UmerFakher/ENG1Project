@@ -9,27 +9,31 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Boat extends Entity {
 
-    private Texture img;
-    private BoatType boatType;
-    
+    private float health, stamina, agility, speed;
 
-    public Boat(Vector2 pos, BoatType boatType, String imgPath) {
-        super(pos, new Vector2(0, 0), EntityType.BOAT);
-        this.boatType = boatType;
-        this.img = new Texture(imgPath);
+    public Boat(BoatType boat, String texture){
+        super(new Vector2(), new Vector2(), EntityType.BOAT, texture);
+        this.health = boat.getHealth();
+        this.stamina = boat.getStamina();
+        this.agility = boat.getAgility();
+        this.speed = boat.getSpeed();
     }
 
-
-    public Texture getImg(){return this.img;}
+    public Boat(float health, float stamina, float agility, float speed, String texture){
+        super(new Vector2(), new Vector2(), EntityType.BOAT, texture);
+        this.health = health;
+        this.stamina = stamina;
+        this.agility = agility;
+        this.speed = speed;
+    }
 
     public void update(float deltaTime){
+        
         if (Gdx.input.isKeyPressed(Keys.LEFT)){
-
-
-            this.vel.add(-this.boatType.getSpeed()*deltaTime, 0);
+            this.vel.add(-this.speed*deltaTime, 0);
         }
         else if (Gdx.input.isKeyPressed(Keys.RIGHT)){
-            this.vel.add(this.boatType.getSpeed()*deltaTime, 0);
+            this.vel.add(this.speed*deltaTime, 0);
         }     
         
         super.update(deltaTime);
@@ -37,9 +41,9 @@ public class Boat extends Entity {
     }
 
     public void render(SpriteBatch batch){
-        batch.begin();
-        batch.draw(this.img, this.pos.x, this.pos.y);
-        batch.end();
+        //batch.begin();
+        batch.draw(this.texture, this.pos.x, this.pos.y);
+        //batch.end();
     }
 
 

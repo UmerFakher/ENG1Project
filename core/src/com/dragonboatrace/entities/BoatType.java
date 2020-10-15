@@ -2,24 +2,25 @@ package com.dragonboatrace.entities;
 
 
 public enum BoatType{
-    /* ENUM(BoatID, Speed, Manoverablilty, Condition) */
-    FAST("Fast Boat", 200, 5, 5),
-    NORMAL("Normal Boat", 130, 7, 7),
-    BIG("Big Boat", 90, 5, 10);
+    /* ENUM(health, stamina, agility, speed) */
+    
+    FAST(50, 80, 60, 100),
+    AGILE(50, 80, 100, 60),
+    ENDURANCE(70, 100, 50, 50),
+    STRONG(100, 70, 40, 40);
 
-    private String id;
-    private int speed, manoverablilty, condition;
+    private float health, stamina, agility, speed;
 
-    private BoatType(String id, int speed, int manoverablilty, int condition){
-        this.id = id;
+    BoatType(float health, float stamina, float agility, float speed){
+        this.health = health;
+        this.stamina = stamina;
+        this.agility = agility;
         this.speed = speed;
-        this.manoverablilty = manoverablilty;
-        this.condition = condition;
     }
  
+    public float getHealth(){return this.health;}
+    public float getStamina(){return this.stamina;}
+    public float getAgility(){return this.agility;}
+    public float getSpeed(){return this.speed;}
     
-    public String getID(){return this.id;}
-    public int getSpeed(){return this.speed;}
-    public int getManoverability(){return this.manoverablilty;}
-    public int getCondition(){return this.condition;}
 }
