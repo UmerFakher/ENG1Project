@@ -24,12 +24,15 @@ public class Boat extends Entity {
 
     public void update(float deltaTime){
         if (Gdx.input.isKeyPressed(Keys.LEFT)){
-            this.pos.add(-this.boatType.getSpeed()*deltaTime, 0);
+
+
+            this.vel.add(-this.boatType.getSpeed()*deltaTime, 0);
         }
         else if (Gdx.input.isKeyPressed(Keys.RIGHT)){
-            this.pos.add(this.boatType.getSpeed()*deltaTime, 0);
-        }
+            this.vel.add(this.boatType.getSpeed()*deltaTime, 0);
+        }     
         
+        super.update(deltaTime);
 
     }
 
