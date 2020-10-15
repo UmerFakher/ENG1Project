@@ -10,3 +10,8 @@
 - Added obstacles Class
 - Made obstacles fall from top of screen
 - Added sleek movement
+
+## v1.0 - Joe
+- Refactored Classes
+- Collision Detection
+- Entity Deletion

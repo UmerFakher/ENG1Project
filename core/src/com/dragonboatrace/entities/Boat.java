@@ -9,13 +9,13 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Boat extends Entity {
 
-    private Texture img;
-    private BoatType boatType;
+    protected Texture img;
+    protected BoatType type;
     
 
     public Boat(Vector2 pos, BoatType boatType) {
-        super(pos, EntityType.BOAT, "circle.png");
-        this.boatType = boatType;
+        super(pos, "circle.png");
+        this.type = boatType;
     }
 
 
@@ -25,14 +25,33 @@ public class Boat extends Entity {
         if (Gdx.input.isKeyPressed(Keys.LEFT)){
 
 
-            this.vel.add(-this.boatType.getSpeed(), 0).scl(deltaTime);
+            this.vel.add(-this.type.getSpeed(), 0).scl(deltaTime);
         }
         else if (Gdx.input.isKeyPressed(Keys.RIGHT)){
-            this.vel.add(this.boatType.getSpeed(), 0).scl(deltaTime);
+            this.vel.add(this.type.getSpeed(), 0).scl(deltaTime);
         }     
         
         super.update(deltaTime);
 
+    }
+
+    public boolean collision(Obstacle Obstacle){
+        float boatX = this.pos.x;
+        float boatX2 = this.pos.x+this.type.getWidth();
+        float boatY = this.pos.y;
+        float boatY2 = this.pos.y+this.type.getHeight();
+
+        for (int dx = 0; dx < 2; dx++){
+            for (int dy = 0; dy < 2; dy++){
+                float x = Obstacle.pos.x+dx*(Obstacle.getType().getWidth());
+                float y = Obstacle.pos.y+dy*(Obstacle.getType().getHeight());
+                if ((x > boatX && x < boatX2) && (y > boatY && y < boatY2)){
+                    return true;
+                }
+
+            }
+        }       
+        return false;
     }
 
 }

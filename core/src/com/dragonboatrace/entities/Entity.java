@@ -1,7 +1,5 @@
 package com.dragonboatrace.entities;
 
-import java.security.KeyStore.ProtectionParameter;
-
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -11,13 +9,11 @@ public abstract class Entity{
 
     protected Vector2 pos;
     protected Vector2 vel;
-    protected EntityType type;
     protected Texture img;
 
-    public Entity(Vector2 pos, EntityType type, String imgSrc){
+    public Entity(Vector2 pos, String imgSrc){
         this.pos = pos;
         this.vel = new Vector2(0,0);
-        this.type = type;
         this.img = new Texture(imgSrc);
     }
 
@@ -39,6 +35,8 @@ public abstract class Entity{
 
     public void dispose () {
         this.img.dispose();
-	}
+    }
+    
+    public Vector2 getPos(){return this.pos;}
 
 }

@@ -8,19 +8,27 @@ import java.lang.Math;
 
 public class Obstacle extends Entity{
 
-    private Texture img;
+    protected Texture img;
+    protected ObstacleType type;
 
-	public Obstacle() {
-        super(new Vector2((int)(Math.random()*(Gdx.graphics.getWidth())), Gdx.graphics.getHeight()), EntityType.OBSTACLE, "square.jpg");
+	public Obstacle(ObstacleType type) {
+        super(new Vector2((int)(Math.random()*(Gdx.graphics.getWidth())), Gdx.graphics.getHeight()), "square.jpg");
+        this.type = type;
         
     }
+
 
     public void update(float deltaTime){
         this.vel = new Vector2(0, -100).scl(deltaTime);
         super.update(deltaTime);
+        
     }
 
+    public void destructor(){
+        
+    }
 
+    public ObstacleType getType(){return this.type;}
 
 }
 
