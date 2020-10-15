@@ -2,6 +2,7 @@ package com.dragonboatrace;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.lang.Math;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -26,15 +27,20 @@ public class DragonBoatRace extends ApplicationAdapter {
 		batch = new SpriteBatch();
 		obstacleList = new ArrayList<Obstacle>();
 		myBoat = new Boat(new Vector2(50, 50), BoatType.FAST);
-		obstacleList.add(new Obstacle(ObstacleType.ROCK));
-		obstacleList.add(new Obstacle(ObstacleType.BIRD));
 	}
 
 	@Override
 	public void render () {
 		float deltaTime = Gdx.graphics.getDeltaTime();
+		if ((int)(Math.random()*(175)) == 0){
+			if ((int)(Math.random()*2 +1) == 1){
+				obstacleList.add(new Obstacle(ObstacleType.BIRD));
+			 } else{
+				 obstacleList.add(new Obstacle(ObstacleType.ROCK));
+			 }
+		}
 		Gdx.gl.glClearColor(0, 0, 1, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); 
 
 		Iterator<Obstacle> eIter = obstacleList.iterator();
 		while (eIter.hasNext()){

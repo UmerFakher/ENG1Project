@@ -11,7 +11,7 @@ public class Obstacle extends Entity{
     protected ObstacleType type;
 
 	public Obstacle(ObstacleType type) {
-        super(new Vector2((int)(Math.random()*(Gdx.graphics.getWidth())), Gdx.graphics.getHeight()), new Texture(type.getImgSrc()));
+        super(new Vector2((int)(Math.random()*(Gdx.graphics.getWidth()-type.getWidth())), Gdx.graphics.getHeight()), new Texture(type.getImgSrc()));
         this.type = type;        
     }
 
