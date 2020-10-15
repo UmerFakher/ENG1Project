@@ -13,4 +13,7 @@ public abstract class Entity{
         this.acc = acc;
         this.type = type;
     }
+
+    public abstract void update(float deltaTime);
+
 }
