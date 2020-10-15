@@ -9,12 +9,11 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Boat extends Entity {
 
-    protected Texture img;
     protected BoatType type;
     
 
     public Boat(Vector2 pos, BoatType boatType) {
-        super(pos, "circle.png");
+        super(pos, new Texture(boatType.getImgSrc()));
         this.type = boatType;
     }
 
@@ -53,5 +52,4 @@ public class Boat extends Entity {
         }       
         return false;
     }
-
 }

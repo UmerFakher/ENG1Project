@@ -64,7 +64,7 @@ public class DragonBoatRace extends ApplicationAdapter {
 	@Override
 	public void dispose () {
 		batch.dispose();
-		for (Entity ent : obstacleList){
+		for (Obstacle ent : obstacleList){
 			ent.dispose();
 		}
 		myBoat.dispose();

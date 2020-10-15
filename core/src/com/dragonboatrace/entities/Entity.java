@@ -11,10 +11,10 @@ public abstract class Entity{
     protected Vector2 vel;
     protected Texture img;
 
-    public Entity(Vector2 pos, String imgSrc){
+    public Entity(Vector2 pos, Texture img){
         this.pos = pos;
         this.vel = new Vector2(0,0);
-        this.img = new Texture(imgSrc);
+        this.img = img;
     }
 
     public void update(float deltaTime){
@@ -33,7 +33,7 @@ public abstract class Entity{
         batch.end();
     }
 
-    public void dispose () {
+    public void dispose() {
         this.img.dispose();
     }
     
