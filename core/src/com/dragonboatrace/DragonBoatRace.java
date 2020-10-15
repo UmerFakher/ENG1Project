@@ -19,6 +19,7 @@ public class DragonBoatRace extends ApplicationAdapter {
 	SpriteBatch batch;
 	Texture img;
 	Boat myBoat;
+	int frameDelay;
 
 	ArrayList<Obstacle> obstacleList;
 	
@@ -26,18 +27,20 @@ public class DragonBoatRace extends ApplicationAdapter {
 	public void create () {
 		batch = new SpriteBatch();
 		obstacleList = new ArrayList<Obstacle>();
-		myBoat = new Boat(new Vector2(50, 50), BoatType.FAST);
+		myBoat = new Boat(new Vector2(50, 50), BoatType.SMALL);
+		frameDelay = 0;
 	}
 
 	@Override
 	public void render () {
 		float deltaTime = Gdx.graphics.getDeltaTime();
-		if ((int)(Math.random()*(175)) == 0){
-			if ((int)(Math.random()*2 +1) == 1){
+		if (frameDelay <= 0){
+			if ((Math.random()) > 0.5){
 				obstacleList.add(new Obstacle(ObstacleType.BIRD));
-			 } else{
+			} else{
 				 obstacleList.add(new Obstacle(ObstacleType.ROCK));
-			 }
+			}
+			frameDelay = (int)(Math.random()*(175 - 50)+50);
 		}
 		Gdx.gl.glClearColor(0, 0, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); 
@@ -60,9 +63,7 @@ public class DragonBoatRace extends ApplicationAdapter {
 
 		myBoat.update(deltaTime);
 		myBoat.render(batch);
-
-		System.out.println(obstacleList.size());
-		
+		frameDelay--;
 	}
 	
 	@Override

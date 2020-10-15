@@ -1,7 +1,7 @@
 package com.dragonboatrace.entities;
 
 public enum ObstacleType {
-    
+    /* ENUM(ObstacleID, Width, Height, Strength, Image Source) */
     ROCK("rock", 50, 50, 2, "rock.jpg"),
     BIRD("bird", 75, 75, 1, "bird.jpg");
 

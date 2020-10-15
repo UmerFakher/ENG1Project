@@ -20,22 +20,18 @@ public class Boat extends Entity {
     public Texture getImg(){return this.img;}
 
     public void update(float deltaTime){
-        if (this.pos.x >= 0 && (this.pos.x+this.type.getWidth()) <= Gdx.graphics.getWidth()){
-            if (Gdx.input.isKeyPressed(Keys.LEFT)){
-                this.vel.add(-this.type.getSpeed(), 0).scl(deltaTime);
-            }
-            else if (Gdx.input.isKeyPressed(Keys.RIGHT)){
-                this.vel.add(this.type.getSpeed(), 0).scl(deltaTime);
-            }     
-            super.update(deltaTime);
-        } else{
-            if (this.pos.x < 0){
-                this.pos.x += 1;
-            } else{
-                this.pos.x -= 1;
-            }
+        if (Gdx.input.isKeyPressed(Keys.LEFT) && this.pos.x >= 0){
+            this.vel.add(-this.type.getManoverability(), 0).scl(deltaTime);
         }
-
+        else if (Gdx.input.isKeyPressed(Keys.RIGHT) && (this.pos.x+this.type.getWidth()) <= Gdx.graphics.getWidth()){
+            this.vel.add(this.type.getManoverability(), 0).scl(deltaTime);
+        }     
+        super.update(deltaTime);
+        if (this.pos.x < 0){
+            this.pos.x = 0;
+        } else if (this.pos.x+ this.type.getWidth() > Gdx.graphics.getWidth()){
+            this.pos.x = Gdx.graphics.getWidth() - this.type.getWidth();
+        }
     }
 
     public boolean collision(Obstacle Obstacle){
