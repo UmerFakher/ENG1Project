@@ -3,7 +3,6 @@ package com.dragonboatrace;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.dragonboatrace.entities.*;
@@ -19,15 +18,14 @@ public class DragonBoatRace extends ApplicationAdapter {
 
 	/* Lists for current obstacles, and ones to remove/add in the next loop */
 	ArrayList<Obstacle> obstacles;
-	ArrayList<Obstacle> obstaclesToRemove;
-	ArrayList<Obstacle> obstaclesToAdd;
+	//ArrayList<Obstacle> obstaclesToRemove;
+	//ArrayList<Obstacle> obstaclesToAdd;
 	
 	@Override
 	public void create () {
-
 		obstacles = new ArrayList<>();
-		obstaclesToRemove = new ArrayList<>();
-		obstaclesToAdd = new ArrayList<>();
+		//obstaclesToRemove = new ArrayList<>();
+		//obstaclesToAdd = new ArrayList<>();
 
 		batch = new SpriteBatch();
 		screen = new Hitbox(0,0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight() + 200);
@@ -51,15 +49,14 @@ public class DragonBoatRace extends ApplicationAdapter {
 		drawEntities(this.batch);
 
 		/* Remove off screen/collided Obstacles */
-		obstacles.removeAll(obstaclesToRemove);
+		//obstacles.removeAll(obstaclesToRemove);
 
 		/* Add new ones to replace collided/hidden ones */
-		obstacles.addAll(obstaclesToAdd);
+		//obstacles.addAll(obstaclesToAdd);
 
 		/* Clear lists for next run */
-		obstaclesToRemove.removeAll(obstaclesToRemove);
-		obstaclesToAdd.removeAll(obstaclesToAdd);
-
+		//obstaclesToRemove.removeAll(obstaclesToRemove);
+		//obstaclesToAdd.removeAll(obstaclesToAdd);
 		batch.end();
 	}
 	
@@ -85,18 +82,37 @@ public class DragonBoatRace extends ApplicationAdapter {
 
 	/* Check for obstacle collisions with boat or out of bounds */
 	public void checkCollisions(){
-		for(Obstacle ob : obstacles){
+
+		/* Method using mutliple lists to remove and add objects */
+		/* Useful for not instantly adding a new object when an old one is destroyed */
+
+		//for(Obstacle ob : obstacles){
 			/* Check for boat collision */
-			if(myBoat.getHitBox().collidesWith(ob.getHitBox())){
+		//	if(myBoat.getHitBox().collidesWith(ob.getHitBox())){
 				/* Prepare to replace the old obstacle */
-				obstaclesToAdd.add(new Obstacle(randomObstacle()));
-				obstaclesToRemove.add(ob);
+		//		obstaclesToAdd.add(new Obstacle(randomObstacle()));
+		//		obstaclesToRemove.add(ob);
+		//		ob.dispose();
+		//		System.out.println("Collision with obstacle");
+			/* If the obstacle is not colliding with the screen it is off the screen */
+		//	}else if(!screen.collidesWith(ob.getHitBox())){
+		//		obstaclesToAdd.add(new Obstacle(randomObstacle()));
+		//		obstaclesToRemove.add(ob);
+		//		ob.dispose();
+		//		System.out.println("Out of bounds");
+		//	}
+		//}
+
+		/* Single list variant of removing and adding */
+		/* More efficient as only one list is required */
+		for(int i = 0; i < obstacles.size(); i++){
+			Obstacle ob = obstacles.get(i);
+			if(myBoat.getHitBox().collidesWith(ob.getHitBox())){
+				obstacles.set(i, new Obstacle(randomObstacle()));
 				ob.dispose();
 				System.out.println("Collision with obstacle");
-			/* If the obstacle is not colliding with the screen it is off the screen */
 			}else if(!screen.collidesWith(ob.getHitBox())){
-				obstaclesToAdd.add(new Obstacle(randomObstacle()));
-				obstaclesToRemove.add(ob);
+				obstacles.set(i, new Obstacle(randomObstacle()));
 				ob.dispose();
 				System.out.println("Out of bounds");
 			}

@@ -61,5 +61,11 @@ public class Boat extends Entity {
         batch.draw(this.texture, this.pos.x, this.pos.y);
     }
 
+    public float getHealth() {
+        return health;
+    }
 
+    public float getStamina() {
+        return stamina;
+    }
 }
