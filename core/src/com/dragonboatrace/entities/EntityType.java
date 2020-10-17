@@ -2,8 +2,8 @@ package com.dragonboatrace.entities;
 
 public enum EntityType {
     
-    BOAT(10, 10),
-    OBSTACLE(5, 5);
+    BOAT(50, 50),
+    OBSTACLE(25, 25);
 
     private int width, height;
 
