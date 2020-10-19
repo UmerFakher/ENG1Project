@@ -6,29 +6,50 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.dragonboatrace.entities.Entity;
 import com.dragonboatrace.entities.EntityType;
+import com.dragonboatrace.entities.Obstacle;
+import com.dragonboatrace.tools.Hitbox;
+import com.dragonboatrace.tools.Lane;
+
+import java.util.ArrayList;
 
 
 public class Boat extends Entity {
 
     protected float health, stamina, agility, speed;
+    protected Lane lane;
+    protected Hitbox laneBox;
 
-    public Boat(Vector2 pos, BoatType boat, String texture){
+    public Boat(Vector2 pos, BoatType boat, String texture, Lane lane){
         super(pos, new Vector2(), EntityType.BOAT, texture);
         this.health = boat.getHealth();
         this.stamina = boat.getStamina();
         this.agility = boat.getAgility();
         this.speed = boat.getSpeed();
+        this.lane = lane;
+        laneBox = lane.getHitbox();
     }
 
-    public Boat(Vector2 pos, float health, float stamina, float agility, float speed, String texture){
+    public Boat(Vector2 pos, float health, float stamina, float agility, float speed, String texture, Lane lane){
         super(pos, new Vector2(), EntityType.BOAT, texture);
         this.health = health;
         this.stamina = stamina;
         this.agility = agility;
         this.speed = speed;
+        this.lane = lane;
     }
 
     public void update(float deltaTime){
+
+        /* Check for Collisions */
+        checkCollisions();
+
+        /* Check if boat is still in the lane */
+        if(!this.box.collidesWith(laneBox)){
+            setPos((laneBox.getX() + laneBox.getWidth())/2,0);
+        }
+
+        /* Update lane contents */
+        this.lane.update(deltaTime);
 
         float dampen = agility/100;
 
@@ -42,7 +63,21 @@ public class Boat extends Entity {
     }
 
     public void render(SpriteBatch batch){
+        this.lane.render(batch);
         batch.draw(this.texture, this.pos.x, this.pos.y);
+    }
+
+    public void checkCollisions(){
+        ArrayList<Obstacle> obstacles = this.lane.getObstacles();
+        int size = obstacles.size();
+        for(int i = 0; i < size; i++){
+            Obstacle obstacle = obstacles.get(i);
+            if(obstacle.getHitBox().collidesWith(this.box)){
+                obstacle.dispose();
+                this.lane.removeObstacle(obstacle);
+                size--;
+            }
+        }
     }
 
     /* Adders */

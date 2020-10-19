@@ -31,7 +31,7 @@ public abstract class Entity{
         resize.dispose();
 
         /* Make a new hitbox at the entities position with its width and height */
-        this.box = new Hitbox(pos.x, pos.y, type.getWidth(), type.getHeight());
+        this.box = new Hitbox((int)pos.x, (int)pos.y, type.getWidth(), type.getHeight());
     }
 
     public abstract void update(float deltaTime);
