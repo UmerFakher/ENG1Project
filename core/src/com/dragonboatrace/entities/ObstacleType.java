@@ -16,7 +16,7 @@ public enum ObstacleType{
 		this.damage = damage;
 	}
 
-	public float getSpeed(){return this.speed;}
-	public float getDamage(){return this.damage;}
-	public String getTexture(){return this.texture;}
+	public float getSpeed() { return this.speed; }
+	public float getDamage() { return this.damage; }
+	public String getTexture() { return this.texture; }
 }

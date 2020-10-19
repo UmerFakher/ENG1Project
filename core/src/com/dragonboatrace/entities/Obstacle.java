@@ -31,7 +31,7 @@ public class Obstacle extends Entity{
     	this.box.move(this.pos.x, this.pos.y);
     }
 
-    public float getSpeed(){return this.speed;}
-    public float getDamage(){return this.damage;}
+    public float getSpeed() { return this.speed; }
+    public float getDamage() { return this.damage; }
 
 }

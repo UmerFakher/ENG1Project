@@ -1,15 +1,16 @@
-package com.dragonboatrace.entities;
+package com.dragonboatrace.entities.boats;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.dragonboatrace.entities.Entity;
+import com.dragonboatrace.entities.EntityType;
 
 
 public class Boat extends Entity {
 
-    private float health, stamina, agility, speed;
+    protected float health, stamina, agility, speed;
 
     public Boat(Vector2 pos, BoatType boat, String texture){
         super(pos, new Vector2(), EntityType.BOAT, texture);
@@ -28,22 +29,6 @@ public class Boat extends Entity {
     }
 
     public void update(float deltaTime){
-        
-        if (Gdx.input.isKeyPressed(Keys.LEFT)){
-            this.vel.add(-this.speed*deltaTime, 0);
-        }
-
-        if (Gdx.input.isKeyPressed(Keys.RIGHT)){
-            this.vel.add(this.speed*deltaTime, 0);
-        }
-
-        /*(if (Gdx.input.isKeyPressed(Keys.UP)){
-            this.vel.add(0, this.speed*deltaTime);
-        }
-
-        if (Gdx.input.isKeyPressed(Keys.DOWN)){
-            this.vel.add(0, -this.speed*deltaTime);
-        }*/
 
         float dampen = agility/100;
 
@@ -54,18 +39,34 @@ public class Boat extends Entity {
 
         /* The hitbox needs moving to keep at the same pos as the boat */
         this.box.move(pos.x, pos.y);
-
     }
 
     public void render(SpriteBatch batch){
         batch.draw(this.texture, this.pos.x, this.pos.y);
     }
 
-    public float getHealth() {
-        return health;
-    }
+    /* Adders */
 
-    public float getStamina() {
-        return stamina;
+    public void addVelocity(float pushX, float pushY) { this.vel.add(pushX, pushY); }
+
+    public void addHealth(float change) { this.health += change; }
+
+    public void addStamina(float change) { this.stamina += change; }
+
+    /* Setters */
+
+    public Vector2 getVelocity() { return this.vel; }
+
+    public float getSpeed() { return this.speed; }
+
+    public float getHealth() { return this.health; }
+
+    public float getStamina() { return this.stamina; }
+
+    public float getAgility() { return this.agility; }
+
+    /* Temporary function to simulate hitting edge of lane */
+    public void setPos(float x, float y){
+        this.pos.set(x,y);
     }
 }

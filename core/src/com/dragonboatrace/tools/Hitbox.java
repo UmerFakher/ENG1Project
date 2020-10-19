@@ -1,4 +1,4 @@
-package com.dragonboatrace.entities;
+package com.dragonboatrace.tools;
 
 public class Hitbox {
 

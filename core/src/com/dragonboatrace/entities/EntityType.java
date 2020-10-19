@@ -12,6 +12,6 @@ public enum EntityType {
         this.height = height;
     }
 
-    public int getWidth(){return this.width;}
-    public int getHeight(){return this.height;}
+    public int getWidth() { return this.width; }
+    public int getHeight() { return this.height; }
 }

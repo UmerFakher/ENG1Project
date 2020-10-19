@@ -1,4 +1,4 @@
-package com.dragonboatrace.entities;
+package com.dragonboatrace.entities.boats;
 
 
 public enum BoatType{
@@ -18,9 +18,9 @@ public enum BoatType{
         this.speed = speed;
     }
  
-    public float getHealth(){return this.health;}
-    public float getStamina(){return this.stamina;}
-    public float getAgility(){return this.agility;}
-    public float getSpeed(){return this.speed;}
+    public float getHealth() { return this.health; }
+    public float getStamina() { return this.stamina; }
+    public float getAgility() { return this.agility; }
+    public float getSpeed() { return this.speed; }
     
 }
