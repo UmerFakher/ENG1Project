@@ -1,24 +1,22 @@
+
 package com.dragonboatrace.entities;
 
-public enum ObstacleType {
-    /* ENUM(ObstacleID, Width, Height, Strength, Image Source) */
-    ROCK("rock", 50, 50, 2, "rock.jpg"),
-    BIRD("bird", 75, 75, 1, "bird.jpg");
+public enum ObstacleType{
+	/* ENUM(texture, speed, damage)*/
+	ROCK("rock.png", 40, 20),
+	BRANCH("branch.png", 60, 10),
+	LEAF("leaf.png", 70, 5);
 
-    private String id, imgSrc;
-    private int width, height, strength;
+	private String texture;
+	private float speed, damage;
 
-    private ObstacleType(String id, int width, int height, int strength, String imgSrc){
-        this.id = id;
-        this.width = width;
-        this.height = height;
-        this.strength = strength;
-        this.imgSrc = imgSrc;
-    }
+	ObstacleType(String texture, float speed, float damage){
+		this.texture = texture;
+		this.speed = speed;
+		this.damage = damage;
+	}
 
-    public String getID(){return this.id;}
-    public int getWidth(){return this.width;}
-    public int getHeight(){return this.height;}
-    public int getStrength(){return this.strength;}
-    public String getImgSrc(){return this.imgSrc;}
+	public float getSpeed() { return this.speed; }
+	public float getDamage() { return this.damage; }
+	public String getTexture() { return this.texture; }
 }
