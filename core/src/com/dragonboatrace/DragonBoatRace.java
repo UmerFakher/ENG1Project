@@ -11,6 +11,7 @@ import com.dragonboatrace.entities.boats.BoatType;
 import com.dragonboatrace.entities.boats.PlayerBoat;
 import com.dragonboatrace.tools.Hitbox;
 import com.dragonboatrace.tools.Lane;
+import com.dragonboatrace.tools.ScrollingBackground;
 
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
@@ -20,11 +21,13 @@ public class DragonBoatRace extends ApplicationAdapter {
 	SpriteBatch batch;
 	//Hitbox screen;
 	Boat boat;
+	ScrollingBackground background;
 
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
 		//screen = new Hitbox(0,0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight() + 200);
+		this.background = new ScrollingBackground();
 		boat = new PlayerBoat(new Vector2(), BoatType.FAST, "circle.png", new Lane(new Vector2(), Gdx.graphics.getWidth() / 2));
 	}
 
@@ -33,10 +36,19 @@ public class DragonBoatRace extends ApplicationAdapter {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		float dt = Gdx.graphics.getDeltaTime();
+		this.background.updateAndRender(dt, batch);
+
 		batch.begin();
 		boat.update(dt);
 		boat.render(batch);
 		batch.end();
+	}
+
+	@Override
+	public void resize(int width, int height){
+		this.background.resize(width, height);
+		super.resize(width, height);
+
 	}
 	
 	@Override
