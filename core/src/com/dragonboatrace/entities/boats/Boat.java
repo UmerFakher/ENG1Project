@@ -18,7 +18,7 @@ public class Boat extends Entity {
     protected float health, stamina, agility, speed;
     protected Lane lane;
     protected Hitbox laneBox;
-
+    protected int distance;
     public Boat(Vector2 pos, BoatType boat, String texture, Lane lane){
         super(pos, new Vector2(), EntityType.BOAT, texture);
         this.health = boat.getHealth();
@@ -26,6 +26,7 @@ public class Boat extends Entity {
         this.agility = boat.getAgility();
         this.speed = boat.getSpeed();
         this.lane = lane;
+        this.distance = 0;
         laneBox = lane.getHitbox();
     }
 
@@ -62,6 +63,7 @@ public class Boat extends Entity {
             this.pos.x += this.vel.x;
             this.vel.scl(dampen);
         }
+        this.distance += this.vel.y;
 
         /* The hitbox needs moving to keep at the same pos as the boat */
         this.box.move(pos.x, pos.y);
@@ -105,6 +107,10 @@ public class Boat extends Entity {
     public float getStamina() { return this.stamina; }
 
     public float getAgility() { return this.agility; }
+
+    public int getDistance() { return this.distance; }
+
+    public Lane getLane() { return this.lane; }
 
     /* Temporary function to simulate hitting edge of lane */
     public void setPos(float x, float y){

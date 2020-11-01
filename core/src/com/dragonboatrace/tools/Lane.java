@@ -18,6 +18,7 @@ public class Lane {
     private Hitbox area;
     private ArrayList<Obstacle> obstacles;
     private ScrollingBackground background;
+    public boolean finishLine;
 
     public Lane(Vector2 pos, int width){
         this.area = new Hitbox(pos.x, pos.y, width, Gdx.graphics.getHeight() + 200);
@@ -25,6 +26,7 @@ public class Lane {
         populateList();
         this.background = new ScrollingBackground();
         this.background.resize(width, Gdx.graphics.getHeight());
+        this.finishLine = false;
     }
 
     public void update(float deltaTime, float vel){
