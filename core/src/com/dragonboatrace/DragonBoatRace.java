@@ -2,7 +2,9 @@ package com.dragonboatrace;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.dragonboatrace.entities.*;
@@ -22,13 +24,17 @@ public class DragonBoatRace extends ApplicationAdapter {
 	//Hitbox screen;
 	Boat boat;
 	ScrollingBackground background;
+	BitmapFont font;
 
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
 		//screen = new Hitbox(0,0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight() + 200);
-		this.background = new ScrollingBackground();
 		boat = new PlayerBoat(new Vector2(), BoatType.FAST, "circle.png", new Lane(new Vector2(), Gdx.graphics.getWidth() / 2));
+		font = new BitmapFont(Gdx.files.internal("default.fnt"),false);
+		font.setColor(Color.RED);
+		font.getData().setScale(3);
+
 	}
 
 	@Override
@@ -40,18 +46,22 @@ public class DragonBoatRace extends ApplicationAdapter {
 		batch.begin();
 		boat.update(dt);
 		boat.render(batch);
+		font.draw(batch, "Health: "+Float.toString(boat.getHealth()), 0, Gdx.graphics.getHeight()-50);
 		batch.end();
+		if (boat.getHealth() <= 0){
+			Gdx.app.exit();
+		}
 	}
 
 	@Override
 	public void resize(int width, int height){
-		this.background.resize(width, height);
 		super.resize(width, height);
 
 	}
 	
 	@Override
 	public void dispose () {
+		font.dispose();
 		batch.dispose();
 	}
 

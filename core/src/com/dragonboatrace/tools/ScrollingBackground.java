@@ -12,13 +12,14 @@ public class ScrollingBackground {
     Texture image;
     float y1, y2;
     float imageScale;
-    float defaultSpeed = (float)1.5;
+    float defaultSpeed;
 
     public ScrollingBackground() {
         image = new Texture("background.png");
         y1 = 0;
         y2 = image.getHeight();
         imageScale = 1;
+        defaultSpeed = 3;
     }
 
 

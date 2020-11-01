@@ -12,11 +12,11 @@ public class PlayerBoat extends Boat{
     }
 
     public void update(float deltaTime){
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)){
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && this.pos.x > 0){
             this.vel.add(-this.speed*deltaTime, 0);
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && (this.pos.x+this.type.getWidth()) < this.lane.getHitbox().getWidth()){
             this.vel.add(this.speed*deltaTime, 0);
         }
 

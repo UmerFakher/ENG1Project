@@ -45,7 +45,12 @@ public class Boat extends Entity {
 
         /* Check if boat is still in the lane */
         if(this.box.leaves(laneBox)){
-            setPos((laneBox.getX() + laneBox.getWidth())/2,0);
+            if (this.pos.x < 0){
+                this.pos.x = 0;
+            } else{
+                this.pos.x = this.lane.getHitbox().getWidth() - this.type.getWidth();
+            }
+            this.vel.scl(new Vector2(0, 1));
         }
 
         /* Update lane contents */
@@ -76,6 +81,7 @@ public class Boat extends Entity {
                 obstacle.dispose();
                 this.lane.removeObstacle(obstacle);
                 size--;
+                this.health -= obstacle.getDamage();
             }
         }
     }
