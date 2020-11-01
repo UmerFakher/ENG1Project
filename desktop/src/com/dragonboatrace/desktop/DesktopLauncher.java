@@ -7,8 +7,8 @@ import com.dragonboatrace.DragonBoatRace;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.height = 1045;
-		config.width = 1856;
+		config.height = 1080;
+		config.width = 1920;
 		new LwjglApplication(new DragonBoatRace(), config);
 	}
 }

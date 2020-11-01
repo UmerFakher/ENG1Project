@@ -44,17 +44,17 @@ public class Boat extends Entity {
         checkCollisions();
 
         /* Check if boat is still in the lane */
-        if(!this.box.collidesWith(laneBox)){
+        if(this.box.leaves(laneBox)){
             setPos((laneBox.getX() + laneBox.getWidth())/2,0);
         }
 
         /* Update lane contents */
-        this.lane.update(deltaTime);
+        this.lane.update(deltaTime, this.getVelocity().y);
 
         float dampen = agility/100;
 
         if (!(this.vel.isZero((float)0.001))){
-            this.pos.add(this.vel);
+            this.pos.x += this.vel.x;
             this.vel.scl(dampen);
         }
 

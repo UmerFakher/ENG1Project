@@ -19,6 +19,10 @@ public class PlayerBoat extends Boat{
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
             this.vel.add(this.speed*deltaTime, 0);
         }
+
+        if (Gdx.input.isKeyPressed(Input.Keys.UP)){
+            this.vel.add(0, this.speed*deltaTime/2);
+        }
         super.update(deltaTime);
     }
 

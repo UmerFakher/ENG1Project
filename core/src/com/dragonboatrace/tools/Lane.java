@@ -17,25 +17,31 @@ public class Lane {
 
     private Hitbox area;
     private ArrayList<Obstacle> obstacles;
+    private ScrollingBackground background;
 
     public Lane(Vector2 pos, int width){
         this.area = new Hitbox(pos.x, pos.y, width, Gdx.graphics.getHeight() + 200);
         this.obstacles = new ArrayList<>();
         populateList();
+        this.background = new ScrollingBackground();
+        this.background.resize(width, Gdx.graphics.getHeight());
     }
 
-    public void update(float deltaTime){
+    public void update(float deltaTime, float vel){
         for(int i = 0; i < obstacles.size(); i++){
             Obstacle obstacle = obstacles.get(i);
-            obstacle.update(deltaTime);
+            obstacle.update(deltaTime, vel);
             /* If the obstacle is off the screen */
-            if(!obstacle.getHitBox().collidesWith(this.area)){
+            if(obstacle.getHitBox().leaves(this.area)) {
                 replaceObstacle(i);
             }
         }
+        this.background.update(deltaTime, vel);
     }
 
     public void render(SpriteBatch batch){
+        this.background.render(batch);
+
         for(Obstacle obstacle : obstacles){
             obstacle.render(batch);
         }
