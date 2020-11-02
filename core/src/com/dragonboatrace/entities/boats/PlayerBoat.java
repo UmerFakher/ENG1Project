@@ -11,6 +11,10 @@ public class PlayerBoat extends Boat{
         super(pos, boat, texture, lane);
     }
 
+    public PlayerBoat(BoatType boat, String texture, Lane lane) {
+        super(boat, texture, lane);
+    }
+
     public void update(float deltaTime){
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && this.pos.x > 0){
             this.vel.add(-this.speed*deltaTime, 0);
@@ -23,7 +27,15 @@ public class PlayerBoat extends Boat{
         if (Gdx.input.isKeyPressed(Input.Keys.UP)){
             this.vel.add(0, this.speed*deltaTime/2);
         }
+        checkCollisions();
         super.update(deltaTime);
+    }
+
+    protected void checkCollisions(){
+        super.checkCollisions();
+        if(this.health <= 0){
+            Gdx.app.exit();
+        }
     }
 
 }

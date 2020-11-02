@@ -24,7 +24,7 @@ public class Lane {
         this.area = new Hitbox(pos.x, pos.y, width, Gdx.graphics.getHeight() + 200);
         this.obstacles = new ArrayList<>();
         populateList();
-        this.background = new ScrollingBackground();
+        this.background = new ScrollingBackground(pos, width);
         this.background.resize(width, Gdx.graphics.getHeight());
         this.finishLine = false;
     }

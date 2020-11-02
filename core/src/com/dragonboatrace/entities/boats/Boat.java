@@ -19,14 +19,31 @@ public class Boat extends Entity {
     protected Lane lane;
     protected Hitbox laneBox;
     protected int distance;
+
     public Boat(Vector2 pos, BoatType boat, String texture, Lane lane){
         super(pos, new Vector2(), EntityType.BOAT, texture);
+
         this.health = boat.getHealth();
         this.stamina = boat.getStamina();
         this.agility = boat.getAgility();
         this.speed = boat.getSpeed();
         this.lane = lane;
         this.distance = 0;
+        /* Store the lanes hitbox to save time on using Getters. */
+        laneBox = lane.getHitbox();
+    }
+
+    /* No need for specific position specified as boat is put in the middle of the lane. */
+    public Boat(BoatType boat, String texture, Lane lane){
+        /* Get boat position from the position of the lane. */
+        super(new Vector2(lane.getHitbox().getX() + lane.getHitbox().getWidth() /2 , lane.getHitbox().getY()), new Vector2(), EntityType.BOAT, texture);
+        this.health = boat.getHealth();
+        this.stamina = boat.getStamina();
+        this.agility = boat.getAgility();
+        this.speed = boat.getSpeed();
+        this.lane = lane;
+        this.distance = 0;
+        /* Store the lanes hitbox to save time on using Getters. */
         laneBox = lane.getHitbox();
     }
 
@@ -42,14 +59,15 @@ public class Boat extends Entity {
     public void update(float deltaTime){
 
         /* Check for Collisions */
-        checkCollisions();
+        /* Moved collision check to player boat to be able to check if the player has no health. */
+        //checkCollisions();
 
         /* Check if boat is still in the lane */
         if(this.box.leaves(laneBox)){
-            if (this.pos.x < 0){
-                this.pos.x = 0;
+            if (this.pos.x < this.laneBox.getX()){
+                this.pos.x = this.laneBox.getX();
             } else{
-                this.pos.x = this.lane.getHitbox().getWidth() - this.type.getWidth();
+                this.pos.x = this.laneBox.getX() + this.laneBox.getWidth() - this.type.getWidth();
             }
             this.vel.scl(new Vector2(0, 1));
         }
@@ -74,7 +92,7 @@ public class Boat extends Entity {
         batch.draw(this.texture, this.pos.x, this.pos.y);
     }
 
-    public void checkCollisions(){
+    protected void checkCollisions(){
         ArrayList<Obstacle> obstacles = this.lane.getObstacles();
         int size = obstacles.size();
         for(int i = 0; i < size; i++){

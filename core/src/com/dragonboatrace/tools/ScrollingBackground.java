@@ -3,23 +3,28 @@ package com.dragonboatrace.tools;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.dragonboatrace.entities.boats.Boat;
 
 public class ScrollingBackground {
-    
 
+    private Texture image;
+    private float y1, y2;
+    private float imageScale;
+    private float defaultSpeed;
+    private Vector2 position;
+    private int width;
 
-    Texture image;
-    float y1, y2;
-    float imageScale;
-    float defaultSpeed;
-
-    public ScrollingBackground() {
-        image = new Texture("background.png");
-        y1 = 0;
-        y2 = image.getHeight();
-        imageScale = 1;
-        defaultSpeed = 3;
+    /* Position the scrolling background at a location */
+    /* Will usually be given the lanes pos vector */
+    public ScrollingBackground(Vector2 pos, int width) {
+        this.image = new Texture("background.png");
+        this.y1 = 0;
+        this.y2 = image.getHeight();
+        this.imageScale = 1;
+        this.defaultSpeed = 3;
+        this.position = pos;
+        this.width = width;
     }
 
 
@@ -39,9 +44,9 @@ public class ScrollingBackground {
     }
 
     public void render(SpriteBatch batch) {
-
-        batch.draw(image, 0, y1, image.getWidth() * imageScale, image.getHeight() * imageScale);
-        batch.draw(image, 0, y2, image.getWidth() * imageScale, image.getHeight() * imageScale);
+        /* render background at the position given by the vector */
+        batch.draw(image, this.position.x, y1, image.getWidth() * imageScale, image.getHeight() * imageScale);
+        batch.draw(image, this.position.x, y2, image.getWidth() * imageScale, image.getHeight() * imageScale);
 
 
     }

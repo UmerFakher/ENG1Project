@@ -15,6 +15,10 @@ public class ComputerBoat extends Boat{
         super(pos, boat, texture, lane);
     }
 
+    public ComputerBoat(BoatType boat, String texture, Lane lane) {
+        super(boat, texture, lane);
+    }
+
     public void update(float deltaTime){
         this.counter += deltaTime;
         if ((int)this.counter % 2 == 0){
@@ -23,6 +27,7 @@ public class ComputerBoat extends Boat{
         else{
             this.vel.add(this.speed*deltaTime, 0);
         }
+        checkCollisions();
         super.update(deltaTime);
     }
 }
