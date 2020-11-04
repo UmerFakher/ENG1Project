@@ -6,44 +6,37 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.dragonboatrace.entities.Entity;
 import com.dragonboatrace.entities.EntityType;
+import com.dragonboatrace.entities.FinishLine;
 import com.dragonboatrace.entities.boats.Boat;
 
 import java.awt.*;
 import java.util.ArrayList;
 
-public class Race extends Entity {
+public class Race {
 
     int length;
     ArrayList<Boat> boats;
+    ArrayList<FinishLine> finishLines;
     Texture image;
     float finishY;
 
-    public Race(Boat myBoat){
-        super(new Vector2(0, Gdx.graphics.getHeight()), new Vector2(), EntityType.FINISH, "finish.png");
+    public Race(ArrayList<Boat> boats){
         this.length = 40000;
-        this.boats = new ArrayList<Boat>();
-        this.boats.add(myBoat);
-    }
-
-    public void update(){
-        for (Boat boat : this.boats){
-            if (boat.getDistance() > this.length){
-                this.pos.add(new Vector2(0, -boat.getVelocity().y));
-                this.box.move(this.pos.x, this.pos.y);
-            }
+        this.boats = boats;
+        for (Boat boat : boats){
+            boat.setFinish(new FinishLine(new Vector2(boat.getLane().getHitbox().getX(), Gdx.graphics.getHeight())));
         }
     }
-    @Override
-    public void render(SpriteBatch batch){
-        batch.draw(this.texture, this.pos.x, this.pos.y);
-    }
+
 
     public void checkWinner(SpriteBatch batch){
-        update();
-        render(batch);
         for (Boat boat : boats){
-            if (boat.getHitBox().collidesWith(this.getHitBox())){
-                System.out.println("Winner!!");
+            if (boat.getDistance() > this.length) {
+                boat.getFinish().update(boat.getVelocity().y);
+            }
+            boat.getFinish().render(batch);
+            if (boat.getHitBox().collidesWith(boat.getFinish().getHitBox())){
+                System.out.println("Winner!!!");
                 Gdx.app.exit();
             }
         }

@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.dragonboatrace.entities.Entity;
 import com.dragonboatrace.entities.EntityType;
+import com.dragonboatrace.entities.FinishLine;
 import com.dragonboatrace.entities.Obstacle;
 import com.dragonboatrace.tools.Hitbox;
 import com.dragonboatrace.tools.Lane;
@@ -19,6 +20,7 @@ public class Boat extends Entity {
     protected Lane lane;
     protected Hitbox laneBox;
     protected int distance;
+    protected FinishLine finish;
 
     public Boat(Vector2 pos, BoatType boat, String texture, Lane lane){
         super(pos, new Vector2(), EntityType.BOAT, texture);
@@ -129,6 +131,10 @@ public class Boat extends Entity {
     public int getDistance() { return this.distance; }
 
     public Lane getLane() { return this.lane; }
+
+    public FinishLine getFinish() { return this.finish; }
+
+    public void setFinish(FinishLine fin) {this.finish = fin; }
 
     /* Temporary function to simulate hitting edge of lane */
     public void setPos(float x, float y){

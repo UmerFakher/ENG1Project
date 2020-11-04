@@ -34,8 +34,12 @@ public class DragonBoatRace extends ApplicationAdapter {
 		boat = new PlayerBoat(BoatType.FAST, "circle.png", new Lane(new Vector2(0,0), Gdx.graphics.getWidth() / 2));
 		boat2 = new ComputerBoat(BoatType.STRONG, "square.png", new Lane(new Vector2(Gdx.graphics.getWidth()/2,0), Gdx.graphics.getWidth() / 2));
 
+		ArrayList<Boat> boats = new ArrayList<Boat>();
+		boats.add(boat);
+		boats.add(boat2);
+
 		font = new BitmapFont(Gdx.files.internal("default.fnt"),false);
-		race = new Race(boat);
+		race = new Race(boats);
 		font.setColor(Color.RED);
 		font.getData().setScale(3);
 
