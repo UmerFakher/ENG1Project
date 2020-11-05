@@ -23,18 +23,24 @@ import java.util.concurrent.ThreadLocalRandom;
 public class DragonBoatRace extends ApplicationAdapter {
 	
 	SpriteBatch batch;
-	Boat boat, boat2;
+	Boat boat, boat2, boat3, boat4, boat5, boat6, boat7;
 	BitmapFont font;
 	Race race;
+
+	/* Players scales the width of the lane */
+	int players = 2;
+	int size;
 
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
+		size = Gdx.graphics.getWidth() / players;
 
-		boat = new PlayerBoat(BoatType.FAST, "circle.png", new Lane(new Vector2(0,0), Gdx.graphics.getWidth() / 2), "ME");
-		boat2 = new ComputerBoat(BoatType.STRONG, "square.png", new Lane(new Vector2(Gdx.graphics.getWidth()/2,0), Gdx.graphics.getWidth() / 2), "COMP1");
+		/* Each successive boat is at n*size position */
+		boat = new PlayerBoat(BoatType.STRONG, "square.png", new Lane(new Vector2(0*size,0), size), "ME");
+		boat2 = new ComputerBoat(BoatType.FAST, "circle.png", new Lane(new Vector2(1*size,0), size), "COMP1");
 
-		ArrayList<Boat> boats = new ArrayList<Boat>();
+		ArrayList<Boat> boats = new ArrayList<>();
 		boats.add(boat);
 		boats.add(boat2);
 
@@ -53,13 +59,10 @@ public class DragonBoatRace extends ApplicationAdapter {
 
 		batch.begin();
 
-		boat.update(dt);
-		boat2.update(dt);
-		boat.render(batch);
-		boat2.render(batch);
-
-
+		race.update(dt);
+		race.render(batch);
 		font.draw(batch, "Health: " + (int)boat.getHealth(), 0, Gdx.graphics.getHeight());
+
 		race.checkWinner(batch);
 
 		batch.end();

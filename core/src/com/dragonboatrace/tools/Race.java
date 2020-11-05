@@ -24,7 +24,19 @@ public class Race {
         this.length = 40000;
         this.boats = boats;
         for (Boat boat : boats){
-            boat.setFinish(new FinishLine(new Vector2(boat.getLane().getHitbox().getX(), Gdx.graphics.getHeight())));
+            boat.setFinish(new FinishLine(new Vector2(boat.getLane().getHitbox().getX(), Gdx.graphics.getHeight()), boat.getLane().getHitbox().getWidth()));
+        }
+    }
+
+    public void update(float deltatime){
+        for(Boat boat: this.boats){
+            boat.update(deltatime);
+        }
+    }
+
+    public void render(SpriteBatch batch){
+        for(Boat boat: this.boats){
+            boat.render(batch);
         }
     }
 
