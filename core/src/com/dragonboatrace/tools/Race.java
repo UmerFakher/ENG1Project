@@ -36,7 +36,7 @@ public class Race {
             }
             boat.getFinish().render(batch);
             if (boat.getHitBox().collidesWith(boat.getFinish().getHitBox())){
-                System.out.println("Winner!!!");
+                System.out.println("Winner is "+boat.getName());
                 Gdx.app.exit();
             }
         }

@@ -7,12 +7,12 @@ import com.dragonboatrace.tools.Lane;
 
 public class PlayerBoat extends Boat{
 
-    public PlayerBoat(Vector2 pos, BoatType boat, String texture, Lane lane) {
-        super(pos, boat, texture, lane);
+    public PlayerBoat(Vector2 pos, BoatType boat, String texture, Lane lane, String name) {
+        super(pos, boat, texture, lane, name);
     }
 
-    public PlayerBoat(BoatType boat, String texture, Lane lane) {
-        super(boat, texture, lane);
+    public PlayerBoat(BoatType boat, String texture, Lane lane, String name) {
+        super(boat, texture, lane, name);
     }
 
     public void update(float deltaTime){
@@ -34,6 +34,7 @@ public class PlayerBoat extends Boat{
     protected void checkCollisions(){
         super.checkCollisions();
         if(this.health <= 0){
+            System.out.println("Your Boat is Broken!!!");
             Gdx.app.exit();
         }
     }

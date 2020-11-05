@@ -12,12 +12,12 @@ public class ComputerBoat extends Boat{
     private float counter = 0;
     private float startSpeed = pickSpeed(1);
 
-    public ComputerBoat(Vector2 pos, BoatType boat, String texture, Lane lane) {
-        super(pos, boat, texture, lane);
+    public ComputerBoat(Vector2 pos, BoatType boat, String texture, Lane lane, String name) {
+        super(pos, boat, texture, lane, name);
     }
 
-    public ComputerBoat(BoatType boat, String texture, Lane lane) {
-        super(boat, texture, lane);
+    public ComputerBoat(BoatType boat, String texture, Lane lane, String name) {
+        super(boat, texture, lane, name);
         this.vel = new Vector2(0, startSpeed);
     }
 
@@ -47,6 +47,8 @@ public class ComputerBoat extends Boat{
             default:
                 speed = ThreadLocalRandom.current().nextInt(55, 75);
         }
-            return (float)710/speed;
-        }
+            return (float)720/speed;
+    }
+
+
 }

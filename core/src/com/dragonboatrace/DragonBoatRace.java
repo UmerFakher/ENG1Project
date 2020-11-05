@@ -31,8 +31,8 @@ public class DragonBoatRace extends ApplicationAdapter {
 	public void create () {
 		batch = new SpriteBatch();
 
-		boat = new PlayerBoat(BoatType.FAST, "circle.png", new Lane(new Vector2(0,0), Gdx.graphics.getWidth() / 2));
-		boat2 = new ComputerBoat(BoatType.STRONG, "square.png", new Lane(new Vector2(Gdx.graphics.getWidth()/2,0), Gdx.graphics.getWidth() / 2));
+		boat = new PlayerBoat(BoatType.FAST, "circle.png", new Lane(new Vector2(0,0), Gdx.graphics.getWidth() / 2), "ME");
+		boat2 = new ComputerBoat(BoatType.STRONG, "square.png", new Lane(new Vector2(Gdx.graphics.getWidth()/2,0), Gdx.graphics.getWidth() / 2), "COMP1");
 
 		ArrayList<Boat> boats = new ArrayList<Boat>();
 		boats.add(boat);

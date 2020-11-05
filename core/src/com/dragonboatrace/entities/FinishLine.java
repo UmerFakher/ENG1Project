@@ -14,8 +14,12 @@ public class FinishLine extends Entity{
     }
 
     public void update(float vel){
+        if (vel > 3) {
             this.pos.add(new Vector2(0, -vel));
-            this.box.move(this.pos.x, this.pos.y);
+        }else{
+            this.pos.add(new Vector2(0, -3));
+        }
+        this.box.move(this.pos.x, this.pos.y);
     }
 
     public void render(SpriteBatch batch){

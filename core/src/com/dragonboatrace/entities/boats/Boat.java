@@ -21,8 +21,9 @@ public class Boat extends Entity {
     protected Hitbox laneBox;
     protected int distance;
     protected FinishLine finish;
+    protected String name;
 
-    public Boat(Vector2 pos, BoatType boat, String texture, Lane lane){
+    public Boat(Vector2 pos, BoatType boat, String texture, Lane lane, String name){
         super(pos, new Vector2(), EntityType.BOAT, texture);
 
         this.health = boat.getHealth();
@@ -31,12 +32,13 @@ public class Boat extends Entity {
         this.speed = boat.getSpeed();
         this.lane = lane;
         this.distance = 0;
+        this.name = name;
         /* Store the lanes hitbox to save time on using Getters. */
         laneBox = lane.getHitbox();
     }
 
     /* No need for specific position specified as boat is put in the middle of the lane. */
-    public Boat(BoatType boat, String texture, Lane lane){
+    public Boat(BoatType boat, String texture, Lane lane, String name){
         /* Get boat position from the position of the lane. */
         super(new Vector2(lane.getHitbox().getX() + lane.getHitbox().getWidth() /2 , lane.getHitbox().getY()), new Vector2(), EntityType.BOAT, texture);
         this.health = boat.getHealth();
@@ -45,6 +47,7 @@ public class Boat extends Entity {
         this.speed = boat.getSpeed();
         this.lane = lane;
         this.distance = 0;
+        this.name = name;
         /* Store the lanes hitbox to save time on using Getters. */
         laneBox = lane.getHitbox();
     }
@@ -134,7 +137,9 @@ public class Boat extends Entity {
 
     public FinishLine getFinish() { return this.finish; }
 
-    public void setFinish(FinishLine fin) {this.finish = fin; }
+    public void setFinish(FinishLine fin) { this.finish = fin; }
+
+    public String getName() { return this.name; }
 
     /* Temporary function to simulate hitting edge of lane */
     public void setPos(float x, float y){
