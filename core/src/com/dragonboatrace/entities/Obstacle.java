@@ -38,5 +38,6 @@ public class Obstacle extends Entity{
 
     public float getSpeed() { return this.speed; }
     public float getDamage() { return this.damage; }
+    public Vector2 getPos() { return this.pos; }
 
 }
