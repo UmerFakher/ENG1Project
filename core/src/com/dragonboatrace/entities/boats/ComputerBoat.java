@@ -108,7 +108,7 @@ public class ComputerBoat extends Boat{
             default:
                 speed = ThreadLocalRandom.current().nextInt(55, 75);
         }
-            return (float)720/speed;
+            return (float)(7*this.getSpeed())/speed;
     }
 
 

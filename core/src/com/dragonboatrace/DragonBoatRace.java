@@ -38,7 +38,7 @@ public class DragonBoatRace extends ApplicationAdapter {
 
 		/* Each successive boat is at n*size position */
 		boat = new PlayerBoat(BoatType.STRONG, "square.png", new Lane(new Vector2(0*size,0), size), "ME");
-		boat2 = new ComputerBoat(BoatType.FAST, "circle.png", new Lane(new Vector2(1*size,0), size), "COMP1");
+		boat2 = new ComputerBoat(BoatType.STRONG, "circle.png", new Lane(new Vector2(1*size,0), size), "COMP1");
 
 		ArrayList<Boat> boats = new ArrayList<>();
 		boats.add(boat);

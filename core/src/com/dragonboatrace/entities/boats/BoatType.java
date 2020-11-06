@@ -2,25 +2,27 @@ package com.dragonboatrace.entities.boats;
 
 
 public enum BoatType{
-    /* ENUM(health, stamina, agility, speed) */
+    /* ENUM(health, stamina, agility, speed, maxSpeed) */
     
-    FAST(50, 80, 90, 150),
-    AGILE(50, 80, 70, 100),
-    ENDURANCE(70, 100, 80, 65),
-    STRONG(100, 70, 99, 50);
+    FAST(50, 80, 85, 200, 10),
+        AGILE(50, 80, 95, 160, 8),
+    ENDURANCE(70, 100, 90, 100, 8),
+    STRONG(100, 70, 98, 55, 5);
 
-    private float health, stamina, agility, speed;
+    private float health, stamina, agility, speed, maxSpeed;
 
-    BoatType(float health, float stamina, float agility, float speed){
+    BoatType(float health, float stamina, float agility, float speed, float maxSpeed){
         this.health = health;
         this.stamina = stamina;
         this.agility = agility;
         this.speed = speed;
+        this.maxSpeed = maxSpeed;
     }
  
     public float getHealth() { return this.health; }
     public float getStamina() { return this.stamina; }
     public float getAgility() { return this.agility; }
     public float getSpeed() { return this.speed; }
+    public float getMaxSpeed() { return this.maxSpeed; }
     
 }

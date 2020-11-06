@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 public class Boat extends Entity {
 
-    protected float health, stamina, agility, speed;
+    protected float health, stamina, agility, speed, maxSpeed;
     protected Lane lane;
     protected Hitbox laneBox;
     protected int distance;
@@ -30,6 +30,7 @@ public class Boat extends Entity {
         this.stamina = boat.getStamina();
         this.agility = boat.getAgility();
         this.speed = boat.getSpeed();
+        this.maxSpeed = boat.getMaxSpeed();
         this.lane = lane;
         this.distance = 0;
         this.name = name;
@@ -45,6 +46,7 @@ public class Boat extends Entity {
         this.stamina = boat.getStamina();
         this.agility = boat.getAgility();
         this.speed = boat.getSpeed();
+        this.maxSpeed = boat.getMaxSpeed();
         this.lane = lane;
         this.distance = 0;
         this.name = name;
@@ -76,9 +78,13 @@ public class Boat extends Entity {
             }
             this.vel.scl(new Vector2(0, 1));
         }
-
+        System.out.println(this.getVelocity().y);
         /* Update lane contents */
-        this.lane.update(deltaTime, this.getVelocity().y);
+        if (this.getVelocity().y > this.maxSpeed)
+            this.vel.y = this.maxSpeed;
+
+        this.lane.update(deltaTime, this.vel.y);
+
 
         float dampen = agility/100;
 
