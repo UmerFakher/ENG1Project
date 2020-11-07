@@ -7,12 +7,11 @@ import com.dragonboatrace.entities.boats.Boat;
 
 public class FinishLine extends Entity{
 
-    private int width;
+    private float widthScale;
 
     public FinishLine(Vector2 pos, int width) {
         super(pos,new Vector2(),EntityType.FINISH, "finish.png");
-        this.width = width;
-
+        this.widthScale = (float) width / this.texture.getWidth();
     }
 
     public void update(float vel){
@@ -25,7 +24,6 @@ public class FinishLine extends Entity{
     }
 
     public void render(SpriteBatch batch){
-        // TODO: Change render to stretch to width.
-        super.render(batch);
+        batch.draw(this.texture, this.pos.x, this.pos.y, this.texture.getWidth() * this.widthScale, this.texture.getHeight());
     }
 }

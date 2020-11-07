@@ -64,12 +64,6 @@ public class DragonBoatRace extends ApplicationAdapter {
 		race.checkWinner(batch);
 
 		batch.end();
-		// TODO: Might be better to check health upon collision instead of every frame
-		/*
-		if (boat.getHealth() <= 0){
-			Gdx.app.exit();
-		}
-		*/
 	}
 
 	@Override
