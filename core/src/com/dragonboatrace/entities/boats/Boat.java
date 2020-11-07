@@ -71,7 +71,6 @@ public class Boat extends Entity {
             }
             this.vel.scl(new Vector2(0, 1));
         }
-        System.out.println(this.getVelocity().y);
         /* Update lane contents */
         if (this.getVelocity().y > this.maxSpeed)
             this.vel.y = this.maxSpeed;

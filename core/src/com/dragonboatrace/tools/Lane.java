@@ -27,7 +27,7 @@ public class Lane {
         this.obstacles = new ArrayList<>();
         this.randomWaitTimes = new ArrayList<>();
         populateList();
-        this.background = new ScrollingBackground(pos, width);
+        this.background = new ScrollingBackground(pos);
         this.background.resize(width, Gdx.graphics.getHeight());
         this.finishLine = false;
     }

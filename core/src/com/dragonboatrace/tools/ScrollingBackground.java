@@ -17,7 +17,7 @@ public class ScrollingBackground {
 
     /* Position the scrolling background at a location */
     /* Will usually be given the lanes pos vector */
-    public ScrollingBackground(Vector2 pos, int width) {
+    public ScrollingBackground(Vector2 pos) {
         this.image = new Texture("background.png");
         this.y1 = 0;
         this.y2 = image.getHeight();
@@ -52,7 +52,8 @@ public class ScrollingBackground {
     }
 
     public void resize(int width, int height){
-        imageScale = width / image.getWidth();
+        //TODO: Get global scale so that all Entities get scaled according to resolution.
+        imageScale = (float)width / image.getWidth();
         y1 = 0;
         y2 = image.getHeight()*imageScale;
     }
