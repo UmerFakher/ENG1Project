@@ -2,6 +2,8 @@ package com.dragonboatrace.entities.boats;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.dragonboatrace.entities.Entity;
@@ -22,21 +24,7 @@ public class Boat extends Entity {
     protected int distance;
     protected FinishLine finish;
     protected String name;
-
-    public Boat(Vector2 pos, BoatType boat, String texture, Lane lane, String name){
-        super(pos, new Vector2(), EntityType.BOAT, texture);
-
-        this.health = boat.getHealth();
-        this.stamina = boat.getStamina();
-        this.agility = boat.getAgility();
-        this.speed = boat.getSpeed();
-        this.maxSpeed = boat.getMaxSpeed();
-        this.lane = lane;
-        this.distance = 0;
-        this.name = name;
-        /* Store the lanes hitbox to save time on using Getters. */
-        laneBox = lane.getHitbox();
-    }
+    protected BitmapFont font;
 
     /* No need for specific position specified as boat is put in the middle of the lane. */
     public Boat(BoatType boat, String texture, Lane lane, String name){
@@ -50,6 +38,11 @@ public class Boat extends Entity {
         this.lane = lane;
         this.distance = 0;
         this.name = name;
+
+        this.font = new BitmapFont(Gdx.files.internal("default.fnt"),false);
+        this.font.setColor(Color.RED);
+        this.font.getData().setScale(3);
+
         /* Store the lanes hitbox to save time on using Getters. */
         laneBox = lane.getHitbox();
     }
@@ -100,6 +93,7 @@ public class Boat extends Entity {
 
     public void render(SpriteBatch batch){
         this.lane.render(batch);
+        font.draw(batch, "Health: " + (int)this.getHealth(), this.lane.getHitbox().getX(), Gdx.graphics.getHeight());
         batch.draw(this.texture, this.pos.x, this.pos.y);
     }
 
@@ -150,5 +144,10 @@ public class Boat extends Entity {
     /* Temporary function to simulate hitting edge of lane */
     public void setPos(float x, float y){
         this.pos.set(x,y);
+    }
+
+    public void dispose(){
+        font.dispose();
+        super.dispose();
     }
 }

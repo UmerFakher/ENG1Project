@@ -7,10 +7,6 @@ import com.dragonboatrace.tools.Lane;
 
 public class PlayerBoat extends Boat{
 
-    public PlayerBoat(Vector2 pos, BoatType boat, String texture, Lane lane, String name) {
-        super(pos, boat, texture, lane, name);
-    }
-
     public PlayerBoat(BoatType boat, String texture, Lane lane, String name) {
         super(boat, texture, lane, name);
     }
