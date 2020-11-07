@@ -11,18 +11,21 @@ import com.dragonboatrace.entities.boats.ComputerBoat;
 import com.dragonboatrace.entities.boats.PlayerBoat;
 
 import java.util.ArrayList;
+import java.util.ListIterator;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Lane {
 
     private Hitbox area;
     private ArrayList<Obstacle> obstacles;
+    private ArrayList<Float> randomWaitTimes;
     private ScrollingBackground background;
     public boolean finishLine;
 
     public Lane(Vector2 pos, int width){
         this.area = new Hitbox(pos.x, pos.y, width, Gdx.graphics.getHeight() + 200);
         this.obstacles = new ArrayList<>();
+        this.randomWaitTimes = new ArrayList<>();
         populateList();
         this.background = new ScrollingBackground(pos, width);
         this.background.resize(width, Gdx.graphics.getHeight());
@@ -30,14 +33,28 @@ public class Lane {
     }
 
     public void update(float deltaTime, float vel){
-        for(int i = 0; i < obstacles.size(); i++){
-            Obstacle obstacle = obstacles.get(i);
+
+        ListIterator<Obstacle> iter = obstacles.listIterator();
+        while(iter.hasNext()) {
+            Obstacle obstacle = iter.next();
             obstacle.update(deltaTime, vel);
-            /* If the obstacle is off the screen */
-            if(obstacle.getHitBox().leaves(this.area)) {
-                replaceObstacle(i);
+            if (obstacle.getHitBox().leaves(this.area)) {
+                iter.remove();
+                replaceObstacle();
             }
         }
+
+        ListIterator<Float> times = randomWaitTimes.listIterator();
+        while(times.hasNext()){
+            Float time = times.next() - deltaTime;
+            if (time > 0){
+                times.set(time);
+            }else{
+                obstacles.add(randomObstacle());
+                times.remove();
+            }
+        }
+
         this.background.update(deltaTime, vel);
     }
 
@@ -54,31 +71,34 @@ public class Lane {
     public Hitbox getHitbox() { return this.area; }
 
     public void removeObstacle(Obstacle toRemove){
-        replaceObstacle(obstacles.indexOf(toRemove));
+        obstacles.remove(toRemove);
+        replaceObstacle();
     }
 
-    public void replaceObstacle(int index){
-        obstacles.get(index).dispose();
-        obstacles.set(index, new Obstacle(randomObstacle(), this.area.getX(), this.area.getWidth()));
+    public void replaceObstacle(){
+        randomWaitTimes.add(1.0f + 2*ThreadLocalRandom.current().nextFloat());
     }
 
     /* Generate a random Obstacle */
     /* Temporary for debugging speeds */
-    public ObstacleType randomObstacle(){
+    private Obstacle randomObstacle(){
         int rand = ThreadLocalRandom.current().nextInt(0, 3);
+        ObstacleType type;
         switch(rand){
-            case 0: return ObstacleType.BRANCH;
-            case 1: return ObstacleType.LEAF;
-            case 2: return ObstacleType.ROCK;
-            default: return ObstacleType.BRANCH;
+            case 0: type = ObstacleType.BRANCH; break;
+            case 1: type = ObstacleType.LEAF; break;
+            case 2: type = ObstacleType.ROCK; break;
+            default: type = ObstacleType.BRANCH; break;
         }
+
+        return new Obstacle(type, this.area.getX(), this.area.getWidth());
     }
 
     /* Populate list */
     /* Temporary for debugging */
     public void populateList(){
         for(int i = 0; i < 10; i++){
-            obstacles.add(new Obstacle(randomObstacle(), this.area.getX(), this.area.getWidth()));
+            replaceObstacle();
         }
     }
 
