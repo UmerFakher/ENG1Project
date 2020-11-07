@@ -24,7 +24,7 @@ public class DragonBoatRace extends ApplicationAdapter {
 	
 	SpriteBatch batch;
 	Boat boat, boat2, boat3, boat4, boat5, boat6, boat7;
-	BitmapFont font;
+
 	Race race;
 
 	/* Players scales the width of the lane */
@@ -44,10 +44,9 @@ public class DragonBoatRace extends ApplicationAdapter {
 		boats.add(boat);
 		boats.add(boat2);
 
-		font = new BitmapFont(Gdx.files.internal("default.fnt"),false);
+
 		race = new Race(boats);
-		font.setColor(Color.RED);
-		font.getData().setScale(3);
+
 
 	}
 
@@ -61,7 +60,6 @@ public class DragonBoatRace extends ApplicationAdapter {
 
 		race.update(dt);
 		race.render(batch);
-		font.draw(batch, "Health: " + (int)boat.getHealth(), 0, Gdx.graphics.getHeight());
 
 		race.checkWinner(batch);
 
@@ -82,7 +80,6 @@ public class DragonBoatRace extends ApplicationAdapter {
 	
 	@Override
 	public void dispose () {
-		font.dispose();
 		batch.dispose();
 	}
 
