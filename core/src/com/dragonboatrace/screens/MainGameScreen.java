@@ -25,6 +25,7 @@ public class MainGameScreen implements Screen {
     Race race;
     int players = 2;
     int size;
+    ArrayList<Boat> boats;
 
     public MainGameScreen (DragonBoatRace game) {
         this.game = game;
@@ -34,9 +35,9 @@ public class MainGameScreen implements Screen {
         Boat boat = new PlayerBoat(BoatType.FAST, "square.png", new Lane(new Vector2(0*size,0), size), "ME");
         Boat boat2 = new ComputerBoat(BoatType.FAST, "circle.png", new Lane(new Vector2(1*size,0), size), "COMP1");
 
-        ArrayList<Boat> boats = new ArrayList<>();
-        boats.add(boat);
-        boats.add(boat2);
+        this.boats = new ArrayList<>();
+        this.boats.add(boat);
+        this.boats.add(boat2);
 
 
         this.race = new Race(boats);
@@ -61,6 +62,12 @@ public class MainGameScreen implements Screen {
         this.race.checkWinner(this.game.getBatch(), this.game);
 
         this.game.getBatch().end();
+
+        for (Boat boat: this.boats){
+            if (boat instanceof PlayerBoat)
+                if (((PlayerBoat) boat).isDead())
+                    this.game.setScreen(new MainMenuScreen(this.game));
+        }
     }
 
 

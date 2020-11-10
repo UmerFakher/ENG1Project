@@ -106,5 +106,4 @@ public class ComputerBoat extends Boat{
             return (7*this.getSpeed())/speed;
     }
 
-
 }

@@ -27,12 +27,14 @@ public class PlayerBoat extends Boat{
         super.update(deltaTime);
     }
 
-    protected void checkCollisions(){
+    public void checkCollisions(){
         super.checkCollisions();
-        if(this.health <= 0){
-            System.out.println("Your Boat is Broken!!!");
-            Gdx.app.exit();
-        }
+
     }
+
+    public boolean isDead(){
+        return this.health <=0;
+    }
+
 
 }
