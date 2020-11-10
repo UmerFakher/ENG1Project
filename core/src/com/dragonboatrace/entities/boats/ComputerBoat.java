@@ -58,7 +58,7 @@ public class ComputerBoat extends Boat{
                 this.lane.removeObstacle(obstacle);
                 size--;
                 this.health -= obstacle.getDamage();
-                this.vel.y = -5;
+                this.vel.y = -54;
             }else if(obstacle.getHitBox().collidesWith(this.moveArea)){
                 float bottomY = obstacle.getPos().y;
                 if (bottomY < smallest) {

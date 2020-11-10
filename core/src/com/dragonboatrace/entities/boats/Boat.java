@@ -106,7 +106,7 @@ public class Boat extends Entity {
                 this.lane.removeObstacle(obstacle);
                 size--;
                 this.health -= obstacle.getDamage();
-                this.vel.y = -5;
+                this.vel.y = -54;
 
             }
         }

@@ -18,6 +18,7 @@ public class MainMenuScreen implements Screen {
 
     Button exitButton;
     Button playButton;
+    Texture logo;
 
     DragonBoatRace game;
 
@@ -27,8 +28,8 @@ public class MainMenuScreen implements Screen {
         this.game = game;
 
         this.exitButton = new Button(new Vector2((Gdx.graphics.getWidth()-EntityType.BUTTON.getWidth())/2, 100), "exit_button_active.png", "exit_button_inactive.png");
-        this.playButton = new Button(new Vector2((Gdx.graphics.getWidth()-EntityType.BUTTON.getWidth())/2, 400), "play_button_active.png", "play_button_inactive.png");
-
+        this.playButton = new Button(new Vector2((Gdx.graphics.getWidth()-EntityType.BUTTON.getWidth())/2, 300), "play_button_active.png", "play_button_inactive.png");
+        this.logo = new Texture("dragon.png");
     }
 
 
@@ -44,6 +45,8 @@ public class MainMenuScreen implements Screen {
         float dt = Gdx.graphics.getDeltaTime();
 
         this.game.getBatch().begin();
+
+        this.game.getBatch().draw(logo, (Gdx.graphics.getWidth() - 680)/2, Gdx.graphics.getHeight() - 550, 680, 600);
 
         exitButton.render(this.game.getBatch());
         if (this.exitButton.isHovering() && Gdx.input.isTouched()){
