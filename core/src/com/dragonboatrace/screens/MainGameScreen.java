@@ -6,6 +6,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.dragonboatrace.DragonBoatRace;
@@ -26,6 +27,9 @@ public class MainGameScreen implements Screen {
     int players = 2;
     int size;
     ArrayList<Boat> boats;
+
+    float c = 0;
+    boolean GO = false;
 
     public MainGameScreen (DragonBoatRace game) {
         this.game = game;
@@ -55,11 +59,15 @@ public class MainGameScreen implements Screen {
 
         this.game.getBatch().begin();
 
-
-        this.race.update(dt);
+        if (GO)
+            this.race.update(dt);
         this.race.render(this.game.getBatch());
 
         this.race.checkWinner(this.game.getBatch(), this.game);
+
+        if (!GO)
+            GO = readySteadyGo(dt);
+
 
         this.game.getBatch().end();
 
@@ -93,6 +101,30 @@ public class MainGameScreen implements Screen {
     @Override
     public void dispose() {
         this.game.getBatch().dispose();
+    }
+
+    public boolean readySteadyGo(float dt){
+        BitmapFont font = new BitmapFont(Gdx.files.internal("default.fnt"),false);
+        font.setColor(Color.RED);
+        font.getData().setScale(5);
+        GlyphLayout layout = new GlyphLayout(); //dont do this every frame! Store it as member
+        c+=dt;
+        if (c < 1 && c > 0) {
+            layout.setText(font, "READY");
+            font.draw(game.getBatch(), "READY", (Gdx.graphics.getWidth() - layout.width) / 2, Gdx.graphics.getHeight() / 2);
+        }
+        else if (c < 2 && c > 1) {
+            layout.setText(font, "STEADY");
+            font.draw(game.getBatch(), "STEADY", (Gdx.graphics.getWidth() - layout.width) / 2, Gdx.graphics.getHeight() / 2);
+        }
+        else if (c < 2.3 && c > 2) {
+            layout.setText(font, "GO");
+            font.draw(game.getBatch(), "GO", (Gdx.graphics.getWidth() - layout.width) / 2, Gdx.graphics.getHeight() / 2);
+        }
+        else
+            return true;
+        System.out.println(c);
+        return false;
     }
 
 
