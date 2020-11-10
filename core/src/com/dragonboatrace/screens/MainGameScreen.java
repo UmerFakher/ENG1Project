@@ -61,6 +61,7 @@ public class MainGameScreen implements Screen {
 
         if (GO)
             this.race.update(dt);
+
         this.race.render(this.game.getBatch());
 
         this.race.checkWinner(this.game.getBatch(), this.game);
@@ -118,12 +119,11 @@ public class MainGameScreen implements Screen {
             font.draw(game.getBatch(), "STEADY", (Gdx.graphics.getWidth() - layout.width) / 2, Gdx.graphics.getHeight() / 2);
         }
         else if (c < 2.3 && c > 2) {
-            layout.setText(font, "GO");
-            font.draw(game.getBatch(), "GO", (Gdx.graphics.getWidth() - layout.width) / 2, Gdx.graphics.getHeight() / 2);
+            layout.setText(font, "GO!!!");
+            font.draw(game.getBatch(), "GO!!!", (Gdx.graphics.getWidth() - layout.width) / 2, Gdx.graphics.getHeight() / 2);
         }
         else
             return true;
-        System.out.println(c);
         return false;
     }
 

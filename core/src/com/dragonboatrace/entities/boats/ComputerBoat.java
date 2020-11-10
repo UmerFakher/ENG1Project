@@ -37,7 +37,10 @@ public class ComputerBoat extends Boat{
             }
             this.moveArea.move(pos.x - this.xOffset, pos.y);
             float x = this.vel.x;
-            this.vel = new Vector2(x, startSpeed);
+
+            if (this.vel.y < startSpeed) {
+                this.vel.add(new Vector2(0, this.speed*deltaTime/2));
+            }
         }
             super.update(deltaTime);
     }
@@ -55,6 +58,7 @@ public class ComputerBoat extends Boat{
                 this.lane.removeObstacle(obstacle);
                 size--;
                 this.health -= obstacle.getDamage();
+                this.vel.y = -5;
             }else if(obstacle.getHitBox().collidesWith(this.moveArea)){
                 float bottomY = obstacle.getPos().y;
                 if (bottomY < smallest) {

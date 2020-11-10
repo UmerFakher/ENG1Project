@@ -21,7 +21,6 @@ import com.dragonboatrace.tools.Race;
 import com.dragonboatrace.tools.ScrollingBackground;
 
 import java.util.ArrayList;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class DragonBoatRace extends Game {
 	
