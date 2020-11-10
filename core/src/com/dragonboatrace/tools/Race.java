@@ -9,6 +9,7 @@ import com.dragonboatrace.entities.Entity;
 import com.dragonboatrace.entities.EntityType;
 import com.dragonboatrace.entities.FinishLine;
 import com.dragonboatrace.entities.boats.Boat;
+import com.dragonboatrace.screens.GameOverScreen;
 import com.dragonboatrace.screens.MainMenuScreen;
 
 import java.awt.*;
@@ -50,9 +51,8 @@ public class Race {
             }
             boat.getFinish().render(batch);
             if (boat.getHitBox().collidesWith(boat.getFinish().getHitBox())){
-                System.out.println("Winner is "+boat.getName());
                 game.dispose();
-                game.setScreen(new MainMenuScreen(game));
+                game.setScreen(new GameOverScreen(game, "Winner is "+boat.getName()));
             }
         }
     }

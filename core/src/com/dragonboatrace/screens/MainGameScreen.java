@@ -75,7 +75,7 @@ public class MainGameScreen implements Screen {
         for (Boat boat: this.boats){
             if (boat instanceof PlayerBoat)
                 if (((PlayerBoat) boat).isDead())
-                    this.game.setScreen(new MainMenuScreen(this.game));
+                    this.game.setScreen(new GameOverScreen(this.game, "Boat Was Destroyed"));
         }
     }
 
@@ -108,7 +108,7 @@ public class MainGameScreen implements Screen {
         BitmapFont font = new BitmapFont(Gdx.files.internal("default.fnt"),false);
         font.setColor(Color.RED);
         font.getData().setScale(5);
-        GlyphLayout layout = new GlyphLayout(); //dont do this every frame! Store it as member
+        GlyphLayout layout = new GlyphLayout();
         c+=dt;
         if (c < 1 && c > 0) {
             layout.setText(font, "READY");
