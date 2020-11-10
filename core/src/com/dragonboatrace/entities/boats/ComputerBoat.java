@@ -28,16 +28,18 @@ public class ComputerBoat extends Boat{
     }
 
     public void update(float deltaTime){
-        Obstacle closest = checkObstacles();
-        if(closest != null){
-            this.vel.add(this.speed*deltaTime*moveFromClosest(closest),0);
-        }else{
-            this.vel.add(this.speed*0,0);
+        if (this.getHealth() > 0) {
+            Obstacle closest = checkObstacles();
+            if (closest != null) {
+                this.vel.add(this.speed * deltaTime * moveFromClosest(closest), 0);
+            } else {
+                this.vel.add(this.speed * 0, 0);
+            }
+            this.moveArea.move(pos.x - this.xOffset, pos.y);
+            float x = this.vel.x;
+            this.vel = new Vector2(x, startSpeed);
         }
-        this.moveArea.move(pos.x-this.xOffset, pos.y);
-        float x = this.vel.x;
-        this.vel = new Vector2(x, startSpeed);
-        super.update(deltaTime);
+            super.update(deltaTime);
     }
 
 

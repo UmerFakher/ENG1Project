@@ -5,7 +5,8 @@ public enum EntityType {
     
     BOAT(50, 50),
     OBSTACLE(40, 40),
-    FINISH(960, 241);
+    FINISH(960, 241),
+    BUTTON(400, 140);
 
     private int width, height;
 
