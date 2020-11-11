@@ -18,10 +18,12 @@ public class ComputerBoat extends Boat{
     private Hitbox moveArea;
     private int xOffset, yOffset;
     private float startSpeed = pickSpeed(pickSpeedValue);
+    private boolean wait;
 
     public ComputerBoat(BoatType boat, String texture, Lane lane, String name) {
         super(boat, texture, lane, name);
         this.vel = new Vector2(0, startSpeed);
+        this.wait = false;
         this.xOffset = this.getHitBox().getWidth()/this.pickSpeedValue;
         this.yOffset = this.getHitBox().getHeight()/this.pickSpeedValue;
         this.moveArea = new Hitbox(this.pos.x-xOffset, this.pos.y, this.getHitBox().getWidth()+2*xOffset, this.getHitBox().getHeight()+2*yOffset);
@@ -29,20 +31,35 @@ public class ComputerBoat extends Boat{
 
     public void update(float deltaTime){
         if (this.getHealth() > 0) {
-            Obstacle closest = checkObstacles();
-            if (closest != null) {
-                this.vel.add(this.speed * deltaTime * moveFromClosest(closest), 0);
-            } else {
-                this.vel.add(this.speed * 0, 0);
-            }
-            this.moveArea.move(pos.x - this.xOffset, pos.y);
-            float x = this.vel.x;
+            if (this.stamina - 5 > 0) {
+                Obstacle closest = checkObstacles();
+                if (closest != null) {
+                    this.vel.add(this.speed * deltaTime * moveFromClosest(closest), 0);
+                } else {
+                    this.vel.add(this.speed * 0, 0);
+                }
+                this.moveArea.move(pos.x - this.xOffset, pos.y);
+                float x = this.vel.x;
 
-            if (this.vel.y < startSpeed) {
-                this.vel.add(new Vector2(0, this.speed*deltaTime/2));
+                if (this.wait) {
+                    this.stamina += 25;
+                    if (this.stamina > ThreadLocalRandom.current().nextInt((int)this.maxStamina/2, 2 * (int)this.maxStamina/3))
+                        this.wait = false;
+                } else if (this.vel.y < startSpeed) {
+                    this.vel.add(new Vector2(0, this.speed * deltaTime / 2));
+                }
+                this.stamina -= 8;
+            } else {
+                this.wait = true;
             }
+        } else {
+            this.health = 0;
         }
-            super.update(deltaTime);
+        if (this.stamina+3 < this.maxStamina)
+            this.stamina+=3;
+        else
+            this.stamina = this.maxStamina;
+        super.update(deltaTime);
     }
 
 

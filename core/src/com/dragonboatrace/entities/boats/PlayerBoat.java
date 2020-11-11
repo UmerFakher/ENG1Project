@@ -21,7 +21,17 @@ public class PlayerBoat extends Boat{
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.UP)){
-            this.vel.add(0, this.speed*deltaTime/2);
+            if (this.stamina > 5) {
+                this.vel.add(0, this.speed * deltaTime / 2);
+                this.stamina -= 5;
+            }
+        }
+        else{
+            if (this.stamina+20 < this.maxStamina) {
+                stamina += 20;
+            } else{
+                this.stamina = this.maxStamina;
+            }
         }
         checkCollisions();
         super.update(deltaTime);

@@ -33,7 +33,9 @@ public class Race {
 
     public void update(float deltatime){
         for(Boat boat: this.boats){
-            boat.update(deltatime);
+            if (boat.getStamina() > 0)
+                boat.update(deltatime);
+
         }
     }
 
@@ -52,7 +54,7 @@ public class Race {
             boat.getFinish().render(batch);
             if (boat.getHitBox().collidesWith(boat.getFinish().getHitBox())){
                 game.dispose();
-                game.setScreen(new GameOverScreen(game, "Winner is "+boat.getName()));
+                game.setScreen(new GameOverScreen(game, "The Winner is "+boat.getName()));
             }
         }
     }

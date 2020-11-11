@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 public class Boat extends Entity {
 
-    protected float health, stamina, agility, speed, maxSpeed;
+    protected float health, stamina, agility, speed, maxSpeed, maxStamina;
     protected Lane lane;
     protected Hitbox laneBox;
     protected int distance;
@@ -35,12 +35,12 @@ public class Boat extends Entity {
         this.agility = boat.getAgility();
         this.speed = boat.getSpeed();
         this.maxSpeed = boat.getMaxSpeed();
+        this.maxStamina = boat.getStamina();
         this.lane = lane;
         this.distance = 0;
         this.name = name;
 
         this.font = new BitmapFont(Gdx.files.internal("default.fnt"),false);
-        this.font.setColor(Color.RED);
         this.font.getData().setScale(3);
 
         /* Store the lanes hitbox to save time on using Getters. */
@@ -84,6 +84,7 @@ public class Boat extends Entity {
             this.pos.x += this.vel.x;
             this.vel.scl(dampen);
         }
+
         this.distance += this.vel.y;
 
         /* The hitbox needs moving to keep at the same pos as the boat */
@@ -92,7 +93,11 @@ public class Boat extends Entity {
 
     public void render(SpriteBatch batch){
         this.lane.render(batch);
+        this.font.setColor(Color.RED);
         font.draw(batch, "Health: " + (int)this.getHealth(), this.lane.getHitbox().getX(), Gdx.graphics.getHeight());
+        this.font.setColor(Color.GREEN);
+        font.draw(batch, "Stamina: " + (int)this.getStamina(), this.lane.getHitbox().getX(), Gdx.graphics.getHeight()-50);
+
         batch.draw(this.texture, this.pos.x, this.pos.y);
     }
 
