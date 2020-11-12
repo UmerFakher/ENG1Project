@@ -21,7 +21,7 @@ public class ComputerBoat extends Boat{
 
     public ComputerBoat(BoatType boat, String texture, Lane lane, String name, int pickSpeedValue) {
         super(boat, texture, lane, name);
-
+        this.startSpeed = this.pickSpeed(pickSpeedValue);
         this.vel = new Vector2(0, startSpeed);
         this.wait = false;
         this.xOffset = this.getHitBox().getWidth()/pickSpeedValue;
@@ -115,13 +115,13 @@ public class ComputerBoat extends Boat{
         int speed;
         switch (pos) {
             case 2:
-                speed = ThreadLocalRandom.current().nextInt(70, 80);
+                speed = ThreadLocalRandom.current().nextInt(65, 75);
                 break;
             case 3:
-                speed = ThreadLocalRandom.current().nextInt(80, 90);
+                speed = ThreadLocalRandom.current().nextInt(75, 85);
                 break;
             default:
-                speed = ThreadLocalRandom.current().nextInt(60, 70);
+                speed = ThreadLocalRandom.current().nextInt(55, 65);
         }
             return (3*this.getSpeed())/speed;
     }
