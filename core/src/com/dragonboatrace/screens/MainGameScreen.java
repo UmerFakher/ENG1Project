@@ -26,7 +26,7 @@ public class MainGameScreen implements Screen {
 
     DragonBoatRace game;
     Race race;
-    int players = 4;
+    int players = 8;
     int size;
     ArrayList<Boat> boats;
     ScrollingBackground background;
@@ -41,7 +41,7 @@ public class MainGameScreen implements Screen {
 
         /* Each successive boat is at n*size position */
         ArrayList<Integer> intList = new ArrayList<Integer>();
-        for (int i = 1; i < players; i++)
+        for (int i = 1; i < 4; i++)
             intList.add(i);
 
         Collections.shuffle(intList);
@@ -54,7 +54,7 @@ public class MainGameScreen implements Screen {
         this.boats.add(boat);
 
         for (int i=1; i < players; i++){
-            this.boats.add(new ComputerBoat(BoatType.FAST, "circle.png", new Lane(new Vector2(i*size,0), size), "COMP"+i, intList.get((i-1)%3)));
+            this.boats.add(new ComputerBoat(BoatType.FAST, "circle.png", new Lane(new Vector2(i*size,0), size), "COMP"+i, intList.get((i)%3)));
         }
 
 

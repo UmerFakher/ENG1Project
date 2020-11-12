@@ -21,8 +21,7 @@ public class ComputerBoat extends Boat{
 
     public ComputerBoat(BoatType boat, String texture, Lane lane, String name, int pickSpeedValue) {
         super(boat, texture, lane, name);
-        this.startSpeed = pickSpeed(pickSpeedValue);
-        System.out.println(startSpeed);
+
         this.vel = new Vector2(0, startSpeed);
         this.wait = false;
         this.xOffset = this.getHitBox().getWidth()/pickSpeedValue;
