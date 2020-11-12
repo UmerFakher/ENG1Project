@@ -83,8 +83,7 @@ public class Boat extends Entity {
             this.pos.x += this.vel.x;
             this.vel.scl(dampen);
         }
-        if (this.vel.y > 0)
-            this.distance += this.vel.y;
+        this.distance += this.vel.y;
         this.pos.y = (100 +(this.getDistance() - currDistance)/5);
 
         /* The hitbox needs moving to keep at the same pos as the boat */
