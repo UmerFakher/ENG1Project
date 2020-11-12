@@ -26,7 +26,7 @@ public class MainGameScreen implements Screen {
 
     DragonBoatRace game;
     Race race;
-    int players = 7;
+    int players = 4;
     int size;
     ArrayList<Boat> boats;
     ScrollingBackground background;

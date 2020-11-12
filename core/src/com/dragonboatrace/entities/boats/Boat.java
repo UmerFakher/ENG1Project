@@ -31,7 +31,7 @@ public class Boat extends Entity {
     /* No need for specific position specified as boat is put in the middle of the lane. */
     public Boat(BoatType boat, String texture, Lane lane, String name){
         /* Get boat position from the position of the lane. */
-        super(new Vector2(lane.getHitbox().getX() + lane.getHitbox().getWidth()/2 , 100), new Vector2(), EntityType.BOAT, boat.getImageSrc());
+        super(new Vector2(lane.getHitbox().getX() + (lane.getHitbox().getWidth() - EntityType.BOAT.getWidth())/2 , 100), new Vector2(), EntityType.BOAT, boat.getImageSrc());
         this.health = boat.getHealth();
         this.stamina = boat.getStamina();
         this.agility = boat.getAgility();
