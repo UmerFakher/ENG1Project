@@ -11,7 +11,7 @@ public class PlayerBoat extends Boat{
         super(boat, texture, lane, name);
     }
 
-    public void update(float deltaTime){
+    public void update(float deltaTime, float currDistance){
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && this.pos.x > this.lane.getHitbox().getX()){
             this.vel.add(-this.speed*deltaTime, 0);
         }
@@ -34,7 +34,7 @@ public class PlayerBoat extends Boat{
             }
         }
         checkCollisions();
-        super.update(deltaTime);
+        super.update(deltaTime, currDistance);
     }
 
     public void checkCollisions(){

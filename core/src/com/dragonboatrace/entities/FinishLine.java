@@ -14,12 +14,8 @@ public class FinishLine extends Entity{
         this.widthScale = (float) width / this.texture.getWidth();
     }
 
-    public void update(float vel){
-        if (vel > 3) {
-            this.pos.add(new Vector2(0, -vel));
-        }else{
-            this.pos.add(new Vector2(0, -3));
-        }
+    public void update(float vel, float currDistance){
+        this.pos.y = 10000 - currDistance;
         this.box.move(this.pos.x, this.pos.y);
     }
 

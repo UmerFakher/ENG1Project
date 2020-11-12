@@ -56,19 +56,18 @@ public class Boat extends Entity {
         this.lane = lane;
     }
 
-    public void update(float deltaTime){
+    public void update(float deltaTime, float currDistance){
 
         /* Check for Collisions */
         /* Moved collision check to player boat to be able to check if the player has no health. */
         //checkCollisions();
 
         /* Check if boat is still in the lane */
-        if(this.box.leaves(laneBox)){
-            if (this.pos.x < this.laneBox.getX()){
-                this.pos.x = this.laneBox.getX();
-            } else{
-                this.pos.x = this.laneBox.getX() + this.laneBox.getWidth() - this.type.getWidth();
-            }
+        if (this.pos.x < this.laneBox.getX()){
+            this.pos.x = this.laneBox.getX();
+            this.vel.scl(new Vector2(0, 1));
+        } else if (this.pos.x + this.box.getWidth() > this.laneBox.getX() + this.laneBox.getWidth()){
+            this.pos.x = this.laneBox.getX() + this.laneBox.getWidth() - this.type.getWidth();
             this.vel.scl(new Vector2(0, 1));
         }
         /* Update lane contents */
@@ -86,6 +85,7 @@ public class Boat extends Entity {
         }
 
         this.distance += this.vel.y;
+        this.pos.y = (100 +(this.getDistance() - currDistance)/5);
 
         /* The hitbox needs moving to keep at the same pos as the boat */
         this.box.move(pos.x, pos.y);

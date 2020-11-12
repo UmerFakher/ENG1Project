@@ -16,32 +16,50 @@ import com.dragonboatrace.entities.boats.ComputerBoat;
 import com.dragonboatrace.entities.boats.PlayerBoat;
 import com.dragonboatrace.tools.Lane;
 import com.dragonboatrace.tools.Race;
+import com.dragonboatrace.tools.ScrollingBackground;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.concurrent.TimeUnit;
 
 public class MainGameScreen implements Screen {
 
     DragonBoatRace game;
     Race race;
-    int players = 2;
+    int players = 4;
     int size;
     ArrayList<Boat> boats;
+    ScrollingBackground background;
 
     float c = 0;
     boolean GO = false;
+    float currSpeed;
 
     public MainGameScreen (DragonBoatRace game) {
         this.game = game;
         size = Gdx.graphics.getWidth() / players;
 
         /* Each successive boat is at n*size position */
-        Boat boat = new PlayerBoat(BoatType.FAST, "square.png", new Lane(new Vector2(0*size,0), size), "ME");
-        Boat boat2 = new ComputerBoat(BoatType.FAST, "circle.png", new Lane(new Vector2(1*size,0), size), "COMP1");
+        ArrayList<Integer> intList = new ArrayList<Integer>();
+        intList.add(1);
+        intList.add(2);
+        intList.add(3);
+
+        Collections.shuffle(intList);
+
+        Boat boat = new PlayerBoat(BoatType.FAST, "square.png", new Lane(new Vector2(0*size,100), size), "ME");
+        Boat boat2 = new ComputerBoat(BoatType.FAST, "circle.png", new Lane(new Vector2(1*size,100), size), "COMP1", intList.get(0));
+        Boat boat3 = new ComputerBoat(BoatType.FAST, "circle.png", new Lane(new Vector2(2*size,100), size), "COMP2", intList.get(1));
+        Boat boat4 = new ComputerBoat(BoatType.FAST, "circle.png", new Lane(new Vector2(3*size,100), size), "COMP3", intList.get(2));
+
 
         this.boats = new ArrayList<>();
         this.boats.add(boat);
         this.boats.add(boat2);
+        this.boats.add(boat3);
+        this.boats.add(boat4);
+        this.background = new ScrollingBackground(new Vector2());
+        this.background.resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
 
         this.race = new Race(boats);
@@ -61,6 +79,16 @@ public class MainGameScreen implements Screen {
 
         if (GO)
             this.race.update(dt);
+
+        for (Boat boat : boats){
+            if (boat instanceof PlayerBoat){
+                currSpeed = boat.getVelocity().y;
+            }
+        }
+        this.background.update(delta, currSpeed);
+        this.background.render(this.game.getBatch(), players);
+
+
 
         this.race.render(this.game.getBatch());
 

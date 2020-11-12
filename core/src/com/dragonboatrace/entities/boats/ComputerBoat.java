@@ -13,23 +13,24 @@ import java.util.concurrent.ThreadLocalRandom;
 public class ComputerBoat extends Boat{
 
 
-    private int pickSpeedValue = 3;
     /* Move area is the area in which the boat is looking for obstacles to avoid */
     private Hitbox moveArea;
     private int xOffset, yOffset;
-    private float startSpeed = pickSpeed(pickSpeedValue);
+    private float startSpeed;
     private boolean wait;
 
-    public ComputerBoat(BoatType boat, String texture, Lane lane, String name) {
+    public ComputerBoat(BoatType boat, String texture, Lane lane, String name, int pickSpeedValue) {
         super(boat, texture, lane, name);
+        this.startSpeed = pickSpeed(pickSpeedValue);
+        System.out.println(startSpeed);
         this.vel = new Vector2(0, startSpeed);
         this.wait = false;
-        this.xOffset = this.getHitBox().getWidth()/this.pickSpeedValue;
-        this.yOffset = this.getHitBox().getHeight()/this.pickSpeedValue;
+        this.xOffset = this.getHitBox().getWidth()/pickSpeedValue;
+        this.yOffset = this.getHitBox().getHeight()/pickSpeedValue;
         this.moveArea = new Hitbox(this.pos.x-xOffset, this.pos.y, this.getHitBox().getWidth()+2*xOffset, this.getHitBox().getHeight()+2*yOffset);
     }
 
-    public void update(float deltaTime){
+    public void update(float deltaTime, float currDistance){
         if (this.getHealth() > 0) {
             if (this.stamina - 5 > 0) {
                 Obstacle closest = checkObstacles();
@@ -39,7 +40,6 @@ public class ComputerBoat extends Boat{
                     this.vel.add(this.speed * 0, 0);
                 }
                 this.moveArea.move(pos.x - this.xOffset, pos.y);
-                float x = this.vel.x;
 
                 if (this.wait) {
                     this.stamina += 25;
@@ -59,7 +59,7 @@ public class ComputerBoat extends Boat{
             this.stamina+=3;
         else
             this.stamina = this.maxStamina;
-        super.update(deltaTime);
+        super.update(deltaTime, currDistance);
     }
 
 
@@ -116,15 +116,15 @@ public class ComputerBoat extends Boat{
         int speed;
         switch (pos) {
             case 2:
-                speed = ThreadLocalRandom.current().nextInt(65, 85);
+                speed = ThreadLocalRandom.current().nextInt(70, 80);
                 break;
             case 3:
-                speed = ThreadLocalRandom.current().nextInt(75, 95);
+                speed = ThreadLocalRandom.current().nextInt(80, 90);
                 break;
             default:
-                speed = ThreadLocalRandom.current().nextInt(55, 75);
+                speed = ThreadLocalRandom.current().nextInt(60, 70);
         }
-            return (7*this.getSpeed())/speed;
+            return (3*this.getSpeed())/speed;
     }
 
 }

@@ -27,8 +27,6 @@ public class Lane {
         this.obstacles = new ArrayList<>();
         this.randomWaitTimes = new ArrayList<>();
         populateList();
-        this.background = new ScrollingBackground(pos);
-        this.background.resize(width, Gdx.graphics.getHeight());
         this.finishLine = false;
     }
 
@@ -54,13 +52,9 @@ public class Lane {
                 times.remove();
             }
         }
-
-        this.background.update(deltaTime, vel);
     }
 
     public void render(SpriteBatch batch){
-        this.background.render(batch);
-
         for(Obstacle obstacle : obstacles){
             obstacle.render(batch);
         }
@@ -97,7 +91,7 @@ public class Lane {
     /* Populate list */
     /* Temporary for debugging */
     public void populateList(){
-        for(int i = 0; i < 10; i++){
+        for(int i = 0; i < 5; i++){
             replaceObstacle();
         }
     }
