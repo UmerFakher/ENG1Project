@@ -7,19 +7,44 @@ import com.dragonboatrace.tools.Lane;
 
 public class PlayerBoat extends Boat{
 
-    public PlayerBoat(Vector2 pos, BoatType boat, String texture, Lane lane) {
-        super(pos, boat, texture, lane);
+    public PlayerBoat(BoatType boat, String texture, Lane lane, String name) {
+        super(boat, texture, lane, name);
     }
 
     public void update(float deltaTime){
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)){
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && this.pos.x > this.lane.getHitbox().getX()){
             this.vel.add(-this.speed*deltaTime, 0);
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && (this.pos.x+this.type.getWidth()) < this.lane.getHitbox().getWidth() + this.lane.getHitbox().getX()){
             this.vel.add(this.speed*deltaTime, 0);
         }
+
+        if (Gdx.input.isKeyPressed(Input.Keys.UP)){
+            if (this.stamina > 5) {
+                this.vel.add(0, this.speed * deltaTime / 2);
+                this.stamina -= 5;
+            }
+        }
+        else{
+            if (this.stamina+20 < this.maxStamina) {
+                stamina += 20;
+            } else{
+                this.stamina = this.maxStamina;
+            }
+        }
+        checkCollisions();
         super.update(deltaTime);
     }
+
+    public void checkCollisions(){
+        super.checkCollisions();
+
+    }
+
+    public boolean isDead(){
+        return this.health <=0;
+    }
+
 
 }

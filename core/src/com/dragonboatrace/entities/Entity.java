@@ -34,8 +34,6 @@ public abstract class Entity{
         this.box = new Hitbox((int)pos.x, (int)pos.y, type.getWidth(), type.getHeight());
     }
 
-    public abstract void update(float deltaTime);
-
     public void dispose(){
         this.texture.dispose();
     }

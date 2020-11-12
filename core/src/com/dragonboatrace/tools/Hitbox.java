@@ -22,6 +22,12 @@ public class Hitbox {
         return this.x + this.width > box.getX() && this.x < box.getX() + box.getWidth() && this.y < box.getY() + box.getHeight() && this.y + this.height > box.getY();
     }
 
+    public boolean leaves(Hitbox box){
+        return this.x +this.width > box.getX() + box.getWidth() || this.x < box.getX()  || this.y < box.getY() && this.y + this.height > box.getY();
+    }
+
+
+
     public float getX() { return this.x; }
 
     public float getY() { return this.y; }

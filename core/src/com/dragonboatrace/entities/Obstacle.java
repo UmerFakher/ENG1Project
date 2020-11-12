@@ -27,13 +27,17 @@ public class Obstacle extends Entity{
         this.damage = damage;
     }
 
-    @Override
-    public void update(float deltaTime){
-        this.pos.add(0,-this.speed*deltaTime);
+    public void update(float deltaTime, float vel){
+        if (vel > 1) {
+            this.pos.add(0, - this.speed * vel * deltaTime);
+        }else{
+            this.pos.add(0, - this.speed  * deltaTime);
+        }
         this.box.move(this.pos.x, this.pos.y);
     }
 
     public float getSpeed() { return this.speed; }
     public float getDamage() { return this.damage; }
+    public Vector2 getPos() { return this.pos; }
 
 }
