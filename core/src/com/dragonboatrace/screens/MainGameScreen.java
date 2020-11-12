@@ -46,10 +46,10 @@ public class MainGameScreen implements Screen {
 
         Collections.shuffle(intList);
 
-        Boat boat = new PlayerBoat(BoatType.FAST, "square.png", new Lane(new Vector2(0*size,100), size), "ME");
-        Boat boat2 = new ComputerBoat(BoatType.FAST, "circle.png", new Lane(new Vector2(1*size,100), size), "COMP1", intList.get(0));
-        Boat boat3 = new ComputerBoat(BoatType.FAST, "circle.png", new Lane(new Vector2(2*size,100), size), "COMP2", intList.get(1));
-        Boat boat4 = new ComputerBoat(BoatType.FAST, "circle.png", new Lane(new Vector2(3*size,100), size), "COMP3", intList.get(2));
+        Boat boat = new PlayerBoat(BoatType.FAST, "square.png", new Lane(new Vector2(0*size,0), size), "ME");
+        Boat boat2 = new ComputerBoat(BoatType.FAST, "circle.png", new Lane(new Vector2(1*size,0), size), "COMP1", intList.get(0));
+        Boat boat3 = new ComputerBoat(BoatType.FAST, "circle.png", new Lane(new Vector2(2*size,0), size), "COMP2", intList.get(1));
+        Boat boat4 = new ComputerBoat(BoatType.FAST, "circle.png", new Lane(new Vector2(3*size,0), size), "COMP3", intList.get(2));
 
 
         this.boats = new ArrayList<>();
