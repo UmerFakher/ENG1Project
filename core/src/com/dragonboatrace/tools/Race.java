@@ -91,14 +91,11 @@ public class Race {
                                     break;
                                 default:
                                     reason += "4th: " + boatn.getName() + "\n";
-
                             }
-                            System.out.println(reason);
                         }
                     }
                 }
                 game.dispose();
-                System.out.println(reason);
                 game.setScreen(new GameOverScreen(game, reason));
 
             }

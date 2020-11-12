@@ -41,9 +41,8 @@ public class MainGameScreen implements Screen {
 
         /* Each successive boat is at n*size position */
         ArrayList<Integer> intList = new ArrayList<Integer>();
-        intList.add(1);
-        intList.add(2);
-        intList.add(3);
+        for (int i = 1; i < players; i++)
+            intList.add(i);
 
         Collections.shuffle(intList);
 

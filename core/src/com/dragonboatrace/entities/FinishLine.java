@@ -15,6 +15,7 @@ public class FinishLine extends Entity{
     }
 
     public void update(float vel, float currDistance){
+
         this.pos.y = 10000 - currDistance;
         this.box.move(this.pos.x, this.pos.y);
     }
