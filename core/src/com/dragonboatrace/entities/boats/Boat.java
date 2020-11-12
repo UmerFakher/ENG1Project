@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.dragonboatrace.entities.Entity;
@@ -25,6 +26,7 @@ public class Boat extends Entity {
     protected FinishLine finish;
     protected String name;
     protected BitmapFont font;
+    protected GlyphLayout layout;
 
     /* No need for specific position specified as boat is put in the middle of the lane. */
     public Boat(BoatType boat, String texture, Lane lane, String name){
@@ -42,6 +44,8 @@ public class Boat extends Entity {
 
         this.font = new BitmapFont(Gdx.files.internal("default.fnt"),false);
         this.font.getData().setScale(3);
+        this.layout = new GlyphLayout();
+
 
         /* Store the lanes hitbox to save time on using Getters. */
         laneBox = lane.getHitbox();
@@ -93,8 +97,17 @@ public class Boat extends Entity {
     public void render(SpriteBatch batch){
         this.lane.render(batch);
         this.font.setColor(Color.RED);
+        layout.setText(font, "Health: XXXX");
+        if (this.layout.width > this.laneBox.getWidth()) {
+            this.font.getData().setScale(3 / (this.layout.width / this.laneBox.getWidth()));
+        }
         font.draw(batch, "Health: " + (int)this.getHealth(), this.lane.getHitbox().getX(), Gdx.graphics.getHeight());
+        font.getData().setScale(3);
         this.font.setColor(Color.GREEN);
+        layout.setText(font, "Stamina: XXXX");
+        if (this.layout.width > this.laneBox.getWidth()) {
+            this.font.getData().setScale(3 / (this.layout.width / this.laneBox.getWidth()));
+        }
         font.draw(batch, "Stamina: " + (int)this.getStamina(), this.lane.getHitbox().getX(), Gdx.graphics.getHeight()-50);
 
         batch.draw(this.texture, this.pos.x, this.pos.y);

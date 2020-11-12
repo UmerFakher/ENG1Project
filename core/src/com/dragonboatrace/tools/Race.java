@@ -90,7 +90,7 @@ public class Race {
                                     reason += "3rd: " + boatn.getName() + "\n";
                                     break;
                                 default:
-                                    reason += "4th: " + boatn.getName() + "\n";
+                                    reason += distances.indexOf(distance)+1+"th: " + boatn.getName() + "\n";
                             }
                         }
                     }

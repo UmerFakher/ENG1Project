@@ -26,7 +26,7 @@ public class MainGameScreen implements Screen {
 
     DragonBoatRace game;
     Race race;
-    int players = 4;
+    int players = 7;
     int size;
     ArrayList<Boat> boats;
     ScrollingBackground background;
@@ -47,16 +47,17 @@ public class MainGameScreen implements Screen {
         Collections.shuffle(intList);
 
         Boat boat = new PlayerBoat(BoatType.FAST, "square.png", new Lane(new Vector2(0*size,0), size), "ME");
-        Boat boat2 = new ComputerBoat(BoatType.FAST, "circle.png", new Lane(new Vector2(1*size,0), size), "COMP1", intList.get(0));
-        Boat boat3 = new ComputerBoat(BoatType.FAST, "circle.png", new Lane(new Vector2(2*size,0), size), "COMP2", intList.get(1));
-        Boat boat4 = new ComputerBoat(BoatType.FAST, "circle.png", new Lane(new Vector2(3*size,0), size), "COMP3", intList.get(2));
+
 
 
         this.boats = new ArrayList<>();
         this.boats.add(boat);
-        this.boats.add(boat2);
-        this.boats.add(boat3);
-        this.boats.add(boat4);
+
+        for (int i=1; i < players; i++){
+            this.boats.add(new ComputerBoat(BoatType.FAST, "circle.png", new Lane(new Vector2(i*size,0), size), "COMP"+i, intList.get((i-1)%3)));
+        }
+
+
         this.background = new ScrollingBackground(new Vector2());
         this.background.resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
