@@ -4,9 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-import com.dragonboatrace.DragonBoatRace;
 
-public class Button extends Entity{
+public class Button extends Entity {
 
     Texture activeTexture;
 
@@ -16,8 +15,8 @@ public class Button extends Entity{
     }
 
     @Override
-    public void render(SpriteBatch batch){
-        if (this.isHovering()){
+    public void render(SpriteBatch batch) {
+        if (this.isHovering()) {
             batch.draw(this.texture, this.pos.x, this.pos.y, this.type.getWidth(), this.type.getHeight());
 
         } else {
@@ -25,7 +24,7 @@ public class Button extends Entity{
         }
     }
 
-    public boolean isHovering(){
+    public boolean isHovering() {
         return (Gdx.input.getX() < this.pos.x + this.type.getWidth() && Gdx.input.getX() > this.pos.x
                 && Gdx.graphics.getHeight() - Gdx.input.getY() < this.pos.y + this.type.getHeight() && Gdx.graphics.getHeight() - Gdx.input.getY() > this.pos.y);
     }

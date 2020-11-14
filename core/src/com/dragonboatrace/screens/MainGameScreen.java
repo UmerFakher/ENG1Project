@@ -1,13 +1,11 @@
 package com.dragonboatrace.screens;
 
-import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.dragonboatrace.DragonBoatRace;
 import com.dragonboatrace.entities.boats.Boat;
@@ -20,7 +18,6 @@ import com.dragonboatrace.tools.ScrollingBackground;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.concurrent.TimeUnit;
 
 public class MainGameScreen implements Screen {
 
@@ -35,28 +32,25 @@ public class MainGameScreen implements Screen {
     boolean GO = false;
     float currSpeed;
 
-    public MainGameScreen (DragonBoatRace game) {
+    public MainGameScreen(DragonBoatRace game) {
         this.game = game;
         size = Gdx.graphics.getWidth() / players;
 
         /* Each successive boat is at n*size position */
-        ArrayList<Integer> intList = new ArrayList<Integer>();
+        ArrayList<Integer> intList = new ArrayList<>();
         for (int i = 1; i < 4; i++)
             intList.add(i);
 
         Collections.shuffle(intList);
 
-        Boat boat = new PlayerBoat(BoatType.FAST, "square.png", new Lane(new Vector2(0*size,0), size), "ME");
-
-
+        Boat boat = new PlayerBoat(BoatType.FAST, new Lane(new Vector2(0, 0), size), "ME");
 
         this.boats = new ArrayList<>();
         this.boats.add(boat);
 
-        for (int i=1; i < players; i++){
-            this.boats.add(new ComputerBoat(BoatType.FAST, "circle.png", new Lane(new Vector2(i*size,0), size), "COMP"+i, intList.get((i)%3)));
+        for (int i = 1; i < players; i++) {
+            this.boats.add(new ComputerBoat(BoatType.FAST, new Lane(new Vector2(i * size, 0), size), "COMP" + i, intList.get((i) % 3)));
         }
-
 
         this.background = new ScrollingBackground(new Vector2());
         this.background.resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -80,14 +74,13 @@ public class MainGameScreen implements Screen {
         if (GO)
             this.race.update(dt);
 
-        for (Boat boat : boats){
-            if (boat instanceof PlayerBoat){
+        for (Boat boat : boats) {
+            if (boat instanceof PlayerBoat) {
                 currSpeed = boat.getVelocity().y;
             }
         }
         this.background.update(delta, currSpeed);
         this.background.render(this.game.getBatch(), players);
-
 
 
         this.race.render(this.game.getBatch());
@@ -100,7 +93,7 @@ public class MainGameScreen implements Screen {
 
         this.game.getBatch().end();
 
-        for (Boat boat: this.boats){
+        for (Boat boat : this.boats) {
             if (boat instanceof PlayerBoat)
                 if (((PlayerBoat) boat).isDead())
                     this.game.setScreen(new GameOverScreen(this.game, "Boat Was Destroyed"));
@@ -132,25 +125,22 @@ public class MainGameScreen implements Screen {
         this.game.getBatch().dispose();
     }
 
-    public boolean readySteadyGo(float dt){
-        BitmapFont font = new BitmapFont(Gdx.files.internal("default.fnt"),false);
+    public boolean readySteadyGo(float dt) {
+        BitmapFont font = new BitmapFont(Gdx.files.internal("default.fnt"), false);
         font.setColor(Color.RED);
         font.getData().setScale(5);
         GlyphLayout layout = new GlyphLayout();
-        c+=dt;
+        c += dt;
         if (c < 1 && c > 0) {
             layout.setText(font, "READY");
-            font.draw(game.getBatch(), "READY", (Gdx.graphics.getWidth() - layout.width) / 2, Gdx.graphics.getHeight() / 2);
-        }
-        else if (c < 2 && c > 1) {
+            font.draw(game.getBatch(), "READY", (Gdx.graphics.getWidth() - layout.width) / 2, Gdx.graphics.getHeight() / 2.0f);
+        } else if (c < 2 && c > 1) {
             layout.setText(font, "STEADY");
-            font.draw(game.getBatch(), "STEADY", (Gdx.graphics.getWidth() - layout.width) / 2, Gdx.graphics.getHeight() / 2);
-        }
-        else if (c < 2.3 && c > 2) {
+            font.draw(game.getBatch(), "STEADY", (Gdx.graphics.getWidth() - layout.width) / 2, Gdx.graphics.getHeight() / 2.0f);
+        } else if (c < 2.3 && c > 2) {
             layout.setText(font, "GO!!!");
-            font.draw(game.getBatch(), "GO!!!", (Gdx.graphics.getWidth() - layout.width) / 2, Gdx.graphics.getHeight() / 2);
-        }
-        else
+            font.draw(game.getBatch(), "GO!!!", (Gdx.graphics.getWidth() - layout.width) / 2, Gdx.graphics.getHeight() / 2.0f);
+        } else
             return true;
         return false;
     }
