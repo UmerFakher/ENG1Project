@@ -1,22 +1,33 @@
 package com.dragonboatrace.tools;
 
-public class Hitbox {
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
-    private float x, y;
+public class Hitbox {
 
     private final int width;
     private final int height;
+    private final ShapeRenderer renderer;
+    private float x, y;
 
     public Hitbox(float x, float y, int width, int height) {
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
+        renderer = new ShapeRenderer();
     }
 
     public void move(float x, float y) {
         this.x = x;
         this.y = y;
+    }
+
+    public void render() {
+        renderer.begin(ShapeRenderer.ShapeType.Line);
+        renderer.setColor(Color.RED);
+        renderer.rect(this.x, this.y, this.width, this.height);
+        renderer.end();
     }
 
     public boolean collidesWith(Hitbox box) {

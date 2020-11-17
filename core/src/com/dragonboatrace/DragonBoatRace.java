@@ -11,10 +11,7 @@ public class DragonBoatRace extends Game {
     @Override
     public void create() {
         batch = new SpriteBatch();
-
         this.setScreen(new MainMenuScreen(this));
-
-
     }
 
     @Override
@@ -25,7 +22,6 @@ public class DragonBoatRace extends Game {
     @Override
     public void resize(int width, int height) {
         super.resize(width, height);
-
     }
 
     public SpriteBatch getBatch() {

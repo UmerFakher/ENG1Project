@@ -1,10 +1,12 @@
 package com.dragonboatrace.entities.boats;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dragonboatrace.entities.Obstacle;
 import com.dragonboatrace.tools.Hitbox;
 import com.dragonboatrace.tools.Lane;
+import com.dragonboatrace.tools.Settings;
 
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
@@ -16,49 +18,82 @@ public class ComputerBoat extends Boat {
     private final Hitbox moveArea;
     private final int xOffset;
     private final int yOffset;
-    private final float startSpeed;
-    private boolean wait;
+    private final Texture up;
+    private final Texture down;
+    private float randomWait;
 
-    public ComputerBoat(BoatType boat, Lane lane, String name, int pickSpeedValue) {
-        super(boat, lane, name);
-        this.startSpeed = this.pickSpeed(pickSpeedValue);
-        this.vel = new Vector2(0, startSpeed);
-        this.wait = false;
+    public ComputerBoat(BoatType boat, Lane lane, int raceDistance, String name, int pickSpeedValue) {
+        super(boat, lane, raceDistance, name);
+        this.speed = this.pickSpeed(pickSpeedValue);
         this.xOffset = this.getHitBox().getWidth() / pickSpeedValue;
         this.yOffset = this.getHitBox().getHeight() / pickSpeedValue;
         this.moveArea = new Hitbox(this.pos.x - xOffset, this.pos.y, this.getHitBox().getWidth() + 2 * xOffset, this.getHitBox().getHeight() + 2 * yOffset);
+        this.up = new Texture("up_arrow.png");
+        this.down = new Texture("down_arrow.png");
+        this.randomWait = 0;
     }
 
-    public void update(float deltaTime, float currDistance) {
-        if (this.getHealth() > 0) {
-            if (this.stamina - 5 > 0) {
-                Obstacle closest = checkObstacles();
-                if (closest != null) {
-                    this.vel.add(this.speed * deltaTime * moveFromClosest(closest), 0);
-                } else {
-                    this.vel.add(this.speed * 0, 0);
-                }
-                this.moveArea.move(pos.x - this.xOffset, pos.y);
-
-                if (this.wait) {
-                    this.stamina += 25;
-                    if (this.stamina > ThreadLocalRandom.current().nextInt((int) this.maxStamina / 2, 2 * (int) this.maxStamina / 3))
-                        this.wait = false;
-                } else if (this.vel.y < startSpeed) {
-                    this.vel.add(new Vector2(0, this.speed * deltaTime / 2));
-                }
-                this.stamina -= 8;
+    public void update(float deltaTime) {
+        if (!recentCollision) {
+            Obstacle closest = checkObstacles();
+            if (closest != null) {
+                this.vel.set(this.speed * moveFromClosest(closest), this.speed);
+                this.stamina = (this.stamina < this.maxStamina) ? this.regenerateStamina() + this.stamina : this.maxStamina;
             } else {
-                this.wait = true;
+                if (this.stamina >= this.randomWait) {
+                    this.vel.set(0, this.vel.y);
+                    float diff = this.useStamina() * deltaTime;
+                    if (this.stamina - diff > 0) {
+                        this.stamina -= diff;
+                        this.vel.set(this.vel.x, (this.speed + this.speed * this.velocityPercentage()));
+                    } else {
+                        this.randomWait = waitForRandomStamina();
+                    }
+                } else {
+                    this.vel.set(this.vel.x, this.speed);
+                    this.stamina = (this.stamina < this.maxStamina) ? this.regenerateStamina() + this.stamina : this.maxStamina;
+                }
+            }
+            if (checkCollisions()) {
+                //this.distanceTravelled -= 200;
+                System.out.println("Collision!");
+                recentCollision = true;
             }
         } else {
-            this.health = 0;
+            this.vel.set(0, Settings.OBSTACLE_COLLISION_PENALTY);
+            collisionTime += deltaTime;
+            if (collisionTime > Settings.OBSTACLE_COLLISION_TIME) {
+                collisionTime = 0;
+                recentCollision = false;
+            }
         }
-        if (this.stamina + 3 < this.maxStamina)
-            this.stamina += 3;
-        else
-            this.stamina = this.maxStamina;
-        super.update(deltaTime, currDistance);
+
+        this.moveArea.move(pos.x - this.xOffset, pos.y);
+        super.update(deltaTime);
+    }
+
+    public void render(SpriteBatch batch) {
+        if (this.pos.y > Gdx.graphics.getHeight()) {
+            batch.draw(up, this.pos.x, Gdx.graphics.getHeight() - this.texture.getHeight(), this.texture.getWidth(), this.texture.getHeight());
+        } else if (this.pos.y < 0) {
+            batch.draw(down, this.pos.x, 0, this.texture.getWidth(), this.texture.getHeight());
+        } else {
+            batch.draw(this.texture, this.pos.x, this.pos.y);
+        }
+        super.render(batch);
+    }
+
+    public void updateYPosition(float playerY, float playerDistance) {
+        float c = 100 - (playerDistance - this.distanceTravelled);
+        if (playerY == 100) {
+            this.pos.y = c;
+        } else {
+            this.pos.y = playerY + c / 2;
+        }
+    }
+
+    public float waitForRandomStamina() {
+        return (float) ThreadLocalRandom.current().nextDouble((double) this.maxStamina / 2, this.maxStamina);
     }
 
 
@@ -112,18 +147,19 @@ public class ComputerBoat extends Boat {
     }
 
     public float pickSpeed(int pos) {
-        int speed;
+        double multi;
         switch (pos) {
             case 2:
-                speed = ThreadLocalRandom.current().nextInt(65, 75);
+                multi = ThreadLocalRandom.current().nextDouble(0.7, 1);
                 break;
             case 3:
-                speed = ThreadLocalRandom.current().nextInt(75, 85);
+                multi = ThreadLocalRandom.current().nextDouble(0.3, 0.6);
                 break;
             default:
-                speed = ThreadLocalRandom.current().nextInt(55, 65);
+                multi = ThreadLocalRandom.current().nextDouble(0.2, 0.4);
         }
-        return (3 * this.getSpeed()) / speed;
+        System.out.println("Boat:" + this.name + ":" + multi);
+        return this.speed * (float) multi;
     }
 
 }

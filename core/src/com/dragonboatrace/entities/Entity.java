@@ -40,6 +40,7 @@ public abstract class Entity {
 
     public void render(SpriteBatch batch) {
         batch.draw(this.texture, this.pos.x, this.pos.y);
+        //box.render();
     }
 
     public Texture getTexture() {

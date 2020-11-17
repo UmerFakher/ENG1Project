@@ -6,87 +6,59 @@ import com.badlogic.gdx.math.Vector2;
 import com.dragonboatrace.DragonBoatRace;
 import com.dragonboatrace.entities.FinishLine;
 import com.dragonboatrace.entities.boats.Boat;
-import com.dragonboatrace.entities.boats.PlayerBoat;
-import com.dragonboatrace.screens.GameOverScreen;
+import com.dragonboatrace.entities.boats.BoatType;
+import com.dragonboatrace.entities.boats.ComputerBoat;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class Race {
 
-    int length;
-    ArrayList<Boat> boats;
-    float currDistance;
-    FinishLine theFinish;
+    private final int length;
+    private final ArrayList<Boat> boats;
+    private final Boat player;
+    private final FinishLine theFinish;
 
-    public Race(ArrayList<Boat> boats) {
-        this.length = 10000;
-        this.boats = boats;
-        this.theFinish = new FinishLine(new Vector2(0, 10000), Gdx.graphics.getWidth());
-        for (Boat boat : boats) {
-            boat.setFinish(theFinish);
+    public Race(int raceLength) {
+        this.length = raceLength;
+        this.theFinish = new FinishLine(new Vector2(0, this.length), Gdx.graphics.getWidth());
+        int size = Gdx.graphics.getWidth() / Settings.PLAYER_COUNT;
+
+        //player = new PlayerBoat(BoatType.FAST, new Lane(new Vector2(0, 0), size), length, "ME");
+        player = new ComputerBoat(BoatType.FAST, new Lane(new Vector2(0, 0), size), length, "ME", 3);
+
+        boats = new ArrayList<>();
+        for (int i = 1; i < Settings.PLAYER_COUNT; i++) {
+            boats.add(new ComputerBoat(BoatType.FAST, new Lane(new Vector2(size * i, 0), size), length, "COMP" + i, i));
         }
     }
 
-    public void update(float deltatime) {
+    public void update(float deltaTime) {
+        theFinish.update(deltaTime, player.getVelocity().y);
+        player.updateYPosition(this.theFinish.getHitBox().getHeight());
+        player.update(deltaTime);
         for (Boat boat : this.boats) {
-            if (boat.getStamina() > 0) {
-                if (boat instanceof PlayerBoat) {
-                    currDistance = boat.getDistance();
-                }
-                boat.update(deltatime, currDistance);
-            }
+
+            ((ComputerBoat) boat).updateYPosition(player.getHitBox().getY(), player.getDistanceTravelled());
+            boat.update(deltaTime);
+        }
+        if (player.getDistanceTravelled() + this.theFinish.getHitBox().getHeight() >= this.length) {
+            Gdx.app.exit();
         }
     }
 
     public void render(SpriteBatch batch) {
+        theFinish.render(batch);
+        player.render(batch);
         for (Boat boat : this.boats) {
             boat.render(batch);
         }
     }
 
-
     public void checkWinner(SpriteBatch batch, DragonBoatRace game) {
-        for (Boat boat : boats) {
-            if (boat instanceof PlayerBoat)
-                this.currDistance = boat.getDistance();
-            boat.getFinish().update(boat.getVelocity().y, currDistance);
 
-            boat.getFinish().render(batch);
-            if (boat.getHitBox().collidesWith(boat.getFinish().getHitBox())) {
-                ArrayList<Integer> distances = new ArrayList<>();
-                String reason = "";
+    }
 
-                for (Boat boatn : boats) {
-                    distances.add(boatn.getDistance());
-                }
-
-                Collections.sort(distances);
-                Collections.reverse(distances);
-
-                for (int distance : distances) {
-                    for (Boat boatn : boats) {
-                        if (boatn.getDistance() == distance) {
-                            switch (distances.indexOf(distance) + 1) {
-                                case 1:
-                                    reason += "1st: " + boatn.getName() + "\n";
-                                    break;
-                                case 2:
-                                    reason += "2nd: " + boatn.getName() + "\n";
-                                    break;
-                                case 3:
-                                    reason += "3rd: " + boatn.getName() + "\n";
-                                    break;
-                                default:
-                                    reason += distances.indexOf(distance) + 1 + "th: " + boatn.getName() + "\n";
-                            }
-                        }
-                    }
-                }
-                game.dispose();
-                game.setScreen(new GameOverScreen(game, reason));
-
-            }
-        }
+    public Boat getPlayer() {
+        return this.player;
     }
 }

@@ -19,12 +19,8 @@ public class Obstacle extends Entity {
         this.damage = type.getDamage();
     }
 
-    public void update(float deltaTime, float vel) {
-        if (vel > 1) {
-            this.pos.add(0, -this.speed * vel * deltaTime);
-        } else {
-            this.pos.add(0, -this.speed * deltaTime);
-        }
+    public void update(float deltaTime, float velY) {
+        this.pos.add(0, -1 * (velY + this.speed)*deltaTime);
         this.box.move(this.pos.x, this.pos.y);
     }
 

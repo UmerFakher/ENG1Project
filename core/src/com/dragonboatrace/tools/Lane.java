@@ -12,10 +12,10 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class Lane {
 
-    public boolean finishLine;
     private final Hitbox area;
     private final ArrayList<Obstacle> obstacles;
     private final ArrayList<Float> randomWaitTimes;
+    public boolean finishLine;
 
     public Lane(Vector2 pos, int width) {
         this.area = new Hitbox(pos.x, pos.y, width, Gdx.graphics.getHeight() + 200);
@@ -27,6 +27,7 @@ public class Lane {
 
     public void update(float deltaTime, float vel) {
 
+        /* Check for collisions */
         ListIterator<Obstacle> iter = obstacles.listIterator();
         while (iter.hasNext()) {
             Obstacle obstacle = iter.next();
@@ -37,6 +38,7 @@ public class Lane {
             }
         }
 
+        /* Randomly replace obstacles */
         ListIterator<Float> times = randomWaitTimes.listIterator();
         while (times.hasNext()) {
             float time = times.next() - deltaTime;
