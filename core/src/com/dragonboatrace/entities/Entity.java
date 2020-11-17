@@ -3,11 +3,11 @@ package com.dragonboatrace.entities;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.dragonboatrace.tools.Hitbox;
 
-public abstract class Entity{
+public abstract class Entity {
 
     protected Vector2 pos;
     protected Vector2 vel;
@@ -15,7 +15,7 @@ public abstract class Entity{
     protected Texture texture;
     protected Hitbox box;
 
-    public Entity(Vector2 pos, Vector2 vel, EntityType type, String texture){
+    public Entity(Vector2 pos, Vector2 vel, EntityType type, String texture) {
         this.pos = pos;
         this.vel = vel;
         this.type = type;
@@ -31,18 +31,23 @@ public abstract class Entity{
         resize.dispose();
 
         /* Make a new hitbox at the entities position with its width and height */
-        this.box = new Hitbox((int)pos.x, (int)pos.y, type.getWidth(), type.getHeight());
+        this.box = new Hitbox((int) pos.x, (int) pos.y, type.getWidth(), type.getHeight());
     }
 
-    public void dispose(){
+    public void dispose() {
         this.texture.dispose();
     }
 
-    public void render(SpriteBatch batch){
+    public void render(SpriteBatch batch) {
         batch.draw(this.texture, this.pos.x, this.pos.y);
+        //box.render();
     }
 
-    public Texture getTexture(){ return this.texture; }
+    public Texture getTexture() {
+        return this.texture;
+    }
 
-    public Hitbox getHitBox(){ return this.box; }
+    public Hitbox getHitBox() {
+        return this.box;
+    }
 }
