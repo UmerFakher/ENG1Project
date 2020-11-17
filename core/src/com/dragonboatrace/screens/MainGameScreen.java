@@ -12,19 +12,52 @@ import com.dragonboatrace.DragonBoatRace;
 import com.dragonboatrace.tools.Race;
 import com.dragonboatrace.tools.ScrollingBackground;
 
+/** Represents the Main Game Screen where the game actually happens.
+ * @author Benji Garment, Joe Wrieden
+ */
 public class MainGameScreen implements Screen {
 
+    /**
+     * The game instance.
+     */
     private final DragonBoatRace game;
+    /**
+     * The function used to countdown when the race first starts.
+     */
     private final Timer.Task countDownTask;
+    /**
+     * Used to make sure the countdown happens at equal intervals.
+     */
     private final Timer timer;
+    /**
+     * The race instance.
+     */
     private final Race race;
+    /**
+     * The background of the window.
+     */
     private final ScrollingBackground background;
+    /**
+     * Use to log the FPS for debugging.
+     */
     private final FPSLogger logger;
+    /**
+     * Pause game, starts true.
+     */
     private boolean paused = true;
-    /* Initial countdown variables */
+    /**
+     * The time left on the initial countdown.
+     */
     private int countDownRemaining = 3;
+    /**
+     * The String being displayed in the countdown.
+     */
     private String countDownString = "";
 
+    /**
+     * Creates a new game screen with a game instance.
+     * @param game The game instance.
+     */
     public MainGameScreen(DragonBoatRace game) {
         this.game = game;
 
@@ -61,28 +94,38 @@ public class MainGameScreen implements Screen {
         timer.stop();
     }
 
-    @Override
+    /**
+     * Runs when the window first starts. Runs the countdown starter.
+     */
     public void show() {
         timer.start();
     }
 
-    @Override
-    public void render(float delta) {
+    /**
+     * Render the main game window. Includes rendering the background and the {@link Race}.
+     * @param deltaTime The time since the last frame.
+     */
+    public void render(float deltaTime) {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         this.game.getBatch().begin();
         if (!paused) {
             this.logger.log();
-            this.background.update(delta * this.race.getPlayer().getVelocity().y);
+            this.background.update(deltaTime * this.race.getPlayer().getVelocity().y);
             this.background.render(game.getBatch());
-            this.race.update(delta);
+            this.race.update(deltaTime);
             this.race.render(game.getBatch());
         } else {
+            this.background.render(game.getBatch());
+            this.race.render(game.getBatch());
             displayCountDown();
         }
         this.game.getBatch().end();
     }
 
+    /**
+     * Render the current status of the countdown.
+     */
     private void displayCountDown() {
         BitmapFont font = new BitmapFont(Gdx.files.internal("default.fnt"), false);
         font.setColor(Color.RED);

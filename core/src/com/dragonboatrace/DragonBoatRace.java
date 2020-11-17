@@ -4,6 +4,9 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dragonboatrace.screens.MainMenuScreen;
 
+/** Represents the Game itself and holds all the screens.
+ * @author Benji Garment, Joe Wrieden
+ */
 public class DragonBoatRace extends Game {
 
     SpriteBatch batch;

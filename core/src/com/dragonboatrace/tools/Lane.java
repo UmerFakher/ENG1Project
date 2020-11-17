@@ -10,28 +10,48 @@ import java.util.ArrayList;
 import java.util.ListIterator;
 import java.util.concurrent.ThreadLocalRandom;
 
+/** Represents a Lane in a {@link Race}.
+ * @author Benji Garment, Joe Wrieden
+ */
 public class Lane {
 
+    /**
+     * The hit box of the lane, used to check if a boat is in the lane.
+     */
     private final Hitbox area;
+    /**
+     * A list of the obstacles currently in the lane.
+     */
     private final ArrayList<Obstacle> obstacles;
+    /**
+     * A list of times to wait before adding a new obstacle to the lane.
+     */
     private final ArrayList<Float> randomWaitTimes;
-    public boolean finishLine;
 
+    /**
+     * Creates a new lane at a position and with a width.
+     * @param pos The position of the bottom left corner of the lane.
+     * @param width The width of the lane.
+     */
     public Lane(Vector2 pos, int width) {
         this.area = new Hitbox(pos.x, pos.y, width, Gdx.graphics.getHeight() + 200);
         this.obstacles = new ArrayList<>();
         this.randomWaitTimes = new ArrayList<>();
         populateList();
-        this.finishLine = false;
     }
 
-    public void update(float deltaTime, float vel) {
+    /**
+     * Update the obstacles in the lane, remove any that are no longer on screen and replace them at a random time.
+     * @param deltaTime The time since the last frame.
+     * @param velY The y-velocity of the boat in the lane.
+     */
+    public void update(float deltaTime, float velY) {
 
         /* Check for collisions */
         ListIterator<Obstacle> iter = obstacles.listIterator();
         while (iter.hasNext()) {
             Obstacle obstacle = iter.next();
-            obstacle.update(deltaTime, vel);
+            obstacle.update(deltaTime, velY);
             if (obstacle.getHitBox().leaves(this.area)) {
                 iter.remove();
                 replaceObstacle();
@@ -51,55 +71,61 @@ public class Lane {
         }
     }
 
+    /**
+     * Render the obstacles in the lane.
+     * @param batch The SpriteBatch to be added to.
+     */
     public void render(SpriteBatch batch) {
         for (Obstacle obstacle : obstacles) {
             obstacle.render(batch);
         }
     }
 
+    /**
+     * Get the list of all obstacles in the lane.
+     * @return An {@link ArrayList} of type {@link Obstacle} with all the obstacles in the lane.
+     */
     public ArrayList<Obstacle> getObstacles() {
         return this.obstacles;
     }
 
+    /**
+     * Get the lanes hit box
+     * @return A {@link Hitbox} representing the lanes area.
+     */
     public Hitbox getHitbox() {
         return this.area;
     }
 
+    /**
+     * Remove an {@link Obstacle} from the list of obstacles, and randomly replace it.
+     * @param toRemove The obstacle to remove from the lane.
+     */
     public void removeObstacle(Obstacle toRemove) {
         obstacles.remove(toRemove);
         replaceObstacle();
     }
 
+    /**
+     * Create a random time at which to add an {@link Obstacle} to the lane.
+     */
     public void replaceObstacle() {
         randomWaitTimes.add(1.0f + 2 * ThreadLocalRandom.current().nextFloat());
     }
 
-    /* Generate a random Obstacle */
-    /* Temporary for debugging speeds */
+    /**
+     * Create a new random {@link Obstacle}
+     * @return a new {@link Obstacle} in the lanes area.
+     */
     private Obstacle randomObstacle() {
-        int rand = ThreadLocalRandom.current().nextInt(0, 3);
-        ObstacleType type;
-        switch (rand) {
-            case 0:
-                type = ObstacleType.BRANCH;
-                break;
-            case 1:
-                type = ObstacleType.LEAF;
-                break;
-            case 2:
-                type = ObstacleType.ROCK;
-                break;
-            default:
-                type = ObstacleType.BRANCH;
-                break;
-        }
-
-        return new Obstacle(type, this.area.getX(), this.area.getWidth());
+        int rand = ThreadLocalRandom.current().nextInt(0, ObstacleType.values().length);
+        return new Obstacle(ObstacleType.values()[rand], this.area.getX(), this.area.getWidth());
     }
 
-    /* Populate list */
-    /* Temporary for debugging */
-    public void populateList() {
+    /**
+     * Fill the list with obstacles that will start at random times.
+     */
+    private void populateList() {
         for (int i = 0; i < 5; i++) {
             replaceObstacle();
         }

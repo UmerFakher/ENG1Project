@@ -9,7 +9,9 @@ import com.dragonboatrace.DragonBoatRace;
 import com.dragonboatrace.entities.Button;
 import com.dragonboatrace.entities.EntityType;
 
-
+/** Represents the Main Menu where the game first starts.
+ * @author Benji Garment, Joe Wrieden
+ */
 public class MainMenuScreen implements Screen {
 
 

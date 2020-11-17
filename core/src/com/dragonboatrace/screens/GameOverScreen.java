@@ -9,6 +9,9 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.dragonboatrace.DragonBoatRace;
 
+/** Represents the Game Over Screen.
+ * @author Benji Garment, Joe Wrieden
+ */
 public class GameOverScreen implements Screen {
 
     DragonBoatRace game;
