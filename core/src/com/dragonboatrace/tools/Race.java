@@ -11,6 +11,8 @@ import com.dragonboatrace.entities.boats.Boat;
 import com.dragonboatrace.entities.boats.BoatType;
 import com.dragonboatrace.entities.boats.ComputerBoat;
 import com.dragonboatrace.entities.boats.PlayerBoat;
+import com.dragonboatrace.screens.GameOverScreen;
+import com.dragonboatrace.screens.RoundsScreen;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -66,7 +68,7 @@ public class Race {
      * Update the race in respects to the amount of time passed since the last frame.
      * @param deltaTime The time since the last frame.
      */
-    public void update(float deltaTime) {
+    public void update(float deltaTime, DragonBoatRace game) {
         theFinish.update(deltaTime, player.getVelocity().y);
         player.updateYPosition(this.theFinish.getHitBox().getHeight(), length);
         player.update(deltaTime);
@@ -76,7 +78,13 @@ public class Race {
             boat.update(deltaTime);
         }
         if (player.getDistanceTravelled() + this.theFinish.getHitBox().getHeight() >= this.length) {
-            Gdx.app.exit();
+            if (game.getRound() < 4) {
+                game.upRound();
+                game.setScreen(new RoundsScreen(game, player));
+            }
+            else{
+                game.setScreen(new GameOverScreen(game, "You Finished!"));
+            }
         }
     }
 

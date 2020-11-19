@@ -10,6 +10,7 @@ import com.dragonboatrace.screens.MainMenuScreen;
 public class DragonBoatRace extends Game {
 
     SpriteBatch batch;
+    int round = 1;
 
     @Override
     public void create() {
@@ -30,4 +31,8 @@ public class DragonBoatRace extends Game {
     public SpriteBatch getBatch() {
         return this.batch;
     }
+
+    public int getRound() { return this.round; }
+
+    public void upRound() { this.round+=1; }
 }
