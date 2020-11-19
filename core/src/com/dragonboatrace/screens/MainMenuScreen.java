@@ -50,7 +50,7 @@ public class MainMenuScreen implements Screen {
         }
         playButton.render(this.game.getBatch());
         if (this.playButton.isHovering() && Gdx.input.isTouched()) {
-            game.setScreen(new MainGameScreen(this.game));
+            game.setScreen(new BoatSelectScreen(this.game));
         }
 
         this.game.getBatch().end();

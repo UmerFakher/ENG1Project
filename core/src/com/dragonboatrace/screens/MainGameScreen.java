@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.utils.Timer;
 import com.dragonboatrace.DragonBoatRace;
+import com.dragonboatrace.entities.boats.BoatType;
 import com.dragonboatrace.tools.Race;
 import com.dragonboatrace.tools.ScrollingBackground;
 
@@ -55,15 +56,20 @@ public class MainGameScreen implements Screen {
     private String countDownString = "";
 
     /**
+     * The Type of Boat chosen in the BoatSelect Screen
+     */
+    private BoatType boatChosen;
+
+    /**
      * Creates a new game screen with a game instance.
      * @param game The game instance.
      */
-    public MainGameScreen(DragonBoatRace game) {
+    public MainGameScreen(DragonBoatRace game, BoatType boatChosen) {
         this.game = game;
-
+        this.boatChosen = boatChosen;
         this.logger = new FPSLogger();
 
-        this.race = new Race(3000);
+        this.race = new Race(3000, this.boatChosen);
         this.background = new ScrollingBackground();
         this.background.resize(Gdx.graphics.getWidth());
 

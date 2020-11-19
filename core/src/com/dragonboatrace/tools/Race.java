@@ -42,13 +42,13 @@ public class Race {
      * Creates a new race of a specified length.
      * @param raceLength The length of the race.
      */
-    public Race(int raceLength) {
+    public Race(int raceLength, BoatType boatChosen) {
         this.length = raceLength;
         this.theFinish = new FinishLine(new Vector2(0, this.length), Gdx.graphics.getWidth());
         int size = Gdx.graphics.getWidth() / Settings.PLAYER_COUNT;
 
         //player = new PlayerBoat(BoatType.FAST, new Lane(new Vector2(0, 0), size), length, "ME");
-        player = new PlayerBoat(BoatType.FAST, new Lane(new Vector2(0, 0), size), "ME");
+        player = new PlayerBoat(boatChosen, new Lane(new Vector2(0, 0), size), "ME");
 
         this.barrier = new Texture("line.png");
 
