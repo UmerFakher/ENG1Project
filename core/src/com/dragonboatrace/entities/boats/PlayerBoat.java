@@ -25,15 +25,15 @@ public class PlayerBoat extends Boat {
      */
     public void update(float deltaTime) {
         if (!recentCollision) {
-            if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && this.position.x > this.lane.getHitbox().getX()) {
+            if ((Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.A)) && this.position.x > this.lane.getHitbox().getX()) {
                 this.velocity.set(-this.speed, this.velocity.y);
             }
 
-            if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && (this.position.x + this.type.getWidth()) < this.lane.getHitbox().getWidth() + this.lane.getHitbox().getX()) {
+            if ((Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.D)) && (this.position.x + this.type.getWidth()) < this.lane.getHitbox().getWidth() + this.lane.getHitbox().getX()) {
                 this.velocity.set(this.speed, this.velocity.y);
             }
 
-            if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
+            if (Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.W)) {
                 float diff = this.useStamina() * deltaTime;
                 if (this.stamina - diff > 0) {
                     this.stamina -= diff;
@@ -47,7 +47,6 @@ public class PlayerBoat extends Boat {
             }
 
             if (checkCollisions()) {
-                //this.distanceTravelled -= 200;
                 System.out.println("Collision!");
                 recentCollision = true;
             }
