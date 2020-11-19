@@ -81,6 +81,10 @@ public class Boat extends Entity {
      * Timer used to countdown for when the boat can move again after a collision.
      */
     protected float collisionTime = 0;
+    /**
+     * Boat Type of boat used to remember the chosen boat type
+     */
+    protected BoatType boatType;
 
     /**
      * Creates a Boat with the specified BoatType for pre-defined values,
@@ -99,6 +103,7 @@ public class Boat extends Entity {
         this.maxStamina = boat.getStamina();
         this.lane = lane;
         this.name = name;
+        this.boatType = boat;
 
         this.font = new BitmapFont(Gdx.files.internal("default.fnt"), false);
         this.font.getData().setScale(3);
@@ -308,6 +313,12 @@ public class Boat extends Entity {
     public String getName() {
         return this.name;
     }
+
+    /**
+     * Get the boat type.
+     * @return A BoatType.
+     */
+    public BoatType getBoatType() { return this.boatType; }
 
     /**
      * Get the total distance travelled by the boat so far.

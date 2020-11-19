@@ -207,13 +207,13 @@ public class ComputerBoat extends Boat {
         double multi;
         switch (pos) {
             case 2:
-                multi = ThreadLocalRandom.current().nextDouble(0.7, 1);
+                multi = ThreadLocalRandom.current().nextDouble(0.95, 1);
                 break;
             case 3:
-                multi = ThreadLocalRandom.current().nextDouble(0.3, 0.6);
+                multi = ThreadLocalRandom.current().nextDouble(0.9, 0.97);
                 break;
             default:
-                multi = ThreadLocalRandom.current().nextDouble(0.2, 0.4);
+                multi = ThreadLocalRandom.current().nextDouble(0.85, 0.9);
         }
         System.out.println("Boat:" + this.name + ":" + multi);
         return this.speed * (float) multi;
