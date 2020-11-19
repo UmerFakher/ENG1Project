@@ -25,10 +25,10 @@ public class BoatSelectScreen implements Screen {
         this.boatChosen = null;
 
         float s = (Gdx.graphics.getWidth() - EntityType.BUTTON.getWidth()*4)/5;
-        this.fastButton = new Button(new Vector2(s, 100), "fast.png", "fast.png");
-        this.agileButton = new Button(new Vector2(s + (EntityType.BUTTON.getWidth() + s), 100), "agile.png", "agile.png");
-        this.strongButton = new Button(new Vector2(s + (EntityType.BUTTON.getWidth()+s)*2, 100), "strong.png", "strong.png");
-        this.enduranceButton = new Button(new Vector2(s + (EntityType.BUTTON.getWidth()+ s)*3, 100), "endurance.png", "endurance.png");
+        this.fastButton = new Button(new Vector2(s, 100), "fastButton.png", "fastButton.png");
+        this.agileButton = new Button(new Vector2(s + (EntityType.BUTTON.getWidth() + s), 100), "agileButton.png", "agileButton.png");
+        this.strongButton = new Button(new Vector2(s + (EntityType.BUTTON.getWidth()+s)*2, 100), "strongButton.png", "strongButton.png");
+        this.enduranceButton = new Button(new Vector2(s + (EntityType.BUTTON.getWidth()+ s)*3, 100), "enduranceButton.png", "enduranceButton.png");
     }
 
 
