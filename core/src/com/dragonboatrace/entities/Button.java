@@ -21,7 +21,7 @@ public class Button extends Entity {
      * @param inactiveTexture The texture of the button when not hovered over.
      * @param activeTexture The texture of the button when it is hovered over.
      */
-    public Button(Vector2 pos, String inactiveTexture, String activeTexture) {
+    public Button(Vector2 pos, String activeTexture, String inactiveTexture) {
         super(pos, new Vector2(), EntityType.BUTTON, inactiveTexture);
         this.activeTexture = new Texture(activeTexture);
     }
@@ -32,10 +32,9 @@ public class Button extends Entity {
      */
     public void render(SpriteBatch batch) {
         if (this.isHovering()) {
-            batch.draw(this.texture, this.position.x, this.position.y, this.type.getWidth(), this.type.getHeight());
-
-        } else {
             batch.draw(this.activeTexture, this.position.x, this.position.y, this.type.getWidth(), this.type.getHeight());
+        } else {
+            batch.draw(this.texture, this.position.x, this.position.y, this.type.getWidth(), this.type.getHeight());
         }
     }
 
