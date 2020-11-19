@@ -6,12 +6,15 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.dragonboatrace.DragonBoatRace;
 import com.dragonboatrace.entities.FinishLine;
+import com.dragonboatrace.entities.ObstacleType;
 import com.dragonboatrace.entities.boats.Boat;
 import com.dragonboatrace.entities.boats.BoatType;
 import com.dragonboatrace.entities.boats.ComputerBoat;
 import com.dragonboatrace.entities.boats.PlayerBoat;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.concurrent.ThreadLocalRandom;
 
 /** Represents a Race.
  * @author Benji Garment, Joe Wrieden
@@ -54,7 +57,8 @@ public class Race {
 
         boats = new ArrayList<>();
         for (int i = 1; i < Settings.PLAYER_COUNT; i++) {
-            boats.add(new ComputerBoat(BoatType.FAST, new Lane(new Vector2(size * i, 0), size), "COMP" + i, i));
+            int rand = ThreadLocalRandom.current().nextInt(0, BoatType.values().length);
+            boats.add(new ComputerBoat(BoatType.values()[rand], new Lane(new Vector2(size * i, 0), size), "COMP" + i, i));
         }
     }
 
