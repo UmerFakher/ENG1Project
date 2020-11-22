@@ -87,6 +87,21 @@ public class Boat extends Entity {
     protected BoatType boatType;
 
     /**
+     * Time of boat used to remember the boats time in the race
+     */
+    protected float time;
+
+    /**
+     * Total time of boat used for checking enterance to the final
+     */
+    protected float totalTime;
+
+    /**
+     * Total time penalties the boat got
+     */
+    protected float penaltyTime;
+
+    /**
      * Creates a Boat with the specified BoatType for pre-defined values,
      * a Lane to give the boat its position and a name for easy identification.
      * @param boat The type of boat to use as a template.
@@ -104,6 +119,9 @@ public class Boat extends Entity {
         this.lane = lane;
         this.name = name;
         this.boatType = boat;
+        this.time = 0;
+        this.totalTime = 0;
+        this.penaltyTime = 0;
 
         this.font = new BitmapFont(Gdx.files.internal("default.fnt"), false);
         this.font.getData().setScale(3);
@@ -150,13 +168,8 @@ public class Boat extends Entity {
     public void update(float deltaTime) {
 
         /* Check if boat is still in the lane */
-        if (this.position.x < this.laneBox.getX()) {
-            this.position.x = this.laneBox.getX();
-            this.velocity.scl(new Vector2(0, 1));
-        } else if (this.position.x + this.hitbox.getWidth() > this.laneBox.getX() + this.laneBox.getWidth()) {
-            this.position.x = this.laneBox.getX() + this.laneBox.getWidth() - this.type.getWidth();
-            this.velocity.scl(new Vector2(0, 1));
-        }
+        if (this.getHitBox().leaves(this.laneBox))
+            this.penaltyTime += 0.1;
 
         this.distanceTravelled += this.velocity.y * deltaTime;
 
@@ -319,6 +332,30 @@ public class Boat extends Entity {
      * @return A BoatType.
      */
     public BoatType getBoatType() { return this.boatType; }
+
+    /**
+     * Get the boat time
+     * @return A float of boat time
+     */
+    public float getTime() { return this.time; };
+
+    /**
+     * Set the boat time
+     */
+    public void setTime(float nowTime) { this.time += nowTime; }
+
+    /**
+     * Get the total boat time
+     * @return A float of total boat time
+     */
+    public float getTotalTime() { return this.totalTime; };
+
+    /**
+     * Set the total boat time
+     */
+    public void setTotalTime(float nowTime) { this.totalTime += nowTime; }
+
+    public float getPenaltyTime() { return this.penaltyTime; }
 
     /**
      * Get the total distance travelled by the boat so far.

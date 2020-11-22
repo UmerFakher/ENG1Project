@@ -15,11 +15,13 @@ public class RoundsScreen implements Screen {
     private DragonBoatRace game;
     private int currentRound;
     private Boat playerBoat;
+    private String reason;
 
-    public RoundsScreen(DragonBoatRace game, Boat playerBoat){
+    public RoundsScreen(DragonBoatRace game, Boat playerBoat, String reason){
         this.game = game;
         this.currentRound = this.game.getRound();
         this.playerBoat = playerBoat;
+        this.reason = reason;
     }
 
 
@@ -37,18 +39,27 @@ public class RoundsScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         BitmapFont font = new BitmapFont(Gdx.files.internal("default.fnt"), false);
         font.setColor(Color.WHITE);
-        font.getData().setScale(6);
+        font.getData().setScale(5);
         GlyphLayout layout = new GlyphLayout();
         this.game.getBatch().begin();
 
-        layout.setText(font,"Well done for completing round 1");
-        font.draw(this.game.getBatch(), "Well done for completing round  "+(this.currentRound-1), (Gdx.graphics.getWidth() - layout.width) / 2, Gdx.graphics.getHeight() - 100);
+        layout.setText(font,"Well done for completing round "+(this.currentRound-1) + " in "+this.playerBoat.getTime()+"s");
+        font.draw(this.game.getBatch(), "Well done for completing round "+(this.currentRound-1) + " in "+this.playerBoat.getTime()+"s", (Gdx.graphics.getWidth() - layout.width) / 2, Gdx.graphics.getHeight() - 75);
 
-        layout.setText(font, "Your current total time is: XXXX");
-        font.draw(this.game.getBatch(), "Your current total time is: XXXX", (Gdx.graphics.getWidth() - layout.width) / 2, Gdx.graphics.getHeight()/2);
+        layout.setText(font,"With "+this.playerBoat.getPenaltyTime() + "s of that in penalties");
+        font.draw(this.game.getBatch(), "With " +this.playerBoat.getPenaltyTime() + "s of that in penalties", (Gdx.graphics.getWidth() - layout.width) / 2, Gdx.graphics.getHeight() - 175);
 
-        layout.setText(font, "Press Space to continue to round "+this.currentRound);
-        font.draw(this.game.getBatch(), "Press Space to continue to round "+this.currentRound, (Gdx.graphics.getWidth() - layout.width) / 2, 100 + layout.height);
+
+        layout.setText(font, this.reason);
+        if (layout.height +800 > Gdx.graphics.getHeight()) {
+            font.getData().setScale(5 / (layout.height / 600));
+            layout.setText(font, this.reason);
+        }
+        font.draw(this.game.getBatch(), this.reason, (Gdx.graphics.getWidth() - layout.width) / 2, (Gdx.graphics.getHeight() + layout.height) / 2 - 75);
+        font.getData().setScale(5);
+
+        layout.setText(font, "Press Space to continue to round "+(this.currentRound));
+        font.draw(this.game.getBatch(), "Press Space to continue to round "+(this.currentRound), (Gdx.graphics.getWidth() - layout.width) / 2, 100 + layout.height);
 
         this.game.getBatch().end();
 
