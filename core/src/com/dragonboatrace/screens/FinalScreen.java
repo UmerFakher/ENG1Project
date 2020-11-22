@@ -16,10 +16,21 @@ public class FinalScreen implements Screen {
 
     private DragonBoatRace game;
     private Boat playerBoat;
+    private FreeTypeFontGenerator generator;
+    private FreeTypeFontGenerator.FreeTypeFontParameter parameter;
+    private BitmapFont font;
+    private GlyphLayout layout;
 
     public FinalScreen(DragonBoatRace game, Boat playerBoat){
         this.game = game;
         this.playerBoat = playerBoat;
+        this.generator = new FreeTypeFontGenerator(Gdx.files.internal("osaka-re.ttf"));
+        this.parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        parameter.size *= 5;
+        parameter.color = Color.WHITE;
+        this.font = generator.generateFont(parameter);
+
+        this.layout = new GlyphLayout();
     }
 
 
@@ -32,13 +43,7 @@ public class FinalScreen implements Screen {
     public void render(float delta) {
         Gdx.gl.glClearColor(0, 0, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("osaka-re.ttf"));
-        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size *= 10;
-        parameter.color = Color.WHITE;
-        BitmapFont font = generator.generateFont(parameter);
 
-        GlyphLayout layout = new GlyphLayout();
         this.game.getBatch().begin();
 
         layout.setText(font,"You have made it into the final!");

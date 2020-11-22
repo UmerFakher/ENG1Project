@@ -155,16 +155,26 @@ public class Race {
                 if (boatn.getTime() == time) {
                     switch (times.indexOf(time)+1) {
                         case 1:
-                            reason += "1st: "+ boatn.getName() + "\n";
+                            if (game.getRound() == 4)
+                                reason += "Gold Medal:      "+boatn.getName() +"\n";
+                            else
+                                reason += "1st: "+ boatn.getName() + "\n";
                             break;
                         case 2:
-                            reason += "2nd: " + boatn.getName() + "\n";
+                            if (game.getRound() == 4)
+                                reason += "Silver Medal:    "+boatn.getName() +"\n";
+                            else
+                                reason += "2nd: " + boatn.getName() + "\n";
                             break;
                         case 3:
-                            reason += "3rd: " + boatn.getName() + "\n";
+                            if (game.getRound() == 4)
+                                reason += "Bronze Medal:    "+boatn.getName() +"\n";
+                            else
+                                reason += "3rd: " + boatn.getName() + "\n";
                             break;
                         default:
-                            reason += times.indexOf(time)+1+"th: " + boatn.getName() + "\n";
+                            if (game.getRound() != 4)
+                                reason += times.indexOf(time)+1+"th: " + boatn.getName() + "\n";
                     }
                 }
             }
@@ -172,7 +182,12 @@ public class Race {
         boats.remove(player);
         this.dispose();
         game.upRound();
-        game.setScreen(new RoundsScreen(game, this.player, reason));
+        if (game.getRound() != 5) {
+            game.setScreen(new RoundsScreen(game, this.player, reason));
+        }
+        else{
+            game.setScreen(new GameOverScreen(game, reason));
+        }
     }
 
     /**

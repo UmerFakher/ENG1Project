@@ -33,9 +33,10 @@ public class GameOverScreen implements Screen {
         this.font = generator.generateFont(parameter);
         this.leaderBoardFont = generator.generateFont(parameter);
         this.layout = new GlyphLayout();
+        parameter.size = 60;
         layout.setText(leaderBoardFont, this.reason);
         if (layout.height +800 > Gdx.graphics.getHeight()) {
-            parameter.size = (int)(75 / (layout.height / 600));
+            parameter.size = (int)(60 / (layout.height / 600));
             leaderBoardFont = generator.generateFont(parameter);
             layout.setText(leaderBoardFont, this.reason);
         }
