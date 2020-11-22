@@ -17,12 +17,31 @@ public class RoundsScreen implements Screen {
     private int currentRound;
     private Boat playerBoat;
     private String reason;
+    private FreeTypeFontGenerator.FreeTypeFontParameter parameter;
+    private FreeTypeFontGenerator generator;
+    private BitmapFont leaderBoardFont;
+    private BitmapFont font;
+    private GlyphLayout layout;
 
     public RoundsScreen(DragonBoatRace game, Boat playerBoat, String reason){
         this.game = game;
         this.currentRound = this.game.getRound();
         this.playerBoat = playerBoat;
         this.reason = reason;
+        this.generator = new FreeTypeFontGenerator(Gdx.files.internal("osaka-re.ttf"));
+        this.parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        parameter.size = 75;
+        parameter.color = Color.WHITE;
+        this.font = generator.generateFont(parameter);
+        this.leaderBoardFont = generator.generateFont(parameter);
+        this.layout = new GlyphLayout();
+        layout.setText(leaderBoardFont, this.reason);
+        if (layout.height +800 > Gdx.graphics.getHeight()) {
+            parameter.size = (int)(75 / (layout.height / 600));
+            leaderBoardFont = generator.generateFont(parameter);
+            layout.setText(leaderBoardFont, this.reason);
+        }
+
     }
 
 
@@ -38,12 +57,6 @@ public class RoundsScreen implements Screen {
     public void render(float delta) {
         Gdx.gl.glClearColor(0, 0, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("osaka-re.ttf"));
-        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = 75;
-        parameter.color = Color.WHITE;
-        BitmapFont font = generator.generateFont(parameter);
-        GlyphLayout layout = new GlyphLayout();
         this.game.getBatch().begin();
 
         layout.setText(font,"Well done for completing round "+(this.currentRound-1) + " in "+this.playerBoat.getTime()+"s");
@@ -53,15 +66,8 @@ public class RoundsScreen implements Screen {
         font.draw(this.game.getBatch(), "With " +this.playerBoat.getPenaltyTime() + "s of that in penalties", (Gdx.graphics.getWidth() - layout.width) / 2, Gdx.graphics.getHeight() - 175);
 
 
-        layout.setText(font, this.reason);
-        if (layout.height +800 > Gdx.graphics.getHeight()) {
-            parameter.size = (int)(75 / (layout.height / 600));
-            font = generator.generateFont(parameter);
-            layout.setText(font, this.reason);
-        }
-        font.draw(this.game.getBatch(), this.reason, (Gdx.graphics.getWidth() - layout.width) / 2, (Gdx.graphics.getHeight() + layout.height) / 2 - 75);
-        parameter.size = 75;
-        font = generator.generateFont(parameter);
+        layout.setText(leaderBoardFont, this.reason);
+        leaderBoardFont.draw(this.game.getBatch(), this.reason, (Gdx.graphics.getWidth() - layout.width) / 2, (Gdx.graphics.getHeight() + layout.height) / 2 - 75);
 
 
         layout.setText(font, "Press Space to continue to round "+(this.currentRound));

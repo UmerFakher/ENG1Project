@@ -143,7 +143,6 @@ public class Race {
         ArrayList<Float> times = new ArrayList<Float>();
         String reason = "";
         player.setTime(this.player.getPenaltyTime());
-        System.out.println(this.player.getPenaltyTime());
         boats.add(player);
         for (Boat boatn : boats) {
             times.add(boatn.getTime());
@@ -171,6 +170,7 @@ public class Race {
             }
         }
         boats.remove(player);
+        this.dispose();
         game.upRound();
         game.setScreen(new RoundsScreen(game, this.player, reason));
     }
@@ -181,5 +181,13 @@ public class Race {
      */
     public Boat getPlayer() {
         return this.player;
+    }
+
+    public void dispose(){
+        for (Boat boat : this.boats){
+            boat.dispose();
+        }
+        this.theFinish.dispose();
+        this.barrier.dispose();
     }
 }

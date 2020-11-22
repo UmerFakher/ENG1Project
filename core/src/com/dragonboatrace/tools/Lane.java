@@ -131,4 +131,10 @@ public class Lane {
         }
     }
 
+    public void dispose(){
+        for (Obstacle obst : obstacles){
+            obst.dispose();
+        }
+    }
+
 }

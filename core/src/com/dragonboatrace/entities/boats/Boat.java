@@ -119,6 +119,7 @@ public class Boat extends Entity {
      */
     protected BitmapFont staminaFont;
 
+
     /**
      * Creates a Boat with the specified BoatType for pre-defined values,
      * a Lane to give the boat its position and a name for easy identification.
@@ -140,19 +141,33 @@ public class Boat extends Entity {
         this.time = 0;
         this.totalTime = 0;
         this.penaltyTime = 0;
+        /* Store the lanes hitbox to save time on using Getters. */
+        laneBox = lane.getHitbox();
         this.generator = new FreeTypeFontGenerator(Gdx.files.internal("osaka-re.ttf"));
         this.parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        this.layout = new GlyphLayout();
+
         parameter.size = 50;
         parameter.color = Color.RED;
         this.healthFont = generator.generateFont(parameter);
+
+        layout.setText(healthFont, "Health: XXXX");
+        if (this.layout.width > this.laneBox.getWidth()) {
+            parameter.size = (int)(50 / (this.layout.width / this.laneBox.getWidth()));
+            parameter.color = Color.RED;
+            healthFont = generator.generateFont(parameter);
+        }
+
         parameter.color = Color.GREEN;
         this.staminaFont = generator.generateFont(parameter);
 
+        layout.setText(staminaFont, "Stamina: XXXX");
+        if (this.layout.width > this.laneBox.getWidth()) {
+            parameter.size = (int)(50 / (this.layout.width / this.laneBox.getWidth()));
+            parameter.color = Color.GREEN;
+            staminaFont = generator.generateFont(parameter);
+        }
 
-        this.layout = new GlyphLayout();
-
-        /* Store the lanes hitbox to save time on using Getters. */
-        laneBox = lane.getHitbox();
     }
 
     /**
@@ -219,19 +234,11 @@ public class Boat extends Entity {
         this.lane.render(batch);
 
         layout.setText(healthFont, "Health: XXXX");
-        if (this.layout.width > this.laneBox.getWidth()) {
-            parameter.size = (int)(50 / (this.layout.width / this.laneBox.getWidth()));
-            parameter.color = Color.RED;
-            healthFont = generator.generateFont(parameter);
-        }
+
         healthFont.draw(batch, "Health: " + (int) this.getHealth(), this.lane.getHitbox().getX(), Gdx.graphics.getHeight());
 
         layout.setText(staminaFont, "Stamina: XXXX");
-        if (this.layout.width > this.laneBox.getWidth()) {
-            parameter.size = (int)(50 / (this.layout.width / this.laneBox.getWidth()));
-            parameter.color = Color.GREEN;
-            staminaFont = generator.generateFont(parameter);
-        }
+
         staminaFont.draw(batch, "Stamina: " + (int) this.getStamina(), this.lane.getHitbox().getX(), Gdx.graphics.getHeight() - 50);
 
         batch.draw(this.texture, this.position.x, this.position.y);
@@ -396,6 +403,8 @@ public class Boat extends Entity {
      * Dispose of the fonts used in the HUD and then perform {@link Entity}'s dispose.
      */
     public void dispose() {
+
+        this.lane.dispose();
         super.dispose();
     }
 }

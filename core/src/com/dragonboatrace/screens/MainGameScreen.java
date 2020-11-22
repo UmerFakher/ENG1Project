@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.utils.Timer;
 import com.dragonboatrace.DragonBoatRace;
 import com.dragonboatrace.entities.boats.BoatType;
@@ -133,9 +134,11 @@ public class MainGameScreen implements Screen {
      * Render the current status of the countdown.
      */
     private void displayCountDown() {
-        BitmapFont font = new BitmapFont(Gdx.files.internal("default.fnt"), false);
-        font.setColor(Color.RED);
-        font.getData().setScale(5);
+        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("osaka-re.ttf"));
+        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        parameter.size *= 10;
+        parameter.color = Color.ORANGE;
+        BitmapFont font = generator.generateFont(parameter);
         GlyphLayout layout = new GlyphLayout();
         layout.setText(font, this.countDownString);
         font.draw(game.getBatch(), this.countDownString, (Gdx.graphics.getWidth() - layout.width) / 2, Gdx.graphics.getHeight() / 2.0f);
