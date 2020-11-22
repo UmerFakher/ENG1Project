@@ -62,6 +62,26 @@ public class MainGameScreen implements Screen {
     private BoatType boatChosen;
 
     /**
+     * FreeTypeFontGenerator for generating fonts
+     */
+    private FreeTypeFontGenerator generator;
+
+    /**
+     * FreeTypeFontParameter for modifying font
+     */
+    private FreeTypeFontGenerator.FreeTypeFontParameter parameter;
+
+    /**
+     * GlyphLayout used for centering fonts
+     */
+    private GlyphLayout layout;
+
+    /**
+     * Font used for rendering to screen
+     */
+    private BitmapFont font;
+
+    /**
      * Creates a new game screen with a game instance.
      * @param game The game instance.
      */
@@ -73,6 +93,13 @@ public class MainGameScreen implements Screen {
         this.race = new Race(3000, this.boatChosen);
         this.background = new ScrollingBackground();
         this.background.resize(Gdx.graphics.getWidth());
+
+        this.generator = new FreeTypeFontGenerator(Gdx.files.internal("osaka-re.ttf"));
+        this.parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        parameter.size *= 10;
+        parameter.color = Color.ORANGE;
+        this.font = generator.generateFont(parameter);
+        this.layout = new GlyphLayout();
 
         /* Countdown initialisation */
         countDownTask = new Timer.Task() {
@@ -134,12 +161,6 @@ public class MainGameScreen implements Screen {
      * Render the current status of the countdown.
      */
     private void displayCountDown() {
-        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("osaka-re.ttf"));
-        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size *= 10;
-        parameter.color = Color.ORANGE;
-        BitmapFont font = generator.generateFont(parameter);
-        GlyphLayout layout = new GlyphLayout();
         layout.setText(font, this.countDownString);
         font.draw(game.getBatch(), this.countDownString, (Gdx.graphics.getWidth() - layout.width) / 2, Gdx.graphics.getHeight() / 2.0f);
     }
