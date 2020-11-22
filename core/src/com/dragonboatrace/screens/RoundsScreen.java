@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.dragonboatrace.DragonBoatRace;
 import com.dragonboatrace.entities.boats.Boat;
 
@@ -37,9 +38,11 @@ public class RoundsScreen implements Screen {
     public void render(float delta) {
         Gdx.gl.glClearColor(0, 0, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        BitmapFont font = new BitmapFont(Gdx.files.internal("default.fnt"), false);
-        font.setColor(Color.WHITE);
-        font.getData().setScale(5);
+        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("osaka-re.ttf"));
+        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        parameter.size = 75;
+        parameter.color = Color.WHITE;
+        BitmapFont font = generator.generateFont(parameter);
         GlyphLayout layout = new GlyphLayout();
         this.game.getBatch().begin();
 
@@ -52,11 +55,14 @@ public class RoundsScreen implements Screen {
 
         layout.setText(font, this.reason);
         if (layout.height +800 > Gdx.graphics.getHeight()) {
-            font.getData().setScale(5 / (layout.height / 600));
+            parameter.size = (int)(75 / (layout.height / 600));
+            font = generator.generateFont(parameter);
             layout.setText(font, this.reason);
         }
         font.draw(this.game.getBatch(), this.reason, (Gdx.graphics.getWidth() - layout.width) / 2, (Gdx.graphics.getHeight() + layout.height) / 2 - 75);
-        font.getData().setScale(5);
+        parameter.size = 75;
+        font = generator.generateFont(parameter);
+
 
         layout.setText(font, "Press Space to continue to round "+(this.currentRound));
         font.draw(this.game.getBatch(), "Press Space to continue to round "+(this.currentRound), (Gdx.graphics.getWidth() - layout.width) / 2, 100 + layout.height);
