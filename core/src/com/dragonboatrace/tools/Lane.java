@@ -3,7 +3,6 @@ package com.dragonboatrace.tools;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-import com.dragonboatrace.DragonBoatRace;
 import com.dragonboatrace.entities.Obstacle;
 import com.dragonboatrace.entities.ObstacleType;
 

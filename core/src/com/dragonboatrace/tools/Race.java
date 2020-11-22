@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.dragonboatrace.DragonBoatRace;
 import com.dragonboatrace.entities.FinishLine;
-import com.dragonboatrace.entities.ObstacleType;
 import com.dragonboatrace.entities.boats.Boat;
 import com.dragonboatrace.entities.boats.BoatType;
 import com.dragonboatrace.entities.boats.ComputerBoat;
@@ -14,7 +13,6 @@ import com.dragonboatrace.entities.boats.PlayerBoat;
 import com.dragonboatrace.screens.GameOverScreen;
 import com.dragonboatrace.screens.RoundsScreen;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.concurrent.ThreadLocalRandom;

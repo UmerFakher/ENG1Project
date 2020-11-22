@@ -1,9 +1,7 @@
 package com.dragonboatrace.tools;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
 
 /** Represents the scrolling background.
  * @author Benji Garment, Joe Wrieden

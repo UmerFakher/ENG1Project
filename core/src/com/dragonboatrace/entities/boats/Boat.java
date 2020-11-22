@@ -14,7 +14,6 @@ import com.dragonboatrace.tools.Hitbox;
 import com.dragonboatrace.tools.Lane;
 import com.dragonboatrace.tools.Settings;
 
-import java.awt.*;
 import java.util.ArrayList;
 
 /** Represents a generic Boat.
