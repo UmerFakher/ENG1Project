@@ -33,11 +33,11 @@ public class Lane {
      * @param pos The position of the bottom left corner of the lane.
      * @param width The width of the lane.
      */
-    public Lane(Vector2 pos, int width) {
+    public Lane(Vector2 pos, int width, int round) {
         this.area = new Hitbox(pos.x, pos.y, width, Gdx.graphics.getHeight() + 200);
         this.obstacles = new ArrayList<>();
         this.randomWaitTimes = new ArrayList<>();
-        populateList();
+        populateList(round);
     }
 
     /**
@@ -125,8 +125,8 @@ public class Lane {
     /**
      * Fill the list with obstacles that will start at random times.
      */
-    private void populateList() {
-        for (int i = 0; i < 5; i++) {
+    private void populateList(int round) {
+        for (int i = 0; i < (5 + round-1); i++) {
             replaceObstacle();
         }
     }

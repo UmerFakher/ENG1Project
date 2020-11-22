@@ -53,21 +53,21 @@ public class Race {
      * Creates a new race of a specified length.
      * @param raceLength The length of the race.
      */
-    public Race(int raceLength, BoatType boatChosen) {
+    public Race(int raceLength, BoatType boatChosen, int round) {
         this.length = raceLength;
         this.theFinish = new FinishLine(new Vector2(0, this.length), Gdx.graphics.getWidth());
         int size = Gdx.graphics.getWidth() / Settings.PLAYER_COUNT;
         this.timer = 0;
 
         //player = new PlayerBoat(BoatType.FAST, new Lane(new Vector2(0, 0), size), length, "ME");
-        player = new PlayerBoat(boatChosen, new Lane(new Vector2(0, 0), size), "ME");
+        player = new PlayerBoat(boatChosen, new Lane(new Vector2(0, 0), size, round), "ME");
 
         this.barrier = new Texture("line.png");
 
         boats = new ArrayList<>();
         for (int i = 1; i < Settings.PLAYER_COUNT; i++) {
             int rand = ThreadLocalRandom.current().nextInt(0, BoatType.values().length);
-            boats.add(new ComputerBoat(BoatType.values()[rand], new Lane(new Vector2(size * i, 0), size), "COMP" + i, i));
+            boats.add(new ComputerBoat(BoatType.values()[rand], new Lane(new Vector2(size * i, 0), size, round), "COMP" + i, i));
         }
         this.timer = System.nanoTime();
     }
@@ -153,7 +153,7 @@ public class Race {
         if (dup.size() != 0){
             times.set(times.indexOf(dup.get(0)), (float)(times.get(times.indexOf(dup.get(0)))+0.02));
         }
-        
+
         for (float time : times) {
             for (Boat boatn : boats) {
                 if (boatn.getTime() == time) {
