@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.math.Vector2;
 import com.dragonboatrace.entities.Entity;
 import com.dragonboatrace.entities.EntityType;
@@ -13,6 +14,7 @@ import com.dragonboatrace.tools.Hitbox;
 import com.dragonboatrace.tools.Lane;
 import com.dragonboatrace.tools.Settings;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 /** Represents a generic Boat.
@@ -27,10 +29,6 @@ public class Boat extends Entity {
      * The minimum amount of speed gained from using stamina.
      */
     private final int minBoostSpeed = 5;
-    /**
-     * The font used to render the HUD items of the boat.
-     */
-    private BitmapFont font;
     /**
      * The formatter used to align the text on-screen.
      */
@@ -87,6 +85,41 @@ public class Boat extends Entity {
     protected BoatType boatType;
 
     /**
+     * Time of boat used to remember the boats time in the race
+     */
+    protected float time;
+
+    /**
+     * Total time of boat used for checking enterance to the final
+     */
+    protected float totalTime;
+
+    /**
+     * Total time penalties the boat got
+     */
+    protected float penaltyTime;
+
+    /**
+     * Generator for FreeType Font
+     */
+    protected FreeTypeFontGenerator generator;
+
+    /**
+     * Parameter for FreeType Font
+     */
+    protected FreeTypeFontGenerator.FreeTypeFontParameter parameter;
+
+    /**
+     * Font for Health Bar
+     */
+    protected BitmapFont healthFont;
+
+    /**
+     * Font for Stamina Bar
+     */
+    protected BitmapFont staminaFont;
+
+    /**
      * Creates a Boat with the specified BoatType for pre-defined values,
      * a Lane to give the boat its position and a name for easy identification.
      * @param boat The type of boat to use as a template.
@@ -104,9 +137,18 @@ public class Boat extends Entity {
         this.lane = lane;
         this.name = name;
         this.boatType = boat;
+        this.time = 0;
+        this.totalTime = 0;
+        this.penaltyTime = 0;
+        this.generator = new FreeTypeFontGenerator(Gdx.files.internal("osaka-re.ttf"));
+        this.parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        parameter.size = 50;
+        parameter.color = Color.RED;
+        this.healthFont = generator.generateFont(parameter);
+        parameter.color = Color.GREEN;
+        this.staminaFont = generator.generateFont(parameter);
 
-        this.font = new BitmapFont(Gdx.files.internal("default.fnt"), false);
-        this.font.getData().setScale(3);
+
         this.layout = new GlyphLayout();
 
         /* Store the lanes hitbox to save time on using Getters. */
@@ -150,13 +192,8 @@ public class Boat extends Entity {
     public void update(float deltaTime) {
 
         /* Check if boat is still in the lane */
-        if (this.position.x < this.laneBox.getX()) {
-            this.position.x = this.laneBox.getX();
-            this.velocity.scl(new Vector2(0, 1));
-        } else if (this.position.x + this.hitbox.getWidth() > this.laneBox.getX() + this.laneBox.getWidth()) {
-            this.position.x = this.laneBox.getX() + this.laneBox.getWidth() - this.type.getWidth();
-            this.velocity.scl(new Vector2(0, 1));
-        }
+        if (this.getHitBox().leaves(this.laneBox))
+            this.penaltyTime += 0.1;
 
         this.distanceTravelled += this.velocity.y * deltaTime;
 
@@ -180,19 +217,22 @@ public class Boat extends Entity {
      */
     public void render(SpriteBatch batch) {
         this.lane.render(batch);
-        this.font.setColor(Color.RED);
-        layout.setText(font, "Health: XXXX");
+
+        layout.setText(healthFont, "Health: XXXX");
         if (this.layout.width > this.laneBox.getWidth()) {
-            this.font.getData().setScale(3 / (this.layout.width / this.laneBox.getWidth()));
+            parameter.size = (int)(50 / (this.layout.width / this.laneBox.getWidth()));
+            parameter.color = Color.RED;
+            healthFont = generator.generateFont(parameter);
         }
-        font.draw(batch, "Health: " + (int) this.getHealth(), this.lane.getHitbox().getX(), Gdx.graphics.getHeight());
-        font.getData().setScale(3);
-        this.font.setColor(Color.GREEN);
-        layout.setText(font, "Stamina: XXXX");
+        healthFont.draw(batch, "Health: " + (int) this.getHealth(), this.lane.getHitbox().getX(), Gdx.graphics.getHeight());
+
+        layout.setText(staminaFont, "Stamina: XXXX");
         if (this.layout.width > this.laneBox.getWidth()) {
-            this.font.getData().setScale(3 / (this.layout.width / this.laneBox.getWidth()));
+            parameter.size = (int)(50 / (this.layout.width / this.laneBox.getWidth()));
+            parameter.color = Color.GREEN;
+            staminaFont = generator.generateFont(parameter);
         }
-        font.draw(batch, "Stamina: " + (int) this.getStamina(), this.lane.getHitbox().getX(), Gdx.graphics.getHeight() - 50);
+        staminaFont.draw(batch, "Stamina: " + (int) this.getStamina(), this.lane.getHitbox().getX(), Gdx.graphics.getHeight() - 50);
 
         batch.draw(this.texture, this.position.x, this.position.y);
     }
@@ -321,6 +361,30 @@ public class Boat extends Entity {
     public BoatType getBoatType() { return this.boatType; }
 
     /**
+     * Get the boat time
+     * @return A float of boat time
+     */
+    public float getTime() { return this.time; };
+
+    /**
+     * Set the boat time
+     */
+    public void setTime(float nowTime) { this.time += nowTime; }
+
+    /**
+     * Get the total boat time
+     * @return A float of total boat time
+     */
+    public float getTotalTime() { return this.totalTime; };
+
+    /**
+     * Set the total boat time
+     */
+    public void setTotalTime(float nowTime) { this.totalTime += nowTime; }
+
+    public float getPenaltyTime() { return this.penaltyTime; }
+
+    /**
      * Get the total distance travelled by the boat so far.
      * @return A float of the distance travelled.
      */
@@ -332,7 +396,6 @@ public class Boat extends Entity {
      * Dispose of the fonts used in the HUD and then perform {@link Entity}'s dispose.
      */
     public void dispose() {
-        font.dispose();
         super.dispose();
     }
 }

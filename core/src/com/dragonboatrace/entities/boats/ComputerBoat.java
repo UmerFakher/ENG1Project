@@ -207,7 +207,7 @@ public class ComputerBoat extends Boat {
         double multi;
         switch (pos) {
             case 2:
-                multi = ThreadLocalRandom.current().nextDouble(0.95, 1);
+                multi = ThreadLocalRandom.current().nextDouble(0.95, 0.98);
                 break;
             case 3:
                 multi = ThreadLocalRandom.current().nextDouble(0.9, 0.97);

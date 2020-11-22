@@ -16,6 +16,7 @@ import com.dragonboatrace.screens.RoundsScreen;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.concurrent.ThreadLocalRandom;
 
 /** Represents a Race.
@@ -44,6 +45,11 @@ public class Race {
     private final Texture barrier;
 
     /**
+     * The timer for the race
+     */
+    private float timer;
+
+    /**
      * Creates a new race of a specified length.
      * @param raceLength The length of the race.
      */
@@ -51,6 +57,7 @@ public class Race {
         this.length = raceLength;
         this.theFinish = new FinishLine(new Vector2(0, this.length), Gdx.graphics.getWidth());
         int size = Gdx.graphics.getWidth() / Settings.PLAYER_COUNT;
+        this.timer = 0;
 
         //player = new PlayerBoat(BoatType.FAST, new Lane(new Vector2(0, 0), size), length, "ME");
         player = new PlayerBoat(boatChosen, new Lane(new Vector2(0, 0), size), "ME");
@@ -62,6 +69,7 @@ public class Race {
             int rand = ThreadLocalRandom.current().nextInt(0, BoatType.values().length);
             boats.add(new ComputerBoat(BoatType.values()[rand], new Lane(new Vector2(size * i, 0), size), "COMP" + i, i));
         }
+        this.timer = System.nanoTime();
     }
 
     /**
@@ -76,15 +84,43 @@ public class Race {
 
             ((ComputerBoat) boat).updateYPosition(player.getHitBox().getY(), player.getDistanceTravelled());
             boat.update(deltaTime);
+            if (boat.getDistanceTravelled() + this.theFinish.getHitBox().getHeight() >= this.length && boat.getTime() == 0) {
+                boat.setTime(Math.round((System.nanoTime() - this.timer) / 10000000) / (float) 100);
+                boat.setTotalTime(boat.getTime());
+            }
         }
         if (player.getDistanceTravelled() + this.theFinish.getHitBox().getHeight() >= this.length) {
-            if (game.getRound() < 4) {
-                game.upRound();
-                game.setScreen(new RoundsScreen(game, player));
+            player.setTime(Math.round((System.nanoTime() - this.timer) / 10000000) / (float) 100);
+            player.setTotalTime(player.getTime());
+            ArrayList<Float> dnfList = new ArrayList<Float>();
+            for (Boat boat : boats) {
+                if (boat.getTime() == 0) {
+                    dnfList.add(boat.getDistanceTravelled());
+                }
             }
-            else{
-                game.setScreen(new GameOverScreen(game, "You Finished!"));
+            Collections.sort(dnfList);
+            Collections.reverse(dnfList);
+            for (float dist : dnfList) {
+                for (Boat boatn : boats) {
+                    if (boatn.getDistanceTravelled() == dist) {
+                        switch (dnfList.indexOf(dist) + 1) {
+                            case 1:
+                                boatn.setTime(player.getTime() + 1);
+                                break;
+                            case 2:
+                                boatn.setTime(player.getTime() + 3);
+                                break;
+                            case 3:
+                                boatn.setTime(player.getTime() + 5);
+                                break;
+                            default:
+                                boatn.setTime(player.getTime() + ThreadLocalRandom.current().nextInt(6, 30));
+                        }
+
+                    }
+                }
             }
+            getLeaderBoard(game);
         }
     }
 
@@ -101,6 +137,42 @@ public class Race {
         for (int i = 0; i < Settings.PLAYER_COUNT; i++) {
             batch.draw(this.barrier, ((float) Gdx.graphics.getWidth() / Settings.PLAYER_COUNT) * i, 0);
         }
+    }
+
+    public void getLeaderBoard(DragonBoatRace game) {
+        ArrayList<Float> times = new ArrayList<Float>();
+        String reason = "";
+        player.setTime(this.player.getPenaltyTime());
+        System.out.println(this.player.getPenaltyTime());
+        boats.add(player);
+        for (Boat boatn : boats) {
+            times.add(boatn.getTime());
+        }
+
+        Collections.sort(times);
+
+        for (float time : times) {
+            for (Boat boatn : boats) {
+                if (boatn.getTime() == time) {
+                    switch (times.indexOf(time)+1) {
+                        case 1:
+                            reason += "1st: "+ boatn.getName() + "\n";
+                            break;
+                        case 2:
+                            reason += "2nd: " + boatn.getName() + "\n";
+                            break;
+                        case 3:
+                            reason += "3rd: " + boatn.getName() + "\n";
+                            break;
+                        default:
+                            reason += times.indexOf(time)+1+"th: " + boatn.getName() + "\n";
+                    }
+                }
+            }
+        }
+        boats.remove(player);
+        game.upRound();
+        game.setScreen(new RoundsScreen(game, this.player, reason));
     }
 
     /**

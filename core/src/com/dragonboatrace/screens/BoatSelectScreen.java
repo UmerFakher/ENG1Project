@@ -2,6 +2,7 @@ package com.dragonboatrace.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
@@ -12,6 +13,8 @@ import com.dragonboatrace.entities.Button;
 import com.dragonboatrace.entities.EntityType;
 import com.dragonboatrace.entities.boats.Boat;
 import com.dragonboatrace.entities.boats.BoatType;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+
 
 public class BoatSelectScreen implements Screen {
 
@@ -41,8 +44,11 @@ public class BoatSelectScreen implements Screen {
     public void render(float delta) {
         Gdx.gl.glClearColor(0, 0, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        BitmapFont font = new BitmapFont(Gdx.files.internal("default.fnt"), false);
-        font.getData().setScale(10);
+        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("osaka-re.ttf"));
+        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        parameter.size *= 10;
+        parameter.color = Color.WHITE;
+        BitmapFont font = generator.generateFont(parameter);
         GlyphLayout layout = new GlyphLayout();
         layout.setText(font, "Choose your Boat:");
         this.game.getBatch().begin();
