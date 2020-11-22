@@ -15,6 +15,8 @@ import com.dragonboatrace.screens.RoundsScreen;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 
 /** Represents a Race.
@@ -147,7 +149,11 @@ public class Race {
         }
 
         Collections.sort(times);
-
+        ArrayList<Float> dup = new ArrayList<Float>(findDuplicates(times));
+        if (dup.size() != 0){
+            times.set(times.indexOf(dup.get(0)), (float)(times.get(times.indexOf(dup.get(0)))+0.02));
+        }
+        
         for (float time : times) {
             for (Boat boatn : boats) {
                 if (boatn.getTime() == time) {
@@ -186,6 +192,21 @@ public class Race {
         else{
             game.setScreen(new GameOverScreen(game, reason));
         }
+    }
+
+    public Set<Float> findDuplicates(ArrayList<Float> list)
+    {
+        final Set<Float> setToReturn = new HashSet<>();
+        final Set<Float> set1 = new HashSet<>();
+
+        for (Float yourFloat : list)
+        {
+            if (!set1.add(yourFloat))
+            {
+                setToReturn.add(yourFloat);
+            }
+        }
+        return setToReturn;
     }
 
     /**
