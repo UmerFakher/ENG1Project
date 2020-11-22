@@ -40,7 +40,7 @@ public class GameOverScreen implements Screen {
         font.draw(this.game.getBatch(), "GAME OVER!", (Gdx.graphics.getWidth() - layout.width) / 2, Gdx.graphics.getHeight() - 100);
         layout.setText(font, this.reason);
         if (layout.height+500 > Gdx.graphics.getHeight()) {
-            font.getData().setScale(5 / (layout.height / 700));
+            font.getData().setScale(5 / (layout.height / 600));
             layout.setText(font, this.reason);
         }
         font.draw(this.game.getBatch(), this.reason, (Gdx.graphics.getWidth() - layout.width) / 2, (Gdx.graphics.getHeight() + layout.height) / 2);

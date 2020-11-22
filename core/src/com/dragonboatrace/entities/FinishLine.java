@@ -30,8 +30,8 @@ public class FinishLine extends Entity {
      * @param velY The y-velocity of the entity it will move in respect to (Will be the player)
      */
     public void update(float deltaTime, float velY) {
-        if (this.position.y + this.getHitBox().getHeight() <= Gdx.graphics.getHeight()) {
-            this.position.set(this.position.x, Gdx.graphics.getHeight() - this.getHitBox().getHeight());
+        if (this.position.y + (this.getHitBox().getHeight()/(float)2) <= Gdx.graphics.getHeight()) {
+            this.position.set(this.position.x, Gdx.graphics.getHeight() - (this.getHitBox().getHeight()/(float)2));
         } else {
             this.position.set(this.position.x, this.position.y - (velY * deltaTime));
             this.hitbox.move(this.position.x, this.position.y);
