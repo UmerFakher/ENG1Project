@@ -1,43 +1,70 @@
 package com.dragonboatrace.entities;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-import com.dragonboatrace.tools.Hitbox;
-
 import java.util.concurrent.ThreadLocalRandom;
 
-public class Obstacle extends Entity{
+/** Represents an Obstacle.
+ * @author Benji Garment, Joe Wrieden
+ */
+public class Obstacle extends Entity {
 
-    private float speed, damage;
+    /**
+     * The speed of the obstacle.
+     */
+    private final float speed;
+    /**
+     * The damage the obstacle will deal when colliding with a player.
+     */
+    private final float damage;
 
-    public Obstacle(ObstacleType type, float startX, int width){
+    /**
+     * Creates a new Obstacle of a specific type and bounds in which it can be created.
+     * @param type The type of obstacle.
+     * @param startX The starting x value the obstacle can be created in.
+     * @param width How far from startX the obstacle can be created.
+     */
+    public Obstacle(ObstacleType type, float startX, int width) {
         /* Entity creation */
         /* First vector is long as to start it at a random x position within the bounds of the screen */
         /* Form of Entity(Vector2 pos, Vector2 vel, EntityType type, String texture) */
-        super(new Vector2(((int)startX+width)/2 + ThreadLocalRandom.current().nextInt(-((int)startX+width)/2 + EntityType.OBSTACLE.getWidth() /2, ((int)startX+width)/2 + EntityType.OBSTACLE.getWidth() /2), Gdx.graphics.getHeight()), new Vector2(), EntityType.OBSTACLE, type.getTexture());
+        super(new Vector2(((int) startX + width) / 2.0f + ThreadLocalRandom.current().nextInt(-((int) startX + width) / 2 + EntityType.OBSTACLE.getWidth() / 2, ((int) startX + width) / 2 + EntityType.OBSTACLE.getWidth() / 2), Gdx.graphics.getHeight()), new Vector2(), EntityType.OBSTACLE, type.getTexture());
         this.speed = type.getSpeed();
         this.damage = type.getDamage();
     }
 
-    /* For debugging with custom values instead of ObstacleType */
-    public Obstacle(float speed, float damage, String texture){
-        super(new Vector2(Gdx.graphics.getWidth()/2 + ThreadLocalRandom.current().nextInt(-Gdx.graphics.getWidth()/2 + EntityType.OBSTACLE.getWidth() /2, Gdx.graphics.getWidth()/2 + EntityType.OBSTACLE.getWidth() /2), Gdx.graphics.getHeight()), new Vector2(), EntityType.OBSTACLE,texture);
-        this.speed = speed;
-        this.damage = damage;
+    /**
+     * Update the obstacle's position relative to the time passed since last frame and the velocity of the boat in that lane.
+     * @param deltaTime The time since last frame.
+     * @param velY The y-velocity of the boat in the same lane as the obstacle.
+     */
+    public void update(float deltaTime, float velY) {
+        this.position.add(0, -1 * (velY + this.speed)*deltaTime);
+        this.hitbox.move(this.position.x, this.position.y);
     }
 
-    public void update(float deltaTime, float vel){
-        if (vel > 1) {
-            this.pos.add(0, - this.speed * vel * deltaTime);
-        }else{
-            this.pos.add(0, - this.speed  * deltaTime);
-        }
-        this.box.move(this.pos.x, this.pos.y);
+    /**
+     * Get the obstacles speed attribute, not the velocity it is moving at currently.
+     * @return A float of the obstacles speed attribute.
+     */
+    public float getSpeed() {
+        return this.speed;
     }
 
-    public float getSpeed() { return this.speed; }
-    public float getDamage() { return this.damage; }
-    public Vector2 getPos() { return this.pos; }
+    /**
+     * Get the amount of damage the obstacle will deal at a collision.
+     * @return A float of the amount of damage.
+     */
+    public float getDamage() {
+        return this.damage;
+    }
+
+    /**
+     * The position of the obstacle.
+     * @return A Vector2 of the position of the obstacle.
+     */
+    public Vector2 getPos() {
+        return this.position;
+    }
 
 }

@@ -1,82 +1,168 @@
 package com.dragonboatrace.screens;
 
-import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.utils.Timer;
 import com.dragonboatrace.DragonBoatRace;
-import com.dragonboatrace.entities.boats.Boat;
 import com.dragonboatrace.entities.boats.BoatType;
-import com.dragonboatrace.entities.boats.ComputerBoat;
-import com.dragonboatrace.entities.boats.PlayerBoat;
-import com.dragonboatrace.tools.Lane;
 import com.dragonboatrace.tools.Race;
+import com.dragonboatrace.tools.ScrollingBackground;
 
-import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
-
+/** Represents the Main Game Screen where the game actually happens.
+ * @author Benji Garment, Joe Wrieden
+ */
 public class MainGameScreen implements Screen {
 
-    DragonBoatRace game;
-    Race race;
-    int players = 2;
-    int size;
-    ArrayList<Boat> boats;
+    /**
+     * The game instance.
+     */
+    private final DragonBoatRace game;
+    /**
+     * The function used to countdown when the race first starts.
+     */
+    private final Timer.Task countDownTask;
+    /**
+     * Used to make sure the countdown happens at equal intervals.
+     */
+    private final Timer timer;
+    /**
+     * The race instance.
+     */
+    private final Race race;
+    /**
+     * The background of the window.
+     */
+    private final ScrollingBackground background;
+    /**
+     * Use to log the FPS for debugging.
+     */
+    private final FPSLogger logger;
+    /**
+     * Pause game, starts true.
+     */
+    private boolean paused = true;
+    /**
+     * The time left on the initial countdown.
+     */
+    private int countDownRemaining = 3;
+    /**
+     * The String being displayed in the countdown.
+     */
+    private String countDownString = "";
 
-    float c = 0;
-    boolean GO = false;
+    /**
+     * The Type of Boat chosen in the BoatSelect Screen
+     */
+    private BoatType boatChosen;
 
-    public MainGameScreen (DragonBoatRace game) {
+    /**
+     * FreeTypeFontGenerator for generating fonts
+     */
+    private FreeTypeFontGenerator generator;
+
+    /**
+     * FreeTypeFontParameter for modifying font
+     */
+    private FreeTypeFontGenerator.FreeTypeFontParameter parameter;
+
+    /**
+     * GlyphLayout used for centering fonts
+     */
+    private GlyphLayout layout;
+
+    /**
+     * Font used for rendering to screen
+     */
+    private BitmapFont font;
+
+    /**
+     * Creates a new game screen with a game instance.
+     * @param game The game instance.
+     */
+    public MainGameScreen(DragonBoatRace game, BoatType boatChosen) {
         this.game = game;
-        size = Gdx.graphics.getWidth() / players;
+        this.boatChosen = boatChosen;
+        this.logger = new FPSLogger();
 
-        /* Each successive boat is at n*size position */
-        Boat boat = new PlayerBoat(BoatType.FAST, "square.png", new Lane(new Vector2(0*size,0), size), "ME");
-        Boat boat2 = new ComputerBoat(BoatType.FAST, "circle.png", new Lane(new Vector2(1*size,0), size), "COMP1");
+        this.race = new Race(3000, this.boatChosen, this.game.getRound());
+        this.background = new ScrollingBackground();
+        this.background.resize(Gdx.graphics.getWidth());
 
-        this.boats = new ArrayList<>();
-        this.boats.add(boat);
-        this.boats.add(boat2);
+        this.generator = new FreeTypeFontGenerator(Gdx.files.internal("osaka-re.ttf"));
+        this.parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        parameter.size *= 10;
+        parameter.color = Color.ORANGE;
+        this.font = generator.generateFont(parameter);
+        this.layout = new GlyphLayout();
 
-
-        this.race = new Race(boats);
+        /* Countdown initialisation */
+        countDownTask = new Timer.Task() {
+            @Override
+            public void run() {
+                paused = true;
+                if (countDownRemaining == 3) {
+                    countDownString = "READY";
+                    countDownRemaining--;
+                } else if (countDownRemaining == 2) {
+                    countDownString = "STEADY";
+                    countDownRemaining--;
+                } else if (countDownRemaining == 1) {
+                    countDownString = "GO";
+                    countDownRemaining--;
+                } else {
+                    countDownString = "";
+                    paused = false;
+                    this.cancel();
+                }
+            }
+        };
+        timer = new Timer();
+        timer.scheduleTask(countDownTask, 0, 1);
+        // We don't want the countdown to start before the screen has displayed.
+        timer.stop();
     }
 
-    @Override
+    /**
+     * Runs when the window first starts. Runs the countdown starter.
+     */
     public void show() {
+        timer.start();
     }
 
-    @Override
-    public void render(float delta) {
+    /**
+     * Render the main game window. Includes rendering the background and the {@link Race}.
+     * @param deltaTime The time since the last frame.
+     */
+    public void render(float deltaTime) {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        float dt = Gdx.graphics.getDeltaTime();
-
         this.game.getBatch().begin();
-
-        if (GO)
-            this.race.update(dt);
-
-        this.race.render(this.game.getBatch());
-
-        this.race.checkWinner(this.game.getBatch(), this.game);
-
-        if (!GO)
-            GO = readySteadyGo(dt);
-
-
-        this.game.getBatch().end();
-
-        for (Boat boat: this.boats){
-            if (boat instanceof PlayerBoat)
-                if (((PlayerBoat) boat).isDead())
-                    this.game.setScreen(new GameOverScreen(this.game, "Boat Was Destroyed"));
+        if (!paused) {
+            this.logger.log();
+            this.background.update(deltaTime * this.race.getPlayer().getVelocity().y);
+            this.background.render(game.getBatch());
+            this.race.update(deltaTime, this.game);
+            this.race.render(game.getBatch());
+        } else {
+            this.background.render(game.getBatch());
+            this.race.render(game.getBatch());
+            displayCountDown();
         }
+        this.game.getBatch().end();
+    }
+
+    /**
+     * Render the current status of the countdown.
+     */
+    private void displayCountDown() {
+        layout.setText(font, this.countDownString);
+        font.draw(game.getBatch(), this.countDownString, (Gdx.graphics.getWidth() - layout.width) / 2, Gdx.graphics.getHeight() / 2.0f);
     }
 
 
@@ -103,29 +189,4 @@ public class MainGameScreen implements Screen {
     public void dispose() {
         this.game.getBatch().dispose();
     }
-
-    public boolean readySteadyGo(float dt){
-        BitmapFont font = new BitmapFont(Gdx.files.internal("default.fnt"),false);
-        font.setColor(Color.RED);
-        font.getData().setScale(5);
-        GlyphLayout layout = new GlyphLayout();
-        c+=dt;
-        if (c < 1 && c > 0) {
-            layout.setText(font, "READY");
-            font.draw(game.getBatch(), "READY", (Gdx.graphics.getWidth() - layout.width) / 2, Gdx.graphics.getHeight() / 2);
-        }
-        else if (c < 2 && c > 1) {
-            layout.setText(font, "STEADY");
-            font.draw(game.getBatch(), "STEADY", (Gdx.graphics.getWidth() - layout.width) / 2, Gdx.graphics.getHeight() / 2);
-        }
-        else if (c < 2.3 && c > 2) {
-            layout.setText(font, "GO!!!");
-            font.draw(game.getBatch(), "GO!!!", (Gdx.graphics.getWidth() - layout.width) / 2, Gdx.graphics.getHeight() / 2);
-        }
-        else
-            return true;
-        return false;
-    }
-
-
 }
