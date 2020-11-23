@@ -45,10 +45,11 @@ public class PlayerBoat extends Boat {
                 this.stamina = (this.stamina < this.maxStamina) ? this.regenerateStamina() + this.stamina : this.maxStamina;
                 this.velocity.set(this.velocity.x, this.speed);
             }
-
-            if (checkCollisions()) {
-                System.out.println("Collision!");
-                recentCollision = true;
+            if (this.position.y < Gdx.graphics.getHeight() *0.75f) {
+                if (checkCollisions()) {
+                    System.out.println("Collision!");
+                    recentCollision = true;
+                }
             }
         } else {
             this.velocity.set(0, Settings.OBSTACLE_COLLISION_PENALTY);
