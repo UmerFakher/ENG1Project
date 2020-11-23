@@ -70,8 +70,8 @@ public class RoundsScreen implements Screen {
         leaderBoardFont.draw(this.game.getBatch(), this.reason, (Gdx.graphics.getWidth() - layout.width) / 2, (Gdx.graphics.getHeight() + layout.height) / 2 - 75);
 
 
-        layout.setText(font, "Press Space to continue to round "+(this.currentRound));
-        font.draw(this.game.getBatch(), "Press Space to continue to round "+(this.currentRound), (Gdx.graphics.getWidth() - layout.width) / 2, 100 + layout.height);
+        layout.setText(font, (this.currentRound == 4)? "Press Space to see if you made it to the final" : "Press Space to continue to round "+(this.currentRound));
+        font.draw(this.game.getBatch(), (this.currentRound == 4)? "Press Space to see if you made it to the final" : "Press Space to continue to round "+(this.currentRound), (Gdx.graphics.getWidth() - layout.width) / 2, 100 + layout.height);
 
         this.game.getBatch().end();
 
