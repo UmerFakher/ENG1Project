@@ -55,12 +55,12 @@ public class Race {
      */
     public Race(int raceLength, BoatType boatChosen, int round) {
         this.length = raceLength;
-        this.theFinish = new FinishLine(new Vector2(0, this.length), Gdx.graphics.getWidth());
+        this.theFinish = new FinishLine(new Vector2(0, Gdx.graphics.getHeight()), Gdx.graphics.getWidth());
         int size = Gdx.graphics.getWidth() / Settings.PLAYER_COUNT;
         this.timer = 0;
 
         //player = new PlayerBoat(BoatType.FAST, new Lane(new Vector2(0, 0), size), length, "ME");
-        player = new PlayerBoat(boatChosen, new Lane(new Vector2(0, 0), size, round), "ME");
+        player = new PlayerBoat(boatChosen, new Lane(new Vector2(0, 0), size, round), "Player");
 
         this.barrier = new Texture("line.png");
 
@@ -77,9 +77,12 @@ public class Race {
      * @param deltaTime The time since the last frame.
      */
     public void update(float deltaTime, DragonBoatRace game) {
-        theFinish.update(deltaTime, player.getVelocity().y);
         player.updateYPosition(this.theFinish.getHitBox().getHeight(), length);
         player.update(deltaTime);
+        theFinish.update(player.getDistanceTravelled(), this.length, deltaTime, player.getVelocity().y);
+        if (player.getHealth() <= 0){
+            game.setScreen(new GameOverScreen(game, "Your boat is broken. Better luck next time!"));
+        }
         for (Boat boat : this.boats) {
 
             ((ComputerBoat) boat).updateYPosition(player.getHitBox().getY(), player.getDistanceTravelled());

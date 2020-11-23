@@ -236,6 +236,7 @@ public class Boat extends Entity {
             this.velocity.scl(dampen);
         }
 
+
         /* The hitbox needs moving to keep at the same pos as the boat */
         this.hitbox.move(position.x, position.y);
     }
@@ -247,9 +248,13 @@ public class Boat extends Entity {
     public void render(SpriteBatch batch) {
         this.lane.render(batch);
 
-        layout.setText(nameFont, this.name);
+        if (this instanceof PlayerBoat) {
 
-        nameFont.draw(batch, this.name, this.lane.getHitbox().getX()+5, Gdx.graphics.getHeight()-5);
+            layout.setText(nameFont, this.name);
+
+            nameFont.draw(batch, this.name, this.lane.getHitbox().getX() + 5, Gdx.graphics.getHeight() - 5);
+
+        }
 
         layout.setText(healthFont, "Health:  XXX");
 

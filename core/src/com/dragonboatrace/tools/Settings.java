@@ -17,7 +17,7 @@ public class Settings {
     /**
      * If the game is fullscreen or not.
      */
-    public static boolean FULLSCREEN = false;
+    public static boolean FULLSCREEN = true;
     /**
      * The global scalar at which to scale entities.
      */

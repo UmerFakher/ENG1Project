@@ -36,6 +36,8 @@ public class ComputerBoat extends Boat {
      */
     private float randomWait;
 
+    private boolean waiting;
+
     /**
      * Creates a computer boat with values from boat, in Lane lane, an identifying name and with a random speed.
      * @param boat The BoatType to get values from.
@@ -52,6 +54,7 @@ public class ComputerBoat extends Boat {
         this.up = new Texture("up_arrow.png");
         this.down = new Texture("down_arrow.png");
         this.randomWait = 0;
+        this.waiting = false;
     }
 
     /**
@@ -65,7 +68,7 @@ public class ComputerBoat extends Boat {
                 this.velocity.set(this.speed * moveFromObject(closest), this.speed);
                 this.stamina = (this.stamina < this.maxStamina) ? this.regenerateStamina() + this.stamina : this.maxStamina;
             } else {
-                if (this.stamina >= this.randomWait) {
+                if (!this.waiting) {
                     this.velocity.set(0, this.velocity.y);
                     float diff = this.useStamina() * deltaTime;
                     if (this.stamina - diff > 0) {
@@ -73,6 +76,7 @@ public class ComputerBoat extends Boat {
                         this.velocity.set(this.velocity.x, (this.speed + this.speed * this.velocityPercentage()));
                     } else {
                         this.randomWait = waitForRandomStamina();
+                        this.waiting = true;
                     }
                 } else {
                     this.velocity.set(this.velocity.x, this.speed);
@@ -91,6 +95,10 @@ public class ComputerBoat extends Boat {
                 collisionTime = 0;
                 recentCollision = false;
             }
+        }
+
+        if (this.stamina > this.randomWait){
+            this.waiting = false;
         }
 
         this.moveArea.move(position.x - this.xOffset, position.y);

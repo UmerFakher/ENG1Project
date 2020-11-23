@@ -20,7 +20,7 @@ public class FinishLine extends Entity {
      * @param width The width of the finish line.
      */
     public FinishLine(Vector2 pos, int width) {
-        super(new Vector2(pos.x, pos.y - EntityType.FINISH.getHeight()), new Vector2(), EntityType.FINISH, "finish.png");
+        super(new Vector2(pos.x, pos.y), new Vector2(), EntityType.FINISH, "finish.png");
         this.widthScale = (float) width / this.texture.getWidth();
     }
 
@@ -29,12 +29,15 @@ public class FinishLine extends Entity {
      * @param deltaTime The time passed since the last frame.
      * @param velY The y-velocity of the entity it will move in respect to (Will be the player)
      */
-    public void update(float deltaTime, float velY) {
-        if (this.position.y + (this.getHitBox().getHeight()/(float)2) <= Gdx.graphics.getHeight()) {
-            this.position.set(this.position.x, Gdx.graphics.getHeight() - (this.getHitBox().getHeight()/(float)2));
-        } else {
-            this.position.set(this.position.x, this.position.y - (velY * deltaTime));
-            this.hitbox.move(this.position.x, this.position.y);
+    public void update(float playerPos, float raceDistance, float deltaTime, float velY) {
+        System.out.println(this.position.y);
+        if (playerPos > (raceDistance/2)){
+            if (this.position.y + (this.getHitBox().getHeight()/2) <= Gdx.graphics.getHeight()) {
+                this.position.set(this.position.x, Gdx.graphics.getHeight() - (this.getHitBox().getHeight())/2);
+            } else {
+                this.position.set(this.position.x, this.position.y - (velY * deltaTime));
+                this.hitbox.move(this.position.x, this.position.y);
+            }
         }
     }
 
