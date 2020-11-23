@@ -83,7 +83,7 @@ public class ComputerBoat extends Boat {
                     this.stamina = (this.stamina < this.maxStamina) ? this.regenerateStamina() + this.stamina : this.maxStamina;
                 }
             }
-            if (checkCollisions()) {
+            if (this.checkCollisions()) {
                 //this.distanceTravelled -= 200;
                 System.out.println("Collision!");
                 recentCollision = true;
@@ -155,13 +155,7 @@ public class ComputerBoat extends Boat {
         float smallest = Gdx.graphics.getHeight();
         for (int i = 0; i < size; i++) {
             Obstacle obstacle = obstacles.get(i);
-            if (obstacle.getHitBox().collidesWith(this.hitbox)) {
-                obstacle.dispose();
-                this.lane.removeObstacle(obstacle);
-                size--;
-                this.health -= obstacle.getDamage();
-                this.velocity.y = -54;
-            } else if (obstacle.getHitBox().collidesWith(this.moveArea)) {
+            if (obstacle.getHitBox().collidesWith(this.moveArea)) {
                 float bottomY = obstacle.getPos().y;
                 if (bottomY < smallest) {
                     closest = obstacle;
