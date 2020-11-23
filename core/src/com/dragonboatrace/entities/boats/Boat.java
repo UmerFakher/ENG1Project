@@ -118,6 +118,10 @@ public class Boat extends Entity {
      */
     protected BitmapFont staminaFont;
 
+    /**
+     * Font for Name Tag
+     */
+    protected BitmapFont nameFont;
 
     /**
      * Creates a Boat with the specified BoatType for pre-defined values,
@@ -147,20 +151,31 @@ public class Boat extends Entity {
         this.layout = new GlyphLayout();
 
         parameter.size = 50;
+        parameter.color = Color.BLACK;
+        this.nameFont = generator.generateFont(parameter);
+
+        layout.setText(nameFont, this.name);
+        if (this.layout.width > this.laneBox.getWidth()) {
+            parameter.size = (int)(50 / (this.layout.width / this.laneBox.getWidth()));
+            parameter.color = Color.BLACK;
+            healthFont = generator.generateFont(parameter);
+        }
+
+        parameter.size = 50;
         parameter.color = Color.RED;
         this.healthFont = generator.generateFont(parameter);
 
-        layout.setText(healthFont, "Health: XXXX");
+        layout.setText(healthFont, "Health:  XXX");
         if (this.layout.width > this.laneBox.getWidth()) {
             parameter.size = (int)(50 / (this.layout.width / this.laneBox.getWidth()));
             parameter.color = Color.RED;
             healthFont = generator.generateFont(parameter);
         }
-
+        parameter.size = 50;
         parameter.color = Color.GREEN;
         this.staminaFont = generator.generateFont(parameter);
 
-        layout.setText(staminaFont, "Stamina: XXXX");
+        layout.setText(staminaFont, "Stamina: XXX");
         if (this.layout.width > this.laneBox.getWidth()) {
             parameter.size = (int)(50 / (this.layout.width / this.laneBox.getWidth()));
             parameter.color = Color.GREEN;
@@ -232,13 +247,17 @@ public class Boat extends Entity {
     public void render(SpriteBatch batch) {
         this.lane.render(batch);
 
-        layout.setText(healthFont, "Health: XXXX");
+        layout.setText(nameFont, this.name);
 
-        healthFont.draw(batch, "Health: " + (int) this.getHealth(), this.lane.getHitbox().getX(), Gdx.graphics.getHeight());
+        nameFont.draw(batch, this.name, this.lane.getHitbox().getX()+5, Gdx.graphics.getHeight()-5);
 
-        layout.setText(staminaFont, "Stamina: XXXX");
+        layout.setText(healthFont, "Health:  XXX");
 
-        staminaFont.draw(batch, "Stamina: " + (int) this.getStamina(), this.lane.getHitbox().getX(), Gdx.graphics.getHeight() - 50);
+        healthFont.draw(batch, "Health:  " + (int) this.getHealth(), this.lane.getHitbox().getX()+5, Gdx.graphics.getHeight()-55);
+
+        layout.setText(staminaFont, "Stamina: XXX");
+
+        staminaFont.draw(batch, "Stamina: " + (int) this.getStamina(), this.lane.getHitbox().getX()+5, Gdx.graphics.getHeight() - 105);
 
         batch.draw(this.texture, this.position.x, this.position.y);
     }

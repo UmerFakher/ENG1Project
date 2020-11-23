@@ -126,7 +126,7 @@ public class Lane {
      * Fill the list with obstacles that will start at random times.
      */
     private void populateList(int round) {
-        for (int i = 0; i < (5 + round-1); i++) {
+        for (int i = 0; i < (11-Settings.PLAYER_COUNT + round-1); i++) {
             replaceObstacle();
         }
     }
@@ -136,5 +136,5 @@ public class Lane {
             obst.dispose();
         }
     }
-
+    
 }

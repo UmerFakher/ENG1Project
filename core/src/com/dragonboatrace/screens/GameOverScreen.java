@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.dragonboatrace.DragonBoatRace;
+import com.dragonboatrace.tools.Settings;
 
 /** Represents the Game Over Screen.
  * @author Benji Garment, Joe Wrieden
@@ -44,6 +45,8 @@ public class GameOverScreen implements Screen {
 
     @Override
     public void show() {
+        this.game.setRound(1);
+        Settings.setPlayerCount(8);
 
     }
 

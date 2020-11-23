@@ -42,7 +42,7 @@ public class MainMenuScreen implements Screen {
 
         this.game.getBatch().begin();
 
-        this.game.getBatch().draw(logo, (Gdx.graphics.getWidth() - 680) / 2.0f, Gdx.graphics.getHeight() - 550, 680, 600);
+        this.game.getBatch().draw(logo, (Gdx.graphics.getWidth() - 680) / 2.0f, Gdx.graphics.getHeight() - 625, 680, 600);
 
         exitButton.render(this.game.getBatch());
         if (this.exitButton.isHovering() && Gdx.input.isTouched()) {

@@ -143,11 +143,17 @@ public class Race {
         ArrayList<Float> times = new ArrayList<Float>();
         String reason = "";
         player.setTime(this.player.getPenaltyTime());
-        boats.add(player);
+
+        times.add(player.getTime());
         for (Boat boatn : boats) {
             times.add(boatn.getTime());
         }
 
+        game.setPlayerTotalTime(times.get(0));
+        for (int i = 0; i < Settings.PLAYER_COUNT; i++){
+            game.setTimeAt(i, times.get(i));
+        }
+        boats.add(player);
         Collections.sort(times);
         ArrayList<Float> dup = new ArrayList<Float>(findDuplicates(times));
         if (dup.size() != 0){

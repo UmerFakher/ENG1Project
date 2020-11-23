@@ -17,7 +17,7 @@ public class Settings {
     /**
      * If the game is fullscreen or not.
      */
-    public static boolean FULLSCREEN = true;
+    public static boolean FULLSCREEN = false;
     /**
      * The global scalar at which to scale entities.
      */
@@ -25,7 +25,7 @@ public class Settings {
     /**
      * The number of boats in the game, including the player itself.
      */
-    public static int PLAYER_COUNT = 4;
+    public static int PLAYER_COUNT = 8;
     /**
      * Reduces the scalar that stamina gives when accelerating, see {@link com.dragonboatrace.entities.boats.Boat#velocityPercentage()}
      */

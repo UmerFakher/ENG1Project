@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.dragonboatrace.DragonBoatRace;
 import com.dragonboatrace.entities.boats.Boat;
+import com.dragonboatrace.tools.Settings;
 
 public class FinalScreen implements Screen {
 
@@ -36,6 +37,7 @@ public class FinalScreen implements Screen {
 
     @Override
     public void show() {
+        Settings.setPlayerCount(4);
 
     }
 
@@ -47,12 +49,12 @@ public class FinalScreen implements Screen {
         this.game.getBatch().begin();
 
         layout.setText(font,"You have made it into the final!");
-        font.draw(this.game.getBatch(), "You have made it into the final!", (Gdx.graphics.getWidth() - layout.width) / 2, Gdx.graphics.getHeight() - 100);
+        font.draw(this.game.getBatch(), "You have made it into the final!", (Gdx.graphics.getWidth() - layout.width) / 2, Gdx.graphics.getHeight()/2);
 
         layout.setText(font, "Press Space to continue to the final!");
         font.draw(this.game.getBatch(), "Press Space to continue to the final!", (Gdx.graphics.getWidth() - layout.width) / 2, 100 + layout.height);
 
-        if (Gdx.input.isKeyPressed(Input.Keys.SPACE))
+        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE))
             this.game.setScreen(new MainGameScreen(this.game, this.playerBoat.getBoatType()));
 
         this.game.getBatch().end();

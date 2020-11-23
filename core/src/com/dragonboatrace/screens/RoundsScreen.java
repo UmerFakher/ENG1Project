@@ -11,6 +11,9 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.dragonboatrace.DragonBoatRace;
 import com.dragonboatrace.entities.boats.Boat;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 public class RoundsScreen implements Screen {
 
     private DragonBoatRace game;
@@ -47,9 +50,6 @@ public class RoundsScreen implements Screen {
 
     @Override
     public void show() {
-        if (this.currentRound == 4){
-            this.game.setScreen(new FinalScreen(this.game, this.playerBoat));
-        }
 
     }
 
@@ -76,7 +76,18 @@ public class RoundsScreen implements Screen {
         this.game.getBatch().end();
 
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE))
-            this.game.setScreen(new MainGameScreen(this.game, this.playerBoat.getBoatType()));
+            if (this.game.getRound() > 3){
+                ArrayList<Float> temp = this.game.getTotalTimes();
+                Collections.sort(temp);
+                ArrayList<Float> topPlayers = new ArrayList<Float>(temp.subList(0, 4));
+                if (topPlayers.contains(this.game.getPlayerTotalTime())) {
+                    this.game.setScreen(new FinalScreen(this.game, this.playerBoat));
+                } else {
+                    this.game.setScreen(new GameOverScreen(this.game, "You were not fast enough. Better luck next time!"));
+                }
+            } else {
+                this.game.setScreen(new MainGameScreen(this.game, this.playerBoat.getBoatType()));
+            }
 
 
 
