@@ -223,6 +223,8 @@ public class Boat extends Entity {
         /* Check if boat is still in the lane */
         if (this.getHitBox().leaves(this.laneBox))
             this.penaltyTime += 0.1;
+            this.penaltyTime = Math.round(this.penaltyTime*100)/(float)100;
+
 
         this.distanceTravelled += this.velocity.y * deltaTime;
 
