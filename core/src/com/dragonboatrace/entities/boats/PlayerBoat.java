@@ -70,10 +70,10 @@ public class PlayerBoat extends Boat {
     public void updateYPosition(int lineHeight, int raceDistance) {
         /*float distanceRatio = this.distanceTravelled / (this.raceDistance);
         this.pos.y = (this.raceDistance - this.distanceTravelled > Gdx.graphics.getHeight())?100:distanceRatio * (Gdx.graphics.getHeight() - lineHeight);*/
-        if (this.distanceTravelled / (raceDistance) < 0.5f) {
+        if (this.distanceTravelled / (raceDistance) < 0.8f) {
             this.position.y = 100;
         } else {
-            this.position.y = (this.distanceTravelled - raceDistance / 2.0f) / (raceDistance - lineHeight - raceDistance / 2.0f) * (Gdx.graphics.getHeight() - 100) + 100;
+            this.position.y = (this.distanceTravelled - raceDistance / 1.25f) / (raceDistance - lineHeight - raceDistance / 1.25f) * (Gdx.graphics.getHeight() - 100) + 100;
             //this.pos.y = 100;
         }
     }
