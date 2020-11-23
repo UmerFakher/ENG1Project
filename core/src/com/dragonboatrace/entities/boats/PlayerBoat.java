@@ -73,7 +73,7 @@ public class PlayerBoat extends Boat {
         if (this.distanceTravelled / (raceDistance) < 0.8f) {
             this.position.y = 100;
         } else {
-            this.position.y = (this.distanceTravelled - raceDistance / 1.25f) / (raceDistance - lineHeight - raceDistance / 1.25f) * (Gdx.graphics.getHeight() - 100) + 100;
+            this.position.y = (this.distanceTravelled - raceDistance * 0.8f) / (raceDistance - lineHeight - raceDistance * 0.8f) * (Gdx.graphics.getHeight() - 100) + 100;
             //this.pos.y = 100;
         }
     }

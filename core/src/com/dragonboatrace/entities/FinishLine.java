@@ -31,7 +31,7 @@ public class FinishLine extends Entity {
      */
     public void update(float playerPos, float raceDistance, float deltaTime, float velY) {
         System.out.println(this.position.y);
-        if (playerPos > (raceDistance/2)){
+        if (playerPos > (raceDistance*0.8f)){
             if (this.position.y + (this.getHitBox().getHeight()/2) <= Gdx.graphics.getHeight()) {
                 this.position.set(this.position.x, Gdx.graphics.getHeight() - (this.getHitBox().getHeight())/2);
             } else {
