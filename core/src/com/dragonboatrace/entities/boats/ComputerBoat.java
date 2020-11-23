@@ -180,9 +180,9 @@ public class ComputerBoat extends Boat {
         float boatLeft = this.position.x;
 
         /* Staying away from the edges */
-        if (boatLeft - 100.0f < laneBox.getX()) {
+        if (boatLeft - 10.0f < laneBox.getX()) {
             return 1;
-        } else if (boatLeft + this.getHitBox().getWidth() + 100.0f > laneBox.getX() + laneBox.getWidth()) {
+        } else if (boatLeft + this.getHitBox().getWidth() + 10.0f > laneBox.getX() + laneBox.getWidth()) {
             return -1;
         }
 
