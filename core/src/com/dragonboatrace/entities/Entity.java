@@ -1,5 +1,6 @@
 package com.dragonboatrace.entities;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
@@ -46,7 +47,7 @@ public abstract class Entity {
         this.type = type;
 
         /* Resize the texture to the bounds of the entity, defined in EntityType */
-        Pixmap full = new Pixmap(new FileHandle(texture));
+        Pixmap full = new Pixmap(Gdx.files.local(texture));
         Pixmap resize = new Pixmap(type.getWidth(), type.getHeight(), full.getFormat());
         /* Redraw texture */
         resize.drawPixmap(full, 0, 0, full.getWidth(), full.getHeight(), 0, 0, resize.getWidth(), resize.getHeight());
