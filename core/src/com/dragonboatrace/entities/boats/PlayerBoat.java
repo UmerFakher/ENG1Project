@@ -2,6 +2,7 @@ package com.dragonboatrace.entities.boats;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dragonboatrace.tools.Lane;
 import com.dragonboatrace.tools.Settings;
 /** Represents a specific Player controlled Boat.
@@ -60,6 +61,12 @@ public class PlayerBoat extends Boat {
             }
         }
         super.update(deltaTime);
+    }
+
+    public void render(SpriteBatch batch){
+        layout.setText(nameFont, this.name);
+        nameFont.draw(batch, this.name, this.lane.getHitbox().getX() + 5, Gdx.graphics.getHeight() - 5);
+        super.render(batch);
     }
 
     /**

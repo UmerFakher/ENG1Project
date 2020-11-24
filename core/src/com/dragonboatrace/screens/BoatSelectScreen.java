@@ -12,6 +12,7 @@ import com.dragonboatrace.entities.Button;
 import com.dragonboatrace.entities.EntityType;
 import com.dragonboatrace.entities.boats.BoatType;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.dragonboatrace.tools.Settings;
 
 
 public class BoatSelectScreen implements Screen {
@@ -19,17 +20,31 @@ public class BoatSelectScreen implements Screen {
     Button fastButton, agileButton, strongButton, enduranceButton;
     DragonBoatRace game;
     BoatType boatChosen;
+    FreeTypeFontGenerator generator;
+    FreeTypeFontGenerator.FreeTypeFontParameter parameter;
+    BitmapFont font;
+    GlyphLayout layout;
 
     public BoatSelectScreen(DragonBoatRace game){
 
         this.game = game;
         this.boatChosen = null;
 
-        float s = (Gdx.graphics.getWidth() - EntityType.BUTTON.getWidth()*4)/5;
+        int buttonWidth = EntityType.BUTTON.getWidth();
+        float s = (Gdx.graphics.getWidth() - buttonWidth * 4)/5;
         this.fastButton = new Button(new Vector2(s, 100), "fast_button_active.png", "fast_button_inactive.png");
-        this.agileButton = new Button(new Vector2(s + (EntityType.BUTTON.getWidth() + s), 100), "agile_button_active.png", "agile_button_inactive.png");
-        this.strongButton = new Button(new Vector2(s + (EntityType.BUTTON.getWidth()+s)*2, 100), "strong_button_active.png", "strong_button_inactive.png");
-        this.enduranceButton = new Button(new Vector2(s + (EntityType.BUTTON.getWidth()+ s)*3, 100), "endurance_button_active.png", "endurance_button_inactive.png");
+        this.agileButton = new Button(new Vector2(s + (buttonWidth + s), 100), "agile_button_active.png", "agile_button_inactive.png");
+        this.strongButton = new Button(new Vector2(s + (buttonWidth+s)*2, 100), "strong_button_active.png", "strong_button_inactive.png");
+        this.enduranceButton = new Button(new Vector2(s + (buttonWidth+ s)*3, 100), "endurance_button_active.png", "endurance_button_inactive.png");
+
+        generator = new FreeTypeFontGenerator(Gdx.files.internal("osaka-re.ttf"));
+        parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        parameter.size *= 10 / Settings.SCALAR;
+        parameter.color = Color.WHITE;
+        font = generator.generateFont(parameter);
+        layout = new GlyphLayout();
+        layout.setText(font, "Choose your Boat:");
+
     }
 
 
@@ -42,13 +57,6 @@ public class BoatSelectScreen implements Screen {
     public void render(float delta) {
         Gdx.gl.glClearColor(0, 0, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("osaka-re.ttf"));
-        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size *= 10;
-        parameter.color = Color.WHITE;
-        BitmapFont font = generator.generateFont(parameter);
-        GlyphLayout layout = new GlyphLayout();
-        layout.setText(font, "Choose your Boat:");
         this.game.getBatch().begin();
 
         font.draw(this.game.getBatch(), "Choose your Boat:", (Gdx.graphics.getWidth() - layout.width) / 2, Gdx.graphics.getHeight() - 100);

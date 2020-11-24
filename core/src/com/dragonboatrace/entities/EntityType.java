@@ -1,5 +1,7 @@
 package com.dragonboatrace.entities;
 
+import com.dragonboatrace.tools.Settings;
+
 /** Represents a Type of Entity.
  * @author Benji Garment, Joe Wrieden
  */
@@ -28,7 +30,7 @@ public enum EntityType {
      * @return An int representing the width.
      */
     public int getWidth() {
-        return this.width;
+        return this.width / Settings.SCALAR;
     }
 
     /**
@@ -36,6 +38,6 @@ public enum EntityType {
      * @return An int representing the height.
      */
     public int getHeight() {
-        return this.height;
+        return this.height / Settings.SCALAR;
     }
 }

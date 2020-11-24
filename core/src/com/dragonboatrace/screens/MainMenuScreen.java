@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.dragonboatrace.DragonBoatRace;
 import com.dragonboatrace.entities.Button;
 import com.dragonboatrace.entities.EntityType;
+import com.dragonboatrace.tools.Settings;
 
 /** Represents the Main Menu where the game first starts.
  * @author Benji Garment, Joe Wrieden
@@ -19,6 +20,8 @@ public class MainMenuScreen implements Screen {
     Button playButton;
     Texture logo;
 
+    private final float logoOffset;
+
     DragonBoatRace game;
 
     public MainMenuScreen(DragonBoatRace game) {
@@ -27,6 +30,7 @@ public class MainMenuScreen implements Screen {
         this.exitButton = new Button(new Vector2((Gdx.graphics.getWidth() - EntityType.BUTTON.getWidth()) / 2.0f, 100), "exit_button_active.png", "exit_button_inactive.png");
         this.playButton = new Button(new Vector2((Gdx.graphics.getWidth() - EntityType.BUTTON.getWidth()) / 2.0f, 300), "play_button_active.png", "play_button_inactive.png");
         this.logo = new Texture("dragon.png");
+        logoOffset = 680 / Settings.SCALAR;
     }
 
 
@@ -42,7 +46,9 @@ public class MainMenuScreen implements Screen {
 
         this.game.getBatch().begin();
 
-        this.game.getBatch().draw(logo, (Gdx.graphics.getWidth() - 680) / 2.0f, Gdx.graphics.getHeight() - 625, 680, 600);
+
+
+        this.game.getBatch().draw(logo, (Gdx.graphics.getWidth() - logoOffset) / 2.0f, Gdx.graphics.getHeight() - 625/Settings.SCALAR, logoOffset, 600 / Settings.SCALAR);
 
         exitButton.render(this.game.getBatch());
         if (this.exitButton.isHovering() && Gdx.input.isTouched()) {

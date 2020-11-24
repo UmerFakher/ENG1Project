@@ -29,15 +29,15 @@ public class GameOverScreen implements Screen {
         this.reason = reason;
         this.generator = new FreeTypeFontGenerator(Gdx.files.internal("osaka-re.ttf"));
         this.parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = 75;
+        parameter.size = 75 / Settings.SCALAR;
         parameter.color = Color.WHITE;
         this.font = generator.generateFont(parameter);
         this.leaderBoardFont = generator.generateFont(parameter);
         this.layout = new GlyphLayout();
-        parameter.size = 60;
+        parameter.size = 60 / Settings.SCALAR;
         layout.setText(leaderBoardFont, this.reason);
         if (layout.height +800 > Gdx.graphics.getHeight()) {
-            parameter.size = (int)(60 / (layout.height / 600));
+            parameter.size = (int)(60 / (layout.height / 600))/Settings.SCALAR;
             leaderBoardFont = generator.generateFont(parameter);
             layout.setText(leaderBoardFont, this.reason);
         }

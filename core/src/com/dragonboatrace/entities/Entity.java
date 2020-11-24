@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.dragonboatrace.tools.Hitbox;
+import com.dragonboatrace.tools.Settings;
 
 /** Represents a generic Entity.
  * @author Benji Garment, Joe Wrieden

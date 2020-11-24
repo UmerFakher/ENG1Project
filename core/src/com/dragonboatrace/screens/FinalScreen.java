@@ -27,7 +27,7 @@ public class FinalScreen implements Screen {
         this.playerBoat = playerBoat;
         this.generator = new FreeTypeFontGenerator(Gdx.files.internal("osaka-re.ttf"));
         this.parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size *= 5;
+        parameter.size *= 5 / Settings.SCALAR;
         parameter.color = Color.WHITE;
         this.font = generator.generateFont(parameter);
 

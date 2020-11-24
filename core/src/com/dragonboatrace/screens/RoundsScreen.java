@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.dragonboatrace.DragonBoatRace;
 import com.dragonboatrace.entities.boats.Boat;
+import com.dragonboatrace.tools.Settings;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -33,18 +34,17 @@ public class RoundsScreen implements Screen {
         this.reason = reason;
         this.generator = new FreeTypeFontGenerator(Gdx.files.internal("osaka-re.ttf"));
         this.parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = 75;
+        parameter.size = 75 / Settings.SCALAR;
         parameter.color = Color.WHITE;
         this.font = generator.generateFont(parameter);
         this.leaderBoardFont = generator.generateFont(parameter);
         this.layout = new GlyphLayout();
         layout.setText(leaderBoardFont, this.reason);
         if (layout.height +800 > Gdx.graphics.getHeight()) {
-            parameter.size = (int)(75 / (layout.height / 600));
+            parameter.size = (int)(75 / (layout.height / 600))/Settings.SCALAR;
             leaderBoardFont = generator.generateFont(parameter);
             layout.setText(leaderBoardFont, this.reason);
         }
-
     }
 
 
@@ -88,9 +88,6 @@ public class RoundsScreen implements Screen {
             } else {
                 this.game.setScreen(new MainGameScreen(this.game, this.playerBoat.getBoatType()));
             }
-
-
-
     }
 
     @Override

@@ -31,7 +31,7 @@ public class Boat extends Entity {
     /**
      * The formatter used to align the text on-screen.
      */
-    private GlyphLayout layout;
+    protected GlyphLayout layout;
     /**
      * The health of the boat.
      */
@@ -250,13 +250,7 @@ public class Boat extends Entity {
     public void render(SpriteBatch batch) {
         this.lane.render(batch);
 
-        if (this instanceof PlayerBoat) {
 
-            layout.setText(nameFont, this.name);
-
-            nameFont.draw(batch, this.name, this.lane.getHitbox().getX() + 5, Gdx.graphics.getHeight() - 5);
-
-        }
 
         layout.setText(healthFont, "Health:  XXX");
 
@@ -266,7 +260,7 @@ public class Boat extends Entity {
 
         staminaFont.draw(batch, "Stamina: " + (int) this.getStamina(), this.lane.getHitbox().getX()+5, Gdx.graphics.getHeight() - 105);
 
-        batch.draw(this.texture, this.position.x, this.position.y);
+        super.render(batch);
     }
 
     /**
