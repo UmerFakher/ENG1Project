@@ -113,9 +113,9 @@ public class ComputerBoat extends Boat {
      */
     public void render(SpriteBatch batch) {
         if (this.position.y > Gdx.graphics.getHeight()) {
-            batch.draw(up, this.position.x, Gdx.graphics.getHeight() - this.texture.getHeight(), this.texture.getWidth(), this.texture.getHeight());
+            batch.draw(up, this.position.x, Gdx.graphics.getHeight() - this.texture.getHeight(), 50, 50);
         } else if (this.position.y < 0) {
-            batch.draw(down, this.position.x, 0, this.texture.getWidth(), this.texture.getHeight());
+            batch.draw(down, this.position.x, 0, 50, 50);
         } else {
             batch.draw(this.texture, this.position.x, this.position.y);
         }
