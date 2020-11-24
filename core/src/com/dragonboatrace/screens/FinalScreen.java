@@ -52,7 +52,7 @@ public class FinalScreen implements Screen {
         font.draw(this.game.getBatch(), "You have made it into the final!", (Gdx.graphics.getWidth() - layout.width) / 2, Gdx.graphics.getHeight()/2);
 
         layout.setText(font, "Press Space to continue to the final!");
-        font.draw(this.game.getBatch(), "Press Space to continue to the final!", (Gdx.graphics.getWidth() - layout.width) / 2, 100 + layout.height);
+        font.draw(this.game.getBatch(), "Press Space to continue to the final!", (Gdx.graphics.getWidth() - layout.width) / 2, 100/Settings.SCALAR + layout.height);
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE))
             this.game.setScreen(new MainGameScreen(this.game, this.playerBoat.getBoatType()));

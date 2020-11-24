@@ -158,7 +158,7 @@ public class Boat extends Entity {
         if (this.layout.width > this.laneBox.getWidth()) {
             parameter.size = (int)(50 / (this.layout.width / this.laneBox.getWidth()));
             parameter.color = Color.BLACK;
-            healthFont = generator.generateFont(parameter);
+            nameFont = generator.generateFont(parameter);
         }
 
         parameter.size = 50;

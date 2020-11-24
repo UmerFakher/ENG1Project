@@ -138,7 +138,7 @@ public class Race {
             boat.render(batch);
         }
         for (int i = 0; i < Settings.PLAYER_COUNT; i++) {
-            batch.draw(this.barrier, ((float) Gdx.graphics.getWidth() / Settings.PLAYER_COUNT) * i, 0);
+            batch.draw(this.barrier, ((float) Gdx.graphics.getWidth() / Settings.PLAYER_COUNT) * i, 0, 5, 1080/(1.0f/2.0f));
         }
     }
 
