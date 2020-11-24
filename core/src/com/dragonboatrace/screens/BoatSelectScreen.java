@@ -75,16 +75,16 @@ public class BoatSelectScreen implements Screen {
 
         float scale = (this.buttonWidth / EntityType.BOAT.getWidth())/2f;
 
-        this.game.getBatch().draw(this.fastImage, this.fastButton.getHitBox().getX() + ((this.fastButton.getHitBox().getWidth() - this.buttonWidth/2)/2f), 200 + EntityType.BUTTON.getHeight(), this.buttonWidth/2, EntityType.BOAT.getHeight()*scale);
+        this.game.getBatch().draw(this.fastImage, this.fastButton.getHitBox().getX() + ((this.fastButton.getHitBox().getWidth() - this.buttonWidth/2)/2f), 150 + EntityType.BUTTON.getHeight(), this.buttonWidth/2, EntityType.BOAT.getHeight()*scale);
         this.fastButton.render(this.game.getBatch());
 
-        this.game.getBatch().draw(this.agileImage, this.agileButton.getHitBox().getX() + ((this.agileButton.getHitBox().getWidth() - this.buttonWidth/2)/2f) , 200 + EntityType.BUTTON.getHeight(), this.buttonWidth/2, EntityType.BOAT.getHeight()*scale);
+        this.game.getBatch().draw(this.agileImage, this.agileButton.getHitBox().getX() + ((this.agileButton.getHitBox().getWidth() - this.buttonWidth/2)/2f) , 150 + EntityType.BUTTON.getHeight(), this.buttonWidth/2, EntityType.BOAT.getHeight()*scale);
         this.agileButton.render(this.game.getBatch());
 
-        this.game.getBatch().draw(this.strongImage, this.strongButton.getHitBox().getX() + ((this.strongButton.getHitBox().getWidth() - this.buttonWidth/2)/2f) , 200 + EntityType.BUTTON.getHeight(), this.buttonWidth/2, EntityType.BOAT.getHeight()*scale);
+        this.game.getBatch().draw(this.strongImage, this.strongButton.getHitBox().getX() + ((this.strongButton.getHitBox().getWidth() - this.buttonWidth/2)/2f) , 150 + EntityType.BUTTON.getHeight(), this.buttonWidth/2, EntityType.BOAT.getHeight()*scale);
         this.strongButton.render(this.game.getBatch());
 
-        this.game.getBatch().draw(this.enduranceImage, this.enduranceButton.getHitBox().getX() + ((this.enduranceButton.getHitBox().getWidth() - this.buttonWidth/2)/2f) , 200 + EntityType.BUTTON.getHeight(), this.buttonWidth/2, EntityType.BOAT.getHeight()*scale);
+        this.game.getBatch().draw(this.enduranceImage, this.enduranceButton.getHitBox().getX() + ((this.enduranceButton.getHitBox().getWidth() - this.buttonWidth/2)/2f) , 150 + EntityType.BUTTON.getHeight(), this.buttonWidth/2, EntityType.BOAT.getHeight()*scale);
         this.enduranceButton.render(this.game.getBatch());
 
         if (this.fastButton.isHovering() && Gdx.input.isTouched()){
