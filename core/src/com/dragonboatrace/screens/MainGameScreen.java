@@ -97,7 +97,7 @@ public class MainGameScreen implements Screen {
         this.generator = new FreeTypeFontGenerator(Gdx.files.internal("osaka-re.ttf"));
         this.parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.size *= 10;
-        parameter.color = Color.ORANGE;
+        parameter.color = Color.BLACK;
         this.font = generator.generateFont(parameter);
         this.layout = new GlyphLayout();
 
@@ -168,6 +168,7 @@ public class MainGameScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
+
     }
 
     @Override

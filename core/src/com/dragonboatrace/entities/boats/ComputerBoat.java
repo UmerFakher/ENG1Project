@@ -83,7 +83,7 @@ public class ComputerBoat extends Boat {
                     this.stamina = (this.stamina < this.maxStamina) ? this.regenerateStamina() + this.stamina : this.maxStamina;
                 }
             }
-            if (checkCollisions()) {
+            if (this.checkCollisions()) {
                 //this.distanceTravelled -= 200;
                 System.out.println("Collision!");
                 recentCollision = true;
@@ -155,13 +155,7 @@ public class ComputerBoat extends Boat {
         float smallest = Gdx.graphics.getHeight();
         for (int i = 0; i < size; i++) {
             Obstacle obstacle = obstacles.get(i);
-            if (obstacle.getHitBox().collidesWith(this.hitbox)) {
-                obstacle.dispose();
-                this.lane.removeObstacle(obstacle);
-                size--;
-                this.health -= obstacle.getDamage();
-                this.velocity.y = -54;
-            } else if (obstacle.getHitBox().collidesWith(this.moveArea)) {
+            if (obstacle.getHitBox().collidesWith(this.moveArea)) {
                 float bottomY = obstacle.getPos().y;
                 if (bottomY < smallest) {
                     closest = obstacle;
@@ -186,9 +180,9 @@ public class ComputerBoat extends Boat {
         float boatLeft = this.position.x;
 
         /* Staying away from the edges */
-        if (boatLeft - 100.0f < laneBox.getX()) {
+        if (boatLeft - 10.0f < laneBox.getX()) {
             return 1;
-        } else if (boatLeft + this.getHitBox().getWidth() + 100.0f > laneBox.getX() + laneBox.getWidth()) {
+        } else if (boatLeft + this.getHitBox().getWidth() + 10.0f > laneBox.getX() + laneBox.getWidth()) {
             return -1;
         }
 
