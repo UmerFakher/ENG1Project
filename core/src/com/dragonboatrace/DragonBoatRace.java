@@ -2,7 +2,12 @@ package com.dragonboatrace;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
+import com.dragonboatrace.entities.boats.BoatType;
+import com.dragonboatrace.entities.boats.PlayerBoat;
+import com.dragonboatrace.screens.FinalScreen;
 import com.dragonboatrace.screens.MainMenuScreen;
+import com.dragonboatrace.tools.Lane;
 import com.dragonboatrace.tools.Settings;
 
 import java.util.ArrayList;

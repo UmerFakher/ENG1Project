@@ -40,8 +40,12 @@ public class RoundsScreen implements Screen {
         this.leaderBoardFont = generator.generateFont(parameter);
         this.layout = new GlyphLayout();
         layout.setText(leaderBoardFont, this.reason);
-        if (layout.height +800 > Gdx.graphics.getHeight()) {
-            parameter.size = (int)(75 / (layout.height / 600))/Settings.SCALAR;
+        if (layout.height > Gdx.graphics.getHeight()/2) {
+            int a = 75/Settings.SCALAR;
+            int c = Gdx.graphics.getHeight()/2;
+            float b = layout.height / c;
+
+            parameter.size =  (int)(a/b) ;
             leaderBoardFont = generator.generateFont(parameter);
             layout.setText(leaderBoardFont, this.reason);
         }
@@ -60,14 +64,14 @@ public class RoundsScreen implements Screen {
         this.game.getBatch().begin();
 
         layout.setText(font,"Well done for completing round "+(this.currentRound-1) + " in "+this.playerBoat.getTime()+"s");
-        font.draw(this.game.getBatch(), "Well done for completing round "+(this.currentRound-1) + " in "+this.playerBoat.getTime()+"s", (Gdx.graphics.getWidth() - layout.width) / 2, Gdx.graphics.getHeight() - 75);
+        font.draw(this.game.getBatch(), "Well done for completing round "+(this.currentRound-1) + " in "+this.playerBoat.getTime()+"s", (Gdx.graphics.getWidth() - layout.width) / 2, Gdx.graphics.getHeight() - 75/Settings.SCALAR);
 
         layout.setText(font,"With "+this.playerBoat.getPenaltyTime() + "s of that in penalties");
-        font.draw(this.game.getBatch(), "With " +this.playerBoat.getPenaltyTime() + "s of that in penalties", (Gdx.graphics.getWidth() - layout.width) / 2, Gdx.graphics.getHeight() - 175);
+        font.draw(this.game.getBatch(), "With " +this.playerBoat.getPenaltyTime() + "s of that in penalties", (Gdx.graphics.getWidth() - layout.width) / 2, Gdx.graphics.getHeight() - 175/Settings.SCALAR);
 
 
         layout.setText(leaderBoardFont, this.reason);
-        leaderBoardFont.draw(this.game.getBatch(), this.reason, (Gdx.graphics.getWidth() - layout.width) / 2, (Gdx.graphics.getHeight() + layout.height) / 2 - 75);
+        leaderBoardFont.draw(this.game.getBatch(), this.reason, (Gdx.graphics.getWidth() - layout.width) / 2, (Gdx.graphics.getHeight() + layout.height) / 2 - 75/Settings.SCALAR);
 
 
         layout.setText(font, (this.currentRound == 4)? "Press Space to see if you made it to the final" : "Press Space to continue to round "+(this.currentRound));

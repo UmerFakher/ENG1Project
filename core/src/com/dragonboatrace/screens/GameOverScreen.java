@@ -34,10 +34,14 @@ public class GameOverScreen implements Screen {
         this.font = generator.generateFont(parameter);
         this.leaderBoardFont = generator.generateFont(parameter);
         this.layout = new GlyphLayout();
-        parameter.size = 60 / Settings.SCALAR;
+        parameter.size = 75 / Settings.SCALAR;
         layout.setText(leaderBoardFont, this.reason);
-        if (layout.height +800 > Gdx.graphics.getHeight()) {
-            parameter.size = (int)(60 / (layout.height / 600))/Settings.SCALAR;
+        if (layout.height > Gdx.graphics.getHeight()/2) {
+            int a = 75/Settings.SCALAR;
+            int c = Gdx.graphics.getHeight()/2;
+            float b = layout.height / c;
+
+            parameter.size =  (int)(a/b) ;
             leaderBoardFont = generator.generateFont(parameter);
             layout.setText(leaderBoardFont, this.reason);
         }
@@ -57,13 +61,13 @@ public class GameOverScreen implements Screen {
         this.game.getBatch().begin();
 
         layout.setText(font, "GAME OVER!");
-        font.draw(this.game.getBatch(), "GAME OVER!", (Gdx.graphics.getWidth() - layout.width) / 2, Gdx.graphics.getHeight() - 100);
+        font.draw(this.game.getBatch(), "GAME OVER!", (Gdx.graphics.getWidth() - layout.width) / 2, Gdx.graphics.getHeight() - 100/Settings.SCALAR);
 
         layout.setText(leaderBoardFont, this.reason);
         leaderBoardFont.draw(this.game.getBatch(), this.reason, (Gdx.graphics.getWidth() - layout.width) / 2, (Gdx.graphics.getHeight() + layout.height) / 2);
 
         layout.setText(font, "Press Esc to return to Main Menu");
-        font.draw(this.game.getBatch(), "Press Esc to return to Main Menu", (Gdx.graphics.getWidth() - layout.width) / 2, 200);
+        font.draw(this.game.getBatch(), "Press Esc to return to Main Menu", (Gdx.graphics.getWidth() - layout.width) / 2, 200/Settings.SCALAR);
 
         if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE))
             this.game.setScreen(new MainMenuScreen(this.game));
