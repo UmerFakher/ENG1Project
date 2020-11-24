@@ -30,7 +30,6 @@ public class FinishLine extends Entity {
      * @param velY The y-velocity of the entity it will move in respect to (Will be the player)
      */
     public void update(float playerPos, float raceDistance, float deltaTime, float velY) {
-        System.out.println(this.position.y);
         if (playerPos > (raceDistance*0.8f)){
             if (this.position.y + (this.getHitBox().getHeight()/2) <= Gdx.graphics.getHeight()) {
                 this.position.set(this.position.x, Gdx.graphics.getHeight() - (this.getHitBox().getHeight())/2);
