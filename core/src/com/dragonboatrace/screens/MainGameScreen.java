@@ -67,6 +67,7 @@ public class MainGameScreen implements Screen {
      * Creates a new game screen with a game instance.
      *
      * @param game The game instance.
+     * @param boatChosen The {@link BoatType} that the player chose.
      */
     public MainGameScreen(DragonBoatRace game, BoatType boatChosen) {
         this.game = game;

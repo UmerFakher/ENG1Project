@@ -56,6 +56,8 @@ public class Race {
      * Creates a new race of a specified length.
      *
      * @param raceLength The length of the race.
+     * @param boatChosen The {@link BoatType} that the player chose.
+     * @param round The current round of the race.
      */
     public Race(int raceLength, BoatType boatChosen, int round) {
         this.length = raceLength;
@@ -79,6 +81,7 @@ public class Race {
      * Update the race in respects to the amount of time passed since the last frame.
      *
      * @param deltaTime The time since the last frame.
+     * @param game The instance of the game.
      */
     public void update(float deltaTime, DragonBoatRace game) {
         player.updateYPosition(this.theFinish.getHitBox().getHeight(), length);
