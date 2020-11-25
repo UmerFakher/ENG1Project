@@ -31,10 +31,10 @@ public class Lane {
     private final ArrayList<Float> randomWaitTimes;
 
     /**
-     * Creates a new lane at a position and with a width.
-     *
-     * @param pos   The position of the bottom left corner of the lane.
+     * Creates a new lane at a position and with a width and uses the round number to change the number of obstacles.
+     * @param pos The position of the lane in the screen.
      * @param width The width of the lane.
+     * @param round The current round, used to increase difficulty.
      */
     public Lane(Vector2 pos, int width, int round) {
         this.area = new Hitbox(pos.x, pos.y, width, Gdx.graphics.getHeight() + 200);
@@ -133,6 +133,7 @@ public class Lane {
 
     /**
      * Fill the list with obstacles that will start at random times.
+     * @param round The current round increases the number of obstacles.
      */
     private void populateList(int round) {
         for (int i = 0; i < (11 - Settings.PLAYER_COUNT + round - 1); i++) {

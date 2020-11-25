@@ -439,6 +439,7 @@ public class Boat extends Entity {
 
     /**
      * Set the boat time
+     * @param nowTime The time passed since last call.
      */
     public void setTime(float nowTime) {
         this.time += nowTime;
@@ -454,7 +455,8 @@ public class Boat extends Entity {
     }
 
     /**
-     * Set the total boat time
+     * Set the total boat time.
+     * @param nowTime The time passed since last call.
      */
     public void setTotalTime(float nowTime) {
         this.totalTime += nowTime;
