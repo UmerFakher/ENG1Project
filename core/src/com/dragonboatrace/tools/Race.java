@@ -20,7 +20,9 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 
-/** Represents a Race.
+/**
+ * Represents a Race.
+ *
  * @author Benji Garment, Joe Wrieden
  */
 public class Race {
@@ -37,7 +39,7 @@ public class Race {
      */
     private final Boat player;
     /**
-     * The finish line
+     * The finish line.
      */
     private final FinishLine theFinish;
     /**
@@ -46,12 +48,13 @@ public class Race {
     private final Texture barrier;
 
     /**
-     * The timer for the race
+     * The timer for the race.
      */
     private float timer;
 
     /**
      * Creates a new race of a specified length.
+     *
      * @param raceLength The length of the race.
      */
     public Race(int raceLength, BoatType boatChosen, int round) {
@@ -60,7 +63,6 @@ public class Race {
         int size = Gdx.graphics.getWidth() / Settings.PLAYER_COUNT;
         this.timer = 0;
 
-        //player = new PlayerBoat(BoatType.FAST, new Lane(new Vector2(0, 0), size), length, "ME");
         player = new PlayerBoat(boatChosen, new Lane(new Vector2(0, 0), size, round), "Player");
 
         this.barrier = new Texture("line.png");
@@ -75,13 +77,14 @@ public class Race {
 
     /**
      * Update the race in respects to the amount of time passed since the last frame.
+     *
      * @param deltaTime The time since the last frame.
      */
     public void update(float deltaTime, DragonBoatRace game) {
         player.updateYPosition(this.theFinish.getHitBox().getHeight(), length);
         player.update(deltaTime);
         theFinish.update(player.getDistanceTravelled(), this.length, deltaTime, player.getVelocity().y);
-        if (player.getHealth() <= 0){
+        if (player.getHealth() <= 0) {
             game.setScreen(new GameOverScreen(game, "Your boat is broken. Better luck next time!"));
         }
         for (Boat boat : this.boats) {
@@ -96,7 +99,7 @@ public class Race {
         if (player.getDistanceTravelled() + this.theFinish.getHitBox().getHeight() >= this.length) {
             player.setTime(Math.round((System.nanoTime() - this.timer) / 10000000) / (float) 100);
             player.setTotalTime(player.getTime());
-            ArrayList<Float> dnfList = new ArrayList<Float>();
+            ArrayList<Float> dnfList = new ArrayList<>();
             for (Boat boat : boats) {
                 if (boat.getTime() == 0) {
                     dnfList.add(boat.getDistanceTravelled());
@@ -105,20 +108,20 @@ public class Race {
             Collections.sort(dnfList);
             Collections.reverse(dnfList);
             for (float dist : dnfList) {
-                for (Boat boatn : boats) {
-                    if (boatn.getDistanceTravelled() == dist) {
+                for (Boat boatN : boats) {
+                    if (boatN.getDistanceTravelled() == dist) {
                         switch (dnfList.indexOf(dist) + 1) {
                             case 1:
-                                boatn.setTime(player.getTime() + 1);
+                                boatN.setTime(player.getTime() + 1);
                                 break;
                             case 2:
-                                boatn.setTime(player.getTime() + 3);
+                                boatN.setTime(player.getTime() + 3);
                                 break;
                             case 3:
-                                boatn.setTime(player.getTime() + 5);
+                                boatN.setTime(player.getTime() + 5);
                                 break;
                             default:
-                                boatn.setTime(player.getTime() + ThreadLocalRandom.current().nextInt(6, 30));
+                                boatN.setTime(player.getTime() + ThreadLocalRandom.current().nextInt(6, 30));
                         }
 
                     }
@@ -130,6 +133,7 @@ public class Race {
 
     /**
      * Render the boats in the race and the player boat.
+     *
      * @param batch The SpriteBatch to be added to.
      */
     public void render(SpriteBatch batch) {
@@ -143,52 +147,57 @@ public class Race {
         }
     }
 
+    /**
+     * Generate the leaderboard from the race that just occurred and then show the next round screen.
+     *
+     * @param game The instance of the game.
+     */
     public void getLeaderBoard(DragonBoatRace game) {
-        ArrayList<Float> times = new ArrayList<Float>();
+        ArrayList<Float> times = new ArrayList<>();
         String reason = "";
         player.setTime(this.player.getPenaltyTime());
 
         times.add(player.getTime());
-        for (Boat boatn : boats) {
-            times.add(boatn.getTime());
+        for (Boat boatN : boats) {
+            times.add(boatN.getTime());
         }
 
         game.setPlayerTotalTime(times.get(0));
-        for (int i = 0; i < Settings.PLAYER_COUNT; i++){
+        for (int i = 0; i < Settings.PLAYER_COUNT; i++) {
             game.setTimeAt(i, times.get(i));
         }
         boats.add(player);
         Collections.sort(times);
-        ArrayList<Float> dup = new ArrayList<Float>(findDuplicates(times));
-        if (dup.size() != 0){
-            times.set(times.indexOf(dup.get(0)), (float)(times.get(times.indexOf(dup.get(0)))+0.02));
+        ArrayList<Float> dup = new ArrayList<>(findDuplicates(times));
+        if (dup.size() != 0) {
+            times.set(times.indexOf(dup.get(0)), (float) (times.get(times.indexOf(dup.get(0))) + 0.02));
         }
 
         for (float time : times) {
-            for (Boat boatn : boats) {
-                if (boatn.getTime() == time) {
-                    switch (times.indexOf(time)+1) {
+            for (Boat boatN : boats) {
+                if (boatN.getTime() == time) {
+                    switch (times.indexOf(time) + 1) {
                         case 1:
                             if (game.getRound() == 4)
-                                reason += "Gold Medal:      "+boatn.getName() +"\n";
+                                reason += "Gold Medal:      " + boatN.getName() + "\n";
                             else
-                                reason += "1st: "+ boatn.getName() + "\n";
+                                reason += "1st: " + boatN.getName() + "\n";
                             break;
                         case 2:
                             if (game.getRound() == 4)
-                                reason += "Silver Medal:    "+boatn.getName() +"\n";
+                                reason += "Silver Medal:    " + boatN.getName() + "\n";
                             else
-                                reason += "2nd: " + boatn.getName() + "\n";
+                                reason += "2nd: " + boatN.getName() + "\n";
                             break;
                         case 3:
                             if (game.getRound() == 4)
-                                reason += "Bronze Medal:    "+boatn.getName() +"\n";
+                                reason += "Bronze Medal:    " + boatN.getName() + "\n";
                             else
-                                reason += "3rd: " + boatn.getName() + "\n";
+                                reason += "3rd: " + boatN.getName() + "\n";
                             break;
                         default:
                             if (game.getRound() != 4)
-                                reason += times.indexOf(time)+1+"th: " + boatn.getName() + "\n";
+                                reason += times.indexOf(time) + 1 + "th: " + boatN.getName() + "\n";
                     }
                 }
             }
@@ -198,21 +207,23 @@ public class Race {
         game.upRound();
         if (game.getRound() != 5) {
             game.setScreen(new RoundsScreen(game, this.player, reason));
-        }
-        else{
+        } else {
             game.setScreen(new GameOverScreen(game, reason));
         }
     }
 
-    public Set<Float> findDuplicates(ArrayList<Float> list)
-    {
+    /**
+     * Find any duplicates in an arraylist of floats.
+     *
+     * @param list An {@link ArrayList} of floats to be combed through.
+     * @return An {@link Set} of type float containing unique values.
+     */
+    public Set<Float> findDuplicates(ArrayList<Float> list) {
         final Set<Float> setToReturn = new HashSet<>();
         final Set<Float> set1 = new HashSet<>();
 
-        for (Float yourFloat : list)
-        {
-            if (!set1.add(yourFloat))
-            {
+        for (Float yourFloat : list) {
+            if (!set1.add(yourFloat)) {
                 setToReturn.add(yourFloat);
             }
         }
@@ -221,14 +232,15 @@ public class Race {
 
     /**
      * Get the players boat.
+     *
      * @return A {@link Boat} representing the players boat.
      */
     public Boat getPlayer() {
         return this.player;
     }
 
-    public void dispose(){
-        for (Boat boat : this.boats){
+    public void dispose() {
+        for (Boat boat : this.boats) {
             boat.dispose();
         }
         this.theFinish.dispose();

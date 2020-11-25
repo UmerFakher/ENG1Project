@@ -15,37 +15,69 @@ import com.dragonboatrace.tools.Settings;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * Represents the intermediary screen between rounds that shows the player their place in the previous race and waits
+ * for the user to continue on to the next round.
+ *
+ * @author Benji Garment, Joe Wrieden
+ */
 public class RoundsScreen implements Screen {
 
-    private DragonBoatRace game;
-    private int currentRound;
-    private Boat playerBoat;
-    private String reason;
-    private FreeTypeFontGenerator.FreeTypeFontParameter parameter;
-    private FreeTypeFontGenerator generator;
-    private BitmapFont leaderBoardFont;
-    private BitmapFont font;
-    private GlyphLayout layout;
+    /**
+     * The instance of the game.
+     */
+    private final DragonBoatRace game;
 
-    public RoundsScreen(DragonBoatRace game, Boat playerBoat, String reason){
+    /**
+     * The current round of the game.
+     */
+    private final int currentRound;
+
+    /**
+     * The instance of the players boat to bring through each round.
+     */
+    private final Boat playerBoat;
+
+    /**
+     * The leaderboard to display the places of the boats in the race.
+     */
+    private final String reason;
+    private final BitmapFont font;
+    private final GlyphLayout layout;
+    /* Font related items */
+    private BitmapFont leaderBoardFont;
+
+    /**
+     * Creates a new screen to display the leaderboard from the previous round.
+     *
+     * @param game       The game instance.
+     * @param playerBoat The players boat to bring through each round.
+     * @param reason     The string that represents the positions of the boats in the round that just finished.
+     */
+    public RoundsScreen(DragonBoatRace game, Boat playerBoat, String reason) {
         this.game = game;
         this.currentRound = this.game.getRound();
         this.playerBoat = playerBoat;
         this.reason = reason;
-        this.generator = new FreeTypeFontGenerator(Gdx.files.internal("osaka-re.ttf"));
-        this.parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+
+        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("osaka-re.ttf"));
+        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.size = 75 / Settings.SCALAR;
         parameter.color = Color.WHITE;
+
         this.font = generator.generateFont(parameter);
         this.leaderBoardFont = generator.generateFont(parameter);
         this.layout = new GlyphLayout();
-        layout.setText(leaderBoardFont, this.reason);
-        if (layout.height > Gdx.graphics.getHeight()/2) {
-            int a = 75/Settings.SCALAR;
-            int c = Gdx.graphics.getHeight()/2;
-            float b = layout.height / c;
 
-            parameter.size =  (int)(a/b) ;
+        layout.setText(leaderBoardFont, this.reason);
+
+        /* If the leaderboard doesnt fit on the screen */
+        if (layout.height > Gdx.graphics.getHeight() / 2f) {
+            /* Scale the font to fit on the screen. */
+            int a = 75 / Settings.SCALAR;
+            int c = Gdx.graphics.getHeight() / 2;
+            float b = layout.height / c;
+            parameter.size = (int) (a / b);
             leaderBoardFont = generator.generateFont(parameter);
             layout.setText(leaderBoardFont, this.reason);
         }
@@ -57,33 +89,37 @@ public class RoundsScreen implements Screen {
 
     }
 
-    @Override
+    /**
+     * Render the screen to show the leaderboard of all the boats in the round and their positions.
+     *
+     * @param delta The time passed since the last frame.
+     */
     public void render(float delta) {
         Gdx.gl.glClearColor(0, 0, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         this.game.getBatch().begin();
 
-        layout.setText(font,"Well done for completing round "+(this.currentRound-1) + " in "+this.playerBoat.getTime()+"s");
-        font.draw(this.game.getBatch(), "Well done for completing round "+(this.currentRound-1) + " in "+this.playerBoat.getTime()+"s", (Gdx.graphics.getWidth() - layout.width) / 2, Gdx.graphics.getHeight() - 75/Settings.SCALAR);
+        layout.setText(font, "Well done for completing round " + (this.currentRound - 1) + " in " + this.playerBoat.getTime() + "s");
+        font.draw(this.game.getBatch(), "Well done for completing round " + (this.currentRound - 1) + " in " + this.playerBoat.getTime() + "s", (Gdx.graphics.getWidth() - layout.width) / 2, Gdx.graphics.getHeight() - 75 / Settings.SCALAR);
 
-        layout.setText(font,"With "+this.playerBoat.getPenaltyTime() + "s of that in penalties");
-        font.draw(this.game.getBatch(), "With " +this.playerBoat.getPenaltyTime() + "s of that in penalties", (Gdx.graphics.getWidth() - layout.width) / 2, Gdx.graphics.getHeight() - 175/Settings.SCALAR);
+        layout.setText(font, "With " + this.playerBoat.getPenaltyTime() + "s of that in penalties");
+        font.draw(this.game.getBatch(), "With " + this.playerBoat.getPenaltyTime() + "s of that in penalties", (Gdx.graphics.getWidth() - layout.width) / 2, Gdx.graphics.getHeight() - 175f / Settings.SCALAR);
 
 
         layout.setText(leaderBoardFont, this.reason);
-        leaderBoardFont.draw(this.game.getBatch(), this.reason, (Gdx.graphics.getWidth() - layout.width) / 2, (Gdx.graphics.getHeight() + layout.height) / 2 - 75/Settings.SCALAR);
+        leaderBoardFont.draw(this.game.getBatch(), this.reason, (Gdx.graphics.getWidth() - layout.width) / 2, (Gdx.graphics.getHeight() + layout.height) / 2 - 75f / Settings.SCALAR);
 
 
-        layout.setText(font, (this.currentRound == 4)? "Press Space to see if you made it to the final" : "Press Space to continue to round "+(this.currentRound));
-        font.draw(this.game.getBatch(), (this.currentRound == 4)? "Press Space to see if you made it to the final" : "Press Space to continue to round "+(this.currentRound), (Gdx.graphics.getWidth() - layout.width) / 2, 100 + layout.height);
+        layout.setText(font, (this.currentRound == 4) ? "Press Space to see if you made it to the final" : "Press Space to continue to round " + (this.currentRound));
+        font.draw(this.game.getBatch(), (this.currentRound == 4) ? "Press Space to see if you made it to the final" : "Press Space to continue to round " + (this.currentRound), (Gdx.graphics.getWidth() - layout.width) / 2, 100 + layout.height);
 
         this.game.getBatch().end();
 
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE))
-            if (this.game.getRound() > 3){
+            if (this.game.getRound() > 3) {
                 ArrayList<Float> temp = this.game.getTotalTimes();
                 Collections.sort(temp);
-                ArrayList<Float> topPlayers = new ArrayList<Float>(temp.subList(0, 4));
+                ArrayList<Float> topPlayers = new ArrayList<>(temp.subList(0, 4));
                 if (topPlayers.contains(this.game.getPlayerTotalTime())) {
                     this.game.setScreen(new FinalScreen(this.game, this.playerBoat));
                 } else {

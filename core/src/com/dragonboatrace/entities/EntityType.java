@@ -2,7 +2,9 @@ package com.dragonboatrace.entities;
 
 import com.dragonboatrace.tools.Settings;
 
-/** Represents a Type of Entity.
+/**
+ * Represents a Type of Entity.
+ *
  * @author Benji Garment, Joe Wrieden
  */
 public enum EntityType {
@@ -17,7 +19,8 @@ public enum EntityType {
 
     /**
      * Creates anew entity type with dimensions.
-     * @param width The width of the entity.
+     *
+     * @param width  The width of the entity.
      * @param height The height of the entity.
      */
     EntityType(int width, int height) {
@@ -27,6 +30,7 @@ public enum EntityType {
 
     /**
      * Get the width of the entity type.
+     *
      * @return An int representing the width.
      */
     public int getWidth() {
@@ -35,6 +39,7 @@ public enum EntityType {
 
     /**
      * Get the height of the entity type.
+     *
      * @return An int representing the height.
      */
     public int getHeight() {

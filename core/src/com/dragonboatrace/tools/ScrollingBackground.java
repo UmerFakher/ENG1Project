@@ -1,9 +1,12 @@
 package com.dragonboatrace.tools;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-/** Represents the scrolling background.
+/**
+ * Represents the scrolling background.
+ *
  * @author Benji Garment, Joe Wrieden
  */
 public class ScrollingBackground {
@@ -34,7 +37,7 @@ public class ScrollingBackground {
      * Creates a new scrolling background.
      */
     public ScrollingBackground() {
-        this.image = new Texture("background.png");
+        this.image = new Texture(Gdx.files.local("background.png"));
         this.y1 = 0;
         this.y2 = image.getHeight();
         this.imageScale = 1;
@@ -43,6 +46,7 @@ public class ScrollingBackground {
 
     /**
      * Scroll the background according the distance travelled by the player.
+     *
      * @param deltaDistance The distance travelled in the last frame by the player.
      */
     public void update(float deltaDistance) {
@@ -59,6 +63,7 @@ public class ScrollingBackground {
 
     /**
      * Render the background at its current y1 and y2 positions.
+     *
      * @param batch The SpriteBatch to be added to.
      */
     public void render(SpriteBatch batch) {
@@ -69,10 +74,10 @@ public class ScrollingBackground {
 
     /**
      * Resize the background to scale with width.
+     *
      * @param width The width to scale to.
      */
     public void resize(int width) {
-        //TODO: Get global scale so that all Entities get scaled according to resolution.
         imageScale = (float) width / image.getWidth();
         y1 = 0;
         y2 = image.getHeight() * imageScale;

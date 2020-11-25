@@ -4,24 +4,24 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-import com.dragonboatrace.tools.Settings;
 
-import java.util.Set;
-
-/** Represents a UI Button.
+/**
+ * Represents a UI Button.
+ *
  * @author Benji Garment, Joe Wrieden
  */
 public class Button extends Entity {
     /**
      * The texture to use when the button is being hovered over.
      */
-    private Texture activeTexture;
+    private final Texture activeTexture;
 
     /**
      * Create a new button at a position with an inactive texture and an active texture.
-     * @param pos The position of the button on-screen.
+     *
+     * @param pos             The position of the button on-screen.
      * @param inactiveTexture The texture of the button when not hovered over.
-     * @param activeTexture The texture of the button when it is hovered over.
+     * @param activeTexture   The texture of the button when it is hovered over.
      */
     public Button(Vector2 pos, String activeTexture, String inactiveTexture) {
         super(pos, new Vector2(), EntityType.BUTTON, inactiveTexture);
@@ -30,6 +30,7 @@ public class Button extends Entity {
 
     /**
      * Render the button on the screen.
+     *
      * @param batch The SpriteBatch to be added to.
      */
     public void render(SpriteBatch batch) {
@@ -42,6 +43,7 @@ public class Button extends Entity {
 
     /**
      * If the mouse is hovering over the button.
+     *
      * @return A boolean of if the mouse is hovering over the button.
      */
     public boolean isHovering() {

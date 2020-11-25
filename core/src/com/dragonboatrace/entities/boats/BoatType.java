@@ -1,6 +1,8 @@
 package com.dragonboatrace.entities.boats;
 
-/** Represents a type of boat with predefined values.
+/**
+ * Represents a type of boat with predefined values.
+ *
  * @author Benji Garment, Joe Wrieden
  */
 public enum BoatType {
@@ -19,10 +21,11 @@ public enum BoatType {
 
     /**
      * Creates a boat template that can define a {@link Boat}.
-     * @param health The health of the boat.
-     * @param stamina The stamina of the boat.
-     * @param agility The agility of the boat.
-     * @param speed The speed of the boat.
+     *
+     * @param health   The health of the boat.
+     * @param stamina  The stamina of the boat.
+     * @param agility  The agility of the boat.
+     * @param speed    The speed of the boat.
      * @param imageSrc The path of the texture to use for the boat.
      */
     BoatType(float health, float stamina, float agility, float speed, String imageSrc) {
@@ -35,6 +38,7 @@ public enum BoatType {
 
     /**
      * Get the health of the boat type.
+     *
      * @return A float of the boat type's health.
      */
     public float getHealth() {
@@ -43,6 +47,7 @@ public enum BoatType {
 
     /**
      * Get the stamina of the boat type.
+     *
      * @return A float of the boat type's stamina.
      */
     public float getStamina() {
@@ -51,6 +56,7 @@ public enum BoatType {
 
     /**
      * Get the agility of the boat type.
+     *
      * @return A float of the boat type's agility.
      */
     public float getAgility() {
@@ -59,6 +65,7 @@ public enum BoatType {
 
     /**
      * Get the speed of the boat type.
+     *
      * @return A float of the boat type's speed.
      */
     public float getSpeed() {
@@ -67,6 +74,7 @@ public enum BoatType {
 
     /**
      * Get the path of the image used for the texture.
+     *
      * @return A string of the path to the image used for the texture.
      */
     public String getImageSrc() {

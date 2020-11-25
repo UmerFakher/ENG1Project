@@ -10,7 +10,10 @@ import com.dragonboatrace.tools.Settings;
 
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
-/** Represents a specific Computer controlled Boat.
+
+/**
+ * Represents a specific Computer controlled Boat.
+ *
  * @author Benji Garment, Joe Wrieden
  */
 public class ComputerBoat extends Boat {
@@ -19,30 +22,38 @@ public class ComputerBoat extends Boat {
      * The area in which the computer boat will look for obstacles to avoid.
      */
     private final Hitbox moveArea;
+
     /**
      * The x-offset of the moveArea as the area is equal on both sides of the boat.
      */
     private final int xOffset;
+
     /**
      * The texture for the up indicator when the Computer is off the screen but above.
      */
     private final Texture up;
+
     /**
      * The texture for the indicator when the Computer is off the screen but below.
      */
     private final Texture down;
+
     /**
      * The random amount of stamina to have before using stamina again.
      */
     private float randomWait;
 
+    /**
+     * If the ComputerBoat is currently regenerating stamina.
+     */
     private boolean waiting;
 
     /**
      * Creates a computer boat with values from boat, in Lane lane, an identifying name and with a random speed.
-     * @param boat The BoatType to get values from.
-     * @param lane The lane the boat is racing in.
-     * @param name The name of the boat.
+     *
+     * @param boat           The BoatType to get values from.
+     * @param lane           The lane the boat is racing in.
+     * @param name           The name of the boat.
      * @param pickSpeedValue The speed of the boat is chosen based on this value.
      */
     public ComputerBoat(BoatType boat, Lane lane, String name, int pickSpeedValue) {
@@ -59,15 +70,19 @@ public class ComputerBoat extends Boat {
 
     /**
      * Update the position of the boat in respect to the time passed since the last frame.
+     *
      * @param deltaTime The time passed since the last frame.
      */
     public void update(float deltaTime) {
         if (!recentCollision) {
+            /*Check for nearby obstacles */
             Obstacle closest = checkObstacles();
+            /* Check obstacles will return null if no obstacles nearby */
             if (closest != null) {
                 this.velocity.set(this.speed * moveFromObject(closest), this.speed);
                 this.stamina = (this.stamina < this.maxStamina) ? this.regenerateStamina() + this.stamina : this.maxStamina;
             } else {
+                /* Logic for if the Computer should use stamina */
                 if (!this.waiting) {
                     this.velocity.set(0, this.velocity.y);
                     float diff = this.useStamina() * deltaTime;
@@ -84,8 +99,6 @@ public class ComputerBoat extends Boat {
                 }
             }
             if (this.checkCollisions()) {
-                //this.distanceTravelled -= 200;
-                System.out.println("Collision!");
                 recentCollision = true;
             }
         } else {
@@ -97,7 +110,7 @@ public class ComputerBoat extends Boat {
             }
         }
 
-        if (this.stamina > this.randomWait){
+        if (this.stamina > this.randomWait) {
             this.waiting = false;
         }
 
@@ -108,7 +121,8 @@ public class ComputerBoat extends Boat {
     /**
      * Renders the boat if it is onscreen, else will render the off-screen markers at their current x value.
      * <p>
-     *     Also performs {@link Boat}'s render after rendering the markers.
+     * Also performs {@link Boat}'s render after rendering the markers.
+     *
      * @param batch The SpriteBatch that the renders will be added to.
      */
     public void render(SpriteBatch batch) {
@@ -124,7 +138,8 @@ public class ComputerBoat extends Boat {
 
     /**
      * Update the vertical position of the boat according to its distance travelled versus the distance travelled by the player.
-     * @param playerY The y position of the player on the screen.
+     *
+     * @param playerY        The y position of the player on the screen.
      * @param playerDistance The distance travelled by the player.
      */
     public void updateYPosition(float playerY, float playerDistance) {
@@ -138,6 +153,7 @@ public class ComputerBoat extends Boat {
 
     /**
      * Wait for a random stamina value before using stamina again.
+     *
      * @return A float of the value to wait for before using stamina.
      */
     private float waitForRandomStamina() {
@@ -146,15 +162,14 @@ public class ComputerBoat extends Boat {
 
     /**
      * Check for obstacles in the area, specified by moveArea, to move away from.
+     *
      * @return The closest Obstacle in the area or null if no obstacles are in the area.
      */
     private Obstacle checkObstacles() {
         ArrayList<Obstacle> obstacles = this.lane.getObstacles();
-        int size = obstacles.size();
         Obstacle closest = null;
         float smallest = Gdx.graphics.getHeight();
-        for (int i = 0; i < size; i++) {
-            Obstacle obstacle = obstacles.get(i);
+        for (Obstacle obstacle : obstacles) {
             if (obstacle.getHitBox().collidesWith(this.moveArea)) {
                 float bottomY = obstacle.getPos().y;
                 if (bottomY < smallest) {
@@ -168,11 +183,12 @@ public class ComputerBoat extends Boat {
 
     /**
      * Move in the direction away from an object.
+     *
      * @param closest The Obstacle to move away from.
      * @return The direction to move in: <ul>
-     *     <li>-1 if the boat should move to the left.</li>
-     *     <li>1 if the boat should move to the right.</li>
-     *     <li>0 if the boat should move neither way.</li>
+     * <li>-1 if the boat should move to the left.</li>
+     * <li>1 if the boat should move to the right.</li>
+     * <li>0 if the boat should move neither way.</li>
      * </ul>
      */
     private int moveFromObject(Obstacle closest) {
@@ -202,6 +218,7 @@ public class ComputerBoat extends Boat {
 
     /**
      * Pick a random speed so that the computer boat is likely to finish in the position specified.
+     *
      * @param pos The position the boat should finish in.
      * @return A float of the boats speed that it will travel at.
      */
@@ -217,7 +234,6 @@ public class ComputerBoat extends Boat {
             default:
                 multi = ThreadLocalRandom.current().nextDouble(0.85, 0.9);
         }
-        System.out.println("Boat:" + this.name + ":" + multi);
         return this.speed * (float) multi;
     }
 

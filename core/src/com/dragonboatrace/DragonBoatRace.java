@@ -2,32 +2,44 @@ package com.dragonboatrace;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
-import com.dragonboatrace.entities.boats.BoatType;
-import com.dragonboatrace.entities.boats.PlayerBoat;
-import com.dragonboatrace.screens.FinalScreen;
 import com.dragonboatrace.screens.MainMenuScreen;
-import com.dragonboatrace.tools.Lane;
 import com.dragonboatrace.tools.Settings;
 
 import java.util.ArrayList;
 
-/** Represents the Game itself and holds all the screens.
+/**
+ * Represents the Game itself and holds all the screens.
+ *
  * @author Benji Garment, Joe Wrieden
  */
 public class DragonBoatRace extends Game {
 
-    SpriteBatch batch;
-    int round = 1;
-    ArrayList<Float> totalTimes = new ArrayList<Float>();
-    float playerTotalTime = 0;
+    /**
+     * The Spritebatch used to group all renders.
+     */
+    protected SpriteBatch batch;
+
+    /**
+     * The current round.
+     */
+    protected int round = 1;
+
+    /**
+     * A list of cumulative times for all boats.
+     */
+    protected ArrayList<Float> totalTimes = new ArrayList<>();
+
+    /**
+     * The players total time.
+     */
+    protected float playerTotalTime = 0;
 
     @Override
     public void create() {
         batch = new SpriteBatch();
         this.setScreen(new MainMenuScreen(this));
         for (int i = 0; i < Settings.PLAYER_COUNT; i++)
-            totalTimes.add((float)0);
+            totalTimes.add((float) 0);
     }
 
     @Override
@@ -44,18 +56,31 @@ public class DragonBoatRace extends Game {
         return this.batch;
     }
 
-    public int getRound() { return this.round; }
+    public int getRound() {
+        return this.round;
+    }
 
-    public void upRound() { this.round+=1; }
+    public void setRound(int i) {
+        this.round += i;
+    }
 
-    public void setRound(int i) { this.round+=i; }
+    public void upRound() {
+        this.round += 1;
+    }
 
+    public void setTimeAt(int i, float t) {
+        this.totalTimes.set(i, this.totalTimes.get(i) + t);
+    }
 
-    public void setTimeAt(int i, float t) { this.totalTimes.set(i, this.totalTimes.get(i)+t); }
+    public float getPlayerTotalTime() {
+        return this.playerTotalTime;
+    }
 
-    public void setPlayerTotalTime(float t) { this.playerTotalTime += t; }
+    public void setPlayerTotalTime(float t) {
+        this.playerTotalTime += t;
+    }
 
-    public float getPlayerTotalTime() { return this.playerTotalTime; }
-
-    public ArrayList<Float> getTotalTimes() { return this.totalTimes; }
+    public ArrayList<Float> getTotalTimes() {
+        return this.totalTimes;
+    }
 }

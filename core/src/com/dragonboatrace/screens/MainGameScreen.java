@@ -15,7 +15,9 @@ import com.dragonboatrace.tools.Race;
 import com.dragonboatrace.tools.ScrollingBackground;
 import com.dragonboatrace.tools.Settings;
 
-/** Represents the Main Game Screen where the game actually happens.
+/**
+ * Represents the Main Game Screen where the game actually happens.
+ *
  * @author Benji Garment, Joe Wrieden
  */
 public class MainGameScreen implements Screen {
@@ -24,10 +26,6 @@ public class MainGameScreen implements Screen {
      * The game instance.
      */
     private final DragonBoatRace game;
-    /**
-     * The function used to countdown when the race first starts.
-     */
-    private final Timer.Task countDownTask;
     /**
      * Used to make sure the countdown happens at equal intervals.
      */
@@ -45,6 +43,14 @@ public class MainGameScreen implements Screen {
      */
     private final FPSLogger logger;
     /**
+     * GlyphLayout used for centering fonts
+     */
+    private final GlyphLayout layout;
+    /**
+     * Font used for rendering to screen
+     */
+    private final BitmapFont font;
+    /**
      * Pause game, starts true.
      */
     private boolean paused = true;
@@ -58,52 +64,29 @@ public class MainGameScreen implements Screen {
     private String countDownString = "";
 
     /**
-     * The Type of Boat chosen in the BoatSelect Screen
-     */
-    private BoatType boatChosen;
-
-    /**
-     * FreeTypeFontGenerator for generating fonts
-     */
-    private FreeTypeFontGenerator generator;
-
-    /**
-     * FreeTypeFontParameter for modifying font
-     */
-    private FreeTypeFontGenerator.FreeTypeFontParameter parameter;
-
-    /**
-     * GlyphLayout used for centering fonts
-     */
-    private GlyphLayout layout;
-
-    /**
-     * Font used for rendering to screen
-     */
-    private BitmapFont font;
-
-    /**
      * Creates a new game screen with a game instance.
+     *
      * @param game The game instance.
      */
     public MainGameScreen(DragonBoatRace game, BoatType boatChosen) {
         this.game = game;
-        this.boatChosen = boatChosen;
+
         this.logger = new FPSLogger();
 
-        this.race = new Race(10000, this.boatChosen, this.game.getRound());
+        this.race = new Race(10000, boatChosen, this.game.getRound());
         this.background = new ScrollingBackground();
         this.background.resize(Gdx.graphics.getWidth());
 
-        this.generator = new FreeTypeFontGenerator(Gdx.files.internal("osaka-re.ttf"));
-        this.parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size *= 10 / Settings.SCALAR;
+        /* Font related items */
+        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("osaka-re.ttf"));
+        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        parameter.size *= 10.0 / Settings.SCALAR;
         parameter.color = Color.BLACK;
         this.font = generator.generateFont(parameter);
         this.layout = new GlyphLayout();
 
         /* Countdown initialisation */
-        countDownTask = new Timer.Task() {
+        Timer.Task countDownTask = new Timer.Task() {
             @Override
             public void run() {
                 paused = true;
@@ -138,6 +121,7 @@ public class MainGameScreen implements Screen {
 
     /**
      * Render the main game window. Includes rendering the background and the {@link Race}.
+     *
      * @param deltaTime The time since the last frame.
      */
     public void render(float deltaTime) {

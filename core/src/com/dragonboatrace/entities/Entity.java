@@ -1,15 +1,15 @@
 package com.dragonboatrace.entities;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.dragonboatrace.tools.Hitbox;
-import com.dragonboatrace.tools.Settings;
 
-/** Represents a generic Entity.
+/**
+ * Represents a generic Entity.
+ *
  * @author Benji Garment, Joe Wrieden
  */
 public abstract class Entity {
@@ -30,16 +30,17 @@ public abstract class Entity {
      */
     protected Texture texture;
     /**
-     * The Hitbox of the entity.
+     * The hit box of the entity.
      */
     protected Hitbox hitbox;
 
     /**
      * Creates a new Entity at a position with a starting velocity, a entity type and a texture.
+     *
      * @param position The initial position of the entity.
      * @param velocity The initial velocity of the entity.
-     * @param type The type of entity.
-     * @param texture The texture of the entity.
+     * @param type     The type of entity.
+     * @param texture  The texture of the entity.
      */
     public Entity(Vector2 position, Vector2 velocity, EntityType type, String texture) {
         this.position = position;
@@ -56,7 +57,7 @@ public abstract class Entity {
         full.dispose();
         resize.dispose();
 
-        /* Make a new hitbox at the entities position with its width and height */
+        /* Make a new hit box at the entities position with its width and height */
         this.hitbox = new Hitbox((int) position.x, (int) position.y, type.getWidth(), type.getHeight());
     }
 
@@ -69,15 +70,16 @@ public abstract class Entity {
 
     /**
      * Render the entities texture.
+     *
      * @param batch The SpriteBatch to be added to.
      */
     public void render(SpriteBatch batch) {
         batch.draw(this.texture, this.position.x, this.position.y);
-        //box.render();
     }
 
     /**
      * The texture of the entity.
+     *
      * @return A Texture that represents the entity.
      */
     public Texture getTexture() {
@@ -85,8 +87,9 @@ public abstract class Entity {
     }
 
     /**
-     * The Hitbox of the entity.
-     * @return A hitbox of the entity.
+     * The hit box of the entity.
+     *
+     * @return A hit box of the entity.
      */
     public Hitbox getHitBox() {
         return this.hitbox;

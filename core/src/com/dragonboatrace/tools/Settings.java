@@ -2,6 +2,7 @@ package com.dragonboatrace.tools;
 
 /**
  * Static class used to hold settings
+ *
  * @author Benji Garment, Joe Wrieden
  */
 public class Settings {
@@ -41,7 +42,8 @@ public class Settings {
 
     /**
      * Set the resolution of the screen.
-     * @param width The width of the screen.
+     *
+     * @param width  The width of the screen.
      * @param height The height of the screen.
      */
     public static void setResolution(int width, int height) {
@@ -52,6 +54,7 @@ public class Settings {
 
     /**
      * Set if the window should be fullscreen or not.
+     *
      * @param FULLSCREEN A boolean if the window should be fullscreen.
      */
     public static void setFULLSCREEN(boolean FULLSCREEN) {
@@ -60,6 +63,7 @@ public class Settings {
 
     /**
      * Set the number of players in the game.
+     *
      * @param playerCount The number of players to change to.
      */
     public static void setPlayerCount(int playerCount) {
@@ -68,6 +72,7 @@ public class Settings {
 
     /**
      * Update the Stamina Speed Scalar.
+     *
      * @param staminaSpeedDivision The new scalar to use.
      */
     public static void setStaminaSpeedDivision(int staminaSpeedDivision) {
@@ -76,6 +81,7 @@ public class Settings {
 
     /**
      * Update the obstacle collision velocity penalty.
+     *
      * @param obstacleCollisionPenalty The new penalty to use.
      */
     public static void setObstacleCollisionPenalty(int obstacleCollisionPenalty) {
@@ -84,6 +90,7 @@ public class Settings {
 
     /**
      * Update the obstacle collision time penalty.
+     *
      * @param obstacleCollisionTime The new penalty to use.
      */
     public static void setObstacleCollisionTime(float obstacleCollisionTime) {

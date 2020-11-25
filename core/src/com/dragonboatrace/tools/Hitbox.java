@@ -3,7 +3,9 @@ package com.dragonboatrace.tools;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
-/** Represents an Entities Hitbox.
+/**
+ * Represents an Entities Hitbox.
+ *
  * @author Benji Garment, Joe Wrieden
  */
 public class Hitbox {
@@ -17,6 +19,10 @@ public class Hitbox {
      */
     private final int height;
     /**
+     * Used to render the hit boxes when debugging.
+     */
+    private final ShapeRenderer renderer;
+    /**
      * The x position of the bottom left corner.
      */
     private float x;
@@ -24,16 +30,13 @@ public class Hitbox {
      * The y position of the bottom left corner.
      */
     private float y;
-    /**
-     * Used to render the hit boxes when debugging.
-     */
-    private final ShapeRenderer renderer;
 
     /**
      * Create a new hit box at a specified position with a width and height.
-     * @param x The x position of the bottom left corner.
-     * @param y The y position of the bottom left corner.
-     * @param width The width of the hit box.
+     *
+     * @param x      The x position of the bottom left corner.
+     * @param y      The y position of the bottom left corner.
+     * @param width  The width of the hit box.
      * @param height The height of the hit box
      */
     public Hitbox(float x, float y, int width, int height) {
@@ -46,7 +49,8 @@ public class Hitbox {
 
     /**
      * Move the hit box's position to the one specified, not additive.<p>
-     *     Used to make sure the hit boxes position is the same as the entity it represents.
+     * Used to make sure the hit boxes position is the same as the entity it represents.
+     *
      * @param x The new x position.
      * @param y The new y position.
      */
@@ -67,6 +71,7 @@ public class Hitbox {
 
     /**
      * Check if the hit box is colliding with another hit box.
+     *
      * @param box The hit box that the collision is being checked against.
      * @return A boolean of if the two hit boxes are intersecting.
      */
@@ -76,6 +81,7 @@ public class Hitbox {
 
     /**
      * Checks if the another hit box has left the area of this hit box.
+     *
      * @param box The other hit box.
      * @return A boolean of if the other hit box is partially outside of this hit box
      */
@@ -85,6 +91,7 @@ public class Hitbox {
 
     /**
      * Get the x coordinate of the hit box.
+     *
      * @return A float of the x position of the bottom left corner.
      */
     public float getX() {
@@ -93,6 +100,7 @@ public class Hitbox {
 
     /**
      * Get the y coordinate of the hit box.
+     *
      * @return A float of the y position of the bottom left corner.
      */
     public float getY() {
@@ -101,6 +109,7 @@ public class Hitbox {
 
     /**
      * Get the width of the hit box.
+     *
      * @return An int representing how wide the hit box is.
      */
     public int getWidth() {
@@ -109,6 +118,7 @@ public class Hitbox {
 
     /**
      * Get the height of the hit box.
+     *
      * @return An int representing how tall the hit box is.
      */
     public int getHeight() {

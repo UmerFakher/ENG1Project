@@ -10,7 +10,9 @@ import java.util.ArrayList;
 import java.util.ListIterator;
 import java.util.concurrent.ThreadLocalRandom;
 
-/** Represents a Lane in a {@link Race}.
+/**
+ * Represents a Lane in a {@link Race}.
+ *
  * @author Benji Garment, Joe Wrieden
  */
 public class Lane {
@@ -30,7 +32,8 @@ public class Lane {
 
     /**
      * Creates a new lane at a position and with a width.
-     * @param pos The position of the bottom left corner of the lane.
+     *
+     * @param pos   The position of the bottom left corner of the lane.
      * @param width The width of the lane.
      */
     public Lane(Vector2 pos, int width, int round) {
@@ -42,8 +45,9 @@ public class Lane {
 
     /**
      * Update the obstacles in the lane, remove any that are no longer on screen and replace them at a random time.
+     *
      * @param deltaTime The time since the last frame.
-     * @param velY The y-velocity of the boat in the lane.
+     * @param velY      The y-velocity of the boat in the lane.
      */
     public void update(float deltaTime, float velY) {
 
@@ -73,6 +77,7 @@ public class Lane {
 
     /**
      * Render the obstacles in the lane.
+     *
      * @param batch The SpriteBatch to be added to.
      */
     public void render(SpriteBatch batch) {
@@ -83,6 +88,7 @@ public class Lane {
 
     /**
      * Get the list of all obstacles in the lane.
+     *
      * @return An {@link ArrayList} of type {@link Obstacle} with all the obstacles in the lane.
      */
     public ArrayList<Obstacle> getObstacles() {
@@ -91,6 +97,7 @@ public class Lane {
 
     /**
      * Get the lanes hit box
+     *
      * @return A {@link Hitbox} representing the lanes area.
      */
     public Hitbox getHitbox() {
@@ -99,6 +106,7 @@ public class Lane {
 
     /**
      * Remove an {@link Obstacle} from the list of obstacles, and randomly replace it.
+     *
      * @param toRemove The obstacle to remove from the lane.
      */
     public void removeObstacle(Obstacle toRemove) {
@@ -115,6 +123,7 @@ public class Lane {
 
     /**
      * Create a new random {@link Obstacle}
+     *
      * @return a new {@link Obstacle} in the lanes area.
      */
     private Obstacle randomObstacle() {
@@ -126,15 +135,15 @@ public class Lane {
      * Fill the list with obstacles that will start at random times.
      */
     private void populateList(int round) {
-        for (int i = 0; i < (11-Settings.PLAYER_COUNT + round-1); i++) {
+        for (int i = 0; i < (11 - Settings.PLAYER_COUNT + round - 1); i++) {
             replaceObstacle();
         }
     }
 
-    public void dispose(){
-        for (Obstacle obst : obstacles){
+    public void dispose() {
+        for (Obstacle obst : obstacles) {
             obst.dispose();
         }
     }
-    
+
 }

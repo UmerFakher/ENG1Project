@@ -11,24 +11,43 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.dragonboatrace.DragonBoatRace;
 import com.dragonboatrace.tools.Settings;
 
-/** Represents the Game Over Screen.
+/**
+ * Displays the screen that shows the end of the game. This can be one of 3 situations: <ul>
+ * <li>If the player got to the final and finished the race.</li>
+ * <li>The player didn't make it to the final after the 3rd round.</li>
+ * <li>The players boat ran out of health.</li>
+ * </ul>
+ *
  * @author Benji Garment, Joe Wrieden
  */
 public class GameOverScreen implements Screen {
 
-    DragonBoatRace game;
-    protected String reason;
-    protected FreeTypeFontGenerator generator;
-    protected FreeTypeFontGenerator.FreeTypeFontParameter parameter;
-    protected BitmapFont font;
-    protected BitmapFont leaderBoardFont;
-    protected GlyphLayout layout;
+    /**
+     * The game instance.
+     */
+    private final DragonBoatRace game;
 
+    /**
+     * The reason for the game to be over.
+     */
+    protected String reason;
+
+    /* Font related items */
+    private final BitmapFont font;
+    private BitmapFont leaderBoardFont;
+    private final GlyphLayout layout;
+
+    /**
+     * Creates a new screen that represents the end of the game to the player.
+     * @param game The instance of the game.
+     * @param reason The reason for the game to be over.
+     */
     public GameOverScreen(DragonBoatRace game, String reason) {
         this.game = game;
         this.reason = reason;
-        this.generator = new FreeTypeFontGenerator(Gdx.files.internal("osaka-re.ttf"));
-        this.parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        /* Font related items */
+        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("osaka-re.ttf"));
+        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.size = 75 / Settings.SCALAR;
         parameter.color = Color.WHITE;
         this.font = generator.generateFont(parameter);
@@ -36,7 +55,7 @@ public class GameOverScreen implements Screen {
         this.layout = new GlyphLayout();
         parameter.size = 75 / Settings.SCALAR;
         layout.setText(leaderBoardFont, this.reason);
-        if (layout.height > Gdx.graphics.getHeight()/2) {
+        if (layout.height > Gdx.graphics.getHeight()/2f) {
             int a = 75/Settings.SCALAR;
             int c = Gdx.graphics.getHeight()/2;
             float b = layout.height / c;
@@ -54,7 +73,10 @@ public class GameOverScreen implements Screen {
 
     }
 
-    @Override
+    /**
+     * Renders the window to show the end of the game.
+     * @param delta The time passed since the last frame.
+     */
     public void render(float delta) {
         Gdx.gl.glClearColor(0, 0, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);

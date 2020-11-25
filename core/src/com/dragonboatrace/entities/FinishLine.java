@@ -4,7 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
-/** Represents the finish line of the race.
+/**
+ * Represents the finish line of the race.
+ *
  * @author Benji Garment, Joe Wrieden
  */
 public class FinishLine extends Entity {
@@ -16,7 +18,8 @@ public class FinishLine extends Entity {
 
     /**
      * Creates a new Finish Line at a position and with a width which it will span.
-     * @param pos The position of the finish line.
+     *
+     * @param pos   The position of the finish line.
      * @param width The width of the finish line.
      */
     public FinishLine(Vector2 pos, int width) {
@@ -26,13 +29,14 @@ public class FinishLine extends Entity {
 
     /**
      * Update the position of the finish line so that it moves towards the player.
+     *
      * @param deltaTime The time passed since the last frame.
-     * @param velY The y-velocity of the entity it will move in respect to (Will be the player)
+     * @param velY      The y-velocity of the entity it will move in respect to (Will be the player)
      */
     public void update(float playerPos, float raceDistance, float deltaTime, float velY) {
-        if (playerPos > (raceDistance*0.8f)){
-            if (this.position.y + (this.getHitBox().getHeight()/2) <= Gdx.graphics.getHeight()) {
-                this.position.set(this.position.x, Gdx.graphics.getHeight() - (this.getHitBox().getHeight())/2);
+        if (playerPos > (raceDistance * 0.8f)) {
+            if (this.position.y + (this.getHitBox().getHeight() / 2f) <= Gdx.graphics.getHeight()) {
+                this.position.set(this.position.x, Gdx.graphics.getHeight() - (this.getHitBox().getHeight()) / 2f);
             } else {
                 this.position.set(this.position.x, this.position.y - (velY * deltaTime));
                 this.hitbox.move(this.position.x, this.position.y);
@@ -42,6 +46,7 @@ public class FinishLine extends Entity {
 
     /**
      * Render the texture at the position and specified width.
+     *
      * @param batch The SpriteBatch to be added to.
      */
     public void render(SpriteBatch batch) {
