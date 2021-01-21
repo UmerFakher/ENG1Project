@@ -14,7 +14,8 @@ public class DesktopLauncher {
         Settings.setResolution(size.width, size.height);
         config.width = Settings.WIDTH;
         config.height = Settings.HEIGHT;
-        config.fullscreen = Settings.FULLSCREEN;
+        // todo remove this and make the game full screen again
+        config.fullscreen = false; //Settings.FULLSCREEN;
         config.resizable = true;
         config.vSyncEnabled = false;
         config.foregroundFPS = 60;
