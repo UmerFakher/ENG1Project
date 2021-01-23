@@ -20,7 +20,7 @@ class RoundsScreenTest {
     @Test
     void saveToFile() {
         BoatType b = BoatType.FAST;
-        RoundsScreen.saveToFile("testfile.txt", b, 4.3f, 1);
+        RoundsScreen.saveToFile("testfile.txt", b, 4.3f, 1,0);
         File file = new File("testfile.txt");
         assertTrue(file.exists());
 
@@ -30,6 +30,7 @@ class RoundsScreenTest {
         expectedData.add("0");
         expectedData.add("4.3");
         expectedData.add("1");
+        expectedData.add("0");
 
         try {
             File myObj = new File("testfile.txt");
@@ -47,7 +48,7 @@ class RoundsScreenTest {
         assertEquals(expectedData, saveData);
 
         b = BoatType.AGILE;
-        RoundsScreen.saveToFile("testfile.txt", b, 6.2f, 3);
+        RoundsScreen.saveToFile("testfile.txt", b, 6.2f, 3, 1);
         file = new File("testfile.txt");
         assertTrue(file.exists());
 
@@ -57,6 +58,7 @@ class RoundsScreenTest {
         expectedData.add("1");
         expectedData.add("6.2");
         expectedData.add("3");
+        expectedData.add("1");
 
         try {
             File myObj = new File("testfile.txt");

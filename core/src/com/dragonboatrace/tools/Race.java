@@ -60,20 +60,20 @@ public class Race {
      * @param boatChosen The {@link BoatType} that the player chose.
      * @param round The current round of the race.
      */
-    public Race(int raceLength, BoatType boatChosen, int round) {
+    public Race(int raceLength, BoatType boatChosen, int round, int difficulty) {
         this.length = raceLength;
         this.theFinish = new FinishLine(new Vector2(0, Gdx.graphics.getHeight()), Gdx.graphics.getWidth());
         int size = Gdx.graphics.getWidth() / Settings.PLAYER_COUNT;
         this.timer = 0;
 
-        player = new PlayerBoat(boatChosen, new Lane(new Vector2(0, 0), size, round), "Player");
+        player = new PlayerBoat(boatChosen, new Lane(new Vector2(0, 0), size, round, difficulty), "Player");
 
         this.barrier = new Texture("line.png");
 
         boats = new ArrayList<>();
         for (int i = 1; i < Settings.PLAYER_COUNT; i++) {
             int rand = ThreadLocalRandom.current().nextInt(0, BoatType.values().length);
-            boats.add(new ComputerBoat(BoatType.values()[rand], new Lane(new Vector2(size * i, 0), size, round), "COMP" + i, i));
+            boats.add(new ComputerBoat(BoatType.values()[rand], new Lane(new Vector2(size * i, 0), size, round, difficulty), "COMP" + i, i));
         }
         this.timer = System.nanoTime();
     }

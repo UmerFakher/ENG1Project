@@ -34,6 +34,8 @@ public class DragonBoatRace extends Game {
      */
     protected float playerTotalTime = 0;
 
+    protected int difficulty = 0;
+
     @Override
     public void create() {
         batch = new SpriteBatch();
@@ -82,5 +84,13 @@ public class DragonBoatRace extends Game {
 
     public ArrayList<Float> getTotalTimes() {
         return this.totalTimes;
+    }
+
+    public int getDifficulty() {
+        return difficulty;
+    }
+
+    public void setDifficulty(int difficulty) {
+        this.difficulty = difficulty;
     }
 }
