@@ -15,3 +15,10 @@
 - Refactored Classes
 - Collision Detection
 - Entity Deletion
+
+## v1.2.1 - Will
+- Added Github activities for testing and building
+- Added test files
+- Added saving and loading
+- TODO Gradle and Github tests are not running
+

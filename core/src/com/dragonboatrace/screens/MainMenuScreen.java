@@ -98,7 +98,7 @@ public class MainMenuScreen implements Screen {
         }
         playButton.render(this.game.getBatch());
         if (this.playButton.isHovering() && Gdx.input.isTouched()) {
-            game.setScreen(new BoatSelectScreen(this.game));
+            game.setScreen(new DifficultySelectScreen(this.game));
         }
         helpButton.render(this.game.getBatch());
         if (this.helpButton.isHovering() && Gdx.input.isTouched()) {
@@ -134,6 +134,7 @@ public class MainMenuScreen implements Screen {
             game.setPlayerTotalTime(Float.parseFloat(saveData.get(1)));
             //minus one needed to offset auto increment happening before the save
             game.setRound(Integer.parseInt(saveData.get(2))-1);
+            game.setDifficulty(Integer.parseInt(saveData.get(3)));
 
             game.setScreen(new MainGameScreen(this.game, boat));
         }
