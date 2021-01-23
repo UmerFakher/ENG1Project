@@ -1,5 +1,6 @@
-package com.dragonboatrace.tools;
+package test;
 
+import com.dragonboatrace.tools.Hitbox;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
