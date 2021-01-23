@@ -84,10 +84,10 @@ public class DifficultySelectScreen implements Screen {
 
         this.buttonWidth = EntityType.BUTTON.getWidth();
         float spacing = (Gdx.graphics.getWidth() - buttonWidth * 4.0f) / 5.0f;
-        this.easyButton = new Button(new Vector2(spacing, Gdx.graphics.getHeight() - 300), "fast_button_active.png", "fast_button_inactive.png");
-        this.normalButton = new Button(new Vector2(spacing + (buttonWidth + spacing), Gdx.graphics.getHeight() - 300), "agile_button_active.png", "agile_button_inactive.png");
-        this.hardButton = new Button(new Vector2(spacing + (buttonWidth + spacing) * 2, Gdx.graphics.getHeight() - 300), "strong_button_active.png", "strong_button_inactive.png");
-        this.nightmareButton = new Button(new Vector2(spacing + (buttonWidth + spacing) * 3, Gdx.graphics.getHeight() - 300), "endurance_button_active.png", "endurance_button_inactive.png");
+        this.easyButton = new Button(new Vector2(spacing, Gdx.graphics.getHeight() - 300), "easy_button_active.png", "easy_button_inactive.png");
+        this.normalButton = new Button(new Vector2(spacing + (buttonWidth + spacing), Gdx.graphics.getHeight() - 300), "normal_button_active.png", "normal_button_inactive.png");
+        this.hardButton = new Button(new Vector2(spacing + (buttonWidth + spacing) * 2, Gdx.graphics.getHeight() - 300), "hard_button_active.png", "hard_button_inactive.png");
+        this.nightmareButton = new Button(new Vector2(spacing + (buttonWidth + spacing) * 3, Gdx.graphics.getHeight() - 300), "nightmare_button_active.png", "nightmare_button_inactive.png");
 
         this.easyImage = new Texture("easy.png");
         this.normalImage = new Texture("normal.png");
