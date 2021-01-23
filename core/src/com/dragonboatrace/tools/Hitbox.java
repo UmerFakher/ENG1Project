@@ -21,7 +21,7 @@ public class Hitbox {
     /**
      * Used to render the hit boxes when debugging.
      */
-    private final ShapeRenderer renderer;
+    //private final ShapeRenderer renderer;
     /**
      * The x position of the bottom left corner.
      */
@@ -44,7 +44,7 @@ public class Hitbox {
         this.y = y;
         this.width = width;
         this.height = height;
-        renderer = new ShapeRenderer();
+        //renderer = new ShapeRenderer();
     }
 
     /**
@@ -63,10 +63,10 @@ public class Hitbox {
      * Render the hit boxes for debugging.
      */
     public void render() {
-        renderer.begin(ShapeRenderer.ShapeType.Line);
-        renderer.setColor(Color.RED);
-        renderer.rect(this.x, this.y, this.width, this.height);
-        renderer.end();
+        //renderer.begin(ShapeRenderer.ShapeType.Line);
+        //renderer.setColor(Color.RED);
+        //renderer.rect(this.x, this.y, this.width, this.height);
+        //renderer.end();
     }
 
     /**
