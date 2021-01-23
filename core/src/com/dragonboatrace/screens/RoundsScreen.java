@@ -10,8 +10,12 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.dragonboatrace.DragonBoatRace;
 import com.dragonboatrace.entities.boats.Boat;
+import com.dragonboatrace.entities.boats.BoatType;
 import com.dragonboatrace.tools.Settings;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -22,7 +26,6 @@ import java.util.Collections;
  * @author Benji Garment, Joe Wrieden
  */
 public class RoundsScreen implements Screen {
-
     /**
      * The instance of the game.
      */
@@ -42,6 +45,7 @@ public class RoundsScreen implements Screen {
      * The leaderboard to display the places of the boats in the race.
      */
     private final String reason;
+    private final String saveMessage;
     private final BitmapFont font;
     private final GlyphLayout layout;
     /* Font related items */
@@ -60,9 +64,11 @@ public class RoundsScreen implements Screen {
         this.playerBoat = playerBoat;
         this.reason = reason;
 
+        this.saveMessage = "\nPress Esc to save and return to the main menu";
+
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("osaka-re.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = 75 / Settings.SCALAR;
+        parameter.size = 60 / Settings.SCALAR;
         parameter.color = Color.WHITE;
 
         this.font = generator.generateFont(parameter);
@@ -110,8 +116,8 @@ public class RoundsScreen implements Screen {
         leaderBoardFont.draw(this.game.getBatch(), this.reason, (Gdx.graphics.getWidth() - layout.width) / 2, (Gdx.graphics.getHeight() + layout.height) / 2 - 75f / Settings.SCALAR);
 
 
-        layout.setText(font, (this.currentRound == 4) ? "Press Space to see if you made it to the final" : "Press Space to continue to round " + (this.currentRound));
-        font.draw(this.game.getBatch(), (this.currentRound == 4) ? "Press Space to see if you made it to the final" : "Press Space to continue to round " + (this.currentRound), (Gdx.graphics.getWidth() - layout.width) / 2, 100 + layout.height);
+        layout.setText(font, (this.currentRound == 4) ? "Press Space to see if you made it to the final " + saveMessage : "Press Space to continue to round " + (this.currentRound) + saveMessage);
+        font.draw(this.game.getBatch(), (this.currentRound == 4) ? "Press Space to see if you made it to the final " + saveMessage : "Press Space to continue to round " + (this.currentRound) + saveMessage, (Gdx.graphics.getWidth() - layout.width) / 2, 50 + layout.height);
 
         this.game.getBatch().end();
 
@@ -128,6 +134,14 @@ public class RoundsScreen implements Screen {
             } else {
                 this.game.setScreen(new MainGameScreen(this.game, this.playerBoat.getBoatType()));
             }
+
+        if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)){
+            saveToFile("savefile.txt", playerBoat.getBoatType(),this.game.getPlayerTotalTime(),this.game.getRound());
+
+            //reset the rounds
+            this.game.setRound(1);
+            this.game.setScreen(new MainMenuScreen(this.game));
+        }
     }
 
     @Override
@@ -153,5 +167,28 @@ public class RoundsScreen implements Screen {
     @Override
     public void dispose() {
 
+    }
+
+    public static void saveToFile(String filename, BoatType boatType, float totalTime, int round){
+        File oldFile = new File(filename);
+
+        try {
+            File newFile = new File(filename);
+            newFile.createNewFile();
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+
+        try {
+            FileWriter myWriter = new FileWriter(filename, false);
+            myWriter.write(boatType.getSaveString()
+                    + Float.toString(totalTime) + "\n"
+                    + Integer.toString(round) + "\n");
+            myWriter.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
     }
 }

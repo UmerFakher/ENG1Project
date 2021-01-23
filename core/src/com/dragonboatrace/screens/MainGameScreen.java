@@ -130,7 +130,7 @@ public class MainGameScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         this.game.getBatch().begin();
         if (!paused) {
-            this.logger.log();
+            //this.logger.log();
             this.background.update(deltaTime * this.race.getPlayer().getVelocity().y);
             this.background.render(game.getBatch());
             this.race.update(deltaTime, this.game);

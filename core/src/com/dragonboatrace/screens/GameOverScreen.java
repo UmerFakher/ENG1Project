@@ -64,6 +64,9 @@ public class GameOverScreen implements Screen {
             leaderBoardFont = generator.generateFont(parameter);
             layout.setText(leaderBoardFont, this.reason);
         }
+
+        //reset the rounds
+        this.game.setRound(1);
     }
 
     @Override

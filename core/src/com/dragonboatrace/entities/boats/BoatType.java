@@ -8,16 +8,17 @@ package com.dragonboatrace.entities.boats;
 public enum BoatType {
     /* ENUM(health, stamina, agility, speed, maxSpeed, image) */
 
-    FAST(50, 120, 85, 275, "fast.png"),
-    AGILE(50, 120, 95, 245, "agile.png"),
-    ENDURANCE(70, 180, 90, 245, "endurance.png"),
-    STRONG(100, 105, 98, 200, "strong.png");
+    FAST(50, 120, 85, 275, "fast.png",0),
+    AGILE(50, 120, 95, 245, "agile.png",1),
+    ENDURANCE(70, 180, 90, 245, "endurance.png",2),
+    STRONG(100, 105, 98, 200, "strong.png",3);
 
     private final float health;
     private final float stamina;
     private final float agility;
     private final float speed;
     private final String imageSrc;
+    private final int templateIndex;
 
     /**
      * Creates a boat template that can define a {@link Boat}.
@@ -28,12 +29,13 @@ public enum BoatType {
      * @param speed    The speed of the boat.
      * @param imageSrc The path of the texture to use for the boat.
      */
-    BoatType(float health, float stamina, float agility, float speed, String imageSrc) {
+    BoatType(float health, float stamina, float agility, float speed, String imageSrc, int index) {
         this.health = health;
         this.stamina = stamina;
         this.agility = agility;
         this.speed = speed;
         this.imageSrc = imageSrc;
+        this.templateIndex = index;
     }
 
     /**
@@ -81,4 +83,10 @@ public enum BoatType {
         return this.imageSrc;
     }
 
+
+
+    //returns a string that represents the boat
+    public String getSaveString(){
+        return Integer.toString(templateIndex) + "\n";
+    }
 }
