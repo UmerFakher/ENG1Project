@@ -22,3 +22,6 @@
 - Added saving and loading
 - TODO Gradle and Github tests are not running
 
+## v1.2.2 - Will
+- Added easy, normal, hard and nightmare difficulties
+- Added difficulties to the savefile
