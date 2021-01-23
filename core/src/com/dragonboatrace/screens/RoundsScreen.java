@@ -105,38 +105,49 @@ public class RoundsScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         this.game.getBatch().begin();
 
-        layout.setText(font, "Well done for completing round " + (this.currentRound - 1) + " in " + this.playerBoat.getTime() + "s");
-        font.draw(this.game.getBatch(), "Well done for completing round " + (this.currentRound - 1) + " in " + this.playerBoat.getTime() + "s", (Gdx.graphics.getWidth() - layout.width) / 2, Gdx.graphics.getHeight() - 75 / Settings.SCALAR);
+        if (!reason.equals("")) {
+            layout.setText(font, "Well done for completing round " + (this.currentRound - 1) + " in " + this.playerBoat.getTime() + "s");
+            font.draw(this.game.getBatch(), "Well done for completing round " + (this.currentRound - 1) + " in " + this.playerBoat.getTime() + "s", (Gdx.graphics.getWidth() - layout.width) / 2, Gdx.graphics.getHeight() - 75 / Settings.SCALAR);
 
-        layout.setText(font, "With " + this.playerBoat.getPenaltyTime() + "s of that in penalties");
-        font.draw(this.game.getBatch(), "With " + this.playerBoat.getPenaltyTime() + "s of that in penalties", (Gdx.graphics.getWidth() - layout.width) / 2, Gdx.graphics.getHeight() - 175f / Settings.SCALAR);
-
-
-        layout.setText(leaderBoardFont, this.reason);
-        leaderBoardFont.draw(this.game.getBatch(), this.reason, (Gdx.graphics.getWidth() - layout.width) / 2, (Gdx.graphics.getHeight() + layout.height) / 2 - 75f / Settings.SCALAR);
+            layout.setText(font, "With " + this.playerBoat.getPenaltyTime() + "s of that in penalties");
+            font.draw(this.game.getBatch(), "With " + this.playerBoat.getPenaltyTime() + "s of that in penalties", (Gdx.graphics.getWidth() - layout.width) / 2, Gdx.graphics.getHeight() - 175f / Settings.SCALAR);
 
 
-        layout.setText(font, (this.currentRound == 4) ? "Press Space to see if you made it to the final " + saveMessage : "Press Space to continue to round " + (this.currentRound) + saveMessage);
-        font.draw(this.game.getBatch(), (this.currentRound == 4) ? "Press Space to see if you made it to the final " + saveMessage : "Press Space to continue to round " + (this.currentRound) + saveMessage, (Gdx.graphics.getWidth() - layout.width) / 2, 50 + layout.height);
+            layout.setText(leaderBoardFont, this.reason);
+            leaderBoardFont.draw(this.game.getBatch(), this.reason, (Gdx.graphics.getWidth() - layout.width) / 2, (Gdx.graphics.getHeight() + layout.height) / 2 - 75f / Settings.SCALAR);
+
+
+            layout.setText(font, (this.currentRound == 4) ? "Press Space to see if you made it to the final " + saveMessage : "Press Space to continue to round " + (this.currentRound) + saveMessage);
+            font.draw(this.game.getBatch(), (this.currentRound == 4) ? "Press Space to see if you made it to the final " + saveMessage : "Press Space to continue to round " + (this.currentRound) + saveMessage, (Gdx.graphics.getWidth() - layout.width) / 2, 50 + layout.height);
+        } else {
+            layout.setText(font, "Press Space to quit without saving " + saveMessage);
+            font.draw(this.game.getBatch(), "Press Space to quit without saving " + saveMessage, (Gdx.graphics.getWidth() - layout.width) / 2, 50 + layout.height);
+        }
 
         this.game.getBatch().end();
 
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE))
-            if (this.game.getRound() > 3) {
-                ArrayList<Float> temp = this.game.getTotalTimes();
-                Collections.sort(temp);
-                ArrayList<Float> topPlayers = new ArrayList<>(temp.subList(0, 4));
-                if (topPlayers.contains(this.game.getPlayerTotalTime())) {
-                    this.game.setScreen(new FinalScreen(this.game, this.playerBoat));
-                } else {
-                    this.game.setScreen(new GameOverScreen(this.game, "You were not fast enough. Better luck next time!"));
-                }
+            if (reason.equals("")) {
+                //reset the rounds
+                this.game.setRound(1);
+                this.game.setScreen(new MainMenuScreen(this.game));
             } else {
-                this.game.setScreen(new MainGameScreen(this.game, this.playerBoat.getBoatType()));
+                if (this.game.getRound() > 3) {
+                    ArrayList<Float> temp = this.game.getTotalTimes();
+                    Collections.sort(temp);
+                    ArrayList<Float> topPlayers = new ArrayList<>(temp.subList(0, 4));
+                    if (topPlayers.contains(this.game.getPlayerTotalTime())) {
+                        this.game.setScreen(new FinalScreen(this.game, this.playerBoat));
+                    } else {
+                        this.game.setScreen(new GameOverScreen(this.game, "You were not fast enough. Better luck next time!"));
+                    }
+                } else {
+                    this.game.setScreen(new MainGameScreen(this.game, this.playerBoat.getBoatType()));
+                }
             }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)){
-            saveToFile("savefile.txt", playerBoat.getBoatType(),this.game.getPlayerTotalTime(),this.game.getRound());
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+            saveToFile("savefile.txt", playerBoat.getBoatType(), this.game.getPlayerTotalTime(), this.game.getRound());
 
             //reset the rounds
             this.game.setRound(1);
@@ -169,7 +180,7 @@ public class RoundsScreen implements Screen {
 
     }
 
-    public static void saveToFile(String filename, BoatType boatType, float totalTime, int round){
+    public static void saveToFile(String filename, BoatType boatType, float totalTime, int round) {
         File oldFile = new File(filename);
 
         try {

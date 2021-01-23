@@ -1,6 +1,7 @@
 package com.dragonboatrace.tools;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -130,7 +131,11 @@ public class Race {
                     }
                 }
             }
-            getLeaderBoard(game);
+            getLeaderBoard(game, true);
+        }
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
+            getLeaderBoard(game, false);
         }
     }
 
@@ -155,7 +160,12 @@ public class Race {
      *
      * @param game The instance of the game.
      */
-    public void getLeaderBoard(DragonBoatRace game) {
+    public void getLeaderBoard(DragonBoatRace game, Boolean genLeaderboard) {
+        if(!genLeaderboard){
+            game.setScreen(new RoundsScreen(game, this.player, ""));
+            return;
+        }
+
         ArrayList<Float> times = new ArrayList<>();
         String reason = "";
         player.setTime(this.player.getPenaltyTime());
