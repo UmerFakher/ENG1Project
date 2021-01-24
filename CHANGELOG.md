@@ -39,3 +39,4 @@
 - NFR_Attributes Extensions
 - Added function that displays attribute value for a given BoatType in BoatSelectScreen
 - Changed BoatSelectScreen displays attributes Health, Stamina, Agility & Speed for each BoatType
+- Changed Rearranged DifficultySelectScreen buttons

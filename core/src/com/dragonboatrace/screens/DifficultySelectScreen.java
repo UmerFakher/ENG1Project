@@ -84,10 +84,13 @@ public class DifficultySelectScreen implements Screen {
 
         this.buttonWidth = EntityType.BUTTON.getWidth();
         float spacing = (Gdx.graphics.getWidth() - buttonWidth * 4.0f) / 5.0f;
-        this.easyButton = new Button(new Vector2(spacing, Gdx.graphics.getHeight() - 300), "easy_button_active.png", "easy_button_inactive.png");
-        this.normalButton = new Button(new Vector2(spacing + (buttonWidth + spacing), Gdx.graphics.getHeight() - 300), "normal_button_active.png", "normal_button_inactive.png");
-        this.hardButton = new Button(new Vector2(spacing + (buttonWidth + spacing) * 2, Gdx.graphics.getHeight() - 300), "hard_button_active.png", "hard_button_inactive.png");
-        this.nightmareButton = new Button(new Vector2(spacing + (buttonWidth + spacing) * 3, Gdx.graphics.getHeight() - 300), "nightmare_button_active.png", "nightmare_button_inactive.png");
+
+        int ySub = 500;
+
+        this.easyButton = new Button(new Vector2(spacing, Gdx.graphics.getHeight() - 300 - ySub), "easy_button_active.png", "easy_button_inactive.png");
+        this.normalButton = new Button(new Vector2(spacing + (buttonWidth + spacing), Gdx.graphics.getHeight() - 300- ySub), "normal_button_active.png", "normal_button_inactive.png");
+        this.hardButton = new Button(new Vector2(spacing + (buttonWidth + spacing) * 2, Gdx.graphics.getHeight() - 300- ySub), "hard_button_active.png", "hard_button_inactive.png");
+        this.nightmareButton = new Button(new Vector2(spacing + (buttonWidth + spacing) * 3, Gdx.graphics.getHeight() - 300- ySub), "nightmare_button_active.png", "nightmare_button_inactive.png");
 
         this.easyImage = new Texture("easy.png");
         this.normalImage = new Texture("normal.png");
@@ -124,20 +127,22 @@ public class DifficultySelectScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         this.game.getBatch().begin();
 
-        font.draw(this.game.getBatch(), "Choose your Difficulty:", (Gdx.graphics.getWidth() - layout.width) / 2, 250);
+        font.draw(this.game.getBatch(), "Choose your Difficulty:", (Gdx.graphics.getWidth() - layout.width) / 2, Gdx.graphics.getHeight() - 100);
 
         float scale = ((float) this.buttonWidth / EntityType.BOAT.getWidth()) / 2.0f;
 
-        this.game.getBatch().draw(this.easyImage, this.easyButton.getHitBox().getX() + ((this.easyButton.getHitBox().getWidth() - this.buttonWidth / 2f) / 2f), 150 + EntityType.BUTTON.getHeight(), this.buttonWidth / 2f, EntityType.BOAT.getHeight() * scale);
+        int ySub = -300;
+
+        this.game.getBatch().draw(this.easyImage, this.easyButton.getHitBox().getX() + ((this.easyButton.getHitBox().getWidth() - this.buttonWidth / 2f) / 2f), 150 + EntityType.BUTTON.getHeight() - ySub, this.buttonWidth / 2f, EntityType.BOAT.getHeight() * scale);
         this.easyButton.render(this.game.getBatch());
 
-        this.game.getBatch().draw(this.normalImage, this.normalButton.getHitBox().getX() + ((this.normalButton.getHitBox().getWidth() - this.buttonWidth / 2f) / 2f), 150 + EntityType.BUTTON.getHeight(), this.buttonWidth / 2f, EntityType.BOAT.getHeight() * scale);
+        this.game.getBatch().draw(this.normalImage, this.normalButton.getHitBox().getX() + ((this.normalButton.getHitBox().getWidth() - this.buttonWidth / 2f) / 2f), 150 + EntityType.BUTTON.getHeight() - ySub, this.buttonWidth / 2f, EntityType.BOAT.getHeight() * scale);
         this.normalButton.render(this.game.getBatch());
 
-        this.game.getBatch().draw(this.hardImage, this.hardButton.getHitBox().getX() + ((this.hardButton.getHitBox().getWidth() - this.buttonWidth / 2f) / 2f), 150 + EntityType.BUTTON.getHeight(), this.buttonWidth / 2f, EntityType.BOAT.getHeight() * scale);
+        this.game.getBatch().draw(this.hardImage, this.hardButton.getHitBox().getX() + ((this.hardButton.getHitBox().getWidth() - this.buttonWidth / 2f) / 2f), 150 + EntityType.BUTTON.getHeight() - ySub, this.buttonWidth / 2f, EntityType.BOAT.getHeight() * scale);
         this.hardButton.render(this.game.getBatch());
 
-        this.game.getBatch().draw(this.nightmareImage, this.nightmareButton.getHitBox().getX() + ((this.nightmareButton.getHitBox().getWidth() - this.buttonWidth / 2f) / 2f), 150 + EntityType.BUTTON.getHeight(), this.buttonWidth / 2f, EntityType.BOAT.getHeight() * scale);
+        this.game.getBatch().draw(this.nightmareImage, this.nightmareButton.getHitBox().getX() + ((this.nightmareButton.getHitBox().getWidth() - this.buttonWidth / 2f) / 2f), 150 + EntityType.BUTTON.getHeight() - ySub, this.buttonWidth / 2f, EntityType.BOAT.getHeight() * scale);
         this.nightmareButton.render(this.game.getBatch());
 
         if (this.easyButton.isHovering() && Gdx.input.isTouched()) {
