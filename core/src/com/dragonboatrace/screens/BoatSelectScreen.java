@@ -65,20 +65,12 @@ public class BoatSelectScreen implements Screen {
      */
     private final Button enduranceButton;
 
-
-
-    // NFR_Attributes Extensions made by Team 12 - Umer Fakher
-
     /**
-     * Font for Health Bar.
+     * Bitmap font for stats.
+     *
+     * NFR_Attributes Extensions made by Team 12 - Umer Fakher
      */
-    protected BitmapFont healthFont;
-
     private final BitmapFont font2; // font for attributes
-
-    // NFR_Attributes Extensions made by Team 12 - Umer Fakher END
-
-
 
     /**
      * Instance of the main game, used to have a collective spritebatch which gives better performance.
@@ -125,7 +117,7 @@ public class BoatSelectScreen implements Screen {
 
         // NFR_Attributes Extensions made by Team 12 - Umer Fakher
 
-        parameter.size *= 0.2 / Settings.SCALAR;
+        parameter.size *= 0.3 / Settings.SCALAR;
         parameter.color = Color.WHITE;
         font2 = generator.generateFont(parameter);
 
