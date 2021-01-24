@@ -19,6 +19,9 @@ import com.dragonboatrace.tools.Settings;
  * Displays the screen that allows the player to choose a boat at the beginning of the game.
  *
  * @author Benji Garment, Joe Wrieden
+ *
+ * NFR_Attributes Extensions made by Team 12
+ * @author Umer Fakher
  */
 public class BoatSelectScreen implements Screen {
 
@@ -62,6 +65,21 @@ public class BoatSelectScreen implements Screen {
      */
     private final Button enduranceButton;
 
+
+
+    // NFR_Attributes Extensions made by Team 12 - Umer Fakher
+
+    /**
+     * Font for Health Bar.
+     */
+    protected BitmapFont healthFont;
+
+    private final BitmapFont font2; // font for attributes
+
+    // NFR_Attributes Extensions made by Team 12 - Umer Fakher END
+
+
+
     /**
      * Instance of the main game, used to have a collective spritebatch which gives better performance.
      */
@@ -95,8 +113,6 @@ public class BoatSelectScreen implements Screen {
         this.enduranceImage = new Texture("endurance.png");
 
 
-
-
         /* Font related items */
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("osaka-re.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
@@ -105,6 +121,15 @@ public class BoatSelectScreen implements Screen {
         font = generator.generateFont(parameter);
         layout = new GlyphLayout();
         layout.setText(font, "Choose your Boat:");
+
+
+        // NFR_Attributes Extensions made by Team 12 - Umer Fakher
+
+        parameter.size *= 1.0 / Settings.SCALAR;
+        parameter.color = Color.WHITE;
+        font2 = generator.generateFont(parameter);
+
+        // NFR_Attributes Extensions made by Team 12 - Umer Fakher END
 
     }
 
@@ -140,6 +165,49 @@ public class BoatSelectScreen implements Screen {
         this.game.getBatch().draw(this.enduranceImage, this.enduranceButton.getHitBox().getX() + ((this.enduranceButton.getHitBox().getWidth() - this.buttonWidth / 2f) / 2f), 150 + EntityType.BUTTON.getHeight(), this.buttonWidth / 2f, EntityType.BOAT.getHeight() * scale);
         this.enduranceButton.render(this.game.getBatch());
 
+        // NFR_Attributes Extensions made by Team 12 - Umer Fakher
+
+        // Statistics from BoatType
+        //        ENUM(health, stamina, agility, speed, maxSpeed, image)
+        //        FAST(50, 120, 85, 275, "fast.png",0),
+        //        AGILE(50, 120, 95, 245, "agile.png",1),
+        //        ENDURANCE(70, 180, 90, 245, "endurance.png",2),
+        //        STRONG(100, 105, 98, 200, "strong.png",3);
+
+        float x = this.fastButton.getHitBox().getX() + ((this.fastButton.getHitBox().getWidth() - this.buttonWidth / 2f) / 2f);
+        int y = Gdx.graphics.getHeight() - 300 - 400;
+
+        this.drawAttribute(BoatType.FAST.getHealth(),0, Color.GREEN, "Health: ", x, y);
+        this.drawAttribute(BoatType.FAST.getStamina(),0, Color.YELLOW, "Stamina: ", x, y-100);
+        this.drawAttribute(BoatType.FAST.getAgility(),0, Color.ORANGE, "Agility: ", x,y-200);
+        this.drawAttribute(BoatType.FAST.getSpeed(),0, Color.RED, "Speed: ", x, y-300);
+
+        x = this.agileButton.getHitBox().getX() + ((this.agileButton.getHitBox().getWidth() - this.buttonWidth / 2f) / 2f);
+
+        this.drawAttribute(BoatType.AGILE.getHealth(),0, Color.GREEN, "Health: ", x, y);
+        this.drawAttribute(BoatType.AGILE.getStamina(),0, Color.YELLOW, "Stamina: ", x, y-100);
+        this.drawAttribute(BoatType.AGILE.getAgility(),0, Color.ORANGE, "Agility: ", x,y-200);
+        this.drawAttribute(BoatType.AGILE.getSpeed(),0, Color.RED, "Speed: ", x,y-300);
+
+        x = this.enduranceButton.getHitBox().getX() + ((this.enduranceButton.getHitBox().getWidth() - this.buttonWidth / 2f) / 2f);
+
+        this.drawAttribute(BoatType.ENDURANCE.getHealth(),0, Color.GREEN, "Health: ", x, y);
+        this.drawAttribute(BoatType.ENDURANCE.getStamina(),0, Color.YELLOW, "Stamina: ", x,y-100);
+        this.drawAttribute(BoatType.ENDURANCE.getAgility(),0, Color.ORANGE, "Agility: ", x,y-200);
+        this.drawAttribute(BoatType.ENDURANCE.getSpeed(),0, Color.RED, "Speed: ", x,y-300);
+
+        x = this.strongButton.getHitBox().getX() + ((this.strongButton.getHitBox().getWidth() - this.buttonWidth / 2f) / 2f);
+
+        this.drawAttribute(BoatType.STRONG.getHealth(),0, Color.GREEN, "Health: ", x, y);
+        this.drawAttribute(BoatType.STRONG.getStamina(),0, Color.YELLOW, "Stamina: ", x,y-100);
+        this.drawAttribute(BoatType.STRONG.getAgility(),0, Color.ORANGE, "Agility: ", x,y-200);
+        this.drawAttribute(BoatType.STRONG.getSpeed(),0, Color.RED, "Speed: ", x,y-300);
+
+
+        // NFR_Attributes Extensions made by Team 12 - Umer Fakher END
+
+
+
         if (this.fastButton.isHovering() && Gdx.input.isTouched()) {
             this.game.setScreen(new MainGameScreen(this.game, BoatType.FAST));
         } else if (this.agileButton.isHovering() && Gdx.input.isTouched()) {
@@ -154,6 +222,31 @@ public class BoatSelectScreen implements Screen {
         this.game.getBatch().end();
 
     }
+
+    // NFR_Attributes Extensions made by Team 12 - Umer Fakher
+
+    /**
+     * Draws attribute statistic for a given BoatType.
+     *
+     * NFR_Attributes Extensions made by Team 12
+     * @author Umer Fakher
+     *
+     * @param boatTypeStat          A statistic from BoatType Enum e.g. "BoatType.STRONG.getSpeed()".
+     * @param roundToDecimalPlaces  Rounds float value boatTypeStat to a int number of decimal places.
+     * @param fontColor             Colour of text for the statistic.
+     * @param preText               String of text before the boatTypeStat e.g. "Speed: ".
+     * @param x                     x position for text to be drawn.
+     * @param y                     y position for text to be drawn.
+     *
+     */
+    public void drawAttribute(Float boatTypeStat, int roundToDecimalPlaces, Color fontColor, String preText, float x, int y) {
+        font2.setColor(fontColor);
+        String floatRoundFormat = "%"+"."+roundToDecimalPlaces+"f";
+        font2.draw(this.game.getBatch(), preText + String.format(floatRoundFormat, boatTypeStat), x, y);
+
+    }
+    // NFR_Attributes Extensions made by Team 12 - Umer Fakher END
+
 
     @Override
     public void resize(int width, int height) {
