@@ -125,7 +125,7 @@ public class BoatSelectScreen implements Screen {
 
         // NFR_Attributes Extensions made by Team 12 - Umer Fakher
 
-        parameter.size *= 1.0 / Settings.SCALAR;
+        parameter.size *= 0.2 / Settings.SCALAR;
         parameter.color = Color.WHITE;
         font2 = generator.generateFont(parameter);
 
@@ -175,33 +175,38 @@ public class BoatSelectScreen implements Screen {
         //        STRONG(100, 105, 98, 200, "strong.png",3);
 
         float x = this.fastButton.getHitBox().getX() + ((this.fastButton.getHitBox().getWidth() - this.buttonWidth / 2f) / 2f);
-        int y = Gdx.graphics.getHeight() - 300 - 400;
 
-        this.drawAttribute(BoatType.FAST.getHealth(),0, Color.GREEN, "Health: ", x, y);
-        this.drawAttribute(BoatType.FAST.getStamina(),0, Color.YELLOW, "Stamina: ", x, y-100);
-        this.drawAttribute(BoatType.FAST.getAgility(),0, Color.ORANGE, "Agility: ", x,y-200);
-        this.drawAttribute(BoatType.FAST.getSpeed(),0, Color.RED, "Speed: ", x, y-300);
+        // Calculate Y coordinate based on how much space left on screen between title and boat type icon for stats
+        float yBelowTitle = (Gdx.graphics.getHeight()-this.fastButton.getHitBox().getY()) - 150;
+        float yAboveBoatType = 150 + EntityType.BUTTON.getHeight() + EntityType.BOAT.getHeight() * scale;
+        int nAttributes = 4;
+        float yStep = (yBelowTitle - yAboveBoatType) / 4;
+
+        this.drawAttribute(BoatType.FAST.getHealth(),0, Color.GREEN, "Health: ", x, yBelowTitle - yStep*0);
+        this.drawAttribute(BoatType.FAST.getStamina(),0, Color.YELLOW, "Stamina: ", x, yBelowTitle - yStep*1);
+        this.drawAttribute(BoatType.FAST.getAgility(),0, Color.ORANGE, "Agility: ", x,yBelowTitle - yStep*2);
+        this.drawAttribute(BoatType.FAST.getSpeed(),0, Color.RED, "Speed: ", x, yBelowTitle - yStep*3);
 
         x = this.agileButton.getHitBox().getX() + ((this.agileButton.getHitBox().getWidth() - this.buttonWidth / 2f) / 2f);
 
-        this.drawAttribute(BoatType.AGILE.getHealth(),0, Color.GREEN, "Health: ", x, y);
-        this.drawAttribute(BoatType.AGILE.getStamina(),0, Color.YELLOW, "Stamina: ", x, y-100);
-        this.drawAttribute(BoatType.AGILE.getAgility(),0, Color.ORANGE, "Agility: ", x,y-200);
-        this.drawAttribute(BoatType.AGILE.getSpeed(),0, Color.RED, "Speed: ", x,y-300);
+        this.drawAttribute(BoatType.AGILE.getHealth(),0, Color.GREEN, "Health: ", x, yBelowTitle - yStep*0);
+        this.drawAttribute(BoatType.AGILE.getStamina(),0, Color.YELLOW, "Stamina: ", x, yBelowTitle - yStep*1);
+        this.drawAttribute(BoatType.AGILE.getAgility(),0, Color.ORANGE, "Agility: ", x,yBelowTitle - yStep*2);
+        this.drawAttribute(BoatType.AGILE.getSpeed(),0, Color.RED, "Speed: ", x,yBelowTitle - yStep*3);
 
         x = this.enduranceButton.getHitBox().getX() + ((this.enduranceButton.getHitBox().getWidth() - this.buttonWidth / 2f) / 2f);
 
-        this.drawAttribute(BoatType.ENDURANCE.getHealth(),0, Color.GREEN, "Health: ", x, y);
-        this.drawAttribute(BoatType.ENDURANCE.getStamina(),0, Color.YELLOW, "Stamina: ", x,y-100);
-        this.drawAttribute(BoatType.ENDURANCE.getAgility(),0, Color.ORANGE, "Agility: ", x,y-200);
-        this.drawAttribute(BoatType.ENDURANCE.getSpeed(),0, Color.RED, "Speed: ", x,y-300);
+        this.drawAttribute(BoatType.ENDURANCE.getHealth(),0, Color.GREEN, "Health: ", x, yBelowTitle - yStep*0);
+        this.drawAttribute(BoatType.ENDURANCE.getStamina(),0, Color.YELLOW, "Stamina: ", x,yBelowTitle - yStep*1);
+        this.drawAttribute(BoatType.ENDURANCE.getAgility(),0, Color.ORANGE, "Agility: ", x,yBelowTitle - yStep*2);
+        this.drawAttribute(BoatType.ENDURANCE.getSpeed(),0, Color.RED, "Speed: ", x,yBelowTitle - yStep*3);
 
         x = this.strongButton.getHitBox().getX() + ((this.strongButton.getHitBox().getWidth() - this.buttonWidth / 2f) / 2f);
 
-        this.drawAttribute(BoatType.STRONG.getHealth(),0, Color.GREEN, "Health: ", x, y);
-        this.drawAttribute(BoatType.STRONG.getStamina(),0, Color.YELLOW, "Stamina: ", x,y-100);
-        this.drawAttribute(BoatType.STRONG.getAgility(),0, Color.ORANGE, "Agility: ", x,y-200);
-        this.drawAttribute(BoatType.STRONG.getSpeed(),0, Color.RED, "Speed: ", x,y-300);
+        this.drawAttribute(BoatType.STRONG.getHealth(),0, Color.GREEN, "Health: ", x, yBelowTitle - yStep*0);
+        this.drawAttribute(BoatType.STRONG.getStamina(),0, Color.YELLOW, "Stamina: ", x,yBelowTitle - yStep*1);
+        this.drawAttribute(BoatType.STRONG.getAgility(),0, Color.ORANGE, "Agility: ", x,yBelowTitle - yStep*2);
+        this.drawAttribute(BoatType.STRONG.getSpeed(),0, Color.RED, "Speed: ", x,yBelowTitle - yStep*3);
 
 
         // NFR_Attributes Extensions made by Team 12 - Umer Fakher END
@@ -239,7 +244,7 @@ public class BoatSelectScreen implements Screen {
      * @param y                     y position for text to be drawn.
      *
      */
-    public void drawAttribute(Float boatTypeStat, int roundToDecimalPlaces, Color fontColor, String preText, float x, int y) {
+    public void drawAttribute(Float boatTypeStat, int roundToDecimalPlaces, Color fontColor, String preText, float x, float y) {
         font2.setColor(fontColor);
         String floatRoundFormat = "%"+"."+roundToDecimalPlaces+"f";
         font2.draw(this.game.getBatch(), preText + String.format(floatRoundFormat, boatTypeStat), x, y);
