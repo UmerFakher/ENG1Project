@@ -16,13 +16,21 @@
 - Collision Detection
 - Entity Deletion
 
-## v1.2.1 - Will
+## v1.2.1 - Will (23/1/2021)
 - Added Github activities for testing and building
 - Added test files
 - Added saving and loading
 - TODO Gradle and Github tests are not running
 
-## v1.2.2 - Will
+## v1.2.2 - Will (23/1/2021)
 - Added easy, normal, hard and nightmare difficulties
 - Added difficulties to the savefile
 - TODO Gradle and Github tests are not running
+
+## v1.2.3 - Will (24/1/2021)
+- Added power-ups for health, speed, agility, stamina and all combined
+- Changed collision system to allow crossing lane boundaries
+- Changed obstacle spawn chance to prefer negative obstacles over power-ups
+- Changed negative obstable spawn chance to prefer leaves over rocks and branches
+- TODO Gradle and Github tests are not running
+- TODO improve art for power-ups and load button

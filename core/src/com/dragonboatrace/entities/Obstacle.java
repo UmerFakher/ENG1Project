@@ -21,6 +21,10 @@ public class Obstacle extends Entity {
      */
     private final float damage;
 
+    private final float staminaMod;
+    private final float agilityMod;
+    private final float speedMod;
+
     /**
      * Creates a new Obstacle of a specific type and bounds in which it can be created.
      *
@@ -35,6 +39,9 @@ public class Obstacle extends Entity {
         super(new Vector2(((int) startX + width) / 2.0f + ThreadLocalRandom.current().nextInt(-((int) startX + width) / 2 + EntityType.OBSTACLE.getWidth() / 2, ((int) startX + width) / 2 + EntityType.OBSTACLE.getWidth() / 2), Gdx.graphics.getHeight()), new Vector2(), EntityType.OBSTACLE, type.getTexture());
         this.speed = type.getSpeed();
         this.damage = type.getDamage();
+        this.staminaMod = type.getStaminaMod();
+        this.agilityMod = type.getAgilityMod();
+        this.speedMod = type.getSpeedMod();
     }
 
     /**
@@ -73,6 +80,19 @@ public class Obstacle extends Entity {
      */
     public Vector2 getPos() {
         return this.position;
+    }
+
+
+    public float getStaminaMod() {
+        return staminaMod;
+    }
+
+    public float getAgilityMod() {
+        return agilityMod;
+    }
+
+    public float getSpeedMod() {
+        return speedMod;
     }
 
 }
