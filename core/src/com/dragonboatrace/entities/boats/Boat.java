@@ -305,7 +305,10 @@ public class Boat extends Entity {
                 this.lane.removeObstacle(obstacle);
                 size--;
                 this.health -= obstacle.getDamage();
-                return true;
+                this.agility += obstacle.getAgilityMod();
+                this.stamina += obstacle.getStaminaMod();
+                this.speed += obstacle.getSpeedMod();
+                return obstacle.getDamage() > 0;
             }
         }
         return false;

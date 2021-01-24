@@ -130,7 +130,9 @@ public class Lane {
      * @return a new {@link Obstacle} in the lanes area.
      */
     private Obstacle randomObstacle() {
-        int rand = ThreadLocalRandom.current().nextInt(0, ObstacleType.values().length);
+        //int rand = ThreadLocalRandom.current().nextInt(0, ObstacleType.values().length);
+        double randD = (ThreadLocalRandom.current().nextGaussian()*3+1); // random variable normally distributed with mean=1,sd=3
+        int rand = Math.min(Math.max((int)randD, 0), ObstacleType.values().length-1); // constrain value between 0 and max obstacleType index
         return new Obstacle(ObstacleType.values()[rand], this.area.getX(), this.area.getWidth());
     }
 
