@@ -1,13 +1,13 @@
 package com.dragonboatrace.entities.boats;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.*;
 
-class BoatTypeTest {
+public class BoatTypeTest {
 
     @Test
-    void getSaveString() {
+    public void getSaveString() {
         BoatType b = BoatType.FAST;
         assertEquals("0\n",b.getSaveString());
         b = BoatType.AGILE;
