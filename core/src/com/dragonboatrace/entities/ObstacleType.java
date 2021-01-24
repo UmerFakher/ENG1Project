@@ -7,9 +7,14 @@ package com.dragonboatrace.entities;
  */
 public enum ObstacleType {
     /* ENUM(texture, speed, damage)*/
-    ROCK("rock.png", 50, 20),
-    BRANCH("branch.png", 60, 10),
-    LEAF("leaf.png", 75, 5);
+    LEAF("leaf.png", 75, 5, 0, 0, 0),
+    ROCK("rock.png", 50, 20, 0, 0, 0),
+    BRANCH("branch.png", 60, 10, 0, 0, 0),
+    PU_HEALTH("health_power_up.png", 75, -20, 0, 0, 0),
+    PU_STAMINA("stamina_power_up.png", 75, 0, 20, 0, 0),
+    PU_AGILITY("agility_power_up.png", 75, 0, 0, 1, 0),
+    PU_SPEED("speed_power_up.png", 75, 0, 0, 0, 20),
+    PU_ALL("all_power_up.png", 75, -20, 20, 1, 20);
 
     /**
      * The texture of the obstacle.
@@ -24,6 +29,10 @@ public enum ObstacleType {
      */
     private final float damage;
 
+    private final float staminaMod;
+    private final float agilityMod;
+    private final float speedMod;
+
     /**
      * Creates a new type of obstacle with a given texture, base speed ana damage value.
      *
@@ -31,10 +40,13 @@ public enum ObstacleType {
      * @param speed   The speed of the obstacle type.
      * @param damage  The damage of the obstacle type.
      */
-    ObstacleType(String texture, float speed, float damage) {
+    ObstacleType(String texture, float speed, float damage, float staminaMod, float agilityMod, float speedMod) {
         this.texture = texture;
         this.speed = speed;
         this.damage = damage;
+        this.staminaMod = staminaMod;
+        this.agilityMod = agilityMod;
+        this.speedMod = speedMod;
     }
 
     /**
@@ -62,5 +74,17 @@ public enum ObstacleType {
      */
     public String getTexture() {
         return this.texture;
+    }
+
+    public float getStaminaMod() {
+        return staminaMod;
+    }
+
+    public float getAgilityMod() {
+        return agilityMod;
+    }
+
+    public float getSpeedMod() {
+        return speedMod;
     }
 }
