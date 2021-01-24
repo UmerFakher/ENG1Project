@@ -1,11 +1,7 @@
 package com.dragonboatrace.screens;
 
-import com.badlogic.gdx.math.Vector2;
-import com.dragonboatrace.DragonBoatRace;
-import com.dragonboatrace.entities.boats.Boat;
 import com.dragonboatrace.entities.boats.BoatType;
-import com.dragonboatrace.tools.Lane;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -13,12 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.*;
 
-class RoundsScreenTest {
+public class RoundsScreenTest {
 
     @Test
-    void saveToFile() {
+    public void saveToFile() {
         BoatType b = BoatType.FAST;
         RoundsScreen.saveToFile("testfile.txt", b, 4.3f, 1,0);
         File file = new File("testfile.txt");
