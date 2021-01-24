@@ -34,3 +34,9 @@
 - Changed negative obstable spawn chance to prefer leaves over rocks and branches
 - TODO Gradle and Github tests are not running
 - TODO improve art for power-ups and load button
+
+## v1.2.4 - Umer (24/1/2021)
+- NFR_Attributes Extensions
+- Added function that displays attribute value for a given BoatType in BoatSelectScreen
+- Changed BoatSelectScreen displays attributes Health, Stamina, Agility & Speed for each BoatType
+- Changed Rearranged DifficultySelectScreen buttons
