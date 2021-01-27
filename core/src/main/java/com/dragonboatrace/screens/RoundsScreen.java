@@ -120,17 +120,22 @@ public class RoundsScreen implements Screen {
             layout.setText(font, (this.currentRound == 4) ? "Press Space to see if you made it to the final " + saveMessage : "Press Space to continue to round " + (this.currentRound) + saveMessage);
             font.draw(this.game.getBatch(), (this.currentRound == 4) ? "Press Space to see if you made it to the final " + saveMessage : "Press Space to continue to round " + (this.currentRound) + saveMessage, (Gdx.graphics.getWidth() - layout.width) / 2, 50 + layout.height);
         } else {
+            // CHANGED CODE
+            // Custom message text if the game was aborted before finishing
             layout.setText(font, "Press Space to quit without saving " + saveMessage);
             font.draw(this.game.getBatch(), "Press Space to quit without saving " + saveMessage, (Gdx.graphics.getWidth() - layout.width) / 2, 50 + layout.height);
+            // END CHANGED CODE
         }
 
         this.game.getBatch().end();
 
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE))
             if (reason.equals("")) {
-                //reset the rounds
+                // CHANGED CODE
+                // If game was aborted early, quit to main menu instead of continuing to next round
                 this.game.setRound(1);
                 this.game.setScreen(new MainMenuScreen(this.game));
+                // END CHANGED CODE
             } else {
                 if (this.game.getRound() > 3) {
                     ArrayList<Float> temp = this.game.getTotalTimes();
@@ -146,6 +151,8 @@ public class RoundsScreen implements Screen {
                 }
             }
 
+        // CHANGED CODE
+        // Added saving on ESC
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
             saveToFile("savefile.txt", playerBoat.getBoatType(), this.game.getPlayerTotalTime(), this.game.getRound(), this.game.getDifficulty());
 
@@ -153,6 +160,7 @@ public class RoundsScreen implements Screen {
             this.game.setRound(1);
             this.game.setScreen(new MainMenuScreen(this.game));
         }
+        // END CHANGED CODE
     }
 
     @Override
@@ -180,6 +188,8 @@ public class RoundsScreen implements Screen {
 
     }
 
+    // CHANGED CODE
+    // Saving function
     public static void saveToFile(String filename, BoatType boatType, float totalTime, int round, int difficulty) {
         File oldFile = new File(filename);
 
@@ -203,4 +213,5 @@ public class RoundsScreen implements Screen {
             e.printStackTrace();
         }
     }
+    // CHANGED CODE
 }

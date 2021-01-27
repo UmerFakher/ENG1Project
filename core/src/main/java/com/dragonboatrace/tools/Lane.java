@@ -131,9 +131,15 @@ public class Lane {
      */
     private Obstacle randomObstacle() {
         //int rand = ThreadLocalRandom.current().nextInt(0, ObstacleType.values().length);
+
+        // CHANGED CODE
+        // Made the first 3 elements in the ObstacleType class more likely to generate as these are the obstacles.
+        // The remaining elements are ordered in rarity, with the 4th element being the least powerful power-up, hence
+        // the most common, and the last being the most powerful, and least common
         double randD = (ThreadLocalRandom.current().nextGaussian()*3+1); // random variable normally distributed with mean=1,sd=3
         int rand = Math.min(Math.max((int)randD, 0), ObstacleType.values().length-1); // constrain value between 0 and max obstacleType index
         return new Obstacle(ObstacleType.values()[rand], this.area.getX(), this.area.getWidth());
+        // END CHANGED CODE
     }
 
     /**
@@ -141,6 +147,9 @@ public class Lane {
      * @param round The current round increases the number of obstacles.
      */
     private void populateList(int round) {
+        // CHANGED CODE
+        // Changed the rate at which new obstacles are spawned to be dependant on the difficulty as well as existing
+        // factors such as round
         int difficulty_mod = 0;
 
         switch (difficulty){
@@ -153,6 +162,7 @@ public class Lane {
         for (int i = 0; i < (11 - Settings.PLAYER_COUNT + round - 1 + difficulty_mod); i++) {
             replaceObstacle();
         }
+        // END CHANGED CODE
     }
 
     public void dispose() {

@@ -134,9 +134,12 @@ public class Race {
             getLeaderBoard(game, true);
         }
 
+        // NEW CODE
+        // Game is stopped on ESC and sent to a blank leaderboard
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
             getLeaderBoard(game, false);
         }
+        // END NEW CODE
     }
 
     /**
@@ -159,6 +162,7 @@ public class Race {
      * Generate the leaderboard from the race that just occurred and then show the next round screen.
      *
      * @param game The instance of the game.
+     * @param genLeaderboard if the leaderboard text should be generated or left blank
      */
     public void getLeaderBoard(DragonBoatRace game, Boolean genLeaderboard) {
         if(!genLeaderboard){

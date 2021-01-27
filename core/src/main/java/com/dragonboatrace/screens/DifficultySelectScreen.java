@@ -16,7 +16,7 @@ import com.dragonboatrace.entities.boats.BoatType;
 import com.dragonboatrace.tools.Settings;
 
 /**
- * Displays the screen that allows the player to choose a difficulty level.
+ * Displays the screen that allows the player to choose a difficulty level. New class created to satisfy the new customer requirement of multiple difficulties.
  *
  * @author William Walton
  */
@@ -118,7 +118,7 @@ public class DifficultySelectScreen implements Screen {
     }
 
     /**
-     * Renders the boat selection screen.
+     * Renders the difficulty selection screen.
      *
      * @param delta The time passed since the last frame.
      */

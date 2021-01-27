@@ -46,3 +46,8 @@
 - Changed difficulty to be more forgiving
 - Fixed testing with github actions
 - *TODO more tests for existing code needed to aid any team taking up the project in the future*
+
+## v1.3.1 - Will (27/1/2021)
+- All changed blocks of code (of significance) have been indicated with comments
+- JavaDoc has been updated
+- *TODO more tests for existing code needed to aid any team taking up the project in the future*

@@ -98,7 +98,11 @@ public class MainMenuScreen implements Screen {
         }
         playButton.render(this.game.getBatch());
         if (this.playButton.isHovering() && Gdx.input.isTouched()) {
+            // CHANGED CODE
+            // Changed the new game button to load the difficulty screen rather than the boat selection screen. This
+            // allows the player to select a difficulty
             game.setScreen(new DifficultySelectScreen(this.game));
+            // END CHANGED CODE
         }
         helpButton.render(this.game.getBatch());
         if (this.helpButton.isHovering() && Gdx.input.isTouched()) {
