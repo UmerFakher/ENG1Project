@@ -15,6 +15,11 @@ import de.tomgrill.gdxtesting.GdxTestRunner;
 public class AssetTest {
 
     @Test
+    public void testTextureExists() {
+        assertTrue(Gdx.files.internal("../tests/res/test_texture.png").exists());
+    }
+
+    @Test
     public void agileButtonActiveExists() {
         assertTrue(Gdx.files.internal("../core/assets/agile_button_active.png").exists());
     }
