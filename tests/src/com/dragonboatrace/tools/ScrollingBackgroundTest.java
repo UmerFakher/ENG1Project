@@ -54,6 +54,10 @@ public class ScrollingBackgroundTest extends TestCase {
         assertEquals(0f, y1, 0.001);
         assertEquals(480f, y2, 0.001);
         s.update(10);
+
+        y1 = (float) fy1.get(s);
+        y2 = (float) fy2.get(s);
+
         assertEquals(-10f, y1, 0.001);
         assertEquals(470f, y2, 0.001);
     }
