@@ -5,11 +5,11 @@
 
  This is the code for the ENG1 project DragonBoatRace Game.
  
- ## Website
+ ## [Website](https://umerfakher.github.io/ENG1Project/)
  
 **Team 12 Assessment 2 Website: https://umerfakher.github.io/ENG1Project/**
 
-**See website for offical material including documentation delivered by both Team 15 and Team 12 as well as the final project**
+**See website for official material** including documentation delivered by both Team 15 and Team 12 as well as the final project.
 
 ## Authors
 
