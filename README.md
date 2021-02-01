@@ -1,12 +1,14 @@
- # Dragon Boat Race ENG1 Project (ENG1-Team-12 Assessment 2)
+# Dragon Boat Race ENG1 Project
 
 ![build](https://github.com/UmerFakher/ENG1Project/workflows/build/badge.svg)
 ![tests](https://github.com/UmerFakher/ENG1Project/workflows/tests/badge.svg)
 
- This is the code for the ENG1 project DragonBoatRace Game.
- 
- ## [Website](https://umerfakher.github.io/ENG1Project/)
- 
+ENG1-Team-12 Assessment 2 (Taken over from Assessment 1 by Team 15).
+
+This is the code for the ENG1 project DragonBoatRace Game.
+
+## [Website](https://umerfakher.github.io/ENG1Project/)
+
 **Team 12 Assessment 2 Website: https://umerfakher.github.io/ENG1Project/**
 
 **See website for official material** including documentation delivered by both Team 15 and Team 12 as well as the final project.
