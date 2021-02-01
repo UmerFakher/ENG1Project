@@ -17,14 +17,18 @@ public class ButtonTest {
         float mouseX = Gdx.input.getX();
         float mouseY = Gdx.input.getY();
 
+
+
         // test_texture is 16:16px
-        Button bHover = new Button(new Vector2(mouseX-8, mouseY-8),
+        Button bHover = new Button(new Vector2(0, 0),
                 "../tests/res/test_texture.png",
                 "../tests/res/test_texture.png");
 
-        Button bNotHover = new Button(new Vector2(mouseX+30, mouseX+30),
+        Button bNotHover = new Button(new Vector2(30, 30),
                 "../tests/res/test_texture.png",
                 "../tests/res/test_texture.png");
+
+        System.out.println(mouseX + "," + mouseY + "    " + bHover.type.getWidth() + "," + bHover.type.getHeight() + "    " + bHover.position.x + "," + bHover.position.y);
 
         assertTrue(bHover.isHovering());
         assertFalse(bNotHover.isHovering());
