@@ -33,6 +33,21 @@ public class LaneTest {
         int numObstacle = 0;
         int numPowerUp = 0;
 
+        for(Obstacle obs : laneEasy.getObstacles()){
+            if (obs.getDamage() > 0) numObstacle++;
+            else numPowerUp++;
+        }
+
+        for(Obstacle obs : laneNormal.getObstacles()){
+            if (obs.getDamage() > 0) numObstacle++;
+            else numPowerUp++;
+        }
+
+        for(Obstacle obs : laneHard.getObstacles()){
+            if (obs.getDamage() > 0) numObstacle++;
+            else numPowerUp++;
+        }
+
         for(Obstacle obs : laneUltra.getObstacles()){
             if (obs.getDamage() > 0) numObstacle++;
             else numPowerUp++;
