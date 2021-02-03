@@ -37,7 +37,7 @@ public class ScrollingBackground {
      * Creates a new scrolling background.
      */
     public ScrollingBackground() {
-        this.image = new Texture(Gdx.files.local("../core/assets/background.png"));
+        this.image = new Texture(Gdx.files.local("background.png"));
         this.y1 = 0;
         this.y2 = image.getHeight();
         this.imageScale = 1;

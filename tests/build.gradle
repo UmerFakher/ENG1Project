@@ -12,6 +12,9 @@ sourceSets {
         java {
             srcDir 'src'
         }
+        resources {
+                        srcDirs= ["../core/assets"]
+                }
     }
     
     
