@@ -166,45 +166,49 @@ public class Boat extends Entity {
         /* Store the lanes hit box to save time on using Getters. */
         laneBox = lane.getHitbox();
 
-        /* Setup fonts to use in the HUD */
-        this.generator = new FreeTypeFontGenerator(Gdx.files.internal("osaka-re.ttf"));
-        this.parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        this.layout = new GlyphLayout();
+        // font setup isn't possible in headless mode
+        if (!name.equals("__testing_boat__")) {
 
-        /*Font for displaying the name */
-        parameter.size = 50;
-        parameter.color = Color.BLACK;
-        this.nameFont = generator.generateFont(parameter);
+            /* Setup fonts to use in the HUD */
+            this.generator = new FreeTypeFontGenerator(Gdx.files.internal("osaka-re.ttf"));
+            this.parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+            this.layout = new GlyphLayout();
 
-        layout.setText(nameFont, this.name);
-        if (this.layout.width > this.laneBox.getWidth()) {
-            parameter.size = (int) (50 / (this.layout.width / this.laneBox.getWidth()));
+            /*Font for displaying the name */
+            parameter.size = 50;
             parameter.color = Color.BLACK;
-            nameFont = generator.generateFont(parameter);
-        }
+            this.nameFont = generator.generateFont(parameter);
 
-        /* Font for displaying the health */
-        parameter.size = 50;
-        parameter.color = Color.RED;
-        this.healthFont = generator.generateFont(parameter);
+            layout.setText(nameFont, this.name);
+            if (this.layout.width > this.laneBox.getWidth()) {
+                parameter.size = (int) (50 / (this.layout.width / this.laneBox.getWidth()));
+                parameter.color = Color.BLACK;
+                nameFont = generator.generateFont(parameter);
+            }
 
-        layout.setText(healthFont, "Health:  XXX");
-        if (this.layout.width > this.laneBox.getWidth()) {
-            parameter.size = (int) (50 / (this.layout.width / this.laneBox.getWidth()));
+            /* Font for displaying the health */
+            parameter.size = 50;
             parameter.color = Color.RED;
-            healthFont = generator.generateFont(parameter);
-        }
+            this.healthFont = generator.generateFont(parameter);
 
-        /* Font for displaying the stamina */
-        parameter.size = 50;
-        parameter.color = Color.GREEN;
-        this.staminaFont = generator.generateFont(parameter);
+            layout.setText(healthFont, "Health:  XXX");
+            if (this.layout.width > this.laneBox.getWidth()) {
+                parameter.size = (int) (50 / (this.layout.width / this.laneBox.getWidth()));
+                parameter.color = Color.RED;
+                healthFont = generator.generateFont(parameter);
+            }
 
-        layout.setText(staminaFont, "Stamina: XXX");
-        if (this.layout.width > this.laneBox.getWidth()) {
-            parameter.size = (int) (50 / (this.layout.width / this.laneBox.getWidth()));
+            /* Font for displaying the stamina */
+            parameter.size = 50;
             parameter.color = Color.GREEN;
-            staminaFont = generator.generateFont(parameter);
+            this.staminaFont = generator.generateFont(parameter);
+
+            layout.setText(staminaFont, "Stamina: XXX");
+            if (this.layout.width > this.laneBox.getWidth()) {
+                parameter.size = (int) (50 / (this.layout.width / this.laneBox.getWidth()));
+                parameter.color = Color.GREEN;
+                staminaFont = generator.generateFont(parameter);
+            }
         }
 
     }
@@ -442,6 +446,7 @@ public class Boat extends Entity {
 
     /**
      * Set the boat time
+     *
      * @param nowTime The time passed since last call.
      */
     public void setTime(float nowTime) {
@@ -459,6 +464,7 @@ public class Boat extends Entity {
 
     /**
      * Set the total boat time.
+     *
      * @param nowTime The time passed since last call.
      */
     public void setTotalTime(float nowTime) {
