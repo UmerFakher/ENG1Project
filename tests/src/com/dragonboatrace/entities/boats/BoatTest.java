@@ -5,6 +5,7 @@ import com.dragonboatrace.tools.Lane;
 import de.tomgrill.gdxtesting.GdxTestRunner;
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.runner.Computer;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 
@@ -13,10 +14,10 @@ import static org.junit.Assert.assertEquals;
 @RunWith(GdxTestRunner.class)
 public class BoatTest {
 
-    Lane l = new Lane(new Vector2(0,0), 50, 0, 0);
+    Lane l = new Lane(new Vector2(0, 0), 50, 0, 0);
 
     @Test
-    public void creationAttributeTest(){
+    public void creationAttributeTest() {
         Boat fastBoat = new Boat(BoatType.FAST, l, "__testing_boat__");
         assertEquals(fastBoat.getHealth(), 50, 0.01f);
         assertEquals(fastBoat.getStamina(), 120, 0.01f);
@@ -40,5 +41,15 @@ public class BoatTest {
         assertEquals(strongBoat.getStamina(), 105, 0.01f);
         assertEquals(strongBoat.getAgility(), 98, 0.01f);
         assertEquals(strongBoat.getSpeed(), 200, 0.01f);
+    }
+
+    @Test
+    public void staminaUsageTest() {
+        ComputerBoat boat = new ComputerBoat(BoatType.FAST, l, "__testing_boat__", 1);
+        float oldStamina = boat.getStamina();
+        for (int i = 0; i < 5; i++)
+            boat.update(1);
+
+        Assert.assertTrue(oldStamina > boat.getStamina());
     }
 }
