@@ -85,10 +85,10 @@ public class BoatObstacleTest {
         DragonBoatRace game = new DragonBoatRace();
         Race race = new Race(10000, BoatType.AGILE, 0, 0, true);
         final float y = race.getPlayer().position.y;
-        race.getPlayer().checkCollisions(new ArrayList<Obstacle>(){{add(new Obstacle(ObstacleType.ROCK, new Vector2(-25, y)));}}, true);
-        race.getPlayer().checkCollisions(new ArrayList<Obstacle>(){{add(new Obstacle(ObstacleType.ROCK, new Vector2(-25, y)));}}, true);
-        race.getPlayer().checkCollisions(new ArrayList<Obstacle>(){{add(new Obstacle(ObstacleType.ROCK, new Vector2(-25, y)));}}, true);
-        race.getPlayer().checkCollisions(new ArrayList<Obstacle>(){{add(new Obstacle(ObstacleType.ROCK, new Vector2(-25, y)));}}, true);
+        race.getPlayer().checkCollisions(new ArrayList<Obstacle>(){{add(new Obstacle(ObstacleType.ROCK, new Vector2(0,100)));}}, true);
+        race.getPlayer().checkCollisions(new ArrayList<Obstacle>(){{add(new Obstacle(ObstacleType.ROCK, new Vector2(0,100)));}}, true);
+        race.getPlayer().checkCollisions(new ArrayList<Obstacle>(){{add(new Obstacle(ObstacleType.ROCK, new Vector2(0,100)));}}, true);
+        race.getPlayer().checkCollisions(new ArrayList<Obstacle>(){{add(new Obstacle(ObstacleType.ROCK, new Vector2(0,100)));}}, true);
         race.update(1, game);
 
         System.out.println(race.getPlayer().position.x);
