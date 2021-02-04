@@ -58,22 +58,26 @@ public class Race {
      *
      * @param raceLength The length of the race.
      * @param boatChosen The {@link BoatType} that the player chose.
-     * @param round The current round of the race.
+     * @param round      The current round of the race.
      */
     public Race(int raceLength, BoatType boatChosen, int round, int difficulty) {
+        this(raceLength, boatChosen, round, difficulty, false);
+    }
+
+    public Race(int raceLength, BoatType boatChosen, int round, int difficulty, boolean isTesting) {
         this.length = raceLength;
         this.theFinish = new FinishLine(new Vector2(0, Gdx.graphics.getHeight()), Gdx.graphics.getWidth());
         int size = Gdx.graphics.getWidth() / Settings.PLAYER_COUNT;
         this.timer = 0;
 
-        player = new PlayerBoat(boatChosen, new Lane(new Vector2(0, 0), size, round, difficulty), "Player");
+        player = new PlayerBoat(boatChosen, new Lane(new Vector2(0, 0), size, round, difficulty), (isTesting?"__testing_boat__":"Player"));
 
         this.barrier = new Texture("line.png");
 
         boats = new ArrayList<>();
         for (int i = 1; i < Settings.PLAYER_COUNT; i++) {
             int rand = ThreadLocalRandom.current().nextInt(0, BoatType.values().length);
-            boats.add(new ComputerBoat(BoatType.values()[rand], new Lane(new Vector2(size * i, 0), size, round, difficulty), "COMP" + i, i));
+            boats.add(new ComputerBoat(BoatType.values()[rand], new Lane(new Vector2(size * i, 0), size, round, difficulty), (isTesting?"__testing_boat__":"COMP" + i), i));
         }
         this.timer = System.nanoTime();
     }
@@ -82,7 +86,7 @@ public class Race {
      * Update the race in respects to the amount of time passed since the last frame.
      *
      * @param deltaTime The time since the last frame.
-     * @param game The instance of the game.
+     * @param game      The instance of the game.
      */
     public void update(float deltaTime, DragonBoatRace game) {
         player.updateYPosition(this.theFinish.getHitBox().getHeight(), length);
@@ -136,7 +140,7 @@ public class Race {
 
         // NEW CODE
         // Game is stopped on ESC and sent to a blank leaderboard
-        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
             getLeaderBoard(game, false);
         }
         // END NEW CODE
@@ -161,11 +165,11 @@ public class Race {
     /**
      * Generate the leaderboard from the race that just occurred and then show the next round screen.
      *
-     * @param game The instance of the game.
+     * @param game           The instance of the game.
      * @param genLeaderboard if the leaderboard text should be generated or left blank
      */
     public void getLeaderBoard(DragonBoatRace game, Boolean genLeaderboard) {
-        if(!genLeaderboard){
+        if (!genLeaderboard) {
             game.setScreen(new RoundsScreen(game, this.player, ""));
             return;
         }

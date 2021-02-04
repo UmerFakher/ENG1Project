@@ -299,8 +299,12 @@ public class Boat extends Entity {
      *
      * @return True if a collision occurred, False if no collision.
      */
-    protected boolean checkCollisions() {
+    public boolean checkCollisions() {
         ArrayList<Obstacle> obstacles = this.lane.getObstacles();
+        return checkCollisions(obstacles);
+    }
+
+    public boolean checkCollisions(ArrayList<Obstacle> obstacles) {
         int size = obstacles.size();
         for (int i = 0; i < size; i++) {
             Obstacle obstacle = obstacles.get(i);

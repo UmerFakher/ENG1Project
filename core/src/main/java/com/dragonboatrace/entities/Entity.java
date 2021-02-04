@@ -16,7 +16,7 @@ public abstract class Entity {
     /**
      * The position of the entity.
      */
-    protected Vector2 position;
+    public Vector2 position;
     /**
      * The velocity of the entity.
      */
