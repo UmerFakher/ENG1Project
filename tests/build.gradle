@@ -2,6 +2,10 @@
 
 apply plugin: "java"
 
+dependencies {
+    implementation 'junit:junit:4.12'
+}
+
 sourceCompatibility = 1.8
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 
