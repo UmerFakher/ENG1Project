@@ -66,24 +66,23 @@ project(":core") {
         api "com.badlogicgames.gdx:gdx-controllers:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
 
-        testCompile "junit:junit:$junitVersion"
     }
 }
 
 project(":tests") {
-    apply plugin: "java"
+    apply plugin: "java-library"
 
     dependencies {
 
         compile project(":core")
 
-        compile "junit:junit:$junitVersion"
+        compile "junit:junit:4.12"
         compile "org.mockito:mockito-all:1.9.+"
 
         compile "com.badlogicgames.gdx:gdx-backend-headless:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx:$gdxVersion"
 
-        testCompile "junit:junit:$junitVersion"
+        testCompile "junit:junit:4.12"
         testCompile "org.mockito:mockito-all:1.9.+"
 
         testCompile "com.badlogicgames.gdx:gdx-backend-headless:$gdxVersion"
