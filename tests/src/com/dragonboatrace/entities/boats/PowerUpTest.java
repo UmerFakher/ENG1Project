@@ -43,58 +43,58 @@ public class PowerUpTest {
 
 
 
-//    /**
-//     * Test to see if a boat colliding with a health power-up will increase its health correctly.
-//     */
-//    @Test
-//    public void healthPowerUpBoatTest() {
-//        Lane l = new Lane(new Vector2(0, 0), 50, 0, 0);
-//
-//        Obstacle o = new Obstacle(ObstacleType.PU_HEALTH, new Vector2(0,100)); // 100 was y
-//        l.getObstacles().add(o);
-////        l.update(1,5);
-//
-//        Boat b = new Boat(BoatType.FAST, l, "__testing_boat__");
-//        float initialValue = b.getHealth();
-//        final float y = b.position.y;
-//
-//        System.out.println(b.lane.getObstacles().size());
+    /**
+     * Test to see if a boat colliding with a health power-up will increase its health correctly.
+     */
+    @Test
+    public void healthPowerUpBoatTest() {
+        Lane l = new Lane(new Vector2(0, 0), 50, 0, 0);
+
+        Obstacle o = new Obstacle(ObstacleType.PU_HEALTH, new Vector2(0,100)); // 100 was y
+        l.getObstacles().add(o);
+//        l.update(1,5);
+
+        Boat b = new Boat(BoatType.FAST, l, "__testing_boat__");
+        float initialValue = b.getHealth();
+        final float y = b.position.y;
+
+        System.out.println(b.lane.getObstacles().size());
+        System.out.println(l.getObstacles().size());
+
+//        b.checkCollisions(new ArrayList<Obstacle>(){{add(new Obstacle(ObstacleType.PU_HEALTH, new Vector2(0,y)));}});
+
+
+
+//        b.checkCollisions(new ArrayList<Obstacle>(){{add(o);}});
+        b.checkCollisions();
+
+
+
+        System.out.println(b.lane.getObstacles().size());
+        System.out.println(l.getObstacles().size());
+
+//        boolean t = b.getHitBox().collidesWith((new Obstacle(ObstacleType.PU_HEALTH, new Vector2(0,y))).getHitBox());
+//        System.out.println(t);
+
+        //System.out.println(b.position.x);
+        //System.out.println(b.position.y);
+
+        //System.out.println(initialHealth);
+        //System.out.println(b.getHealth());
+
+//        Obstacle p = new Obstacle(ObstacleType.PU_HEALTH, new Vector2(0, 0));
 //        System.out.println(l.getObstacles().size());
 //
-////        b.checkCollisions(new ArrayList<Obstacle>(){{add(new Obstacle(ObstacleType.PU_HEALTH, new Vector2(0,y)));}});
+//        System.out.println(b.checkCollisions(l.getObstacles()));
 //
-//
-//
-////        b.checkCollisions(new ArrayList<Obstacle>(){{add(o);}});
-//        b.checkCollisions();
-//
-//
-//
-//        System.out.println(b.lane.getObstacles().size());
 //        System.out.println(l.getObstacles().size());
-//
-////        boolean t = b.getHitBox().collidesWith((new Obstacle(ObstacleType.PU_HEALTH, new Vector2(0,y))).getHitBox());
-////        System.out.println(t);
-//
-//        //System.out.println(b.position.x);
-//        //System.out.println(b.position.y);
-//
-//        //System.out.println(initialHealth);
-//        //System.out.println(b.getHealth());
-//
-////        Obstacle p = new Obstacle(ObstacleType.PU_HEALTH, new Vector2(0, 0));
-////        System.out.println(l.getObstacles().size());
-////
-////        System.out.println(b.checkCollisions(l.getObstacles()));
-////
-////        System.out.println(l.getObstacles().size());
-//
-//        System.out.println();
-//        System.out.println(initialValue);
-//        System.out.println(b.getHealth());
-//
-//        Assert.assertTrue(initialValue < b.getHealth());
-//    }
+
+        System.out.println();
+        System.out.println(initialValue);
+        System.out.println(b.getHealth());
+
+        Assert.assertTrue(initialValue < b.getHealth());
+    }
 
 
 //    /**
