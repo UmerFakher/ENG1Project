@@ -9,6 +9,10 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import javax.swing.plaf.synth.SynthTextAreaUI;
+
+import java.util.ArrayList;
+
 import static org.junit.Assert.assertEquals;
 
 @RunWith(GdxTestRunner.class)
@@ -20,76 +24,114 @@ public class PowerUpTest {
      */
     @Test
     public void powerUpValueTest() {
-        Obstacle puHe = new Obstacle(ObstacleType.PU_HEALTH,0.01f,2);
+        Obstacle puHe = new Obstacle(ObstacleType.PU_HEALTH, 0.01f, 2);
 
-        assertEquals(true,puHe.getDamage() == -20);
+        assertEquals(true, puHe.getDamage() == -20);
 
-        Obstacle puSta = new Obstacle(ObstacleType.PU_STAMINA,0,2);
-        assertEquals(true,puSta.getStaminaMod() == 20);
+        Obstacle puSta = new Obstacle(ObstacleType.PU_STAMINA, 0, 2);
+        assertEquals(true, puSta.getStaminaMod() == 20);
 
-        Obstacle puAg = new Obstacle(ObstacleType.PU_AGILITY,0,2);
-        assertEquals(true,puAg.getAgilityMod() == 1);
+        Obstacle puAg = new Obstacle(ObstacleType.PU_AGILITY, 0, 2);
+        assertEquals(true, puAg.getAgilityMod() == 1);
 
-        Obstacle puSpe = new Obstacle(ObstacleType.PU_SPEED,0,2);
-        assertEquals(true,puSpe.getSpeedMod() == 20);
+        Obstacle puSpe = new Obstacle(ObstacleType.PU_SPEED, 0, 2);
+        assertEquals(true, puSpe.getSpeedMod() == 20);
 
         // Power-up that affects all boat attributes at once health, stamina, agility and speed
-        Obstacle puAll = new Obstacle(ObstacleType.PU_ALL,0,2);
-        assertEquals(true,puAll.getDamage() == -20);
-        assertEquals(true,puAll.getStaminaMod() == 20);
-        assertEquals(true,puAll.getAgilityMod() == 1);
-        assertEquals(true,puAll.getSpeedMod() == 20);
+        Obstacle puAll = new Obstacle(ObstacleType.PU_ALL, 0, 2);
+        assertEquals(true, puAll.getDamage() == -20);
+        assertEquals(true, puAll.getStaminaMod() == 20);
+        assertEquals(true, puAll.getAgilityMod() == 1);
+        assertEquals(true, puAll.getSpeedMod() == 20);
     }
 
     //TODO: Add another test in here to test for if Powerup's affect attributes of boat
 
     /**
-     * Test to see if all power-ups affect health, stamina, agility and speed of a boat correctly.
+     * Test to see if a boat colliding with a health power-up will increase its health correctly.
      */
     @Test
-    public void powerUpABoatTest() {
-//        Lane l = new Lane(new Vector2(0, 0), 50, 0, 0);
-////
-////        Boat aBoat = new Boat(BoatType.ENDURANCE, l, "TestBoat");
-////
-////        Obstacle puHe = new Obstacle(ObstacleType.PU_HEALTH,aBoat.getHitBox().getX(),2);
-////        aBoat.checkCollisions();
-////        assertEquals(true, aBoat.health == aBoat.health - puHe.getDamage());
-//
-//        ComputerBoat boat = new ComputerBoat(BoatType.FAST, l, "__testing_boat__", 1);
-//        float oldHealth = boat.getHealth();
-//
-//        Obstacle puHe = new Obstacle(ObstacleType.PU_HEALTH, boat.getHitBox().getX(),2);
-//
-////        for (int i = 0; i < 5; i++)
-//        boat.update(1);
-//
-//        boat.checkCollisions();
+    public void healthPowerUpBoatTest() {
+        Lane l = new Lane(new Vector2(0, 0), 50, 0, 0);
 
-//        Assert.assertTrue(oldHealth < boat.getHealth());
-//        assertEquals(true, boat.health == boat.health - puHe.getDamage());
-        assertEquals(true, true);
+        Boat b = new Boat(BoatType.FAST, l, "__testing_boat__");
+        float initialValue = b.getHealth();
+        b.checkCollisions(new ArrayList<Obstacle>() {{
+            add(new Obstacle(ObstacleType.PU_HEALTH, new Vector2(0, 100)));
+        }});
 
-
-
-
-
-
-//        Obstacle puSta = new Obstacle(ObstacleType.PU_STAMINA,0,2);
-//        assertEquals(true,puSta.getStaminaMod() == 20);
-//
-//        Obstacle puAg = new Obstacle(ObstacleType.PU_AGILITY,0,2);
-//        assertEquals(true,puAg.getAgilityMod() == 1);
-//
-//        Obstacle puSpe = new Obstacle(ObstacleType.PU_SPEED,0,2);
-//        assertEquals(true,puSpe.getSpeedMod() == 20);
-//
-//        Obstacle puAll = new Obstacle(ObstacleType.PU_ALL,0,2);
-//        assertEquals(true,puAll.getDamage() == -20);
-//        assertEquals(true,puAll.getStaminaMod() == 20);
-//        assertEquals(true,puAll.getAgilityMod() == 1);
-//        assertEquals(true,puAll.getSpeedMod() == 20);
+        Assert.assertTrue(initialValue < b.getHealth());
     }
 
 
+    /**
+     * Test to see if a boat colliding with a stamina power-up will increase its stamina correctly.
+     */
+    @Test
+    public void staminaPowerUpBoatTest() {
+        Lane l = new Lane(new Vector2(0, 0), 50, 0, 0);
+
+        Boat b = new Boat(BoatType.FAST, l, "__testing_boat__");
+        float initialValue = b.getStamina();
+        b.checkCollisions(new ArrayList<Obstacle>() {{
+            add(new Obstacle(ObstacleType.PU_STAMINA, new Vector2(0, 100)));
+        }});
+
+        Assert.assertTrue(initialValue < b.getStamina());
+    }
+
+
+    /**
+     * Test to see if a boat colliding with an agility power-up will increase its agility correctly.
+     */
+    @Test
+    public void agilityPowerUpBoatTest() {
+        Lane l = new Lane(new Vector2(0, 0), 50, 0, 0);
+
+        Boat b = new Boat(BoatType.FAST, l, "__testing_boat__");
+        float initialValue = b.getAgility();
+        b.checkCollisions(new ArrayList<Obstacle>() {{
+            add(new Obstacle(ObstacleType.PU_AGILITY, new Vector2(0, 100)));
+        }});
+
+        Assert.assertTrue(initialValue < b.getAgility());
+    }
+
+    /**
+     * Test to see if a boat colliding with a speed power-up will increase its speed correctly.
+     */
+    @Test
+    public void speedPowerUpBoatTest() {
+        Lane l = new Lane(new Vector2(0, 0), 50, 0, 0);
+
+        Boat b = new Boat(BoatType.FAST, l, "__testing_boat__");
+        float initialValue = b.getSpeed();
+        b.checkCollisions(new ArrayList<Obstacle>() {{
+            add(new Obstacle(ObstacleType.PU_SPEED, new Vector2(0, 100)));
+        }});
+
+        Assert.assertTrue(initialValue < b.getSpeed());
+    }
+
+    /**
+     * Test to see if a boat colliding with an ALL power-up will increase its health, stamina, agility and speed correctly.
+     */
+    @Test
+    public void allPowerUpBoatTest() {
+        Lane l = new Lane(new Vector2(0, 0), 50, 0, 0);
+
+        Boat b = new Boat(BoatType.FAST, l, "__testing_boat__");
+        float initialH = b.getHealth();
+        float initialSta = b.getStamina();
+        float initialAgi = b.getAgility();
+        float initialSpe = b.getSpeed();
+        b.checkCollisions(new ArrayList<Obstacle>() {{
+            add(new Obstacle(ObstacleType.PU_ALL, new Vector2(0, 100)));
+        }});
+
+        Assert.assertTrue(initialH < b.getHealth());
+        Assert.assertTrue(initialSta < b.getStamina());
+        Assert.assertTrue(initialAgi < b.getAgility());
+        Assert.assertTrue(initialSpe < b.getSpeed());
+    }
 }
