@@ -46,8 +46,8 @@ public class RoundsScreen implements Screen {
      */
     private final String reason;
     private final String saveMessage;
-    private final BitmapFont font;
-    private final GlyphLayout layout;
+    private BitmapFont font;
+    private GlyphLayout layout;
     /* Font related items */
     private BitmapFont leaderBoardFont;
 
@@ -66,26 +66,29 @@ public class RoundsScreen implements Screen {
 
         this.saveMessage = "\nPress Esc to save and return to the main menu";
 
-        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("osaka-re.ttf"));
-        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = 60 / Settings.SCALAR;
-        parameter.color = Color.WHITE;
+        if (!reason.equals("testing")) {
 
-        this.font = generator.generateFont(parameter);
-        this.leaderBoardFont = generator.generateFont(parameter);
-        this.layout = new GlyphLayout();
+            FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("osaka-re.ttf"));
+            FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+            parameter.size = 60 / Settings.SCALAR;
+            parameter.color = Color.WHITE;
 
-        layout.setText(leaderBoardFont, this.reason);
+            this.font = generator.generateFont(parameter);
+            this.leaderBoardFont = generator.generateFont(parameter);
+            this.layout = new GlyphLayout();
 
-        /* If the leaderboard doesnt fit on the screen */
-        if (layout.height > Gdx.graphics.getHeight() / 2f) {
-            /* Scale the font to fit on the screen. */
-            int a = 75 / Settings.SCALAR;
-            int c = Gdx.graphics.getHeight() / 2;
-            float b = layout.height / c;
-            parameter.size = (int) (a / b);
-            leaderBoardFont = generator.generateFont(parameter);
             layout.setText(leaderBoardFont, this.reason);
+
+            /* If the leaderboard doesnt fit on the screen */
+            if (layout.height > Gdx.graphics.getHeight() / 2f) {
+                /* Scale the font to fit on the screen. */
+                int a = 75 / Settings.SCALAR;
+                int c = Gdx.graphics.getHeight() / 2;
+                float b = layout.height / c;
+                parameter.size = (int) (a / b);
+                leaderBoardFont = generator.generateFont(parameter);
+                layout.setText(leaderBoardFont, this.reason);
+            }
         }
     }
 

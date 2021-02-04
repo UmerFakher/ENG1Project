@@ -33,36 +33,40 @@ public class GameOverScreen implements Screen {
     protected String reason;
 
     /* Font related items */
-    private final BitmapFont font;
+    private  BitmapFont font;
     private BitmapFont leaderBoardFont;
-    private final GlyphLayout layout;
+    private  GlyphLayout layout;
 
     /**
      * Creates a new screen that represents the end of the game to the player.
-     * @param game The instance of the game.
+     *
+     * @param game   The instance of the game.
      * @param reason The reason for the game to be over.
      */
     public GameOverScreen(DragonBoatRace game, String reason) {
         this.game = game;
         this.reason = reason;
-        /* Font related items */
-        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("osaka-re.ttf"));
-        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = 75 / Settings.SCALAR;
-        parameter.color = Color.WHITE;
-        this.font = generator.generateFont(parameter);
-        this.leaderBoardFont = generator.generateFont(parameter);
-        this.layout = new GlyphLayout();
-        parameter.size = 75 / Settings.SCALAR;
-        layout.setText(leaderBoardFont, this.reason);
-        if (layout.height > Gdx.graphics.getHeight()/2f) {
-            int a = 75/Settings.SCALAR;
-            int c = Gdx.graphics.getHeight()/2;
-            float b = layout.height / c;
 
-            parameter.size =  (int)(a/b) ;
-            leaderBoardFont = generator.generateFont(parameter);
+        if (!reason.equals("testing")) {
+            /* Font related items */
+            FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("osaka-re.ttf"));
+            FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+            parameter.size = 75 / Settings.SCALAR;
+            parameter.color = Color.WHITE;
+            this.font = generator.generateFont(parameter);
+            this.leaderBoardFont = generator.generateFont(parameter);
+            this.layout = new GlyphLayout();
+            parameter.size = 75 / Settings.SCALAR;
             layout.setText(leaderBoardFont, this.reason);
+            if (layout.height > Gdx.graphics.getHeight() / 2f) {
+                int a = 75 / Settings.SCALAR;
+                int c = Gdx.graphics.getHeight() / 2;
+                float b = layout.height / c;
+
+                parameter.size = (int) (a / b);
+                leaderBoardFont = generator.generateFont(parameter);
+                layout.setText(leaderBoardFont, this.reason);
+            }
         }
 
         //reset the rounds
@@ -78,6 +82,7 @@ public class GameOverScreen implements Screen {
 
     /**
      * Renders the window to show the end of the game.
+     *
      * @param delta The time passed since the last frame.
      */
     public void render(float delta) {
@@ -86,13 +91,13 @@ public class GameOverScreen implements Screen {
         this.game.getBatch().begin();
 
         layout.setText(font, "GAME OVER!");
-        font.draw(this.game.getBatch(), "GAME OVER!", (Gdx.graphics.getWidth() - layout.width) / 2, Gdx.graphics.getHeight() - 100/Settings.SCALAR);
+        font.draw(this.game.getBatch(), "GAME OVER!", (Gdx.graphics.getWidth() - layout.width) / 2, Gdx.graphics.getHeight() - 100 / Settings.SCALAR);
 
         layout.setText(leaderBoardFont, this.reason);
         leaderBoardFont.draw(this.game.getBatch(), this.reason, (Gdx.graphics.getWidth() - layout.width) / 2, (Gdx.graphics.getHeight() + layout.height) / 2);
 
         layout.setText(font, "Press Esc to return to Main Menu");
-        font.draw(this.game.getBatch(), "Press Esc to return to Main Menu", (Gdx.graphics.getWidth() - layout.width) / 2, 200/Settings.SCALAR);
+        font.draw(this.game.getBatch(), "Press Esc to return to Main Menu", (Gdx.graphics.getWidth() - layout.width) / 2, 200 / Settings.SCALAR);
 
         if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE))
             this.game.setScreen(new MainMenuScreen(this.game));

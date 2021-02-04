@@ -45,6 +45,21 @@ public class Obstacle extends Entity {
     }
 
     /**
+     * Creates a new Obstacle of a specific type and bounds in which it can be created.
+     *
+     * @param type The type of obstacle.
+     * @param pos  The position to create the new obstacle.
+     */
+    public Obstacle(ObstacleType type, Vector2 pos) {
+        super(pos, new Vector2(0, 0), EntityType.OBSTACLE, type.getTexture());
+        this.speed = type.getSpeed();
+        this.damage = type.getDamage();
+        this.staminaMod = type.getStaminaMod();
+        this.agilityMod = type.getAgilityMod();
+        this.speedMod = type.getSpeedMod();
+    }
+
+    /**
      * Update the obstacle's position relative to the time passed since last frame and the velocity of the boat in that lane.
      *
      * @param deltaTime The time since last frame.
