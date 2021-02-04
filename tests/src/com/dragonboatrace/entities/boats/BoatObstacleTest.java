@@ -62,7 +62,7 @@ public class BoatObstacleTest {
 
     // These tests have been verified in every members IDE however they fail on github.
 
-    /*
+
     @Test
     public void collisionTest() {
         Boat b = new Boat(BoatType.FAST, l, "__testing_boat__");
@@ -94,5 +94,5 @@ public class BoatObstacleTest {
         System.out.println(race.getPlayer().position.y);
 
         Assert.assertTrue(game.getScreen() instanceof GameOverScreen);
-    }*/
+    }
 }
