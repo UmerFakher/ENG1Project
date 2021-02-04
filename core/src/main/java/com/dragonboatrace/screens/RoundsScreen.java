@@ -194,10 +194,10 @@ public class RoundsScreen implements Screen {
     // CHANGED CODE
     // Saving function
     public void saveToFile(String filename) {
-        saveToFile(filename, playerBoat.getBoatType(), this.game.getPlayerTotalTime(), this.game.getRound(), this.game.getDifficulty(), this.playerBoat.getName());
+        saveToFile(filename, playerBoat.getBoatType(), this.game.getPlayerTotalTime(), this.game.getRound(), this.game.getDifficulty());
     }
 
-    public static void saveToFile(String filename, BoatType boatType, float totalTime, int round, int difficulty, String boatName) {
+    public static void saveToFile(String filename, BoatType boatType, float totalTime, int round, int difficulty) {
         File oldFile = new File(filename);
 
         try {
@@ -213,8 +213,7 @@ public class RoundsScreen implements Screen {
             myWriter.write(boatType.getSaveString()
                     + Float.toString(totalTime) + "\n"
                     + Integer.toString(round) + "\n"
-                    + Integer.toString(difficulty) + "\n"
-                    + boatName + "\n");
+                    + Integer.toString(difficulty) + "\n");
             myWriter.close();
         } catch (IOException e) {
             System.out.println("An error occurred.");
