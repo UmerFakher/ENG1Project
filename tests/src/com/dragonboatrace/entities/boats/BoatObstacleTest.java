@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(GdxTestRunner.class)
-public class BoatTest {
+public class BoatObstacleTest {
 
     Lane l = new Lane(new Vector2(0, 0), 50, 0, 0);
 

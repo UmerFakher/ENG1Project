@@ -53,6 +53,6 @@ public class LaneTest {
             else numPowerUp++;
         }
 
-        Assert.assertTrue(numObstacle > numPowerUp);
+        Assert.assertTrue(4*numObstacle > numPowerUp);
     }
 }
