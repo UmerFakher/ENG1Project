@@ -27,28 +27,28 @@ public class BoatObstacleTest {
     @Test
     public void creationAttributeTest() {
         Boat fastBoat = new Boat(BoatType.FAST, l, "__testing_boat__");
-        assertEquals(fastBoat.getHealth(), 50, 0.01f);
-        assertEquals(fastBoat.getStamina(), 120, 0.01f);
-        assertEquals(fastBoat.getAgility(), 85, 0.01f);
-        assertEquals(fastBoat.getSpeed(), 275, 0.01f);
+        Assert.assertEquals(fastBoat.getHealth(), 50, 0.01f);
+        Assert.assertEquals(fastBoat.getStamina(), 120, 0.01f);
+        Assert.assertEquals(fastBoat.getAgility(), 85, 0.01f);
+        Assert.assertEquals(fastBoat.getSpeed(), 275, 0.01f);
 
         Boat agileBoat = new Boat(BoatType.AGILE, l, "__testing_boat__");
-        assertEquals(agileBoat.getHealth(), 50, 0.01f);
-        assertEquals(agileBoat.getStamina(), 120, 0.01f);
-        assertEquals(agileBoat.getAgility(), 95, 0.01f);
-        assertEquals(agileBoat.getSpeed(), 245, 0.01f);
+        Assert.assertEquals(agileBoat.getHealth(), 50, 0.01f);
+        Assert.assertEquals(agileBoat.getStamina(), 120, 0.01f);
+        Assert.assertEquals(agileBoat.getAgility(), 95, 0.01f);
+        Assert.assertEquals(agileBoat.getSpeed(), 245, 0.01f);
 
         Boat enduranceBoat = new Boat(BoatType.ENDURANCE, l, "__testing_boat__");
-        assertEquals(enduranceBoat.getHealth(), 70, 0.01f);
-        assertEquals(enduranceBoat.getStamina(), 180, 0.01f);
-        assertEquals(enduranceBoat.getAgility(), 90, 0.01f);
-        assertEquals(enduranceBoat.getSpeed(), 245, 0.01f);
+        Assert.assertEquals(enduranceBoat.getHealth(), 70, 0.01f);
+        Assert.assertEquals(enduranceBoat.getStamina(), 180, 0.01f);
+        Assert.assertEquals(enduranceBoat.getAgility(), 90, 0.01f);
+        Assert.assertEquals(enduranceBoat.getSpeed(), 245, 0.01f);
 
         Boat strongBoat = new Boat(BoatType.STRONG, l, "__testing_boat__");
-        assertEquals(strongBoat.getHealth(), 100, 0.01f);
-        assertEquals(strongBoat.getStamina(), 105, 0.01f);
-        assertEquals(strongBoat.getAgility(), 98, 0.01f);
-        assertEquals(strongBoat.getSpeed(), 200, 0.01f);
+        Assert.assertEquals(strongBoat.getHealth(), 100, 0.01f);
+        Assert.assertEquals(strongBoat.getStamina(), 105, 0.01f);
+        Assert.assertEquals(strongBoat.getAgility(), 98, 0.01f);
+        Assert.assertEquals(strongBoat.getSpeed(), 200, 0.01f);
     }
 
     @Test
@@ -58,7 +58,7 @@ public class BoatObstacleTest {
         for (int i = 0; i < 5; i++)
             boat.update(1);
 
-        assertTrue(oldStamina > boat.getStamina());
+        Assert.assertTrue(oldStamina > boat.getStamina());
     }
 
     // These tests have been verified in every members IDE however they fail on github so assertions have been removed.
@@ -75,7 +75,7 @@ public class BoatObstacleTest {
         //System.out.println(initialHealth);
         //System.out.println(b.getHealth());
 
-        assertTrue(initialHealth > b.getHealth());
+        Assert.assertTrue(initialHealth > b.getHealth());
     }
 
     // These tests have been verified in every members IDE however they fail on github so assertions have been removed.
@@ -93,6 +93,6 @@ public class BoatObstacleTest {
         //System.out.println(race.getPlayer().position.x);
         //System.out.println(race.getPlayer().position.y);
 
-        assertTrue(game.getScreen() instanceof GameOverScreen);
+        Assert.assertTrue(game.getScreen() instanceof GameOverScreen);
     }
 }
