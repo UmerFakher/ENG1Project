@@ -17,10 +17,10 @@ import java.util.ArrayList;
 @RunWith(GdxTestRunner.class)
 public class BoatObstacleTest {
 
-    Lane l = new Lane(new Vector2(0, 0), 50, 0, 0);
-
     @Test
     public void creationAttributeTest() {
+        Lane l = new Lane(new Vector2(0, 0), 50, 0, 0);
+
         Boat fastBoat = new Boat(BoatType.FAST, l, "__testing_boat__");
         Assert.assertEquals(fastBoat.getHealth(), 50, 0.01f);
         Assert.assertEquals(fastBoat.getStamina(), 120, 0.01f);
@@ -48,6 +48,8 @@ public class BoatObstacleTest {
 
     @Test
     public void staminaUsageTest() {
+        Lane l = new Lane(new Vector2(0, 0), 50, 0, 0);
+
         ComputerBoat boat = new ComputerBoat(BoatType.FAST, l, "__testing_boat__", 1);
         float oldStamina = boat.getStamina();
         for (int i = 0; i < 5; i++)
@@ -59,6 +61,8 @@ public class BoatObstacleTest {
     // These tests have been verified in every members IDE however they fail on github so assertions have been removed.
     @Test
     public void collisionTest() {
+        Lane l = new Lane(new Vector2(0, 0), 50, 0, 0);
+
         Boat b = new Boat(BoatType.FAST, l, "__testing_boat__");
         float initialHealth = b.getHealth();
         final float y = b.position.y;
@@ -70,14 +74,14 @@ public class BoatObstacleTest {
         //System.out.println(initialHealth);
         //System.out.println(b.getHealth());
 
-        boolean t = initialHealth > b.getHealth();
-
-        Assert.assertTrue(t);
+        Assert.assertEquals(true,initialHealth > b.getHealth());
     }
 
     // These tests have been verified in every members IDE however they fail on github so assertions have been removed.
     @Test
     public void gameOverTest() {
+        Lane l = new Lane(new Vector2(0, 0), 50, 0, 0);
+
         DragonBoatRace game = new DragonBoatRace();
         Race race = new Race(10000, BoatType.AGILE, 0, 0, true);
         final float y = race.getPlayer().position.y;
@@ -90,6 +94,6 @@ public class BoatObstacleTest {
         //System.out.println(race.getPlayer().position.x);
         //System.out.println(race.getPlayer().position.y);
 
-        Assert.assertTrue(game.getScreen() instanceof GameOverScreen);
+        Assert.assertEquals(true, game.getScreen() instanceof GameOverScreen);
     }
 }
