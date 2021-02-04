@@ -92,7 +92,7 @@ public class BoatObstacleTest {
         race.update(1, game);
 
         //System.out.println(race.getPlayer().position.x);
-        //System.out.println(race.getPlayer().position.y);
+        System.out.println(game.getScreen() instanceof GameOverScreen);
 
         Assert.assertEquals(true, game.getScreen() instanceof GameOverScreen);
     }
