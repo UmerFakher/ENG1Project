@@ -70,7 +70,9 @@ public class BoatObstacleTest {
         //System.out.println(initialHealth);
         //System.out.println(b.getHealth());
 
-        Assert.assertTrue(initialHealth > b.getHealth());
+        boolean t = initialHealth > b.getHealth();
+
+        Assert.assertTrue(t);
     }
 
     // These tests have been verified in every members IDE however they fail on github so assertions have been removed.
