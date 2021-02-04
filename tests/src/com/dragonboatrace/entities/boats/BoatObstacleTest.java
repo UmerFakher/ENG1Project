@@ -17,6 +17,7 @@ import org.mockito.Mock;
 import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(GdxTestRunner.class)
 public class BoatObstacleTest {
@@ -57,7 +58,7 @@ public class BoatObstacleTest {
         for (int i = 0; i < 5; i++)
             boat.update(1);
 
-        Assert.assertTrue(oldStamina > boat.getStamina());
+        assertTrue(oldStamina > boat.getStamina());
     }
 
     // These tests have been verified in every members IDE however they fail on github so assertions have been removed.
@@ -68,13 +69,13 @@ public class BoatObstacleTest {
         final float y = b.position.y;
         b.checkCollisions(new ArrayList<Obstacle>(){{add(new Obstacle(ObstacleType.ROCK, new Vector2(0,y)));}});
 
-        System.out.println(b.position.x);
-        System.out.println(b.position.y);
+        //System.out.println(b.position.x);
+        //System.out.println(b.position.y);
 
-        System.out.println(initialHealth);
-        System.out.println(b.getHealth());
+        //System.out.println(initialHealth);
+        //System.out.println(b.getHealth());
 
-        //Assert.assertTrue(initialHealth > b.getHealth());
+        assertTrue(initialHealth > b.getHealth());
     }
 
     // These tests have been verified in every members IDE however they fail on github so assertions have been removed.
@@ -89,9 +90,9 @@ public class BoatObstacleTest {
         race.getPlayer().checkCollisions(new ArrayList<Obstacle>(){{add(new Obstacle(ObstacleType.ROCK, new Vector2(-25, y)));}});
         race.update(1, game);
 
-        System.out.println(race.getPlayer().position.x);
-        System.out.println(race.getPlayer().position.y);
+        //System.out.println(race.getPlayer().position.x);
+        //System.out.println(race.getPlayer().position.y);
 
-        //Assert.assertTrue(game.getScreen() instanceof GameOverScreen);
+        assertTrue(game.getScreen() instanceof GameOverScreen);
     }
 }
