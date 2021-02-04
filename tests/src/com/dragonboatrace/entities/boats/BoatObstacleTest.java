@@ -91,8 +91,9 @@ public class BoatObstacleTest {
         race.getPlayer().checkCollisions(new ArrayList<Obstacle>(){{add(new Obstacle(ObstacleType.ROCK, new Vector2(-25, y)));}}, true);
         race.update(1, game);
 
-        //System.out.println(race.getPlayer().position.x);
-        System.out.println(game.getScreen() instanceof GameOverScreen);
+        System.out.println(race.getPlayer().position.x);
+        System.out.println(race.getPlayer().position.y);
+        //System.out.println(game.getScreen() instanceof GameOverScreen);
 
         Assert.assertEquals(true, game.getScreen() instanceof GameOverScreen);
     }

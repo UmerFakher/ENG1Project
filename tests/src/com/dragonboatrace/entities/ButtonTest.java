@@ -28,7 +28,7 @@ public class ButtonTest {
                 "../tests/res/test_texture.png",
                 "../tests/res/test_texture.png");
 
-        System.out.println(mouseX + "," + mouseY + "    " + bHover.type.getWidth() + "," + bHover.type.getHeight() + "    " + bHover.position.x + "," + bHover.position.y);
+        //System.out.println(mouseX + "," + mouseY + "    " + bHover.type.getWidth() + "," + bHover.type.getHeight() + "    " + bHover.position.x + "," + bHover.position.y);
 
         assertTrue(bHover.isHovering());
         assertFalse(bNotHover.isHovering());
