@@ -77,8 +77,8 @@ public class PowerUpTest {
         System.out.println(t);
 
 
-//        Assert.assertTrue(initialValue < b.getHealth());
-        Assert.assertTrue(true);
+        Assert.assertTrue(initialValue < b.getHealth());
+//        Assert.assertTrue(true);
     }
 
 
