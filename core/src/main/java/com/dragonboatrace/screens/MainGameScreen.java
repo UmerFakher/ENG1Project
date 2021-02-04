@@ -29,7 +29,7 @@ public class MainGameScreen implements Screen {
     /**
      * Used to make sure the countdown happens at equal intervals.
      */
-    private final Timer timer;
+    private Timer timer;
     /**
      * The race instance.
      */
@@ -45,11 +45,11 @@ public class MainGameScreen implements Screen {
     /**
      * GlyphLayout used for centering fonts
      */
-    private final GlyphLayout layout;
+    private GlyphLayout layout;
     /**
      * Font used for rendering to screen
      */
-    private final BitmapFont font;
+    private BitmapFont font;
     /**
      * Pause game, starts true.
      */
@@ -63,61 +63,71 @@ public class MainGameScreen implements Screen {
      */
     private String countDownString = "";
 
+    private boolean isTesting;
+
     /**
      * Creates a new game screen with a game instance.
      *
-     * @param game The game instance.
+     * @param game       The game instance.
      * @param boatChosen The {@link BoatType} that the player chose.
      */
     public MainGameScreen(DragonBoatRace game, BoatType boatChosen) {
+        this(game, boatChosen, false);
+    }
+
+    public MainGameScreen(DragonBoatRace game, BoatType boatChosen, boolean isTesting) {
         this.game = game;
+        this.isTesting = isTesting;
 
         this.logger = new FPSLogger();
 
-        this.race = new Race(10000, boatChosen, this.game.getRound(), this.game.getDifficulty());
+        this.race = new Race(10000, boatChosen, this.game.getRound(), this.game.getDifficulty(), isTesting);
         this.background = new ScrollingBackground();
         this.background.resize(Gdx.graphics.getWidth());
 
-        /* Font related items */
-        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("osaka-re.ttf"));
-        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size *= 10.0 / Settings.SCALAR;
-        parameter.color = Color.BLACK;
-        this.font = generator.generateFont(parameter);
-        this.layout = new GlyphLayout();
+        if (!isTesting) {
+            /* Font related items */
+            FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("osaka-re.ttf"));
+            FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+            parameter.size *= 10.0 / Settings.SCALAR;
+            parameter.color = Color.BLACK;
+            this.font = generator.generateFont(parameter);
+            this.layout = new GlyphLayout();
 
-        /* Countdown initialisation */
-        Timer.Task countDownTask = new Timer.Task() {
-            @Override
-            public void run() {
-                paused = true;
-                if (countDownRemaining == 3) {
-                    countDownString = "READY";
-                    countDownRemaining--;
-                } else if (countDownRemaining == 2) {
-                    countDownString = "STEADY";
-                    countDownRemaining--;
-                } else if (countDownRemaining == 1) {
-                    countDownString = "GO";
-                    countDownRemaining--;
-                } else {
-                    countDownString = "";
-                    paused = false;
-                    this.cancel();
+            /* Countdown initialisation */
+            Timer.Task countDownTask = new Timer.Task() {
+                @Override
+                public void run() {
+                    paused = true;
+                    if (countDownRemaining == 3) {
+                        countDownString = "READY";
+                        countDownRemaining--;
+                    } else if (countDownRemaining == 2) {
+                        countDownString = "STEADY";
+                        countDownRemaining--;
+                    } else if (countDownRemaining == 1) {
+                        countDownString = "GO";
+                        countDownRemaining--;
+                    } else {
+                        countDownString = "";
+                        paused = false;
+                        this.cancel();
+                    }
                 }
-            }
-        };
-        timer = new Timer();
-        timer.scheduleTask(countDownTask, 0, 1);
-        // We don't want the countdown to start before the screen has displayed.
-        timer.stop();
+            };
+            timer = new Timer();
+            timer.scheduleTask(countDownTask, 0, 1);
+            // We don't want the countdown to start before the screen has displayed.
+            timer.stop();
+        }
     }
 
     /**
      * Runs when the window first starts. Runs the countdown starter.
      */
     public void show() {
-        timer.start();
+        if (!isTesting)
+            timer.start();
     }
 
     /**
@@ -175,5 +185,9 @@ public class MainGameScreen implements Screen {
     @Override
     public void dispose() {
         this.game.getBatch().dispose();
+    }
+
+    public Race getRace() {
+        return race;
     }
 }

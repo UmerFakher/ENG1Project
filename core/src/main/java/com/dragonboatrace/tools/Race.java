@@ -53,7 +53,7 @@ public class Race {
      */
     private float timer;
 
-    private boolean isTesting;
+    private final boolean isTesting;
 
     /**
      * Creates a new race of a specified length.
