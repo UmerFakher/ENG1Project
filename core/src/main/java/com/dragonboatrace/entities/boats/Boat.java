@@ -187,6 +187,7 @@ public class Boat extends Entity {
             }
 
             /* Font for displaying the health */
+            Color customRed = new Color(197f/255f, 25f/255f, 77f/255f, 255f/255f);
             parameter.size = 50;
             parameter.color = Color.RED;
             this.healthFont = generator.generateFont(parameter);
@@ -194,11 +195,12 @@ public class Boat extends Entity {
             layout.setText(healthFont, "Health:  XXX");
             if (this.layout.width > this.laneBox.getWidth()) {
                 parameter.size = (int) (50 / (this.layout.width / this.laneBox.getWidth()));
-                parameter.color = Color.RED;
+                parameter.color = customRed;
                 healthFont = generator.generateFont(parameter);
             }
 
             /* Font for displaying the stamina */
+            Color customYellow = new Color(227f/255f, 246f/255f, 17f/255f, 255f/255f);
             parameter.size = 50;
             parameter.color = Color.GREEN;
             this.staminaFont = generator.generateFont(parameter);
@@ -206,7 +208,7 @@ public class Boat extends Entity {
             layout.setText(staminaFont, "Stamina: XXX");
             if (this.layout.width > this.laneBox.getWidth()) {
                 parameter.size = (int) (50 / (this.layout.width / this.laneBox.getWidth()));
-                parameter.color = Color.GREEN;
+                parameter.color = customYellow;
                 staminaFont = generator.generateFont(parameter);
             }
         }
