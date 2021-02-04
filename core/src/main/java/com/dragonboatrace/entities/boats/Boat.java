@@ -187,7 +187,7 @@ public class Boat extends Entity {
             }
 
             /* Font for displaying the health */
-            Color customRed = new Color(197f/255f, 25f/255f, 77f/255f, 255f/255f);
+            Color customRed = new Color(197f / 255f, 25f / 255f, 77f / 255f, 255f / 255f);
             parameter.size = 50;
             parameter.color = Color.RED;
             this.healthFont = generator.generateFont(parameter);
@@ -200,7 +200,7 @@ public class Boat extends Entity {
             }
 
             /* Font for displaying the stamina */
-            Color customYellow = new Color(227f/255f, 246f/255f, 17f/255f, 255f/255f);
+            Color customYellow = new Color(227f / 255f, 246f / 255f, 17f / 255f, 255f / 255f);
             parameter.size = 50;
             parameter.color = Color.GREEN;
             this.staminaFont = generator.generateFont(parameter);
@@ -303,17 +303,19 @@ public class Boat extends Entity {
      */
     public boolean checkCollisions() {
         ArrayList<Obstacle> obstacles = this.lane.getObstacles();
-        return checkCollisions(obstacles);
+        return checkCollisions(obstacles, false);
     }
 
-    public boolean checkCollisions(ArrayList<Obstacle> obstacles) {
+    public boolean checkCollisions(ArrayList<Obstacle> obstacles, boolean isTesting) {
         int size = obstacles.size();
         for (int i = 0; i < size; i++) {
             Obstacle obstacle = obstacles.get(i);
             if (obstacle.getHitBox().collidesWith(this.hitbox)) {
-                obstacle.dispose();
-                this.lane.removeObstacle(obstacle);
-                size--;
+                if (!isTesting) {
+                    obstacle.dispose();
+                    this.lane.removeObstacle(obstacle);
+                    size--;
+                }
                 this.health -= obstacle.getDamage();
                 this.agility += obstacle.getAgilityMod();
                 this.stamina += obstacle.getStaminaMod();

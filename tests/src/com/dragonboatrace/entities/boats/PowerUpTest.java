@@ -54,7 +54,7 @@ public class PowerUpTest {
         float initialValue = b.getHealth();
         b.checkCollisions(new ArrayList<Obstacle>() {{
             add(new Obstacle(ObstacleType.PU_HEALTH, new Vector2(0, 100)));
-        }});
+        }},true);
 
         Assert.assertTrue(initialValue < b.getHealth());
     }
@@ -71,7 +71,7 @@ public class PowerUpTest {
         float initialValue = b.getStamina();
         b.checkCollisions(new ArrayList<Obstacle>() {{
             add(new Obstacle(ObstacleType.PU_STAMINA, new Vector2(0, 100)));
-        }});
+        }},true);
 
         Assert.assertTrue(initialValue < b.getStamina());
     }
@@ -88,7 +88,7 @@ public class PowerUpTest {
         float initialValue = b.getAgility();
         b.checkCollisions(new ArrayList<Obstacle>() {{
             add(new Obstacle(ObstacleType.PU_AGILITY, new Vector2(0, 100)));
-        }});
+        }},true);
 
         Assert.assertTrue(initialValue < b.getAgility());
     }
@@ -104,7 +104,7 @@ public class PowerUpTest {
         float initialValue = b.getSpeed();
         b.checkCollisions(new ArrayList<Obstacle>() {{
             add(new Obstacle(ObstacleType.PU_SPEED, new Vector2(0, 100)));
-        }});
+        }},true);
 
         Assert.assertTrue(initialValue < b.getSpeed());
     }
@@ -123,7 +123,7 @@ public class PowerUpTest {
         float initialSpe = b.getSpeed();
         b.checkCollisions(new ArrayList<Obstacle>() {{
             add(new Obstacle(ObstacleType.PU_ALL, new Vector2(0, 100)));
-        }});
+        }},true);
 
         Assert.assertTrue(initialH < b.getHealth());
         Assert.assertTrue(initialSta < b.getStamina());
