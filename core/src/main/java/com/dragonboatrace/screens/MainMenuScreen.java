@@ -108,39 +108,52 @@ public class MainMenuScreen implements Screen {
         if (this.helpButton.isHovering() && Gdx.input.isTouched()) {
             game.setScreen(new HelpScreen(this));
         }
-        loadButton.render(this.game.getBatch());
-        if (this.loadButton.isHovering() && Gdx.input.isTouched()) {
-            List<String> saveData = new ArrayList<>();
-            BoatType boat;
+        File f = new File("savefile.txt");
+        if (f.exists() && !f.isDirectory()) {
 
-            try {
-                File myObj = new File("savefile.txt");
-                Scanner myReader = new Scanner(myObj);
-                while (myReader.hasNextLine()) {
-                    String data = myReader.nextLine();
-                    //System.out.println(data);
-                    saveData.add(data);
+            loadButton.render(this.game.getBatch());
+            if (this.loadButton.isHovering() && Gdx.input.isTouched()) {
+                List<String> saveData = new ArrayList<>();
+                BoatType boat;
+
+                try {
+                    Scanner myReader = new Scanner(f);
+                    while (myReader.hasNextLine()) {
+                        String data = myReader.nextLine();
+                        //System.out.println(data);
+                        saveData.add(data);
+                    }
+                    myReader.close();
+                } catch (FileNotFoundException e) {
+                    System.out.println("An error occurred.");
+                    e.printStackTrace();
                 }
-                myReader.close();
-            } catch (FileNotFoundException e) {
-                System.out.println("An error occurred.");
-                e.printStackTrace();
+
+                switch (Integer.parseInt(saveData.get(0))) {
+                    case 0:
+                        boat = BoatType.FAST;
+                        break;
+                    case 1:
+                        boat = BoatType.AGILE;
+                        break;
+                    case 2:
+                        boat = BoatType.ENDURANCE;
+                        break;
+                    case 3:
+                        boat = BoatType.STRONG;
+                        break;
+                    default:
+                        boat = BoatType.FAST;
+                        break;
+                }
+
+                game.setPlayerTotalTime(Float.parseFloat(saveData.get(1)));
+                //minus one needed to offset auto increment happening before the save
+                game.setRound(Integer.parseInt(saveData.get(2)) - 1);
+                game.setDifficulty(Integer.parseInt(saveData.get(3)));
+
+                game.setScreen(new MainGameScreen(this.game, boat));
             }
-
-            switch (Integer.parseInt(saveData.get(0))){
-                case 0: boat = BoatType.FAST; break;
-                case 1: boat = BoatType.AGILE; break;
-                case 2: boat = BoatType.ENDURANCE; break;
-                case 3: boat = BoatType.STRONG; break;
-                default: boat = BoatType.FAST; break;
-            }
-
-            game.setPlayerTotalTime(Float.parseFloat(saveData.get(1)));
-            //minus one needed to offset auto increment happening before the save
-            game.setRound(Integer.parseInt(saveData.get(2))-1);
-            game.setDifficulty(Integer.parseInt(saveData.get(3)));
-
-            game.setScreen(new MainGameScreen(this.game, boat));
         }
 
         this.game.getBatch().end();
