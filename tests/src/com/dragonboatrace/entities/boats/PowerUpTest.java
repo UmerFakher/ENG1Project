@@ -48,6 +48,19 @@ public class PowerUpTest {
      */
     @Test
     public void healthPowerUpBoatTest() {
+        //Original:
+//        Lane l = new Lane(new Vector2(0, 0), 50, 0, 0);
+//
+//        Boat b = new Boat(BoatType.FAST, l, "__testing_boat__");
+//        float initialValue = b.getHealth();
+//        b.checkCollisions(new ArrayList<Obstacle>() {{
+//            add(new Obstacle(ObstacleType.PU_HEALTH, new Vector2(0, 100)));
+//        }});
+//
+//        Assert.assertTrue(initialValue < b.getHealth());
+
+        //testing:
+
         Lane l = new Lane(new Vector2(0, 0), 50, 0, 0);
 
         Obstacle o = new Obstacle(ObstacleType.PU_HEALTH, new Vector2(0,100)); // 100 was y
@@ -95,6 +108,7 @@ public class PowerUpTest {
 
         Assert.assertTrue(initialValue < b.getHealth());
     }
+
 
 
 //    /**
