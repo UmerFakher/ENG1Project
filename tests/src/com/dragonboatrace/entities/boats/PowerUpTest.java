@@ -9,11 +9,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import javax.swing.plaf.synth.SynthTextAreaUI;
-
 import java.util.ArrayList;
-
-import static org.junit.Assert.assertEquals;
 
 @RunWith(GdxTestRunner.class)
 public class PowerUpTest {

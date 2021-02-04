@@ -10,14 +10,9 @@ import com.dragonboatrace.tools.Race;
 import de.tomgrill.gdxtesting.GdxTestRunner;
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.Computer;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 
 import java.util.ArrayList;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 @RunWith(GdxTestRunner.class)
 public class BoatObstacleTest {
