@@ -1,13 +1,20 @@
 package com.dragonboatrace.entities.boats;
 
 import com.badlogic.gdx.math.Vector2;
+import com.dragonboatrace.DragonBoatRace;
+import com.dragonboatrace.entities.Obstacle;
+import com.dragonboatrace.entities.ObstacleType;
+import com.dragonboatrace.screens.GameOverScreen;
 import com.dragonboatrace.tools.Lane;
+import com.dragonboatrace.tools.Race;
 import de.tomgrill.gdxtesting.GdxTestRunner;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.Computer;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
+
+import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
 
@@ -51,5 +58,27 @@ public class BoatTest {
             boat.update(1);
 
         Assert.assertTrue(oldStamina > boat.getStamina());
+    }
+
+    @Test
+    public void collisionTest() {
+        Boat b = new Boat(BoatType.FAST, l, "__testing_boat__");
+        float initialHealth = b.getHealth();
+        b.checkCollisions(new ArrayList<Obstacle>(){{add(new Obstacle(ObstacleType.ROCK, new Vector2(0,100)));}});
+
+        Assert.assertTrue(initialHealth > b.getHealth());
+    }
+
+    @Test
+    public void gameOverTest() {
+        DragonBoatRace game = new DragonBoatRace();
+        Race race = new Race(10000, BoatType.AGILE, 0, 0, true);
+        race.getPlayer().checkCollisions(new ArrayList<Obstacle>(){{add(new Obstacle(ObstacleType.ROCK, new Vector2(0,100)));}});
+        race.getPlayer().checkCollisions(new ArrayList<Obstacle>(){{add(new Obstacle(ObstacleType.ROCK, new Vector2(0,100)));}});
+        race.getPlayer().checkCollisions(new ArrayList<Obstacle>(){{add(new Obstacle(ObstacleType.ROCK, new Vector2(0,100)));}});
+        race.getPlayer().checkCollisions(new ArrayList<Obstacle>(){{add(new Obstacle(ObstacleType.ROCK, new Vector2(0,100)));}});
+        race.update(1, game);
+
+        Assert.assertTrue(game.getScreen() instanceof GameOverScreen);
     }
 }
