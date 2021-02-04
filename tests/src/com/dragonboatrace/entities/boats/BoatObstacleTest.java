@@ -64,7 +64,8 @@ public class BoatObstacleTest {
     public void collisionTest() {
         Boat b = new Boat(BoatType.FAST, l, "__testing_boat__");
         float initialHealth = b.getHealth();
-        b.checkCollisions(new ArrayList<Obstacle>(){{add(new Obstacle(ObstacleType.ROCK, new Vector2(0,100)));}});
+        final float y = b.position.y;
+        b.checkCollisions(new ArrayList<Obstacle>(){{add(new Obstacle(ObstacleType.ROCK, new Vector2(0,y)));}});
 
         Assert.assertTrue(initialHealth > b.getHealth());
     }
@@ -73,10 +74,11 @@ public class BoatObstacleTest {
     public void gameOverTest() {
         DragonBoatRace game = new DragonBoatRace();
         Race race = new Race(10000, BoatType.AGILE, 0, 0, true);
-        race.getPlayer().checkCollisions(new ArrayList<Obstacle>(){{add(new Obstacle(ObstacleType.ROCK, new Vector2(0,100)));}});
-        race.getPlayer().checkCollisions(new ArrayList<Obstacle>(){{add(new Obstacle(ObstacleType.ROCK, new Vector2(0,100)));}});
-        race.getPlayer().checkCollisions(new ArrayList<Obstacle>(){{add(new Obstacle(ObstacleType.ROCK, new Vector2(0,100)));}});
-        race.getPlayer().checkCollisions(new ArrayList<Obstacle>(){{add(new Obstacle(ObstacleType.ROCK, new Vector2(0,100)));}});
+        final float y = race.getPlayer().position.y;
+        race.getPlayer().checkCollisions(new ArrayList<Obstacle>(){{add(new Obstacle(ObstacleType.ROCK, new Vector2(0, y)));}});
+        race.getPlayer().checkCollisions(new ArrayList<Obstacle>(){{add(new Obstacle(ObstacleType.ROCK, new Vector2(0, y)));}});
+        race.getPlayer().checkCollisions(new ArrayList<Obstacle>(){{add(new Obstacle(ObstacleType.ROCK, new Vector2(0, y)));}});
+        race.getPlayer().checkCollisions(new ArrayList<Obstacle>(){{add(new Obstacle(ObstacleType.ROCK, new Vector2(0, y)));}});
         race.update(1, game);
 
         Assert.assertTrue(game.getScreen() instanceof GameOverScreen);
