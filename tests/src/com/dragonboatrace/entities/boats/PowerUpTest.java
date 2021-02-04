@@ -59,15 +59,18 @@ public class PowerUpTest {
         final float y = b.position.y;
 
         System.out.println(b.lane.getObstacles().size());
+        System.out.println(l.getObstacles().size());
 
 //        b.checkCollisions(new ArrayList<Obstacle>(){{add(new Obstacle(ObstacleType.PU_HEALTH, new Vector2(0,y)));}});
 
-        System.out.println(l.getObstacles().size());
 
-        b.checkCollisions(new ArrayList<Obstacle>(){{add(o);}});
-//        b.checkCollisions();
+
+//        b.checkCollisions(new ArrayList<Obstacle>(){{add(o);}});
+        b.checkCollisions();
+
+
+
         System.out.println(b.lane.getObstacles().size());
-
         System.out.println(l.getObstacles().size());
 
 //        boolean t = b.getHitBox().collidesWith((new Obstacle(ObstacleType.PU_HEALTH, new Vector2(0,y))).getHitBox());
