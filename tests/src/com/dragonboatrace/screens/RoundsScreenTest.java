@@ -16,7 +16,7 @@ public class RoundsScreenTest {
     @Test
     public void saveToFile() {
         BoatType b = BoatType.FAST;
-        RoundsScreen.saveToFile("testfile.txt", b, 4.3f, 1,0);
+        RoundsScreen.saveToFile("testfile.txt", b, 4.3f, 1,0, "__testing_boat__");
         File file = new File("testfile.txt");
         assertTrue(file.exists());
 
@@ -44,7 +44,7 @@ public class RoundsScreenTest {
         assertEquals(expectedData, saveData);
 
         b = BoatType.AGILE;
-        RoundsScreen.saveToFile("testfile.txt", b, 6.2f, 3, 1);
+        RoundsScreen.saveToFile("testfile.txt", b, 6.2f, 3, 1, "__testing_boat__");
         file = new File("testfile.txt");
         assertTrue(file.exists());
 

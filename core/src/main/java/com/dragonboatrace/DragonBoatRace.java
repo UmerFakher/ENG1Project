@@ -36,6 +36,8 @@ public class DragonBoatRace extends Game {
 
     protected int difficulty = 0;
 
+    protected String playerName = "";
+
     @Override
     public void create() {
         batch = new SpriteBatch();

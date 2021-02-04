@@ -113,46 +113,7 @@ public class MainMenuScreen implements Screen {
 
             loadButton.render(this.game.getBatch());
             if (this.loadButton.isHovering() && Gdx.input.isTouched()) {
-                List<String> saveData = new ArrayList<>();
-                BoatType boat;
-
-                try {
-                    Scanner myReader = new Scanner(f);
-                    while (myReader.hasNextLine()) {
-                        String data = myReader.nextLine();
-                        //System.out.println(data);
-                        saveData.add(data);
-                    }
-                    myReader.close();
-                } catch (FileNotFoundException e) {
-                    System.out.println("An error occurred.");
-                    e.printStackTrace();
-                }
-
-                switch (Integer.parseInt(saveData.get(0))) {
-                    case 0:
-                        boat = BoatType.FAST;
-                        break;
-                    case 1:
-                        boat = BoatType.AGILE;
-                        break;
-                    case 2:
-                        boat = BoatType.ENDURANCE;
-                        break;
-                    case 3:
-                        boat = BoatType.STRONG;
-                        break;
-                    default:
-                        boat = BoatType.FAST;
-                        break;
-                }
-
-                game.setPlayerTotalTime(Float.parseFloat(saveData.get(1)));
-                //minus one needed to offset auto increment happening before the save
-                game.setRound(Integer.parseInt(saveData.get(2)) - 1);
-                game.setDifficulty(Integer.parseInt(saveData.get(3)));
-
-                game.setScreen(new MainGameScreen(this.game, boat));
+                loadSavefile(f);
             }
         }
 
@@ -179,6 +140,54 @@ public class MainMenuScreen implements Screen {
     @Override
     public void dispose() {
 
+    }
+
+    public void loadSavefile(File f) {
+        List<String> saveData = new ArrayList<>();
+        BoatType boat;
+
+        try {
+            Scanner myReader = new Scanner(f);
+            while (myReader.hasNextLine()) {
+                String data = myReader.nextLine();
+                //System.out.println(data);
+                saveData.add(data);
+            }
+            myReader.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+
+        try {
+            switch (Integer.parseInt(saveData.get(0))) {
+                case 0:
+                    boat = BoatType.FAST;
+                    break;
+                case 1:
+                    boat = BoatType.AGILE;
+                    break;
+                case 2:
+                    boat = BoatType.ENDURANCE;
+                    break;
+                case 3:
+                    boat = BoatType.STRONG;
+                    break;
+                default:
+                    throw new IndexOutOfBoundsException();
+            }
+
+            game.setPlayerTotalTime(Float.parseFloat(saveData.get(1)));
+            //minus one needed to offset auto increment happening before the save
+            if (Integer.parseInt(saveData.get(2)) - 1 > 4) throw new IndexOutOfBoundsException();
+            game.setRound(Integer.parseInt(saveData.get(2)) - 1);
+            if (Integer.parseInt(saveData.get(3)) > 4) throw new IndexOutOfBoundsException();
+            game.setDifficulty(Integer.parseInt(saveData.get(3)));
+
+            game.setScreen(new MainGameScreen(game, boat, f.getName().equals("testing_file.txt")));
+        } catch (Exception e) {
+            System.out.println("Unable to load file");
+        }
     }
 
 }

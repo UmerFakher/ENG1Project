@@ -157,7 +157,7 @@ public class RoundsScreen implements Screen {
         // CHANGED CODE
         // Added saving on ESC
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
-            saveToFile("savefile.txt", playerBoat.getBoatType(), this.game.getPlayerTotalTime(), this.game.getRound(), this.game.getDifficulty());
+            saveToFile("savefile.txt");
 
             //reset the rounds
             this.game.setRound(1);
@@ -193,7 +193,11 @@ public class RoundsScreen implements Screen {
 
     // CHANGED CODE
     // Saving function
-    public static void saveToFile(String filename, BoatType boatType, float totalTime, int round, int difficulty) {
+    public void saveToFile(String filename) {
+        saveToFile(filename, playerBoat.getBoatType(), this.game.getPlayerTotalTime(), this.game.getRound(), this.game.getDifficulty(), this.playerBoat.getName());
+    }
+
+    public static void saveToFile(String filename, BoatType boatType, float totalTime, int round, int difficulty, String boatName) {
         File oldFile = new File(filename);
 
         try {
@@ -209,7 +213,8 @@ public class RoundsScreen implements Screen {
             myWriter.write(boatType.getSaveString()
                     + Float.toString(totalTime) + "\n"
                     + Integer.toString(round) + "\n"
-                    + Integer.toString(difficulty) + "\n");
+                    + Integer.toString(difficulty) + "\n"
+                    + boatName + "\n");
             myWriter.close();
         } catch (IOException e) {
             System.out.println("An error occurred.");
