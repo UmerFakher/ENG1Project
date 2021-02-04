@@ -60,7 +60,7 @@ public class BoatObstacleTest {
         Assert.assertTrue(oldStamina > boat.getStamina());
     }
 
-    /*@Test
+    @Test
     public void collisionTest() {
         Boat b = new Boat(BoatType.FAST, l, "__testing_boat__");
         float initialHealth = b.getHealth();
@@ -80,5 +80,5 @@ public class BoatObstacleTest {
         race.update(1, game);
 
         Assert.assertTrue(game.getScreen() instanceof GameOverScreen);
-    }*/
+    }
 }
