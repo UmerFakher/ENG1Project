@@ -16,7 +16,7 @@ public abstract class Entity {
     /**
      * The position of the entity.
      */
-    public Vector2 position;
+    protected Vector2 position;
     /**
      * The velocity of the entity.
      */
@@ -93,5 +93,9 @@ public abstract class Entity {
      */
     public Hitbox getHitBox() {
         return this.hitbox;
+    }
+
+    public Vector2 getPosition() {
+        return position;
     }
 }
