@@ -20,7 +20,7 @@ public class ButtonTest {
 
 
         // test_texture is 16:16px
-        Button bHover = new Button(new Vector2(0, 0),
+        Button bHover = new Button(new Vector2(-8, 999),
                 "../tests/res/test_texture.png",
                 "../tests/res/test_texture.png");
 

@@ -66,6 +66,8 @@ project(":core") {
         api "com.badlogicgames.gdx:gdx-controllers:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
 
+        compile "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-desktop"
+
         testCompile "junit:junit:$junitVersion"
     }
 }
@@ -82,6 +84,7 @@ project(":tests") {
 
         compile "com.badlogicgames.gdx:gdx-backend-headless:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx:$gdxVersion"
+        compile "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-desktop"
 
         testCompile "junit:junit:$junitVersion"
         testCompile "org.mockito:mockito-all:1.9.+"

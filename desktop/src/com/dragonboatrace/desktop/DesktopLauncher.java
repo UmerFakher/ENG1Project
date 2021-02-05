@@ -15,7 +15,7 @@ public class DesktopLauncher {
         //Settings.setResolution(size.width, size.height);
         config.width = 1920;
         config.height = 1080;
-        config.fullscreen = true;
+        config.fullscreen = false;
         config.resizable = false;
         config.vSyncEnabled = false;
         config.foregroundFPS = 60;

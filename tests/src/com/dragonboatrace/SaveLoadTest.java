@@ -27,7 +27,7 @@ public class SaveLoadTest {
         DragonBoatRace r1 = new DragonBoatRace();
         r1.setDifficulty(2);
         r1.setRound(2);
-        r1.setScreen(new RoundsScreen(r1, new Boat(BoatType.FAST, l, "__testing_boat__"),"testing"));
+        r1.setScreen(new RoundsScreen(r1, new Boat(BoatType.FAST, l, ""),""));
         ((RoundsScreen)r1.getScreen()).saveToFile("testing_file.txt");
 
         DragonBoatRace r2 = new DragonBoatRace();

@@ -187,7 +187,7 @@ public class MainMenuScreen implements Screen {
             if (Integer.parseInt(saveData.get(3)) > 4) throw new IndexOutOfBoundsException();
             game.setDifficulty(Integer.parseInt(saveData.get(3)));
 
-            game.setScreen(new MainGameScreen(game, boat, f.getName().equals("testing_file.txt")));
+            game.setScreen(new MainGameScreen(game, boat));
         } catch (Exception e) {
             System.out.println("Unable to load file");
         }
