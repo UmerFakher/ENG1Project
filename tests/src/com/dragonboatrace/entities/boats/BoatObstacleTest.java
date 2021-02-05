@@ -61,7 +61,6 @@ public class BoatObstacleTest {
         Assert.assertTrue(oldStamina > boat.getStamina());
     }
 
-    // These tests have been verified in every members IDE however they fail on github so assertions have been removed.
     @Test
     public void collisionTest() {
         Boat b = new Boat(BoatType.FAST, l, "");
@@ -75,7 +74,6 @@ public class BoatObstacleTest {
         Assert.assertTrue(initialHealth > b.getHealth());
     }
 
-    // These tests have been verified in every members IDE however they fail on github so assertions have been removed.
     @Test
     public void gameOverTest() {
         DragonBoatRace game = new DragonBoatRace();
