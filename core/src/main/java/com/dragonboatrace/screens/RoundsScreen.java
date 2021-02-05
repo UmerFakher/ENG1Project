@@ -136,7 +136,6 @@ public class RoundsScreen implements Screen {
             if (reason.equals("")) {
                 // CHANGED CODE
                 // If game was aborted early, quit to main menu instead of continuing to next round
-                this.game.setRound(1);
                 this.game.setScreen(new MainMenuScreen(this.game));
                 // END CHANGED CODE
             } else {
@@ -160,7 +159,6 @@ public class RoundsScreen implements Screen {
             saveToFile("savefile.txt");
 
             //reset the rounds
-            this.game.setRound(1);
             this.game.setScreen(new MainMenuScreen(this.game));
         }
         // END CHANGED CODE

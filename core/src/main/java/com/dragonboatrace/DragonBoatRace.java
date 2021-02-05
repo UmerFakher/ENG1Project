@@ -25,12 +25,12 @@ public class DragonBoatRace extends Game {
     protected int round = 1;
 
     /**
-     * A list of cumulative times for all boats.
+     * A list of best times for all boats.
      */
     protected ArrayList<Float> totalTimes = new ArrayList<>();
 
     /**
-     * The players total time.
+     * The players best time.
      */
     protected float playerTotalTime = 0;
 
@@ -65,7 +65,7 @@ public class DragonBoatRace extends Game {
     }
 
     public void setRound(int i) {
-        this.round += i;
+        this.round = i;
     }
 
     public void upRound() {
@@ -73,7 +73,8 @@ public class DragonBoatRace extends Game {
     }
 
     public void setTimeAt(int i, float t) {
-        this.totalTimes.set(i, this.totalTimes.get(i) + t);
+        if (t < this.totalTimes.get(i))
+            this.totalTimes.set(i, t);
     }
 
     public float getPlayerTotalTime() {
@@ -81,7 +82,7 @@ public class DragonBoatRace extends Game {
     }
 
     public void setPlayerTotalTime(float t) {
-        this.playerTotalTime += t;
+        if (t < playerTotalTime) this.playerTotalTime = t;
     }
 
     public ArrayList<Float> getTotalTimes() {

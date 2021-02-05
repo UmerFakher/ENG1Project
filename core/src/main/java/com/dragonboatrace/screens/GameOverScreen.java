@@ -68,16 +68,11 @@ public class GameOverScreen implements Screen {
                 layout.setText(leaderBoardFont, this.reason);
             }
         }
-
-        //reset the rounds
-        this.game.setRound(1);
     }
 
     @Override
     public void show() {
-        this.game.setRound(1);
         Settings.setPlayerCount(8);
-
     }
 
     /**

@@ -71,6 +71,8 @@ public class MainMenuScreen implements Screen {
         this.logo = new Texture("dragon.png");
         logoXOffset = 680f / Settings.SCALAR;
         logoYOffset = 600f / Settings.SCALAR;
+
+        this.game.setRound(0);
     }
 
 
@@ -108,7 +110,7 @@ public class MainMenuScreen implements Screen {
         if (this.helpButton.isHovering() && Gdx.input.isTouched()) {
             game.setScreen(new HelpScreen(this));
         }
-        File f = new File("savefile.txt");
+        File f = new File("./savefile.txt");
         if (f.exists() && !f.isDirectory()) {
 
             loadButton.render(this.game.getBatch());
@@ -178,9 +180,8 @@ public class MainMenuScreen implements Screen {
             }
 
             game.setPlayerTotalTime(Float.parseFloat(saveData.get(1)));
-            //minus one needed to offset auto increment happening before the save
             if (Integer.parseInt(saveData.get(2)) - 1 > 4) throw new IndexOutOfBoundsException();
-            game.setRound(Integer.parseInt(saveData.get(2)) - 1);
+            game.setRound(Integer.parseInt(saveData.get(2)));
             if (Integer.parseInt(saveData.get(3)) > 4) throw new IndexOutOfBoundsException();
             game.setDifficulty(Integer.parseInt(saveData.get(3)));
 
