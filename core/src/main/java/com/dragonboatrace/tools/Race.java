@@ -12,6 +12,8 @@ import com.dragonboatrace.entities.boats.BoatType;
 import com.dragonboatrace.entities.boats.ComputerBoat;
 import com.dragonboatrace.entities.boats.PlayerBoat;
 import com.dragonboatrace.screens.GameOverScreen;
+import com.dragonboatrace.screens.MainGamePauseScreen;
+import com.dragonboatrace.screens.MainGameScreen;
 import com.dragonboatrace.screens.RoundsScreen;
 
 import java.awt.*;
@@ -84,7 +86,7 @@ public class Race {
      * @param deltaTime The time since the last frame.
      * @param game      The instance of the game.
      */
-    public void update(float deltaTime, DragonBoatRace game) {
+    public void update(float deltaTime, DragonBoatRace game, MainGameScreen screen) {
         player.updateYPosition(this.theFinish.getHitBox().getHeight(), length);
         player.update(deltaTime);
         theFinish.update(player.getDistanceTravelled(), this.length, deltaTime, player.getVelocity().y);
@@ -131,13 +133,13 @@ public class Race {
                     }
                 }
             }
-            getLeaderBoard(game, true);
+            getLeaderBoard(game);
         }
 
         // NEW CODE
         // Game is stopped on ESC and sent to a blank leaderboard
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
-            getLeaderBoard(game, false);
+            game.setScreen(new MainGamePauseScreen(game, screen));
         }
         // END NEW CODE
     }
@@ -162,14 +164,8 @@ public class Race {
      * Generate the leaderboard from the race that just occurred and then show the next round screen.
      *
      * @param game           The instance of the game.
-     * @param genLeaderboard if the leaderboard text should be generated or left blank
      */
-    public void getLeaderBoard(DragonBoatRace game, Boolean genLeaderboard) {
-        if (!genLeaderboard) {
-            game.setScreen(new RoundsScreen(game, this.player, ""));
-            return;
-        }
-
+    public void getLeaderBoard(DragonBoatRace game) {
         ArrayList<Float> times = new ArrayList<>();
         String reason = "";
         player.setTime(this.player.getPenaltyTime());

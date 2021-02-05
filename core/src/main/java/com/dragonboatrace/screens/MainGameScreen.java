@@ -137,7 +137,7 @@ public class MainGameScreen implements Screen {
             //this.logger.log();
             this.background.update(deltaTime * this.race.getPlayer().getVelocity().y);
             this.background.render(game.getBatch());
-            this.race.update(deltaTime, this.game);
+            this.race.update(deltaTime, this.game, this);
             this.race.render(game.getBatch());
         } else {
             this.background.render(game.getBatch());

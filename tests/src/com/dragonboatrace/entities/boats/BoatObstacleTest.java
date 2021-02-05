@@ -5,6 +5,7 @@ import com.dragonboatrace.DragonBoatRace;
 import com.dragonboatrace.entities.Obstacle;
 import com.dragonboatrace.entities.ObstacleType;
 import com.dragonboatrace.screens.GameOverScreen;
+import com.dragonboatrace.screens.MainGameScreen;
 import com.dragonboatrace.tools.Lane;
 import com.dragonboatrace.tools.Race;
 import de.tomgrill.gdxtesting.GdxTestRunner;
@@ -93,7 +94,7 @@ public class BoatObstacleTest {
         race.getPlayer().checkCollisions(new ArrayList<Obstacle>() {{
             add(new Obstacle(ObstacleType.ROCK, new Vector2(x, y)));
         }});
-        race.update(1, game);
+        race.update(1, game, null);
 
         Assert.assertTrue(game.getScreen() instanceof GameOverScreen);
     }

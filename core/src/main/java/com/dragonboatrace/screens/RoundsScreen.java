@@ -46,8 +46,8 @@ public class RoundsScreen implements Screen {
      */
     private final String reason;
     private final String saveMessage;
-    private BitmapFont font;
-    private GlyphLayout layout;
+    private final BitmapFont font;
+    private final GlyphLayout layout;
     /* Font related items */
     private BitmapFont leaderBoardFont;
 
@@ -64,7 +64,7 @@ public class RoundsScreen implements Screen {
         this.playerBoat = playerBoat;
         this.reason = reason;
 
-        this.saveMessage = "\nPress Esc to save and return to the main menu";
+        this.saveMessage = "\nPress Enter to save and return to the main menu";
 
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("osaka-re.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
@@ -105,57 +105,43 @@ public class RoundsScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         this.game.getBatch().begin();
 
-        if (!reason.equals("")) {
-            layout.setText(font, "Well done for completing round " + (this.currentRound - 1) + " in " + this.playerBoat.getTime() + "s");
-            font.draw(this.game.getBatch(), "Well done for completing round " + (this.currentRound - 1) + " in " + this.playerBoat.getTime() + "s", (Gdx.graphics.getWidth() - layout.width) / 2, Gdx.graphics.getHeight() - 75 / Settings.SCALAR);
+        layout.setText(font, "Well done for completing round " + (this.currentRound - 1) + " in " + this.playerBoat.getTime() + "s");
+        font.draw(this.game.getBatch(), "Well done for completing round " + (this.currentRound - 1) + " in " + this.playerBoat.getTime() + "s", (Gdx.graphics.getWidth() - layout.width) / 2, Gdx.graphics.getHeight() - 75 / Settings.SCALAR);
 
-            layout.setText(font, "With " + this.playerBoat.getPenaltyTime() + "s of that in penalties");
-            font.draw(this.game.getBatch(), "With " + this.playerBoat.getPenaltyTime() + "s of that in penalties", (Gdx.graphics.getWidth() - layout.width) / 2, Gdx.graphics.getHeight() - 175f / Settings.SCALAR);
-
-
-            layout.setText(leaderBoardFont, this.reason);
-            leaderBoardFont.draw(this.game.getBatch(), this.reason, (Gdx.graphics.getWidth() - layout.width) / 2, (Gdx.graphics.getHeight() + layout.height) / 2 - 75f / Settings.SCALAR);
+        layout.setText(font, "With " + this.playerBoat.getPenaltyTime() + "s of that in penalties");
+        font.draw(this.game.getBatch(), "With " + this.playerBoat.getPenaltyTime() + "s of that in penalties", (Gdx.graphics.getWidth() - layout.width) / 2, Gdx.graphics.getHeight() - 175f / Settings.SCALAR);
 
 
-            layout.setText(font, (this.currentRound == 4) ? "Press Space to see if you made it to the final " + saveMessage : "Press Space to continue to round " + (this.currentRound) + saveMessage);
-            font.draw(this.game.getBatch(), (this.currentRound == 4) ? "Press Space to see if you made it to the final " + saveMessage : "Press Space to continue to round " + (this.currentRound) + saveMessage, (Gdx.graphics.getWidth() - layout.width) / 2, 50 + layout.height);
-        } else {
-            // CHANGED CODE
-            // Custom message text if the game was aborted before finishing
-            layout.setText(font, "Press Space to quit without saving " + saveMessage);
-            font.draw(this.game.getBatch(), "Press Space to quit without saving " + saveMessage, (Gdx.graphics.getWidth() - layout.width) / 2, 50 + layout.height);
-            // END CHANGED CODE
-        }
+        layout.setText(leaderBoardFont, this.reason);
+        leaderBoardFont.draw(this.game.getBatch(), this.reason, (Gdx.graphics.getWidth() - layout.width) / 2, (Gdx.graphics.getHeight() + layout.height) / 2 - 75f / Settings.SCALAR);
+
+
+        layout.setText(font, (this.currentRound == 4) ? "Press Space to see if you made it to the final " + saveMessage : "Press Space to continue to round " + (this.currentRound) + saveMessage);
+        font.draw(this.game.getBatch(), (this.currentRound == 4) ? "Press Space to see if you made it to the final " + saveMessage : "Press Space to continue to round " + (this.currentRound) + saveMessage, (Gdx.graphics.getWidth() - layout.width) / 2, 50 + layout.height);
+
 
         this.game.getBatch().end();
 
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE))
-            if (reason.equals("")) {
-                // CHANGED CODE
-                // If game was aborted early, quit to main menu instead of continuing to next round
-                this.game.setScreen(new MainMenuScreen(this.game));
-                // END CHANGED CODE
-            } else {
-                if (this.game.getRound() > 3) {
-                    ArrayList<Float> temp = this.game.getTotalTimes();
-                    Collections.sort(temp);
-                    ArrayList<Float> topPlayers = new ArrayList<>(temp.subList(0, 4));
-                    if (topPlayers.contains(this.game.getPlayerTotalTime())) {
-                        this.game.setScreen(new FinalScreen(this.game, this.playerBoat));
-                    } else {
-                        this.game.setScreen(new GameOverScreen(this.game, "You were not fast enough. Better luck next time!"));
-                    }
+
+            if (this.game.getRound() > 3) {
+                ArrayList<Float> temp = this.game.getTotalTimes();
+                Collections.sort(temp);
+                ArrayList<Float> topPlayers = new ArrayList<>(temp.subList(0, 4));
+                if (topPlayers.contains(this.game.getPlayerTotalTime())) {
+                    this.game.setScreen(new FinalScreen(this.game, this.playerBoat));
                 } else {
-                    this.game.setScreen(new MainGameScreen(this.game, this.playerBoat.getBoatType()));
+                    this.game.setScreen(new GameOverScreen(this.game, "You were not fast enough. Better luck next time!"));
                 }
+            } else {
+                this.game.setScreen(new MainGameScreen(this.game, this.playerBoat.getBoatType()));
             }
 
-        // CHANGED CODE
-        // Added saving on ESC
-        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
-            saveToFile("savefile.txt");
 
-            //reset the rounds
+        // CHANGED CODE
+        // Added saving on ENTER
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
+            saveToFile("savefile.txt");
             this.game.setScreen(new MainMenuScreen(this.game));
         }
         // END CHANGED CODE
@@ -189,31 +175,7 @@ public class RoundsScreen implements Screen {
     // CHANGED CODE
     // Saving function
     public void saveToFile(String filename) {
-        saveToFile(filename, playerBoat.getBoatType(), this.game.getPlayerTotalTime(), this.game.getRound(), this.game.getDifficulty());
-    }
-
-    public static void saveToFile(String filename, BoatType boatType, float totalTime, int round, int difficulty) {
-        File oldFile = new File(filename);
-
-        try {
-            File newFile = new File(filename);
-            newFile.createNewFile();
-        } catch (IOException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
-        }
-
-        try {
-            FileWriter myWriter = new FileWriter(filename, false);
-            myWriter.write(boatType.getSaveString()
-                    + Float.toString(totalTime) + "\n"
-                    + Integer.toString(round) + "\n"
-                    + Integer.toString(difficulty) + "\n");
-            myWriter.close();
-        } catch (IOException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
-        }
+        MainGamePauseScreen.saveToFile(filename, playerBoat.getBoatType(), this.game.getPlayerTotalTime(), this.game.getRound(), this.game.getDifficulty());
     }
     // CHANGED CODE
 }
