@@ -16,7 +16,7 @@ public class MovementTest {
 
     @Test
     public void boatMovementTest() {
-        Boat b = new Boat(BoatType.FAST, l, "__testing_boat__");
+        Boat b = new Boat(BoatType.FAST, l, "");
         float initialDistance = b.getDistanceTravelled();
         b.addVelocity(0,10);
         b.update(1);

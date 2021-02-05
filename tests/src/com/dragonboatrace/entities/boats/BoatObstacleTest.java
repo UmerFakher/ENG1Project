@@ -25,25 +25,25 @@ public class BoatObstacleTest {
 
     @Test
     public void creationAttributeTest() {
-        Boat fastBoat = new Boat(BoatType.FAST, l, "__testing_boat__");
+        Boat fastBoat = new Boat(BoatType.FAST, l, "");
         assertEquals(fastBoat.getHealth(), 50, 0.01f);
         assertEquals(fastBoat.getStamina(), 120, 0.01f);
         assertEquals(fastBoat.getAgility(), 85, 0.01f);
         assertEquals(fastBoat.getSpeed(), 275, 0.01f);
 
-        Boat agileBoat = new Boat(BoatType.AGILE, l, "__testing_boat__");
+        Boat agileBoat = new Boat(BoatType.AGILE, l, "");
         assertEquals(agileBoat.getHealth(), 50, 0.01f);
         assertEquals(agileBoat.getStamina(), 120, 0.01f);
         assertEquals(agileBoat.getAgility(), 95, 0.01f);
         assertEquals(agileBoat.getSpeed(), 245, 0.01f);
 
-        Boat enduranceBoat = new Boat(BoatType.ENDURANCE, l, "__testing_boat__");
+        Boat enduranceBoat = new Boat(BoatType.ENDURANCE, l, "");
         assertEquals(enduranceBoat.getHealth(), 70, 0.01f);
         assertEquals(enduranceBoat.getStamina(), 180, 0.01f);
         assertEquals(enduranceBoat.getAgility(), 90, 0.01f);
         assertEquals(enduranceBoat.getSpeed(), 245, 0.01f);
 
-        Boat strongBoat = new Boat(BoatType.STRONG, l, "__testing_boat__");
+        Boat strongBoat = new Boat(BoatType.STRONG, l, "");
         assertEquals(strongBoat.getHealth(), 100, 0.01f);
         assertEquals(strongBoat.getStamina(), 105, 0.01f);
         assertEquals(strongBoat.getAgility(), 98, 0.01f);
@@ -52,7 +52,7 @@ public class BoatObstacleTest {
 
     @Test
     public void staminaUsageTest() {
-        ComputerBoat boat = new ComputerBoat(BoatType.FAST, l, "__testing_boat__", 1);
+        ComputerBoat boat = new ComputerBoat(BoatType.FAST, l, "", 1);
         float oldStamina = boat.getStamina();
         for (int i = 0; i < 5; i++)
             boat.update(1);
@@ -63,35 +63,27 @@ public class BoatObstacleTest {
     // These tests have been verified in every members IDE however they fail on github so assertions have been removed.
     @Test
     public void collisionTest() {
-        Boat b = new Boat(BoatType.FAST, l, "__testing_boat__");
+        Boat b = new Boat(BoatType.FAST, l, "");
         float initialHealth = b.getHealth();
         final float y = b.position.y;
         b.checkCollisions(new ArrayList<Obstacle>(){{add(new Obstacle(ObstacleType.ROCK, new Vector2(0,y)));}});
 
-        System.out.println(b.position.x);
-        System.out.println(b.position.y);
-
-        System.out.println(initialHealth);
-        System.out.println(b.getHealth());
-
-        //Assert.assertTrue(initialHealth > b.getHealth());
+        Assert.assertTrue(initialHealth > b.getHealth());
     }
 
     // These tests have been verified in every members IDE however they fail on github so assertions have been removed.
     @Test
     public void gameOverTest() {
         DragonBoatRace game = new DragonBoatRace();
-        Race race = new Race(10000, BoatType.AGILE, 0, 0, true);
+        Race race = new Race(10000, BoatType.AGILE, 0, 0);
         final float y = race.getPlayer().position.y;
-        race.getPlayer().checkCollisions(new ArrayList<Obstacle>(){{add(new Obstacle(ObstacleType.ROCK, new Vector2(-25, y)));}});
-        race.getPlayer().checkCollisions(new ArrayList<Obstacle>(){{add(new Obstacle(ObstacleType.ROCK, new Vector2(-25, y)));}});
-        race.getPlayer().checkCollisions(new ArrayList<Obstacle>(){{add(new Obstacle(ObstacleType.ROCK, new Vector2(-25, y)));}});
-        race.getPlayer().checkCollisions(new ArrayList<Obstacle>(){{add(new Obstacle(ObstacleType.ROCK, new Vector2(-25, y)));}});
+        final float x = race.getPlayer().position.x;
+        race.getPlayer().checkCollisions(new ArrayList<Obstacle>(){{add(new Obstacle(ObstacleType.ROCK, new Vector2(x, y)));}});
+        race.getPlayer().checkCollisions(new ArrayList<Obstacle>(){{add(new Obstacle(ObstacleType.ROCK, new Vector2(x, y)));}});
+        race.getPlayer().checkCollisions(new ArrayList<Obstacle>(){{add(new Obstacle(ObstacleType.ROCK, new Vector2(x, y)));}});
+        race.getPlayer().checkCollisions(new ArrayList<Obstacle>(){{add(new Obstacle(ObstacleType.ROCK, new Vector2(x, y)));}});
         race.update(1, game);
 
-        System.out.println(race.getPlayer().position.x);
-        System.out.println(race.getPlayer().position.y);
-
-        //Assert.assertTrue(game.getScreen() instanceof GameOverScreen);
+        Assert.assertTrue(game.getScreen() instanceof GameOverScreen);
     }
 }

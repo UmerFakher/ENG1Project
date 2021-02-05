@@ -33,9 +33,9 @@ public class GameOverScreen implements Screen {
     protected String reason;
 
     /* Font related items */
-    private  BitmapFont font;
+    private BitmapFont font;
     private BitmapFont leaderBoardFont;
-    private  GlyphLayout layout;
+    private GlyphLayout layout;
 
     /**
      * Creates a new screen that represents the end of the game to the player.
@@ -47,27 +47,26 @@ public class GameOverScreen implements Screen {
         this.game = game;
         this.reason = reason;
 
-        if (!reason.equals("testing")) {
-            /* Font related items */
-            FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("osaka-re.ttf"));
-            FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-            parameter.size = 75 / Settings.SCALAR;
-            parameter.color = Color.WHITE;
-            this.font = generator.generateFont(parameter);
-            this.leaderBoardFont = generator.generateFont(parameter);
-            this.layout = new GlyphLayout();
-            parameter.size = 75 / Settings.SCALAR;
-            layout.setText(leaderBoardFont, this.reason);
-            if (layout.height > Gdx.graphics.getHeight() / 2f) {
-                int a = 75 / Settings.SCALAR;
-                int c = Gdx.graphics.getHeight() / 2;
-                float b = layout.height / c;
+        /* Font related items */
+        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("osaka-re.ttf"));
+        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        parameter.size = 75 / Settings.SCALAR;
+        parameter.color = Color.WHITE;
+        this.font = generator.generateFont(parameter);
+        this.leaderBoardFont = generator.generateFont(parameter);
+        this.layout = new GlyphLayout();
+        parameter.size = 75 / Settings.SCALAR;
+        layout.setText(leaderBoardFont, this.reason);
+        if (layout.height > Gdx.graphics.getHeight() / 2f) {
+            int a = 75 / Settings.SCALAR;
+            int c = Gdx.graphics.getHeight() / 2;
+            float b = layout.height / c;
 
-                parameter.size = (int) (a / b);
-                leaderBoardFont = generator.generateFont(parameter);
-                layout.setText(leaderBoardFont, this.reason);
-            }
+            parameter.size = (int) (a / b);
+            leaderBoardFont = generator.generateFont(parameter);
+            layout.setText(leaderBoardFont, this.reason);
         }
+
     }
 
     @Override

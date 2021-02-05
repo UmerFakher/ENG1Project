@@ -63,8 +63,6 @@ public class MainGameScreen implements Screen {
      */
     private String countDownString = "";
 
-    private boolean isTesting;
-
     /**
      * Creates a new game screen with a game instance.
      *
@@ -72,22 +70,17 @@ public class MainGameScreen implements Screen {
      * @param boatChosen The {@link BoatType} that the player chose.
      */
     public MainGameScreen(DragonBoatRace game, BoatType boatChosen) {
-        this(game, boatChosen, false);
-    }
-
-    public MainGameScreen(DragonBoatRace game, BoatType boatChosen, boolean isTesting) {
         this.game = game;
-        this.isTesting = isTesting;
 
         this.logger = new FPSLogger();
 
-        this.race = new Race(10000, boatChosen, this.game.getRound(), this.game.getDifficulty(), isTesting);
+        this.race = new Race(10000, boatChosen, this.game.getRound(), this.game.getDifficulty());
         this.background = new ScrollingBackground();
         this.background.resize(Gdx.graphics.getWidth());
 
         System.out.println(this.game.getRound());
 
-        if (!isTesting) {
+
             /* Font related items */
             FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("osaka-re.ttf"));
             FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
@@ -121,15 +114,14 @@ public class MainGameScreen implements Screen {
             timer.scheduleTask(countDownTask, 0, 1);
             // We don't want the countdown to start before the screen has displayed.
             timer.stop();
-        }
+
     }
 
     /**
      * Runs when the window first starts. Runs the countdown starter.
      */
     public void show() {
-        if (!isTesting)
-            timer.start();
+        timer.start();
     }
 
     /**

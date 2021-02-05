@@ -53,8 +53,6 @@ public class Race {
      */
     private float timer;
 
-    private final boolean isTesting;
-
     /**
      * Creates a new race of a specified length.
      *
@@ -63,24 +61,19 @@ public class Race {
      * @param round      The current round of the race.
      */
     public Race(int raceLength, BoatType boatChosen, int round, int difficulty) {
-        this(raceLength, boatChosen, round, difficulty, false);
-    }
-
-    public Race(int raceLength, BoatType boatChosen, int round, int difficulty, boolean isTesting) {
-        this.isTesting = isTesting;
         this.length = raceLength;
         this.theFinish = new FinishLine(new Vector2(0, Gdx.graphics.getHeight()), Gdx.graphics.getWidth());
         int size = Gdx.graphics.getWidth() / Settings.PLAYER_COUNT;
         this.timer = 0;
 
-        player = new PlayerBoat(boatChosen, new Lane(new Vector2(0, 0), size, round, difficulty), (isTesting ? "__testing_boat__" : "Player"));
+        player = new PlayerBoat(boatChosen, new Lane(new Vector2(0, 0), size, round, difficulty), "Player");
 
         this.barrier = new Texture("line.png");
 
         boats = new ArrayList<>();
         for (int i = 1; i < Settings.PLAYER_COUNT; i++) {
             int rand = ThreadLocalRandom.current().nextInt(0, BoatType.values().length);
-            boats.add(new ComputerBoat(BoatType.values()[rand], new Lane(new Vector2(size * i, 0), size, round, difficulty), (isTesting ? "__testing_boat__" : "COMP" + i), i));
+            boats.add(new ComputerBoat(BoatType.values()[rand], new Lane(new Vector2(size * i, 0), size, round, difficulty), "COMP" + i, i));
         }
         this.timer = System.nanoTime();
     }
@@ -96,7 +89,7 @@ public class Race {
         player.update(deltaTime);
         theFinish.update(player.getDistanceTravelled(), this.length, deltaTime, player.getVelocity().y);
         if (player.getHealth() <= 0) {
-            game.setScreen(new GameOverScreen(game, isTesting ? "testing" : "Your boat is broken. Better luck next time!"));
+            game.setScreen(new GameOverScreen(game, "Your boat is broken. Better luck next time!"));
         }
         for (Boat boat : this.boats) {
 
@@ -230,9 +223,9 @@ public class Race {
         this.dispose();
         game.upRound();
         if (game.getRound() != 5) {
-            game.setScreen(new RoundsScreen(game, this.player, isTesting ? "testing" : reason));
+            game.setScreen(new RoundsScreen(game, this.player, reason));
         } else {
-            game.setScreen(new GameOverScreen(game, isTesting ? "testing" : reason));
+            game.setScreen(new GameOverScreen(game, reason));
         }
     }
 
