@@ -99,6 +99,7 @@ public class MainMenuScreen implements Screen {
         exitButton.render(this.game.getBatch());
         if (this.exitButton.isHovering() && Gdx.input.isTouched()) {
             Gdx.app.exit();
+            System.exit(0);
         }
         playButton.render(this.game.getBatch());
         if (this.playButton.isHovering() && Gdx.input.isTouched()) {
@@ -159,8 +160,8 @@ public class MainMenuScreen implements Screen {
             }
             myReader.close();
         } catch (FileNotFoundException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
+            //System.out.println("An error occurred.");
+            //e.printStackTrace();
         }
 
         try {
@@ -189,7 +190,7 @@ public class MainMenuScreen implements Screen {
 
             game.setScreen(new MainGameScreen(game, boat));
         } catch (Exception e) {
-            System.out.println("Unable to load file");
+            //System.out.println("Unable to load file");
         }
     }
 
