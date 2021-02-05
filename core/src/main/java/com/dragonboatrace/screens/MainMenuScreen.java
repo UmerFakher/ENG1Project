@@ -72,7 +72,9 @@ public class MainMenuScreen implements Screen {
         logoXOffset = 680f / Settings.SCALAR;
         logoYOffset = 600f / Settings.SCALAR;
 
-        this.game.setRound(0);
+        //reset settings
+        this.game.setRound(1);
+        Settings.setPlayerCount(8);
     }
 
 
