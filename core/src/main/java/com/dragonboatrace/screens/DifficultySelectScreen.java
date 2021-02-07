@@ -40,7 +40,7 @@ public class DifficultySelectScreen implements Screen {
     /**
      * Texture of the endurance boat preview.
      */
-    private final Texture nightmareImage;
+    private final Texture ultraImage;
 
     /**
      * Button to select the fast boat.
@@ -60,7 +60,7 @@ public class DifficultySelectScreen implements Screen {
     /**
      * Button to select the endurance boat.
      */
-    private final Button nightmareButton;
+    private final Button ultraButton;
 
     /**
      * Instance of the main game, used to have a collective spritebatch which gives better performance.
@@ -90,12 +90,12 @@ public class DifficultySelectScreen implements Screen {
         this.easyButton = new Button(new Vector2(spacing, Gdx.graphics.getHeight() - 300 - ySub), "easy_button_active.png", "easy_button_inactive.png");
         this.normalButton = new Button(new Vector2(spacing + (buttonWidth + spacing), Gdx.graphics.getHeight() - 300- ySub), "normal_button_active.png", "normal_button_inactive.png");
         this.hardButton = new Button(new Vector2(spacing + (buttonWidth + spacing) * 2, Gdx.graphics.getHeight() - 300- ySub), "hard_button_active.png", "hard_button_inactive.png");
-        this.nightmareButton = new Button(new Vector2(spacing + (buttonWidth + spacing) * 3, Gdx.graphics.getHeight() - 300- ySub), "nightmare_button_active.png", "nightmare_button_inactive.png");
+        this.ultraButton = new Button(new Vector2(spacing + (buttonWidth + spacing) * 3, Gdx.graphics.getHeight() - 300- ySub), "ultra_button_active.png", "ultra_button_inactive.png");
 
         this.easyImage = new Texture("easy.png");
         this.normalImage = new Texture("normal.png");
         this.hardImage = new Texture("hard.png");
-        this.nightmareImage = new Texture("nightmare.png");
+        this.ultraImage = new Texture("ultra.png");
 
 
 
@@ -142,8 +142,8 @@ public class DifficultySelectScreen implements Screen {
         this.game.getBatch().draw(this.hardImage, this.hardButton.getHitBox().getX() + ((this.hardButton.getHitBox().getWidth() - this.buttonWidth / 2f) / 2f), 150 + EntityType.BUTTON.getHeight() - ySub, this.buttonWidth / 2f, EntityType.BOAT.getHeight() * scale);
         this.hardButton.render(this.game.getBatch());
 
-        this.game.getBatch().draw(this.nightmareImage, this.nightmareButton.getHitBox().getX() + ((this.nightmareButton.getHitBox().getWidth() - this.buttonWidth / 2f) / 2f), 150 + EntityType.BUTTON.getHeight() - ySub, this.buttonWidth / 2f, EntityType.BOAT.getHeight() * scale);
-        this.nightmareButton.render(this.game.getBatch());
+        this.game.getBatch().draw(this.ultraImage, this.ultraButton.getHitBox().getX() + ((this.ultraButton.getHitBox().getWidth() - this.buttonWidth / 2f) / 2f), 150 + EntityType.BUTTON.getHeight() - ySub, this.buttonWidth / 2f, EntityType.BOAT.getHeight() * scale);
+        this.ultraButton.render(this.game.getBatch());
 
         if (this.easyButton.isHovering() && Gdx.input.isTouched()) {
             this.game.setDifficulty(0);
@@ -154,7 +154,7 @@ public class DifficultySelectScreen implements Screen {
         } else if (this.hardButton.isHovering() && Gdx.input.isTouched()) {
             this.game.setDifficulty(2);
             this.game.setScreen(new BoatSelectScreen(this.game));
-        } else if (this.nightmareButton.isHovering() && Gdx.input.isTouched()) {
+        } else if (this.ultraButton.isHovering() && Gdx.input.isTouched()) {
             this.game.setDifficulty(3);
             this.game.setScreen(new BoatSelectScreen(this.game));
         }
