@@ -29,11 +29,6 @@ public class Boat extends Entity {
     private final float staminaRate = 10;
 
     /**
-     * The minimum amount of speed gained from using stamina.
-     */
-    private final int minBoostSpeed = 5;
-
-    /**
      * The formatter used to align the text on-screen.
      */
     protected GlyphLayout layout;
@@ -183,7 +178,7 @@ public class Boat extends Entity {
         }
 
         /* Font for displaying the health */
-        Color customRed = new Color(197f / 255f, 25f / 255f, 77f / 255f, 255f / 255f);
+        Color customRed = new Color(197f / 255f, 25f / 255f, 77f / 255f, 1f);
         parameter.size = 50;
         parameter.color = customRed;
         this.healthFont = generator.generateFont(parameter);
@@ -195,7 +190,7 @@ public class Boat extends Entity {
         }
 
         /* Font for displaying the stamina */
-        Color customYellow = new Color(227f / 255f, 246f / 255f, 17f / 255f, 255f / 255f);
+        Color customYellow = new Color(227f / 255f, 246f / 255f, 17f / 255f, 1f);
         parameter.size = 50;
         parameter.color = customYellow;
         this.staminaFont = generator.generateFont(parameter);
@@ -228,7 +223,8 @@ public class Boat extends Entity {
      * @return A float of how much stamina will be used.
      */
     protected float useStamina() {
-        double result = Math.pow(this.maxStamina, -this.stamina / (2 * this.maxStamina)) * this.staminaRate + this.staminaRate + this.minBoostSpeed;
+        int minBoostSpeed = 5;
+        double result = Math.pow(this.maxStamina, -this.stamina / (2 * this.maxStamina)) * this.staminaRate + this.staminaRate + minBoostSpeed;
         return (float) result;
     }
 
@@ -342,24 +338,6 @@ public class Boat extends Entity {
         this.velocity.add(pushX, pushY);
     }
 
-    /**
-     * Increase the current boat health.
-     *
-     * @param change The amount of health to be added.
-     */
-    public void addHealth(float change) {
-        this.health += change;
-    }
-
-    /**
-     * Increase the current boat stamina.
-     *
-     * @param change The amount of health to be added.
-     */
-    public void addStamina(float change) {
-        this.stamina += change;
-    }
-
     /* Getters */
 
     /**
@@ -451,15 +429,6 @@ public class Boat extends Entity {
      */
     public void setTime(float nowTime) {
         this.time += nowTime;
-    }
-
-    /**
-     * Get the total boat time
-     *
-     * @return A float of total boat time
-     */
-    public float getTotalTime() {
-        return this.totalTime;
     }
 
     /**

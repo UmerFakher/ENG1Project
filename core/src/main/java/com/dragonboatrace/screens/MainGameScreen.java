@@ -27,10 +27,6 @@ public class MainGameScreen implements Screen {
      */
     private final DragonBoatRace game;
     /**
-     * Used to make sure the countdown happens at equal intervals.
-     */
-    private Timer timer;
-    /**
      * The race instance.
      */
     private final Race race;
@@ -45,11 +41,15 @@ public class MainGameScreen implements Screen {
     /**
      * GlyphLayout used for centering fonts
      */
-    private GlyphLayout layout;
+    private final GlyphLayout layout;
     /**
      * Font used for rendering to screen
      */
-    private BitmapFont font;
+    private final BitmapFont font;
+    /**
+     * Used to make sure the countdown happens at equal intervals.
+     */
+    private final Timer timer;
     /**
      * Pause game, starts true.
      */
@@ -81,39 +81,39 @@ public class MainGameScreen implements Screen {
         System.out.println(this.game.getRound());
 
 
-            /* Font related items */
-            FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("osaka-re.ttf"));
-            FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-            parameter.size *= 10.0 / Settings.SCALAR;
-            parameter.color = Color.BLACK;
-            this.font = generator.generateFont(parameter);
-            this.layout = new GlyphLayout();
+        /* Font related items */
+        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("osaka-re.ttf"));
+        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        parameter.size *= 10.0 / Settings.SCALAR;
+        parameter.color = Color.BLACK;
+        this.font = generator.generateFont(parameter);
+        this.layout = new GlyphLayout();
 
-            /* Countdown initialisation */
-            Timer.Task countDownTask = new Timer.Task() {
-                @Override
-                public void run() {
-                    paused = true;
-                    if (countDownRemaining == 3) {
-                        countDownString = "READY";
-                        countDownRemaining--;
-                    } else if (countDownRemaining == 2) {
-                        countDownString = "STEADY";
-                        countDownRemaining--;
-                    } else if (countDownRemaining == 1) {
-                        countDownString = "GO";
-                        countDownRemaining--;
-                    } else {
-                        countDownString = "";
-                        paused = false;
-                        this.cancel();
-                    }
+        /* Countdown initialisation */
+        Timer.Task countDownTask = new Timer.Task() {
+            @Override
+            public void run() {
+                paused = true;
+                if (countDownRemaining == 3) {
+                    countDownString = "READY";
+                    countDownRemaining--;
+                } else if (countDownRemaining == 2) {
+                    countDownString = "STEADY";
+                    countDownRemaining--;
+                } else if (countDownRemaining == 1) {
+                    countDownString = "GO";
+                    countDownRemaining--;
+                } else {
+                    countDownString = "";
+                    paused = false;
+                    this.cancel();
                 }
-            };
-            timer = new Timer();
-            timer.scheduleTask(countDownTask, 0, 1);
-            // We don't want the countdown to start before the screen has displayed.
-            timer.stop();
+            }
+        };
+        timer = new Timer();
+        timer.scheduleTask(countDownTask, 0, 1);
+        // We don't want the countdown to start before the screen has displayed.
+        timer.stop();
 
     }
 

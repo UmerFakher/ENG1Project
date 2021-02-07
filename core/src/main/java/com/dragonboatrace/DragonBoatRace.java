@@ -10,7 +10,7 @@ import java.util.ArrayList;
 /**
  * Represents the Game itself and holds all the screens.
  *
- * @author Benji Garment, Joe Wrieden
+ * @author Benji Garment, Joe Wrieden, William Walton
  */
 public class DragonBoatRace extends Game {
 
@@ -34,9 +34,10 @@ public class DragonBoatRace extends Game {
      */
     protected float playerTotalTime = 0;
 
+    /**
+     * The difficulty chosen 0 = easiest, 3 = hardest
+     */
     protected int difficulty = 0;
-
-    protected String playerName = "";
 
     @Override
     public void create() {

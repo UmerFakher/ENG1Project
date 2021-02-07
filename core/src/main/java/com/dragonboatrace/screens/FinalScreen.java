@@ -45,7 +45,7 @@ public class FinalScreen implements Screen {
         /* Font related items */
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("osaka-re.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size *= 5 / Settings.SCALAR;
+        parameter.size *= 5f / Settings.SCALAR;
         parameter.color = Color.WHITE;
         this.font = generator.generateFont(parameter);
 
@@ -71,10 +71,10 @@ public class FinalScreen implements Screen {
         this.game.getBatch().begin();
 
         layout.setText(font, "You have made it into the final!");
-        font.draw(this.game.getBatch(), "You have made it into the final!", (Gdx.graphics.getWidth() - layout.width) / 2, Gdx.graphics.getHeight() / 2);
+        font.draw(this.game.getBatch(), "You have made it into the final!", (Gdx.graphics.getWidth() - layout.width) / 2, Gdx.graphics.getHeight() / 2f);
 
         layout.setText(font, "Press Space to continue to the final!");
-        font.draw(this.game.getBatch(), "Press Space to continue to the final!", (Gdx.graphics.getWidth() - layout.width) / 2, 100 / Settings.SCALAR + layout.height);
+        font.draw(this.game.getBatch(), "Press Space to continue to the final!", (Gdx.graphics.getWidth() - layout.width) / 2, 100f / Settings.SCALAR + layout.height);
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE))
             this.game.setScreen(new MainGameScreen(this.game, this.playerBoat.getBoatType()));

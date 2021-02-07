@@ -55,24 +55,21 @@ public class HelpScreen implements Screen {
      */
     private final int padding;
     /**
-     * The current position of the help image in the window.
-     */
-    private int currPos;
-
-    /**
      * Scroll down indicator.
      */
     private final Texture downArrow;
-
     /**
      * GlyphLayout used for centering fonts
      */
     private final GlyphLayout layout;
-
     /**
      * The font used to display the scroll indicator.
      */
     private final BitmapFont font;
+    /**
+     * The current position of the help image in the window.
+     */
+    private int currPos;
 
     /**
      * Creates a new window to display the help info in.
@@ -175,9 +172,9 @@ public class HelpScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
         batch.draw(this.helpInfo, padding, currPos, Gdx.graphics.getWidth() - 2 * padding, (float) this.helpInfo.getHeight() / Settings.SCALAR);
-        if(currPos==this.maxHeight){
-            font.draw(batch,"Scroll Down",(Gdx.graphics.getWidth() - layout.width) / 2, layout.height + 120f/Settings.SCALAR);
-            batch.draw(this.downArrow, Gdx.graphics.getWidth() / 2f - 50f/Settings.SCALAR, 0, 100f/Settings.SCALAR, 100f/Settings.SCALAR);
+        if (currPos == this.maxHeight) {
+            font.draw(batch, "Scroll Down", (Gdx.graphics.getWidth() - layout.width) / 2, layout.height + 120f / Settings.SCALAR);
+            batch.draw(this.downArrow, Gdx.graphics.getWidth() / 2f - 50f / Settings.SCALAR, 0, 100f / Settings.SCALAR, 100f / Settings.SCALAR);
         }
         backButton.render(batch);
         if (this.backButton.isHovering() && Gdx.input.isTouched()) {

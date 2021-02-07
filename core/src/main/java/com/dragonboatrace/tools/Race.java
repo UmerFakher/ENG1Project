@@ -26,7 +26,7 @@ import java.util.concurrent.ThreadLocalRandom;
 /**
  * Represents a Race.
  *
- * @author Benji Garment, Joe Wrieden
+ * @author Benji Garment, Joe Wrieden, William Walton
  */
 public class Race {
     /**
@@ -61,6 +61,7 @@ public class Race {
      * @param raceLength The length of the race.
      * @param boatChosen The {@link BoatType} that the player chose.
      * @param round      The current round of the race.
+     * @param difficulty The difficulty of the race {@link DragonBoatRace.difficulty} for FR_DIFFICULTY_SELECTION
      */
     public Race(int raceLength, BoatType boatChosen, int round, int difficulty) {
         this.length = raceLength;
@@ -85,6 +86,7 @@ public class Race {
      *
      * @param deltaTime The time since the last frame.
      * @param game      The instance of the game.
+     * @param screen    The screen the race is being ran from
      */
     public void update(float deltaTime, DragonBoatRace game, MainGameScreen screen) {
         player.updateYPosition(this.theFinish.getHitBox().getHeight(), length);
@@ -136,7 +138,7 @@ public class Race {
             getLeaderBoard(game);
         }
 
-        // NEW CODE
+        // NEW CODE for UR_SAVE_RESUME_GAME
         // Game is stopped on ESC and sent to a blank leaderboard
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
             game.setScreen(new MainGamePauseScreen(game, screen));
@@ -163,11 +165,11 @@ public class Race {
     /**
      * Generate the leaderboard from the race that just occurred and then show the next round screen.
      *
-     * @param game           The instance of the game.
+     * @param game The instance of the game.
      */
     public void getLeaderBoard(DragonBoatRace game) {
         ArrayList<Float> times = new ArrayList<>();
-        String reason = "";
+        StringBuilder reason = new StringBuilder();
         player.setTime(this.player.getPenaltyTime());
 
         times.add(player.getTime());
@@ -192,25 +194,25 @@ public class Race {
                     switch (times.indexOf(time) + 1) {
                         case 1:
                             if (game.getRound() == 4)
-                                reason += "Gold Medal:      " + boatN.getName() + "\n";
+                                reason.append("Gold Medal:      ").append(boatN.getName()).append("\n");
                             else
-                                reason += "1st: " + boatN.getName() + "\n";
+                                reason.append("1st: ").append(boatN.getName()).append("\n");
                             break;
                         case 2:
                             if (game.getRound() == 4)
-                                reason += "Silver Medal:    " + boatN.getName() + "\n";
+                                reason.append("Silver Medal:    ").append(boatN.getName()).append("\n");
                             else
-                                reason += "2nd: " + boatN.getName() + "\n";
+                                reason.append("2nd: ").append(boatN.getName()).append("\n");
                             break;
                         case 3:
                             if (game.getRound() == 4)
-                                reason += "Bronze Medal:    " + boatN.getName() + "\n";
+                                reason.append("Bronze Medal:    ").append(boatN.getName()).append("\n");
                             else
-                                reason += "3rd: " + boatN.getName() + "\n";
+                                reason.append("3rd: ").append(boatN.getName()).append("\n");
                             break;
                         default:
                             if (game.getRound() != 4)
-                                reason += times.indexOf(time) + 1 + "th: " + boatN.getName() + "\n";
+                                reason.append(times.indexOf(time)).append(1).append("th: ").append(boatN.getName()).append("\n");
                     }
                 }
             }
@@ -219,9 +221,9 @@ public class Race {
         this.dispose();
         game.upRound();
         if (game.getRound() != 5) {
-            game.setScreen(new RoundsScreen(game, this.player, reason));
+            game.setScreen(new RoundsScreen(game, this.player, reason.toString()));
         } else {
-            game.setScreen(new GameOverScreen(game, reason));
+            game.setScreen(new GameOverScreen(game, reason.toString()));
         }
     }
 

@@ -31,16 +31,23 @@ public class LaneTest {
         Assert.assertTrue(laneEasy.getObstacles().size() <= laneNormal.getObstacles().size() + errorMargin);
         Assert.assertTrue(laneNormal.getObstacles().size() <= laneHard.getObstacles().size() + errorMargin);
         Assert.assertTrue(laneHard.getObstacles().size() <= laneUltra.getObstacles().size() + errorMargin);
+    }
 
+    @Test
+    public void obstacleDistributionTest() {
         // make sure the distribution of obstacles to powerups is correct
+        Lane lane = new Lane(new Vector2(0, 0), 50, 0, 3);
         int numObstacle = 0;
         int numPowerUp = 0;
 
-        for(Obstacle obs : laneUltra.getObstacles()){
+        for (Obstacle obs : lane.getObstacles()) {
             if (obs.getDamage() > 0) numObstacle++;
             else numPowerUp++;
         }
 
-        Assert.assertTrue(numObstacle + errorMargin> numPowerUp);
+        // variable to account for randomness in spawning
+        int errorMargin = 5;
+
+        Assert.assertTrue(numObstacle + errorMargin > numPowerUp);
     }
 }
