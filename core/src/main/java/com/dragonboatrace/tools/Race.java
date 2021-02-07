@@ -26,7 +26,7 @@ import java.util.concurrent.ThreadLocalRandom;
 /**
  * Represents a Race.
  *
- * @author Benji Garment, Joe Wrieden
+ * @author Benji Garment, Joe Wrieden, William Walton
  */
 public class Race {
     /**
@@ -61,6 +61,7 @@ public class Race {
      * @param raceLength The length of the race.
      * @param boatChosen The {@link BoatType} that the player chose.
      * @param round      The current round of the race.
+     * @param difficulty The difficulty of the race {@link DragonBoatRace.difficulty} for FR_DIFFICULTY_SELECTION
      */
     public Race(int raceLength, BoatType boatChosen, int round, int difficulty) {
         this.length = raceLength;
@@ -85,6 +86,7 @@ public class Race {
      *
      * @param deltaTime The time since the last frame.
      * @param game      The instance of the game.
+     * @param screen    The screen the race is being ran from
      */
     public void update(float deltaTime, DragonBoatRace game, MainGameScreen screen) {
         player.updateYPosition(this.theFinish.getHitBox().getHeight(), length);
@@ -136,7 +138,7 @@ public class Race {
             getLeaderBoard(game);
         }
 
-        // NEW CODE
+        // NEW CODE for UR_SAVE_RESUME_GAME
         // Game is stopped on ESC and sent to a blank leaderboard
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
             game.setScreen(new MainGamePauseScreen(game, screen));
@@ -163,7 +165,7 @@ public class Race {
     /**
      * Generate the leaderboard from the race that just occurred and then show the next round screen.
      *
-     * @param game           The instance of the game.
+     * @param game The instance of the game.
      */
     public void getLeaderBoard(DragonBoatRace game) {
         ArrayList<Float> times = new ArrayList<>();

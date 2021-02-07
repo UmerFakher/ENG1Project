@@ -138,7 +138,7 @@ public class RoundsScreen implements Screen {
             }
 
 
-        // CHANGED CODE
+        // CHANGED CODE for UR_SAVE_RESUME_GAME
         // Added saving on ENTER
         if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
             saveToFile("savefile.txt");
@@ -172,7 +172,7 @@ public class RoundsScreen implements Screen {
 
     }
 
-    // CHANGED CODE
+    // CHANGED CODE for UR_SAVE_RESUME_GAME
     // Saving function
     public void saveToFile(String filename) {
         MainGamePauseScreen.saveToFile(filename, playerBoat.getBoatType(), this.game.getPlayerTotalTime(), this.game.getRound(), this.game.getDifficulty());
