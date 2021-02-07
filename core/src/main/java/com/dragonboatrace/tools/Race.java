@@ -212,7 +212,7 @@ public class Race {
                             break;
                         default:
                             if (game.getRound() != 4)
-                                reason.append(times.indexOf(time)).append(1).append("th: ").append(boatN.getName()).append("\n");
+                                reason.append(times.indexOf(time)+1).append("th: ").append(boatN.getName()).append("\n");
                     }
                 }
             }

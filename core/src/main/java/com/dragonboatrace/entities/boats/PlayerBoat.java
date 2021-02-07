@@ -32,11 +32,11 @@ public class PlayerBoat extends Boat {
     public void update(float deltaTime) {
         /* Allow the player to move if there wasn't a recent collision */
         if (!recentCollision) {
-            if ((Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.A)) && this.position.x > this.lane.getHitbox().getX()) {
+            if ((Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.A)) && this.position.x > this.lane.getHitbox().getX() - 50) {
                 this.velocity.set(-this.speed, this.velocity.y);
             }
 
-            if ((Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.D)) && (this.position.x + this.type.getWidth()) < this.lane.getHitbox().getWidth() + this.lane.getHitbox().getX()) {
+            if ((Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.D)) && (this.position.x + this.type.getWidth()) < 150 + this.lane.getHitbox().getWidth() + this.lane.getHitbox().getX()) {
                 this.velocity.set(this.speed, this.velocity.y);
             }
 
