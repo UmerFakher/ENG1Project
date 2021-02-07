@@ -71,15 +71,6 @@ public class Obstacle extends Entity {
     }
 
     /**
-     * Get the obstacles speed attribute, not the velocity it is moving at currently.
-     *
-     * @return A float of the obstacles speed attribute.
-     */
-    public float getSpeed() {
-        return this.speed;
-    }
-
-    /**
      * Get the amount of damage the obstacle will deal at a collision.
      *
      * @return A float of the amount of damage.

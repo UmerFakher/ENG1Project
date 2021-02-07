@@ -8,10 +8,10 @@ package com.dragonboatrace.entities.boats;
 public enum BoatType {
     /* ENUM(health, stamina, agility, speed, maxSpeed, image) */
 
-    FAST(50, 120, 85, 275, "fast.png",0),
-    AGILE(50, 120, 95, 245, "agile.png",1),
-    ENDURANCE(70, 180, 90, 245, "endurance.png",2),
-    STRONG(100, 105, 98, 200, "strong.png",3);
+    FAST(50, 120, 85, 275, "fast.png", 0),
+    AGILE(50, 120, 95, 245, "agile.png", 1),
+    ENDURANCE(70, 180, 90, 245, "endurance.png", 2),
+    STRONG(100, 105, 98, 200, "strong.png", 3);
 
     private final float health;
     private final float stamina;
@@ -83,10 +83,12 @@ public enum BoatType {
         return this.imageSrc;
     }
 
-
-
-    //returns a string that represents the boat
-    public String getSaveString(){
-        return Integer.toString(templateIndex) + "\n";
+    /**
+     * Get the save string for this boat type
+     *
+     * @return A string that represents the given boat type
+     */
+    public String getSaveString() {
+        return templateIndex + "\n";
     }
 }

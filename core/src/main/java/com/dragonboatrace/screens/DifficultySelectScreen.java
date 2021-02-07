@@ -12,7 +12,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.dragonboatrace.DragonBoatRace;
 import com.dragonboatrace.entities.Button;
 import com.dragonboatrace.entities.EntityType;
-import com.dragonboatrace.entities.boats.BoatType;
 import com.dragonboatrace.tools.Settings;
 
 /**
@@ -88,17 +87,14 @@ public class DifficultySelectScreen implements Screen {
         int ySub = 500;
 
         this.easyButton = new Button(new Vector2(spacing, Gdx.graphics.getHeight() - 300 - ySub), "easy_button_active.png", "easy_button_inactive.png");
-        this.normalButton = new Button(new Vector2(spacing + (buttonWidth + spacing), Gdx.graphics.getHeight() - 300- ySub), "normal_button_active.png", "normal_button_inactive.png");
-        this.hardButton = new Button(new Vector2(spacing + (buttonWidth + spacing) * 2, Gdx.graphics.getHeight() - 300- ySub), "hard_button_active.png", "hard_button_inactive.png");
-        this.ultraButton = new Button(new Vector2(spacing + (buttonWidth + spacing) * 3, Gdx.graphics.getHeight() - 300- ySub), "ultra_button_active.png", "ultra_button_inactive.png");
+        this.normalButton = new Button(new Vector2(spacing + (buttonWidth + spacing), Gdx.graphics.getHeight() - 300 - ySub), "normal_button_active.png", "normal_button_inactive.png");
+        this.hardButton = new Button(new Vector2(spacing + (buttonWidth + spacing) * 2, Gdx.graphics.getHeight() - 300 - ySub), "hard_button_active.png", "hard_button_inactive.png");
+        this.ultraButton = new Button(new Vector2(spacing + (buttonWidth + spacing) * 3, Gdx.graphics.getHeight() - 300 - ySub), "ultra_button_active.png", "ultra_button_inactive.png");
 
         this.easyImage = new Texture("easy.png");
         this.normalImage = new Texture("normal.png");
         this.hardImage = new Texture("hard.png");
         this.ultraImage = new Texture("ultra.png");
-
-
-
 
         /* Font related items */
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("osaka-re.ttf"));

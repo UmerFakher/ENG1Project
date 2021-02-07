@@ -92,14 +92,4 @@ public class PlayerBoat extends Boat {
             this.position.y = (this.distanceTravelled - raceDistance * 0.8f) / (raceDistance - lineHeight - raceDistance * 0.8f) * (Gdx.graphics.getHeight() - 100) + 100;
         }
     }
-
-    /**
-     * If the player boat has no health left.
-     *
-     * @return A boolean of if the boat is dead.
-     */
-    public boolean isDead() {
-        return this.health <= 0;
-    }
-
 }

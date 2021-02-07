@@ -169,7 +169,7 @@ public class Race {
      */
     public void getLeaderBoard(DragonBoatRace game) {
         ArrayList<Float> times = new ArrayList<>();
-        String reason = "";
+        StringBuilder reason = new StringBuilder();
         player.setTime(this.player.getPenaltyTime());
 
         times.add(player.getTime());
@@ -194,25 +194,25 @@ public class Race {
                     switch (times.indexOf(time) + 1) {
                         case 1:
                             if (game.getRound() == 4)
-                                reason += "Gold Medal:      " + boatN.getName() + "\n";
+                                reason.append("Gold Medal:      ").append(boatN.getName()).append("\n");
                             else
-                                reason += "1st: " + boatN.getName() + "\n";
+                                reason.append("1st: ").append(boatN.getName()).append("\n");
                             break;
                         case 2:
                             if (game.getRound() == 4)
-                                reason += "Silver Medal:    " + boatN.getName() + "\n";
+                                reason.append("Silver Medal:    ").append(boatN.getName()).append("\n");
                             else
-                                reason += "2nd: " + boatN.getName() + "\n";
+                                reason.append("2nd: ").append(boatN.getName()).append("\n");
                             break;
                         case 3:
                             if (game.getRound() == 4)
-                                reason += "Bronze Medal:    " + boatN.getName() + "\n";
+                                reason.append("Bronze Medal:    ").append(boatN.getName()).append("\n");
                             else
-                                reason += "3rd: " + boatN.getName() + "\n";
+                                reason.append("3rd: ").append(boatN.getName()).append("\n");
                             break;
                         default:
                             if (game.getRound() != 4)
-                                reason += times.indexOf(time) + 1 + "th: " + boatN.getName() + "\n";
+                                reason.append(times.indexOf(time)).append(1).append("th: ").append(boatN.getName()).append("\n");
                     }
                 }
             }
@@ -221,9 +221,9 @@ public class Race {
         this.dispose();
         game.upRound();
         if (game.getRound() != 5) {
-            game.setScreen(new RoundsScreen(game, this.player, reason));
+            game.setScreen(new RoundsScreen(game, this.player, reason.toString()));
         } else {
-            game.setScreen(new GameOverScreen(game, reason));
+            game.setScreen(new GameOverScreen(game, reason.toString()));
         }
     }
 
