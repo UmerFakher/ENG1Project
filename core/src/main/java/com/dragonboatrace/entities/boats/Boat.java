@@ -324,7 +324,7 @@ public class Boat extends Entity {
      * @param raceDistance The length of the race.
      */
     public void updateYPosition(int lineHeight, int raceDistance) {
-
+        //dummy function for deriving classes
     }
 
     /* Adders */

@@ -90,12 +90,15 @@ public class Race {
      * @param screen    The screen the race is being ran from
      */
     public void update(float deltaTime, DragonBoatRace game, MainGameScreen screen) {
+        // update the player's position and internal values
         player.updateYPosition(this.theFinish.getHitBox().getHeight(), length);
         player.update(deltaTime);
         theFinish.update(player.getDistanceTravelled(), this.length, deltaTime, player.getVelocity().y);
         if (player.getHealth() <= 0) {
             game.setScreen(new GameOverScreen(game, "Your boat is broken. Better luck next time!"));
         }
+
+        //update the AI relative to the player
         for (Boat boat : this.boats) {
 
             ((ComputerBoat) boat).updateYPosition(player.getHitBox().getY(), player.getDistanceTravelled());
@@ -105,6 +108,8 @@ public class Race {
                 boat.setTotalTime(boat.getTime());
             }
         }
+
+        //check to see if the player has finished
         if (player.getDistanceTravelled() + this.theFinish.getHitBox().getHeight() >= this.length) {
             player.setTime(Math.round((System.nanoTime() - this.timer) / 10000000) / (float) 100);
             player.setTotalTime(player.getTime());
@@ -173,6 +178,7 @@ public class Race {
         StringBuilder reason = new StringBuilder();
         player.setTime(this.player.getPenaltyTime());
 
+        //get all boat times
         times.add(player.getTime());
         for (Boat boatN : boats) {
             times.add(boatN.getTime());
@@ -183,12 +189,15 @@ public class Race {
             game.setTimeAt(i, times.get(i));
         }
         boats.add(player);
+
+        //find the finishing order
         Collections.sort(times);
         List<Float> dup = new ArrayList<>(findDuplicates(times));
         if (dup.size() != 0) {
             times.set(times.indexOf(dup.get(0)), (float) (times.get(times.indexOf(dup.get(0))) + 0.02));
         }
 
+        //construct the leaderboard string
         for (float time : times) {
             for (Boat boatN : boats) {
                 if (boatN.getTime() == time) {
@@ -218,6 +227,8 @@ public class Race {
                 }
             }
         }
+
+        //cleanup and move to next round
         boats.remove(player);
         this.dispose();
         game.upRound();
