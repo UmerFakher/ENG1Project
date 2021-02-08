@@ -20,6 +20,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -36,7 +37,7 @@ public class Race {
     /**
      * The list of boats in the race, not including the player.
      */
-    private final ArrayList<Boat> boats;
+    private final List<Boat> boats;
     /**
      * The players boat.
      */
@@ -168,7 +169,7 @@ public class Race {
      * @param game The instance of the game.
      */
     public void getLeaderBoard(DragonBoatRace game) {
-        ArrayList<Float> times = new ArrayList<>();
+        List<Float> times = new ArrayList<>();
         StringBuilder reason = new StringBuilder();
         player.setTime(this.player.getPenaltyTime());
 
@@ -183,7 +184,7 @@ public class Race {
         }
         boats.add(player);
         Collections.sort(times);
-        ArrayList<Float> dup = new ArrayList<>(findDuplicates(times));
+        List<Float> dup = new ArrayList<>(findDuplicates(times));
         if (dup.size() != 0) {
             times.set(times.indexOf(dup.get(0)), (float) (times.get(times.indexOf(dup.get(0))) + 0.02));
         }
@@ -230,10 +231,10 @@ public class Race {
     /**
      * Find any duplicates in an arraylist of floats.
      *
-     * @param list An {@link ArrayList} of floats to be combed through.
+     * @param list An {@link List} of floats to be combed through.
      * @return An {@link Set} of type float containing unique values.
      */
-    public Set<Float> findDuplicates(ArrayList<Float> list) {
+    public Set<Float> findDuplicates(List<Float> list) {
         final Set<Float> setToReturn = new HashSet<>();
         final Set<Float> set1 = new HashSet<>();
 

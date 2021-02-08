@@ -14,6 +14,7 @@ import com.dragonboatrace.tools.Configuration;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * Represents the intermediary screen between rounds that shows the player their place in the previous race and waits
@@ -121,9 +122,9 @@ public class RoundsScreen implements Screen {
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE))
 
             if (this.game.getRound() > 3) {
-                ArrayList<Float> temp = this.game.getTotalTimes();
+                List<Float> temp = this.game.getTotalTimes();
                 Collections.sort(temp);
-                ArrayList<Float> topPlayers = new ArrayList<>(temp.subList(0, 4));
+                List<Float> topPlayers = new ArrayList<>(temp.subList(0, 4));
                 if (topPlayers.contains(this.game.getPlayerTotalTime())) {
                     this.game.setScreen(new FinalScreen(this.game, this.playerBoat));
                 } else {

@@ -9,6 +9,7 @@ import com.dragonboatrace.tools.Hitbox;
 import com.dragonboatrace.tools.Lane;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -166,7 +167,7 @@ public class ComputerBoat extends Boat {
      * @return The closest Obstacle in the area or null if no obstacles are in the area.
      */
     private Obstacle checkObstacles() {
-        ArrayList<Obstacle> obstacles = this.lane.getObstacles();
+        List<Obstacle> obstacles = this.lane.getObstacles();
         Obstacle closest = null;
         float smallest = Gdx.graphics.getHeight();
         for (Obstacle obstacle : obstacles) {
