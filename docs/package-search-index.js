@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"com.dragonboatrace"},{"l":"com.dragonboatrace.desktop"},{"l":"com.dragonboatrace.entities"},{"l":"com.dragonboatrace.entities.boats"},{"l":"com.dragonboatrace.screens"},{"l":"com.dragonboatrace.tools"},{"l":"de.tomgrill.gdxtesting"}]

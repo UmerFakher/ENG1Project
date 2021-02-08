@@ -41,6 +41,7 @@ public class Lane {
      * @param pos   The position of the lane in the screen.
      * @param width The width of the lane.
      * @param round The current round, used to increase difficulty.
+     * @param difficulty The difficulty of the game
      */
     public Lane(Vector2 pos, int width, int round, int difficulty) {
         this.area = new Hitbox(pos.x, pos.y, width, Gdx.graphics.getHeight() + 200);

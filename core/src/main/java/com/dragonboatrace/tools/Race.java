@@ -62,7 +62,7 @@ public class Race {
      * @param raceLength The length of the race.
      * @param boatChosen The {@link BoatType} that the player chose.
      * @param round      The current round of the race.
-     * @param difficulty The difficulty of the race {@link DragonBoatRace.difficulty} for FR_DIFFICULTY_SELECTION
+     * @param difficulty The difficulty of the race {@link DragonBoatRace#difficulty} for FR_DIFFICULTY_SELECTION
      */
     public Race(int raceLength, BoatType boatChosen, int round, int difficulty) {
         this.length = raceLength;
