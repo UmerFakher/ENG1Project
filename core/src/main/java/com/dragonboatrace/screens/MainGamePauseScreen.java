@@ -10,7 +10,7 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.dragonboatrace.DragonBoatRace;
 import com.dragonboatrace.entities.boats.BoatType;
-import com.dragonboatrace.tools.Settings;
+import com.dragonboatrace.tools.Configuration;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -52,7 +52,7 @@ public class MainGamePauseScreen implements Screen {
 
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("osaka-re.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = 60 / Settings.SCALAR;
+        parameter.size = 60 / Configuration.SCALAR;
         parameter.color = Color.WHITE;
 
         this.font = generator.generateFont(parameter);

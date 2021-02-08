@@ -5,7 +5,7 @@ package com.dragonboatrace.tools;
  *
  * @author Benji Garment, Joe Wrieden
  */
-public class Settings {
+public class Configuration {
 
     /**
      * The width of the window.
@@ -58,7 +58,7 @@ public class Settings {
      * @param FULLSCREEN A boolean if the window should be fullscreen.
      */
     public static void setFULLSCREEN(boolean FULLSCREEN) {
-        Settings.FULLSCREEN = FULLSCREEN;
+        Configuration.FULLSCREEN = FULLSCREEN;
     }
 
     /**

@@ -7,6 +7,7 @@ import com.dragonboatrace.entities.Obstacle;
 import com.dragonboatrace.entities.ObstacleType;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ListIterator;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -24,11 +25,11 @@ public class Lane {
     /**
      * A list of the obstacles currently in the lane.
      */
-    private final ArrayList<Obstacle> obstacles;
+    private final List<Obstacle> obstacles;
     /**
      * A list of times to wait before adding a new obstacle to the lane.
      */
-    private final ArrayList<Float> randomWaitTimes;
+    private final List<Float> randomWaitTimes;
     /**
      * The difficulty of the game added for FR_DIFFICULTY_SELECTION
      */
@@ -97,7 +98,7 @@ public class Lane {
      *
      * @return An {@link ArrayList} of type {@link Obstacle} with all the obstacles in the lane.
      */
-    public ArrayList<Obstacle> getObstacles() {
+    public List<Obstacle> getObstacles() {
         return this.obstacles;
     }
 
@@ -188,7 +189,7 @@ public class Lane {
                 break;
         }
 
-        for (int i = 0; i < (11 - Settings.PLAYER_COUNT + round - 1 + difficulty_mod); i++) {
+        for (int i = 0; i < (11 - Configuration.PLAYER_COUNT + round - 1 + difficulty_mod); i++) {
             replaceObstacle();
         }
         // END CHANGED CODE

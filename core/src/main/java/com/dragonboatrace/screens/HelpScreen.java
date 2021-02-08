@@ -12,7 +12,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.math.Vector2;
 import com.dragonboatrace.entities.Button;
-import com.dragonboatrace.tools.Settings;
+import com.dragonboatrace.tools.Configuration;
 
 /**
  * Displays the screen that shows how to play the game.
@@ -80,17 +80,17 @@ public class HelpScreen implements Screen {
         this.mainMenu = callBack;
         this.helpInfo = new Texture(Gdx.files.local("help_screen_info.png"));
         this.backButton = new Button(new Vector2(0, 0), "back_button_active.png", "back_button_inactive.png");
-        this.maxHeight = Gdx.graphics.getHeight() - this.helpInfo.getHeight() / Settings.SCALAR;
+        this.maxHeight = Gdx.graphics.getHeight() - this.helpInfo.getHeight() / Configuration.SCALAR;
 
         this.currPos = maxHeight;
-        this.padding = 200 / Settings.SCALAR;
+        this.padding = 200 / Configuration.SCALAR;
         this.minHeight = padding;
 
         this.downArrow = new Texture(Gdx.files.local("down_arrow.png"));
 
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("osaka-re.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size *= 3.0 / Settings.SCALAR;
+        parameter.size *= 3.0 / Configuration.SCALAR;
         parameter.color = Color.RED;
         this.font = generator.generateFont(parameter);
         this.layout = new GlyphLayout();
@@ -171,10 +171,10 @@ public class HelpScreen implements Screen {
         Gdx.gl.glClearColor(0, 0, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
-        batch.draw(this.helpInfo, padding, currPos, Gdx.graphics.getWidth() - 2 * padding, (float) this.helpInfo.getHeight() / Settings.SCALAR);
+        batch.draw(this.helpInfo, padding, currPos, Gdx.graphics.getWidth() - 2 * padding, (float) this.helpInfo.getHeight() / Configuration.SCALAR);
         if (currPos == this.maxHeight) {
-            font.draw(batch, "Scroll Down", (Gdx.graphics.getWidth() - layout.width) / 2, layout.height + 120f / Settings.SCALAR);
-            batch.draw(this.downArrow, Gdx.graphics.getWidth() / 2f - 50f / Settings.SCALAR, 0, 100f / Settings.SCALAR, 100f / Settings.SCALAR);
+            font.draw(batch, "Scroll Down", (Gdx.graphics.getWidth() - layout.width) / 2, layout.height + 120f / Configuration.SCALAR);
+            batch.draw(this.downArrow, Gdx.graphics.getWidth() / 2f - 50f / Configuration.SCALAR, 0, 100f / Configuration.SCALAR, 100f / Configuration.SCALAR);
         }
         backButton.render(batch);
         if (this.backButton.isHovering() && Gdx.input.isTouched()) {

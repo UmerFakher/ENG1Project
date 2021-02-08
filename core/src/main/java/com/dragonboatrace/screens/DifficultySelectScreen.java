@@ -12,7 +12,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.dragonboatrace.DragonBoatRace;
 import com.dragonboatrace.entities.Button;
 import com.dragonboatrace.entities.EntityType;
-import com.dragonboatrace.tools.Settings;
+import com.dragonboatrace.tools.Configuration;
 
 /**
  * Displays the screen that allows the player to choose a difficulty level. New class created to satisfy the new customer requirement of multiple difficulties.
@@ -99,7 +99,7 @@ public class DifficultySelectScreen implements Screen {
         /* Font related items */
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("osaka-re.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size *= 10.0 / Settings.SCALAR;
+        parameter.size *= 10.0 / Configuration.SCALAR;
         parameter.color = Color.WHITE;
         font = generator.generateFont(parameter);
         layout = new GlyphLayout();

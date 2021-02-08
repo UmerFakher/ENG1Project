@@ -10,11 +10,12 @@ import com.badlogic.gdx.math.Vector2;
 import com.dragonboatrace.entities.Entity;
 import com.dragonboatrace.entities.EntityType;
 import com.dragonboatrace.entities.Obstacle;
+import com.dragonboatrace.tools.Configuration;
 import com.dragonboatrace.tools.Hitbox;
 import com.dragonboatrace.tools.Lane;
-import com.dragonboatrace.tools.Settings;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Represents a generic Boat.
@@ -207,11 +208,11 @@ public class Boat extends Entity {
     /**
      * Return a scalar to multiply the velocity by when using stamina.
      *
-     * @return A float between 0.25 and 1 which is then scaled by {@link com.dragonboatrace.tools.Settings#STAMINA_SPEED_DIVISION}.
+     * @return A float between 0.25 and 1 which is then scaled by {@link Configuration#STAMINA_SPEED_DIVISION}.
      */
     protected float velocityPercentage() {
         double result = 0.25 + Math.log(this.stamina + 1) / 3;
-        return (float) result / Settings.STAMINA_SPEED_DIVISION;
+        return (float) result / Configuration.STAMINA_SPEED_DIVISION;
     }
 
     /**
@@ -292,11 +293,11 @@ public class Boat extends Entity {
      * @return True if a collision occurred, False if no collision.
      */
     public boolean checkCollisions() {
-        ArrayList<Obstacle> obstacles = this.lane.getObstacles();
+        List<Obstacle> obstacles = this.lane.getObstacles();
         return checkCollisions(obstacles);
     }
 
-    public boolean checkCollisions(ArrayList<Obstacle> obstacles) {
+    public boolean checkCollisions(List<Obstacle> obstacles) {
         int size = obstacles.size();
         for (int i = 0; i < size; i++) {
             Obstacle obstacle = obstacles.get(i);
@@ -323,7 +324,7 @@ public class Boat extends Entity {
      * @param raceDistance The length of the race.
      */
     public void updateYPosition(int lineHeight, int raceDistance) {
-
+        //dummy function for deriving classes
     }
 
     /* Adders */

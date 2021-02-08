@@ -13,7 +13,10 @@ import com.dragonboatrace.DragonBoatRace;
 import com.dragonboatrace.entities.Button;
 import com.dragonboatrace.entities.EntityType;
 import com.dragonboatrace.entities.boats.BoatType;
-import com.dragonboatrace.tools.Settings;
+import com.dragonboatrace.tools.Configuration;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Displays the screen that allows the player to choose a boat at the beginning of the game.
@@ -26,62 +29,26 @@ import com.dragonboatrace.tools.Settings;
 public class BoatSelectScreen implements Screen {
 
     /**
-     * Texture of the fast boat preview.
-     */
-    private final Texture fastImage;
-
-    /**
-     * Texture of the agile boat preview.
-     */
-    private final Texture agileImage;
-
-    /**
-     * Texture of the strong boat preview.
-     */
-    private final Texture strongImage;
-
-    /**
-     * Texture of the endurance boat preview.
-     */
-    private final Texture enduranceImage;
-
-    /**
-     * Button to select the fast boat.
-     */
-    private final Button fastButton;
-
-    /**
-     * Button to select the agile boat.
-     */
-    private final Button agileButton;
-
-    /**
-     * Button to select the strong boat.
-     */
-    private final Button strongButton;
-
-    /**
-     * Button to select the endurance boat.
-     */
-    private final Button enduranceButton;
-
-    /**
      * Bitmap font for stats.
      * <p>
      * NFR_Attributes Extensions made by Team 12 - Umer Fakher
      */
     private final BitmapFont font2; // font for attributes
-
     /**
      * Instance of the main game, used to have a collective spritebatch which gives better performance.
      */
     private final DragonBoatRace game;
-
-
     private final BitmapFont font;
     private final GlyphLayout layout;
-
     private final int buttonWidth;
+    /**
+     * Textures of all Boat previews
+     */
+    private final List<Texture> boatImages;
+    /**
+     * Buttons to select all Boats
+     */
+    private final List<Button> boatButtons;
 
     /**
      * Creates a new screen to display the boat options to the player.
@@ -94,21 +61,29 @@ public class BoatSelectScreen implements Screen {
 
         this.buttonWidth = EntityType.BUTTON.getWidth();
         float spacing = (Gdx.graphics.getWidth() - buttonWidth * 4.0f) / 5.0f;
-        this.fastButton = new Button(new Vector2(spacing, 100), "fast_button_active.png", "fast_button_inactive.png");
-        this.agileButton = new Button(new Vector2(spacing + (buttonWidth + spacing), 100), "agile_button_active.png", "agile_button_inactive.png");
-        this.strongButton = new Button(new Vector2(spacing + (buttonWidth + spacing) * 2, 100), "strong_button_active.png", "strong_button_inactive.png");
-        this.enduranceButton = new Button(new Vector2(spacing + (buttonWidth + spacing) * 3, 100), "endurance_button_active.png", "endurance_button_inactive.png");
 
-        this.fastImage = new Texture("fast.png");
-        this.agileImage = new Texture("agile.png");
-        this.strongImage = new Texture("strong.png");
-        this.enduranceImage = new Texture("endurance.png");
+        boatImages = new ArrayList<>();
+        boatButtons = new ArrayList<>();
+
+        boatButtons.add(new Button(new Vector2(spacing, 100),
+                "fast_button_active.png", "fast_button_inactive.png"));
+        boatButtons.add(new Button(new Vector2(spacing + (buttonWidth + spacing), 100),
+                "agile_button_active.png", "agile_button_inactive.png"));
+        boatButtons.add(new Button(new Vector2(spacing + (buttonWidth + spacing) * 2, 100),
+                "strong_button_active.png", "strong_button_inactive.png"));
+        boatButtons.add(new Button(new Vector2(spacing + (buttonWidth + spacing) * 3, 100),
+                "endurance_button_active.png", "endurance_button_inactive.png"));
+
+        boatImages.add(new Texture("fast.png"));
+        boatImages.add(new Texture("agile.png"));
+        boatImages.add(new Texture("strong.png"));
+        boatImages.add(new Texture("endurance.png"));
 
 
         /* Font related items */
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("osaka-re.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size *= 10.0 / Settings.SCALAR;
+        parameter.size *= 10.0 / Configuration.SCALAR;
         parameter.color = Color.WHITE;
         font = generator.generateFont(parameter);
         layout = new GlyphLayout();
@@ -117,7 +92,7 @@ public class BoatSelectScreen implements Screen {
 
         // NFR_Attributes Extensions made by Team 12 - Umer Fakher
 
-        parameter.size *= 0.3 / Settings.SCALAR;
+        parameter.size *= 0.3 / Configuration.SCALAR;
         parameter.color = Color.WHITE;
         font2 = generator.generateFont(parameter);
 
@@ -141,68 +116,45 @@ public class BoatSelectScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         this.game.getBatch().begin();
 
-        font.draw(this.game.getBatch(), "Choose your Boat:", (Gdx.graphics.getWidth() - layout.width) / 2, Gdx.graphics.getHeight() - 100);
+        font.draw(this.game.getBatch(), "Choose your Boat:", (Gdx.graphics.getWidth() - layout.width) / 2,
+                Gdx.graphics.getHeight() - 100);
 
         float scale = ((float) this.buttonWidth / EntityType.BOAT.getWidth()) / 2.0f;
 
-        this.game.getBatch().draw(this.fastImage, this.fastButton.getHitBox().getX() + ((this.fastButton.getHitBox().getWidth() - this.buttonWidth / 2f) / 2f), 150 + EntityType.BUTTON.getHeight(), this.buttonWidth / 2f, EntityType.BOAT.getHeight() * scale);
-        this.fastButton.render(this.game.getBatch());
+        for (Button b : boatButtons)
+            b.render(game.getBatch());
 
-        this.game.getBatch().draw(this.agileImage, this.agileButton.getHitBox().getX() + ((this.agileButton.getHitBox().getWidth() - this.buttonWidth / 2f) / 2f), 150 + EntityType.BUTTON.getHeight(), this.buttonWidth / 2f, EntityType.BOAT.getHeight() * scale);
-        this.agileButton.render(this.game.getBatch());
+        for (int i = 0; i < boatImages.size(); i++){
+            this.game.getBatch().draw(boatImages.get(i),
+                    boatButtons.get(i).getHitBox().getX() + ((boatButtons.get(i).getHitBox().getWidth() - this.buttonWidth / 2f) / 2f),
+                    150 + EntityType.BUTTON.getHeight(), this.buttonWidth / 2f,
+                    EntityType.BOAT.getHeight() * scale);
 
-        this.game.getBatch().draw(this.strongImage, this.strongButton.getHitBox().getX() + ((this.strongButton.getHitBox().getWidth() - this.buttonWidth / 2f) / 2f), 150 + EntityType.BUTTON.getHeight(), this.buttonWidth / 2f, EntityType.BOAT.getHeight() * scale);
-        this.strongButton.render(this.game.getBatch());
+            // NFR_Attributes Extensions made by Team 12 - Umer Fakher
 
-        this.game.getBatch().draw(this.enduranceImage, this.enduranceButton.getHitBox().getX() + ((this.enduranceButton.getHitBox().getWidth() - this.buttonWidth / 2f) / 2f), 150 + EntityType.BUTTON.getHeight(), this.buttonWidth / 2f, EntityType.BOAT.getHeight() * scale);
-        this.enduranceButton.render(this.game.getBatch());
+            // Calculate the X coordinate to show the stats
+            float x = boatButtons.get(i).getHitBox().getX() + ((boatButtons.get(i).getHitBox().getWidth() - this.buttonWidth / 2f) / 2f);
+            // Calculate Y coordinate based on how much space left on screen between title and boat type icon for stats
+            float yBelowTitle = (Gdx.graphics.getHeight() - boatButtons.get(i).getHitBox().getY()) - 150;
+            float yAboveBoatType = 150 + EntityType.BUTTON.getHeight() + EntityType.BOAT.getHeight() * scale;
+            float yStep = (yBelowTitle - yAboveBoatType) / 4;
 
-        // NFR_Attributes Extensions made by Team 12 - Umer Fakher
+            // Draw stats above boat
+            this.drawAttribute(BoatType.values()[i].getHealth(), 0, Color.GREEN, "Health: ", x, yBelowTitle - yStep * 0);
+            this.drawAttribute(BoatType.values()[i].getStamina(), 0, Color.YELLOW, "Stamina: ", x, yBelowTitle - yStep * 1);
+            this.drawAttribute(BoatType.values()[i].getAgility(), 0, Color.ORANGE, "Agility: ", x, yBelowTitle - yStep * 2);
+            this.drawAttribute(BoatType.values()[i].getSpeed(), 0, Color.RED, "Speed: ", x, yBelowTitle - yStep * 3);
 
-        float x = this.fastButton.getHitBox().getX() + ((this.fastButton.getHitBox().getWidth() - this.buttonWidth / 2f) / 2f);
+            // NFR_Attributes Extensions made by Team 12 - Umer Fakher END
+        }
 
-        // Calculate Y coordinate based on how much space left on screen between title and boat type icon for stats
-        float yBelowTitle = (Gdx.graphics.getHeight() - this.fastButton.getHitBox().getY()) - 150;
-        float yAboveBoatType = 150 + EntityType.BUTTON.getHeight() + EntityType.BOAT.getHeight() * scale;
-        float yStep = (yBelowTitle - yAboveBoatType) / 4;
-
-        this.drawAttribute(BoatType.FAST.getHealth(), 0, Color.GREEN, "Health: ", x, yBelowTitle - yStep * 0);
-        this.drawAttribute(BoatType.FAST.getStamina(), 0, Color.YELLOW, "Stamina: ", x, yBelowTitle - yStep * 1);
-        this.drawAttribute(BoatType.FAST.getAgility(), 0, Color.ORANGE, "Agility: ", x, yBelowTitle - yStep * 2);
-        this.drawAttribute(BoatType.FAST.getSpeed(), 0, Color.RED, "Speed: ", x, yBelowTitle - yStep * 3);
-
-        x = this.agileButton.getHitBox().getX() + ((this.agileButton.getHitBox().getWidth() - this.buttonWidth / 2f) / 2f);
-
-        this.drawAttribute(BoatType.AGILE.getHealth(), 0, Color.GREEN, "Health: ", x, yBelowTitle - yStep * 0);
-        this.drawAttribute(BoatType.AGILE.getStamina(), 0, Color.YELLOW, "Stamina: ", x, yBelowTitle - yStep * 1);
-        this.drawAttribute(BoatType.AGILE.getAgility(), 0, Color.ORANGE, "Agility: ", x, yBelowTitle - yStep * 2);
-        this.drawAttribute(BoatType.AGILE.getSpeed(), 0, Color.RED, "Speed: ", x, yBelowTitle - yStep * 3);
-
-        x = this.enduranceButton.getHitBox().getX() + ((this.enduranceButton.getHitBox().getWidth() - this.buttonWidth / 2f) / 2f);
-
-        this.drawAttribute(BoatType.ENDURANCE.getHealth(), 0, Color.GREEN, "Health: ", x, yBelowTitle - yStep * 0);
-        this.drawAttribute(BoatType.ENDURANCE.getStamina(), 0, Color.YELLOW, "Stamina: ", x, yBelowTitle - yStep * 1);
-        this.drawAttribute(BoatType.ENDURANCE.getAgility(), 0, Color.ORANGE, "Agility: ", x, yBelowTitle - yStep * 2);
-        this.drawAttribute(BoatType.ENDURANCE.getSpeed(), 0, Color.RED, "Speed: ", x, yBelowTitle - yStep * 3);
-
-        x = this.strongButton.getHitBox().getX() + ((this.strongButton.getHitBox().getWidth() - this.buttonWidth / 2f) / 2f);
-
-        this.drawAttribute(BoatType.STRONG.getHealth(), 0, Color.GREEN, "Health: ", x, yBelowTitle - yStep * 0);
-        this.drawAttribute(BoatType.STRONG.getStamina(), 0, Color.YELLOW, "Stamina: ", x, yBelowTitle - yStep * 1);
-        this.drawAttribute(BoatType.STRONG.getAgility(), 0, Color.ORANGE, "Agility: ", x, yBelowTitle - yStep * 2);
-        this.drawAttribute(BoatType.STRONG.getSpeed(), 0, Color.RED, "Speed: ", x, yBelowTitle - yStep * 3);
-
-
-        // NFR_Attributes Extensions made by Team 12 - Umer Fakher END
-
-
-        if (this.fastButton.isHovering() && Gdx.input.isTouched()) {
+        if (boatButtons.get(0).isHovering() && Gdx.input.isTouched()) {
             this.game.setScreen(new MainGameScreen(this.game, BoatType.FAST));
-        } else if (this.agileButton.isHovering() && Gdx.input.isTouched()) {
+        } else if (boatButtons.get(1).isHovering() && Gdx.input.isTouched()) {
             this.game.setScreen(new MainGameScreen(this.game, BoatType.AGILE));
-        } else if (this.strongButton.isHovering() && Gdx.input.isTouched()) {
+        } else if (boatButtons.get(2).isHovering() && Gdx.input.isTouched()) {
             this.game.setScreen(new MainGameScreen(this.game, BoatType.STRONG));
-        } else if (this.enduranceButton.isHovering() && Gdx.input.isTouched()) {
+        } else if (boatButtons.get(3).isHovering() && Gdx.input.isTouched()) {
             this.game.setScreen(new MainGameScreen(this.game, BoatType.ENDURANCE));
         }
 
