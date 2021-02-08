@@ -188,7 +188,7 @@ public class Lane {
                 break;
         }
 
-        for (int i = 0; i < (11 - Settings.PLAYER_COUNT + round - 1 + difficulty_mod); i++) {
+        for (int i = 0; i < (11 - Configuration.PLAYER_COUNT + round - 1 + difficulty_mod); i++) {
             replaceObstacle();
         }
         // END CHANGED CODE

@@ -9,7 +9,7 @@ import com.dragonboatrace.DragonBoatRace;
 import com.dragonboatrace.entities.Button;
 import com.dragonboatrace.entities.EntityType;
 import com.dragonboatrace.entities.boats.BoatType;
-import com.dragonboatrace.tools.Settings;
+import com.dragonboatrace.tools.Configuration;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -63,17 +63,17 @@ public class MainMenuScreen implements Screen {
     public MainMenuScreen(DragonBoatRace game) {
         this.game = game;
 
-        this.exitButton = new Button(new Vector2((Gdx.graphics.getWidth() - EntityType.BUTTON.getWidth()) / 2.0f, 100f / Settings.SCALAR), "exit_button_active.png", "exit_button_inactive.png");
-        this.playButton = new Button(new Vector2((Gdx.graphics.getWidth() - EntityType.BUTTON.getWidth()) / 2.0f, 400f / Settings.SCALAR), "play_button_active.png", "play_button_inactive.png");
-        this.helpButton = new Button(new Vector2((Gdx.graphics.getWidth() - EntityType.BUTTON.getWidth()) / 2.0f, 250f / Settings.SCALAR), "help_button_active.png", "help_button_inactive.png");
-        this.loadButton = new Button(new Vector2((Gdx.graphics.getWidth() - EntityType.BUTTON.getWidth()) / 2.0f, 550f / Settings.SCALAR), "load_button_active.png", "load_button_inactive.png");
+        this.exitButton = new Button(new Vector2((Gdx.graphics.getWidth() - EntityType.BUTTON.getWidth()) / 2.0f, 100f / Configuration.SCALAR), "exit_button_active.png", "exit_button_inactive.png");
+        this.playButton = new Button(new Vector2((Gdx.graphics.getWidth() - EntityType.BUTTON.getWidth()) / 2.0f, 400f / Configuration.SCALAR), "play_button_active.png", "play_button_inactive.png");
+        this.helpButton = new Button(new Vector2((Gdx.graphics.getWidth() - EntityType.BUTTON.getWidth()) / 2.0f, 250f / Configuration.SCALAR), "help_button_active.png", "help_button_inactive.png");
+        this.loadButton = new Button(new Vector2((Gdx.graphics.getWidth() - EntityType.BUTTON.getWidth()) / 2.0f, 550f / Configuration.SCALAR), "load_button_active.png", "load_button_inactive.png");
         this.logo = new Texture("dragon.png");
-        logoXOffset = 680f / Settings.SCALAR;
-        logoYOffset = 600f / Settings.SCALAR;
+        logoXOffset = 680f / Configuration.SCALAR;
+        logoYOffset = 600f / Configuration.SCALAR;
 
         //reset settings
         this.game.setRound(1);
-        Settings.setPlayerCount(8);
+        Configuration.setPlayerCount(8);
     }
 
 

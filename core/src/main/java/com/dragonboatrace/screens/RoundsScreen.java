@@ -10,7 +10,7 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.dragonboatrace.DragonBoatRace;
 import com.dragonboatrace.entities.boats.Boat;
-import com.dragonboatrace.tools.Settings;
+import com.dragonboatrace.tools.Configuration;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -64,7 +64,7 @@ public class RoundsScreen implements Screen {
 
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("osaka-re.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = 60 / Settings.SCALAR;
+        parameter.size = 60 / Configuration.SCALAR;
         parameter.color = Color.WHITE;
 
         this.font = generator.generateFont(parameter);
@@ -76,7 +76,7 @@ public class RoundsScreen implements Screen {
         /* If the leaderboard doesnt fit on the screen */
         if (layout.height > Gdx.graphics.getHeight() / 2f) {
             /* Scale the font to fit on the screen. */
-            int a = 75 / Settings.SCALAR;
+            int a = 75 / Configuration.SCALAR;
             int c = Gdx.graphics.getHeight() / 2;
             float b = layout.height / c;
             parameter.size = (int) (a / b);
@@ -102,14 +102,14 @@ public class RoundsScreen implements Screen {
         this.game.getBatch().begin();
 
         layout.setText(font, "Well done for completing round " + (this.currentRound - 1) + " in " + this.playerBoat.getTime() + "s");
-        font.draw(this.game.getBatch(), "Well done for completing round " + (this.currentRound - 1) + " in " + this.playerBoat.getTime() + "s", (Gdx.graphics.getWidth() - layout.width) / 2, Gdx.graphics.getHeight() - 75.f / Settings.SCALAR);
+        font.draw(this.game.getBatch(), "Well done for completing round " + (this.currentRound - 1) + " in " + this.playerBoat.getTime() + "s", (Gdx.graphics.getWidth() - layout.width) / 2, Gdx.graphics.getHeight() - 75.f / Configuration.SCALAR);
 
         layout.setText(font, "With " + this.playerBoat.getPenaltyTime() + "s of that in penalties");
-        font.draw(this.game.getBatch(), "With " + this.playerBoat.getPenaltyTime() + "s of that in penalties", (Gdx.graphics.getWidth() - layout.width) / 2, Gdx.graphics.getHeight() - 175f / Settings.SCALAR);
+        font.draw(this.game.getBatch(), "With " + this.playerBoat.getPenaltyTime() + "s of that in penalties", (Gdx.graphics.getWidth() - layout.width) / 2, Gdx.graphics.getHeight() - 175f / Configuration.SCALAR);
 
 
         layout.setText(leaderBoardFont, this.reason);
-        leaderBoardFont.draw(this.game.getBatch(), this.reason, (Gdx.graphics.getWidth() - layout.width) / 2, (Gdx.graphics.getHeight() + layout.height) / 2 - 75f / Settings.SCALAR);
+        leaderBoardFont.draw(this.game.getBatch(), this.reason, (Gdx.graphics.getWidth() - layout.width) / 2, (Gdx.graphics.getHeight() + layout.height) / 2 - 75f / Configuration.SCALAR);
 
 
         layout.setText(font, (this.currentRound == 4) ? "Press Space to see if you made it to the final " + saveMessage : "Press Space to continue to round " + (this.currentRound) + saveMessage);

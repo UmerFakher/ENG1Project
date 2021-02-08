@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.dragonboatrace.DragonBoatRace;
-import com.dragonboatrace.tools.Settings;
+import com.dragonboatrace.tools.Configuration;
 
 /**
  * Displays the screen that shows the end of the game. This can be one of 3 situations: <ul>
@@ -50,15 +50,15 @@ public class GameOverScreen implements Screen {
         /* Font related items */
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("osaka-re.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = 75 / Settings.SCALAR;
+        parameter.size = 75 / Configuration.SCALAR;
         parameter.color = Color.WHITE;
         this.font = generator.generateFont(parameter);
         this.leaderBoardFont = generator.generateFont(parameter);
         this.layout = new GlyphLayout();
-        parameter.size = 75 / Settings.SCALAR;
+        parameter.size = 75 / Configuration.SCALAR;
         layout.setText(leaderBoardFont, this.reason);
         if (layout.height > Gdx.graphics.getHeight() / 2f) {
-            int a = 75 / Settings.SCALAR;
+            int a = 75 / Configuration.SCALAR;
             int c = Gdx.graphics.getHeight() / 2;
             float b = layout.height / c;
 
@@ -71,7 +71,7 @@ public class GameOverScreen implements Screen {
 
     @Override
     public void show() {
-        Settings.setPlayerCount(8);
+        Configuration.setPlayerCount(8);
     }
 
     /**
@@ -85,13 +85,13 @@ public class GameOverScreen implements Screen {
         this.game.getBatch().begin();
 
         layout.setText(font, "GAME OVER!");
-        font.draw(this.game.getBatch(), "GAME OVER!", (Gdx.graphics.getWidth() - layout.width) / 2, Gdx.graphics.getHeight() - 100.f / Settings.SCALAR);
+        font.draw(this.game.getBatch(), "GAME OVER!", (Gdx.graphics.getWidth() - layout.width) / 2, Gdx.graphics.getHeight() - 100.f / Configuration.SCALAR);
 
         layout.setText(leaderBoardFont, this.reason);
         leaderBoardFont.draw(this.game.getBatch(), this.reason, (Gdx.graphics.getWidth() - layout.width) / 2, (Gdx.graphics.getHeight() + layout.height) / 2);
 
         layout.setText(font, "Press Esc to return to Main Menu");
-        font.draw(this.game.getBatch(), "Press Esc to return to Main Menu", (Gdx.graphics.getWidth() - layout.width) / 2, 200.f / Settings.SCALAR);
+        font.draw(this.game.getBatch(), "Press Esc to return to Main Menu", (Gdx.graphics.getWidth() - layout.width) / 2, 200.f / Configuration.SCALAR);
 
         if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE))
             this.game.setScreen(new MainMenuScreen(this.game));

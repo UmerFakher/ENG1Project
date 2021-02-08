@@ -10,9 +10,9 @@ import com.badlogic.gdx.math.Vector2;
 import com.dragonboatrace.entities.Entity;
 import com.dragonboatrace.entities.EntityType;
 import com.dragonboatrace.entities.Obstacle;
+import com.dragonboatrace.tools.Configuration;
 import com.dragonboatrace.tools.Hitbox;
 import com.dragonboatrace.tools.Lane;
-import com.dragonboatrace.tools.Settings;
 
 import java.util.ArrayList;
 
@@ -207,11 +207,11 @@ public class Boat extends Entity {
     /**
      * Return a scalar to multiply the velocity by when using stamina.
      *
-     * @return A float between 0.25 and 1 which is then scaled by {@link com.dragonboatrace.tools.Settings#STAMINA_SPEED_DIVISION}.
+     * @return A float between 0.25 and 1 which is then scaled by {@link Configuration#STAMINA_SPEED_DIVISION}.
      */
     protected float velocityPercentage() {
         double result = 0.25 + Math.log(this.stamina + 1) / 3;
-        return (float) result / Settings.STAMINA_SPEED_DIVISION;
+        return (float) result / Configuration.STAMINA_SPEED_DIVISION;
     }
 
     /**

@@ -3,7 +3,7 @@ package com.dragonboatrace;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dragonboatrace.screens.MainMenuScreen;
-import com.dragonboatrace.tools.Settings;
+import com.dragonboatrace.tools.Configuration;
 
 import java.util.ArrayList;
 
@@ -43,7 +43,7 @@ public class DragonBoatRace extends Game {
     public void create() {
         batch = new SpriteBatch();
         this.setScreen(new MainMenuScreen(this));
-        for (int i = 0; i < Settings.PLAYER_COUNT; i++)
+        for (int i = 0; i < Configuration.PLAYER_COUNT; i++)
             totalTimes.add((float) 0);
     }
 

@@ -13,7 +13,7 @@ import com.dragonboatrace.DragonBoatRace;
 import com.dragonboatrace.entities.boats.BoatType;
 import com.dragonboatrace.tools.Race;
 import com.dragonboatrace.tools.ScrollingBackground;
-import com.dragonboatrace.tools.Settings;
+import com.dragonboatrace.tools.Configuration;
 
 /**
  * Represents the Main Game Screen where the game actually happens.
@@ -84,7 +84,7 @@ public class MainGameScreen implements Screen {
         /* Font related items */
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("osaka-re.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size *= 10.0 / Settings.SCALAR;
+        parameter.size *= 10.0 / Configuration.SCALAR;
         parameter.color = Color.BLACK;
         this.font = generator.generateFont(parameter);
         this.layout = new GlyphLayout();

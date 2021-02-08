@@ -4,9 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dragonboatrace.entities.Obstacle;
+import com.dragonboatrace.tools.Configuration;
 import com.dragonboatrace.tools.Hitbox;
 import com.dragonboatrace.tools.Lane;
-import com.dragonboatrace.tools.Settings;
 
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
@@ -102,9 +102,9 @@ public class ComputerBoat extends Boat {
                 recentCollision = true;
             }
         } else {
-            this.velocity.set(0, Settings.OBSTACLE_COLLISION_PENALTY);
+            this.velocity.set(0, Configuration.OBSTACLE_COLLISION_PENALTY);
             collisionTime += deltaTime;
-            if (collisionTime > Settings.OBSTACLE_COLLISION_TIME) {
+            if (collisionTime > Configuration.OBSTACLE_COLLISION_TIME) {
                 collisionTime = 0;
                 recentCollision = false;
             }

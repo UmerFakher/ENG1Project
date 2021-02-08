@@ -66,7 +66,7 @@ public class Race {
     public Race(int raceLength, BoatType boatChosen, int round, int difficulty) {
         this.length = raceLength;
         this.theFinish = new FinishLine(new Vector2(0, Gdx.graphics.getHeight()), Gdx.graphics.getWidth());
-        int size = Gdx.graphics.getWidth() / Settings.PLAYER_COUNT;
+        int size = Gdx.graphics.getWidth() / Configuration.PLAYER_COUNT;
         this.timer = 0;
 
         player = new PlayerBoat(boatChosen, new Lane(new Vector2(0, 0), size, round, difficulty), "Player");
@@ -74,7 +74,7 @@ public class Race {
         this.barrier = new Texture("line.png");
 
         boats = new ArrayList<>();
-        for (int i = 1; i < Settings.PLAYER_COUNT; i++) {
+        for (int i = 1; i < Configuration.PLAYER_COUNT; i++) {
             int rand = ThreadLocalRandom.current().nextInt(0, BoatType.values().length);
             boats.add(new ComputerBoat(BoatType.values()[rand], new Lane(new Vector2(size * i, 0), size, round, difficulty), "COMP" + i, i));
         }
@@ -157,8 +157,8 @@ public class Race {
         for (Boat boat : this.boats) {
             boat.render(batch);
         }
-        for (int i = 0; i < Settings.PLAYER_COUNT; i++) {
-            batch.draw(this.barrier, ((float) Gdx.graphics.getWidth() / Settings.PLAYER_COUNT) * i, 0, 5, Toolkit.getDefaultToolkit().getScreenSize().height);
+        for (int i = 0; i < Configuration.PLAYER_COUNT; i++) {
+            batch.draw(this.barrier, ((float) Gdx.graphics.getWidth() / Configuration.PLAYER_COUNT) * i, 0, 5, Toolkit.getDefaultToolkit().getScreenSize().height);
         }
     }
 
@@ -178,7 +178,7 @@ public class Race {
         }
 
         game.setPlayerTotalTime(times.get(0));
-        for (int i = 0; i < Settings.PLAYER_COUNT; i++) {
+        for (int i = 0; i < Configuration.PLAYER_COUNT; i++) {
             game.setTimeAt(i, times.get(i));
         }
         boats.add(player);
