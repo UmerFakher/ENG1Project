@@ -7,9 +7,10 @@ import com.dragonboatrace.screens.FinalScreen;
 import com.dragonboatrace.screens.GameOverScreen;
 import com.dragonboatrace.screens.MainGameScreen;
 import com.dragonboatrace.screens.RoundsScreen;
+import com.dragonboatrace.tools.Configuration;
 import com.dragonboatrace.tools.Lane;
 import com.dragonboatrace.tools.Race;
-import com.dragonboatrace.tools.Settings;
+import com.dragonboatrace.tools.Configuration;
 import de.tomgrill.gdxtesting.GdxTestRunner;
 import org.junit.Assert;
 import org.junit.Test;
@@ -62,7 +63,7 @@ public class DragonBoatRaceTest {
         RoundsScreen gameScreen = new RoundsScreen(game, playerBoat, "");
         // we now need to edit the times in the Total times in game
 
-        for (int boat = 0; boat < Settings.PLAYER_COUNT; boat++) {
+        for (int boat = 0; boat < Configuration.PLAYER_COUNT; boat++) {
             game.setTimeAt(boat, boat + 10);
         }
         game.setPlayerTotalTime(5);
@@ -80,14 +81,14 @@ public class DragonBoatRaceTest {
         //Race gameRace = new Race(1000, BoatType.FAST, 1, 1);
         MainGameScreen gameScreen = new MainGameScreen(game, BoatType.FAST);
         game.setScreen(gameScreen);
-        for (int boat = 1; boat < Settings.PLAYER_COUNT; boat++) {
+        for (int boat = 1; boat < Configuration.PLAYER_COUNT; boat++) {
             game.setTimeAt(boat, boat + 10);
         }
         game.setTimeAt(0, 5);
         game.setPlayerTotalTime(5);
         ((MainGameScreen)game.getScreen()).getRace().getPlayer().setDistanceTravelled(10000);
         ((MainGameScreen)game.getScreen()).getRace().update(1 ,game, gameScreen);
-        
+
         assertTrue(((RoundsScreen)game.getScreen()).getReason().contains("1st: Player"));
     }
 
