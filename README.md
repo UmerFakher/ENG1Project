@@ -13,6 +13,14 @@ This is the code for the ENG1 project DragonBoatRace Game.
 
 **See website for official material** including documentation delivered by both Team 15 and Team 12 as well as the final project.
 
+<h2 id="testing">Assessment 2 Testing</h2>
+<h3 id="ManualTesting">Manual Testing</h3>
+<p>For test2 deliverable document please see website link above. For manual testing material please also see the website.</p>
+<h3 id="AutomatedTesting">Automated Testing</h3>
+<p>Here is a quick access to our unit testing but please see the website for the full context. See the manual testing section at the bottom and also the test2 document that is in the assessment 2 documents section</p>
+  <p><a href="https://github.com/UmerFakher/ENG1Project/tree/master/tests"><b>Go to our Automated Tests</b></a><br /></p>
+
+
 ## Authors
 
 For engineering assessment 1, [Team 15 were responsible for this project](https://github.com/JoeWrieden/ENG1Project).

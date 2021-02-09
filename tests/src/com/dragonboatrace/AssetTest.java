@@ -191,17 +191,17 @@ public class AssetTest {
 
     @Test
     public void nightmareButtonActiveExists() {
-        assertTrue(Gdx.files.internal("../core/assets/nightmare_button_active.png").exists());
+        assertTrue(Gdx.files.internal("../core/assets/ultra_button_active.png").exists());
     }
 
     @Test
     public void nightmareButtonInactiveExists() {
-        assertTrue(Gdx.files.internal("../core/assets/nightmare_button_inactive.png").exists());
+        assertTrue(Gdx.files.internal("../core/assets/ultra_button_inactive.png").exists());
     }
 
     @Test
     public void nightmareExists() {
-        assertTrue(Gdx.files.internal("../core/assets/nightmare.png").exists());
+        assertTrue(Gdx.files.internal("../core/assets/ultra.png").exists());
     }
 
     @Test
