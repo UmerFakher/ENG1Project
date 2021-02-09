@@ -75,6 +75,7 @@ public class DragonBoatRace extends Game {
     }
 
     public void setTimeAt(int i, float t) {
+        if(totalTimes.size() < i+1) return;
         this.totalTimes.set(i, this.totalTimes.get(i) + t);
     }
 

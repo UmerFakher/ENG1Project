@@ -30,19 +30,21 @@ public class DragonBoatRaceTest {
         // create a simple game version
         DragonBoatRace game = new DragonBoatRace();
         game.setDifficulty(0);
-        Race game_race = new Race(1000, BoatType.FAST, 1, 1);
+        //Race game_race = new Race(1000, BoatType.FAST, 1, 1);
         MainGameScreen game_screen = new MainGameScreen(game, BoatType.FAST);
+        Race game_race =game_screen.getRace();
         // Run a short game
-        game_race.update((float) 0.01, game, game_screen);
-        TimeUnit.SECONDS.sleep(1);
-        game_race.getPlayer().setDistanceTravelled(1000);
+        game_race.getPlayer().setDistanceTravelled(10000);
+        game_race.update(1, game, game_screen);
+        //TimeUnit.SECONDS.sleep(1);
+
         game_race.update((float) 0.01, game, game_screen);
 
         // The player boat has travelled passed the finish line
 
         // check that values have been set
         //Game has been timed
-        assertEquals(game_race.getPlayer().getTime(), 1,0.25);
+        assertTrue(game.getScreen() instanceof RoundsScreen);
 
     }
 
@@ -58,8 +60,8 @@ public class DragonBoatRaceTest {
                         10,
                         4,
                         0),
-                "__testing_boat__");
-        RoundsScreen game_screen = new RoundsScreen(game, playerBoat, "testing");
+                "");
+        RoundsScreen game_screen = new RoundsScreen(game, playerBoat, "");
         // we now need to edit the times in the Total times in game
 
         for (int boat = 0; boat < Settings.PLAYER_COUNT; boat++){
