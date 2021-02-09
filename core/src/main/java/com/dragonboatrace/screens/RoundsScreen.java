@@ -120,28 +120,12 @@ public class RoundsScreen implements Screen {
         this.game.getBatch().end();
 
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE))
-
-            if (this.game.getRound() > 3) {
-                List<Float> temp = this.game.getTotalTimes();
-                Collections.sort(temp);
-                List<Float> topPlayers = new ArrayList<>(temp.subList(0, 4));
-                if (topPlayers.contains(this.game.getPlayerTotalTime())) {
-                    this.game.setScreen(new FinalScreen(this.game, this.playerBoat));
-                } else {
-                    this.game.setScreen(new GameOverScreen(this.game, "You were not fast enough. Better luck next time!"));
-                }
-            } else {
-                this.game.setScreen(new MainGameScreen(this.game, this.playerBoat.getBoatType()));
-            }
-
+            moveToNextRound();
 
         // CHANGED CODE for UR_SAVE_RESUME_GAME
         // Added saving on ENTER
-        if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
-            saveToFile("savefile.txt");
-            this.game.setScreen(new MainMenuScreen(this.game));
-        }
-        // END CHANGED CODE
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER))
+            saveGame();
     }
 
     @Override
@@ -175,4 +159,42 @@ public class RoundsScreen implements Screen {
         MainGamePauseScreen.saveToFile(filename, playerBoat.getBoatType(), this.game.getPlayerTotalTime(), this.game.getRound(), this.game.getDifficulty());
     }
     // CHANGED CODE
+
+    /**
+     * Created to allow testing without rendering
+     */
+    public void moveToNextRound() {
+            if (this.game.getRound() > 3) {
+                List<Float> temp = this.game.getTotalTimes();
+                Collections.sort(temp);
+                List<Float> topPlayers = new ArrayList<>(temp.subList(0, Math.min(temp.size(), 4)));
+                if (topPlayers.contains(this.game.getPlayerTotalTime())) {
+                    this.game.setScreen(new FinalScreen(this.game, this.playerBoat));
+                } else {
+                    this.game.setScreen(new GameOverScreen(this.game, "You were not fast enough. Better luck next time!"));
+                }
+            } else {
+                this.game.setScreen(new MainGameScreen(this.game, this.playerBoat.getBoatType()));
+            }
+    }
+
+    /**
+     * Created to allow testing without rendering
+     */
+    public void saveGame(){
+        // CHANGED CODE for UR_SAVE_RESUME_GAME
+        // Added saving on ENTER
+         {
+            saveToFile("savefile.txt");
+            this.game.setScreen(new MainMenuScreen(this.game));
+        }
+        // END CHANGED CODE
+    }
+
+    /**
+     * Created to allow testing without rendering
+     */
+    public String getReason() {
+        return reason;
+    }
 }
