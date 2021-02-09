@@ -9,268 +9,271 @@ import com.badlogic.gdx.Gdx;
 
 import de.tomgrill.gdxtesting.GdxTestRunner;
 
-/* Check all assets exist */
-
+/**
+ * TUA_ASSETS - Check all assets exist and are in the correct place.
+ *
+ * All required assets should be in the assets directory and named according ot the design.
+ */
 @RunWith(GdxTestRunner.class)
 public class AssetTest {
 
     @Test
-    public void testTextureExists() {
+    public void textureExistsTest() {
         assertTrue(Gdx.files.internal("../tests/res/test_texture.png").exists());
     }
 
     @Test
-    public void agileButtonActiveExists() {
+    public void agileButtonActiveExistsTest() {
         assertTrue(Gdx.files.internal("../core/assets/agile_button_active.png").exists());
     }
 
     @Test
-    public void agileButtonInactiveExists() {
+    public void agileButtonInactiveExistsTest() {
         assertTrue(Gdx.files.internal("../core/assets/agile_button_inactive.png").exists());
     }
 
     @Test
-    public void agileExists() {
+    public void agileExistsTest() {
         assertTrue(Gdx.files.internal("../core/assets/agile.png").exists());
     }
 
     @Test
-    public void agilityPowerUpExists() {
+    public void agilityPowerUpExistsTest() {
         assertTrue(Gdx.files.internal("../core/assets/agility_power_up.png").exists());
     }
 
     @Test
-    public void allPowerUpExists() {
+    public void allPowerUpExistsTest() {
         assertTrue(Gdx.files.internal("../core/assets/all_power_up.png").exists());
     }
 
     @Test
-    public void backButtonActiveExists() {
+    public void backButtonActiveExistsTest() {
         assertTrue(Gdx.files.internal("../core/assets/back_button_active.png").exists());
     }
 
     @Test
-    public void backButtonInactiveExists() {
+    public void backButtonInactiveExistsTest() {
         assertTrue(Gdx.files.internal("../core/assets/back_button_inactive.png").exists());
     }
 
     @Test
-    public void backgroundExists() {
+    public void backgroundExistsTest() {
         assertTrue(Gdx.files.internal("../core/assets/background.png").exists());
     }
 
     @Test
-    public void branchExists() {
+    public void branchExistsTest() {
         assertTrue(Gdx.files.internal("../core/assets/branch.png").exists());
     }
 
     @Test
-    public void downArrowExists() {
+    public void downArrowExistsTest() {
         assertTrue(Gdx.files.internal("../core/assets/down_arrow.png").exists());
     }
 
     @Test
-    public void dragonExists() {
+    public void dragonExistsTest() {
         assertTrue(Gdx.files.internal("../core/assets/dragon.png").exists());
     }
 
     @Test
-    public void easyButtonActiveExists() {
+    public void easyButtonActiveExistsTest() {
         assertTrue(Gdx.files.internal("../core/assets/easy_button_active.png").exists());
     }
 
     @Test
-    public void easyButtonInactiveExists() {
+    public void easyButtonInactiveExistsTest() {
         assertTrue(Gdx.files.internal("../core/assets/easy_button_inactive.png").exists());
     }
 
     @Test
-    public void easyExists() {
+    public void easyExistsTest() {
         assertTrue(Gdx.files.internal("../core/assets/easy.png").exists());
     }
 
     @Test
-    public void enduranceButtonActiveExists() {
+    public void enduranceButtonActiveExistsTest() {
         assertTrue(Gdx.files.internal("../core/assets/endurance_button_active.png").exists());
     }
 
     @Test
-    public void enduranceButtonInactiveExists() {
+    public void enduranceButtonInactiveExistsTest() {
         assertTrue(Gdx.files.internal("../core/assets/endurance_button_inactive.png").exists());
     }
 
     @Test
-    public void enduranceExists() {
+    public void enduranceExistsTest() {
         assertTrue(Gdx.files.internal("../core/assets/endurance.png").exists());
     }
 
     @Test
-    public void exitButtonActiveExists() {
+    public void exitButtonActiveExistsTest() {
         assertTrue(Gdx.files.internal("../core/assets/exit_button_active.png").exists());
     }
 
     @Test
-    public void exitButtonInactiveExists() {
+    public void exitButtonInactiveExistsTest() {
         assertTrue(Gdx.files.internal("../core/assets/exit_button_inactive.png").exists());
     }
 
     @Test
-    public void fastButtonActiveExists() {
+    public void fastButtonActiveExistsTest() {
         assertTrue(Gdx.files.internal("../core/assets/fast_button_active.png").exists());
     }
 
     @Test
-    public void fastButtonInactiveExists() {
+    public void fastButtonInactiveExistsTest() {
         assertTrue(Gdx.files.internal("../core/assets/fast_button_inactive.png").exists());
     }
 
     @Test
-    public void fastExists() {
+    public void fastExistsTest() {
         assertTrue(Gdx.files.internal("../core/assets/fast.png").exists());
     }
 
     @Test
-    public void finishExists() {
+    public void finishExistsTest() {
         assertTrue(Gdx.files.internal("../core/assets/finish.png").exists());
     }
 
     @Test
-    public void hardButtonActiveExists() {
+    public void hardButtonActiveExistsTest() {
         assertTrue(Gdx.files.internal("../core/assets/hard_button_active.png").exists());
     }
 
     @Test
-    public void hardButtonInactiveExists() {
+    public void hardButtonInactiveExistsTest() {
         assertTrue(Gdx.files.internal("../core/assets/hard_button_inactive.png").exists());
     }
 
     @Test
-    public void hardExists() {
+    public void hardExistsTest() {
         assertTrue(Gdx.files.internal("../core/assets/hard.png").exists());
     }
 
     @Test
-    public void healthPowerUpExists() {
+    public void healthPowerUpExistsTest() {
         assertTrue(Gdx.files.internal("../core/assets/health_power_up.png").exists());
     }
 
     @Test
-    public void helpButtonActiveExists() {
+    public void helpButtonActiveExistsTest() {
         assertTrue(Gdx.files.internal("../core/assets/help_button_active.png").exists());
     }
 
     @Test
-    public void helpButtonInactiveExists() {
+    public void helpButtonInactiveExistsTest() {
         assertTrue(Gdx.files.internal("../core/assets/help_button_inactive.png").exists());
     }
 
     @Test
-    public void helpScreenInfoExists() {
+    public void helpScreenInfoExistsTest() {
         assertTrue(Gdx.files.internal("../core/assets/help_screen_info.png").exists());
     }
 
     @Test
-    public void leafExists() {
+    public void leafExistsTest() {
         assertTrue(Gdx.files.internal("../core/assets/leaf.png").exists());
     }
 
     @Test
-    public void lineExists() {
+    public void lineExistsTest() {
         assertTrue(Gdx.files.internal("../core/assets/line.png").exists());
     }
 
     @Test
-    public void loadButtonActiveExists() {
+    public void loadButtonActiveExistsTest() {
         assertTrue(Gdx.files.internal("../core/assets/load_button_active.png").exists());
     }
 
     @Test
-    public void loadButtonInactiveExists() {
+    public void loadButtonInactiveExistsTest() {
         assertTrue(Gdx.files.internal("../core/assets/load_button_inactive.png").exists());
     }
 
     @Test
-    public void nightmareButtonActiveExists() {
+    public void nightmareButtonActiveExistsTest() {
         assertTrue(Gdx.files.internal("../core/assets/ultra_button_active.png").exists());
     }
 
     @Test
-    public void nightmareButtonInactiveExists() {
+    public void nightmareButtonInactiveExistsTest() {
         assertTrue(Gdx.files.internal("../core/assets/ultra_button_inactive.png").exists());
     }
 
     @Test
-    public void nightmareExists() {
+    public void nightmareExistsTest() {
         assertTrue(Gdx.files.internal("../core/assets/ultra.png").exists());
     }
 
     @Test
-    public void normalButtonActiveExists() {
+    public void normalButtonActiveExistsTest() {
         assertTrue(Gdx.files.internal("../core/assets/normal_button_active.png").exists());
     }
 
     @Test
-    public void normalButtonInactiveExists() {
+    public void normalButtonInactiveExistsTest() {
         assertTrue(Gdx.files.internal("../core/assets/normal_button_inactive.png").exists());
     }
 
     @Test
-    public void normalExists() {
+    public void normalExistsTest() {
         assertTrue(Gdx.files.internal("../core/assets/normal.png").exists());
     }
 
     @Test
-    public void playButtonActiveExists() {
+    public void playButtonActiveExistsTest() {
         assertTrue(Gdx.files.internal("../core/assets/play_button_active.png").exists());
     }
 
     @Test
-    public void playButtonInactiveExists() {
+    public void playButtonInactiveExistsTest() {
         assertTrue(Gdx.files.internal("../core/assets/play_button_inactive.png").exists());
     }
 
     @Test
-    public void rockExists() {
+    public void rockExistsTest() {
         assertTrue(Gdx.files.internal("../core/assets/rock.png").exists());
     }
 
     @Test
-    public void settingsButtonActiveExists() {
+    public void settingsButtonActiveExistsTest() {
         assertTrue(Gdx.files.internal("../core/assets/settings_button_active.png").exists());
     }
 
     @Test
-    public void settingsButtonInactiveExists() {
+    public void settingsButtonInactiveExistsTest() {
         assertTrue(Gdx.files.internal("../core/assets/settings_button_inactive.png").exists());
     }
 
     @Test
-    public void speedPowerUpExists() {
+    public void speedPowerUpExistsTest() {
         assertTrue(Gdx.files.internal("../core/assets/speed_power_up.png").exists());
     }
 
     @Test
-    public void staminaPowerUpExists() {
+    public void staminaPowerUpExistsTest() {
         assertTrue(Gdx.files.internal("../core/assets/stamina_power_up.png").exists());
     }
 
     @Test
-    public void strongButtonActiveExists() {
+    public void strongButtonActiveExistsTest() {
         assertTrue(Gdx.files.internal("../core/assets/strong_button_active.png").exists());
     }
 
     @Test
-    public void strongButtonInactiveExists() {
+    public void strongButtonInactiveExistsTest() {
         assertTrue(Gdx.files.internal("../core/assets/strong_button_inactive.png").exists());
     }
 
     @Test
-    public void strongExists() {
+    public void strongExistsTest() {
         assertTrue(Gdx.files.internal("../core/assets/strong.png").exists());
     }
 
     @Test
-    public void upArrowExists() {
+    public void upArrowExistsTest() {
         assertTrue(Gdx.files.internal("../core/assets/up_arrow.png").exists());
     }
 }

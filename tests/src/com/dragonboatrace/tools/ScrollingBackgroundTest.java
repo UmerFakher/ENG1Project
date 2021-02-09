@@ -9,11 +9,23 @@ import org.junit.runner.RunWith;
 
 import java.lang.reflect.Field;
 
+/**
+ * TUA_SCROLLINGBG - Check ScrollingBackground is created with the correct values.
+ * TU_SCROLLINGBG_UPDATE - Check the background moves on an update.
+ */
 @RunWith(GdxTestRunner.class)
 public class ScrollingBackgroundTest extends TestCase {
 
+    /**
+     * TUA_SCROLLINGBG - Check ScrollingBackground is created with the correct values.
+     *
+     * The attributes are initialised correctly.
+     *
+     * @throws NoSuchFieldException
+     * @throws IllegalAccessException
+     */
     @Test
-    public void testBackgroundValues() throws NoSuchFieldException, IllegalAccessException {
+    public void backgroundValuesTest() throws NoSuchFieldException, IllegalAccessException {
         ScrollingBackground s = new ScrollingBackground();
 
         Field fy1 = ScrollingBackground.class.getDeclaredField("y1");
@@ -38,8 +50,15 @@ public class ScrollingBackgroundTest extends TestCase {
 
     }
 
+    /**
+     * TU_SCROLLINGBG_UPDATE - Check the background moves on an update.
+     *
+     * The background should move x amount when updated with a delta of x.
+     * @throws NoSuchFieldException
+     * @throws IllegalAccessException
+     */
     @Test
-    public void testUpdate() throws NoSuchFieldException, IllegalAccessException {
+    public void updateTest() throws NoSuchFieldException, IllegalAccessException {
         ScrollingBackground s = new ScrollingBackground();
 
         Field fy1 = ScrollingBackground.class.getDeclaredField("y1");
@@ -62,7 +81,4 @@ public class ScrollingBackgroundTest extends TestCase {
         assertEquals(470f, y2, 0.001);
     }
 
-    @Test
-    public void testResize() {
-    }
 }
