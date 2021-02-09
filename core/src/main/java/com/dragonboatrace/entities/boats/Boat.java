@@ -498,4 +498,8 @@ public class Boat extends Entity {
         this.lane.dispose();
         super.dispose();
     }
+
+    public void setDistanceTravelled(int distanceTravelled){
+        this.distanceTravelled = distanceTravelled;
+    }
 }

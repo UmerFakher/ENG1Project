@@ -37,8 +37,14 @@ public class DragonBoatRace extends Game {
     protected int difficulty = 0;
 
     @Override
-    public void create() {
-        batch = new SpriteBatch();
+    public void create(){
+        this.create(false);
+    }
+
+    public void create(boolean isTesting) {
+        if (!isTesting) {
+            batch = new SpriteBatch();
+        }
         this.setScreen(new MainMenuScreen(this));
         for (int i = 0; i < Settings.PLAYER_COUNT; i++)
             totalTimes.add((float) 0);

@@ -138,7 +138,9 @@ public class Race {
                     }
                 }
             }
-            getLeaderBoard(game, true);
+            if (!isTesting) {
+                getLeaderBoard(game, true);
+            }
         }
 
         // NEW CODE

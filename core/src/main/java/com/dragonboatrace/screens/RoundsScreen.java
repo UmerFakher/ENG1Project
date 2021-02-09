@@ -106,32 +106,32 @@ public class RoundsScreen implements Screen {
     public void render(float delta) {
         Gdx.gl.glClearColor(0, 0, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        this.game.getBatch().begin();
+        if (!reason.equals("testing")) {
+            this.game.getBatch().begin();
+            if (!reason.equals("")) {
+                layout.setText(font, "Well done for completing round " + (this.currentRound - 1) + " in " + this.playerBoat.getTime() + "s");
+                font.draw(this.game.getBatch(), "Well done for completing round " + (this.currentRound - 1) + " in " + this.playerBoat.getTime() + "s", (Gdx.graphics.getWidth() - layout.width) / 2, Gdx.graphics.getHeight() - 75 / Settings.SCALAR);
 
-        if (!reason.equals("")) {
-            layout.setText(font, "Well done for completing round " + (this.currentRound - 1) + " in " + this.playerBoat.getTime() + "s");
-            font.draw(this.game.getBatch(), "Well done for completing round " + (this.currentRound - 1) + " in " + this.playerBoat.getTime() + "s", (Gdx.graphics.getWidth() - layout.width) / 2, Gdx.graphics.getHeight() - 75 / Settings.SCALAR);
-
-            layout.setText(font, "With " + this.playerBoat.getPenaltyTime() + "s of that in penalties");
-            font.draw(this.game.getBatch(), "With " + this.playerBoat.getPenaltyTime() + "s of that in penalties", (Gdx.graphics.getWidth() - layout.width) / 2, Gdx.graphics.getHeight() - 175f / Settings.SCALAR);
-
-
-            layout.setText(leaderBoardFont, this.reason);
-            leaderBoardFont.draw(this.game.getBatch(), this.reason, (Gdx.graphics.getWidth() - layout.width) / 2, (Gdx.graphics.getHeight() + layout.height) / 2 - 75f / Settings.SCALAR);
+                layout.setText(font, "With " + this.playerBoat.getPenaltyTime() + "s of that in penalties");
+                font.draw(this.game.getBatch(), "With " + this.playerBoat.getPenaltyTime() + "s of that in penalties", (Gdx.graphics.getWidth() - layout.width) / 2, Gdx.graphics.getHeight() - 175f / Settings.SCALAR);
 
 
-            layout.setText(font, (this.currentRound == 4) ? "Press Space to see if you made it to the final " + saveMessage : "Press Space to continue to round " + (this.currentRound) + saveMessage);
-            font.draw(this.game.getBatch(), (this.currentRound == 4) ? "Press Space to see if you made it to the final " + saveMessage : "Press Space to continue to round " + (this.currentRound) + saveMessage, (Gdx.graphics.getWidth() - layout.width) / 2, 50 + layout.height);
-        } else {
-            // CHANGED CODE
-            // Custom message text if the game was aborted before finishing
-            layout.setText(font, "Press Space to quit without saving " + saveMessage);
-            font.draw(this.game.getBatch(), "Press Space to quit without saving " + saveMessage, (Gdx.graphics.getWidth() - layout.width) / 2, 50 + layout.height);
-            // END CHANGED CODE
+                layout.setText(leaderBoardFont, this.reason);
+                leaderBoardFont.draw(this.game.getBatch(), this.reason, (Gdx.graphics.getWidth() - layout.width) / 2, (Gdx.graphics.getHeight() + layout.height) / 2 - 75f / Settings.SCALAR);
+
+
+                layout.setText(font, (this.currentRound == 4) ? "Press Space to see if you made it to the final " + saveMessage : "Press Space to continue to round " + (this.currentRound) + saveMessage);
+                font.draw(this.game.getBatch(), (this.currentRound == 4) ? "Press Space to see if you made it to the final " + saveMessage : "Press Space to continue to round " + (this.currentRound) + saveMessage, (Gdx.graphics.getWidth() - layout.width) / 2, 50 + layout.height);
+            } else {
+                // CHANGED CODE
+                // Custom message text if the game was aborted before finishing
+                layout.setText(font, "Press Space to quit without saving " + saveMessage);
+                font.draw(this.game.getBatch(), "Press Space to quit without saving " + saveMessage, (Gdx.graphics.getWidth() - layout.width) / 2, 50 + layout.height);
+                // END CHANGED CODE
+            }
+
+            this.game.getBatch().end();
         }
-
-        this.game.getBatch().end();
-
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE))
             if (reason.equals("")) {
                 // CHANGED CODE
