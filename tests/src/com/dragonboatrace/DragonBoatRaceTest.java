@@ -3,6 +3,7 @@ package com.dragonboatrace;
 import com.badlogic.gdx.math.Vector2;
 import com.dragonboatrace.entities.boats.Boat;
 import com.dragonboatrace.entities.boats.BoatType;
+import com.dragonboatrace.screens.FinalScreen;
 import com.dragonboatrace.screens.GameOverScreen;
 import com.dragonboatrace.screens.MainGameScreen;
 import com.dragonboatrace.screens.RoundsScreen;
@@ -75,13 +76,19 @@ public class DragonBoatRaceTest {
     public void testResultPosition() throws NoSuchFieldException, IllegalAccessException {
         DragonBoatRace game = new DragonBoatRace();
         game.setDifficulty(0);
-        game.setRound(4);
-        Race gameRace = new Race(10, BoatType.FAST, 4, 0);
-        for (int boat = 0; boat < Settings.PLAYER_COUNT; boat++) {
+        game.setRound(1);
+        //Race gameRace = new Race(1000, BoatType.FAST, 1, 1);
+        MainGameScreen gameScreen = new MainGameScreen(game, BoatType.FAST);
+        game.setScreen(gameScreen);
+        for (int boat = 1; boat < Settings.PLAYER_COUNT; boat++) {
             game.setTimeAt(boat, boat + 10);
         }
+        game.setTimeAt(0, 5);
         game.setPlayerTotalTime(5);
-        gameRace.getLeaderBoard(game);
+        ((MainGameScreen)game.getScreen()).getRace().getPlayer().setDistanceTravelled(10000);
+        ((MainGameScreen)game.getScreen()).getRace().update(1 ,game, gameScreen);
+        
+        assertTrue(((RoundsScreen)game.getScreen()).getReason().contains("1st: Player"));
     }
 
 }

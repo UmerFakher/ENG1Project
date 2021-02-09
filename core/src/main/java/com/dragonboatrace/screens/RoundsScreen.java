@@ -190,4 +190,11 @@ public class RoundsScreen implements Screen {
         }
         // END CHANGED CODE
     }
+
+    /**
+     * Created to allow testing without rendering
+     */
+    public String getReason() {
+        return reason;
+    }
 }

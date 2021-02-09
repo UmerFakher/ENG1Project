@@ -456,10 +456,6 @@ public class Boat extends Entity {
         return this.distanceTravelled;
     }
 
-    public void setDistanceTravelled(int distance) {
-        this.distanceTravelled = distance;
-    }
-
     /**
      * Dispose of the fonts used in the HUD and then perform {@link Entity}'s dispose.
      */
