@@ -17,11 +17,20 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+/**
+ * TI_LOAD_SAVE - Check the state of the game is the same as the savefile when the user loads a savefile.
+ * TU_INVALID_SAVE - Check the game correctly identifies an invalid save.
+ */
 @RunWith(GdxTestRunner.class)
 public class SaveLoadTest {
 
     Lane l = new Lane(new Vector2(0, 0), 50, 0, 0);
 
+    /**
+     * TI_LOAD_SAVE - Check the state of the game is the same as the savefile when the user loads a savefile.
+     *
+     * The difficulty, round stored times and boat type should be the same as when the save file was made when a save file is loaded.
+     */
     @Test
     public void saveLoadTest() {
         DragonBoatRace r1 = new DragonBoatRace();
@@ -42,6 +51,11 @@ public class SaveLoadTest {
         file.delete();
     }
 
+    /**
+     * TU_INVALID_SAVE - Check the game correctly identifies an invalid save.
+     *
+     * The game should do nothing if the load button is pressed for an invalid save.
+     */
     @Test
     public void invalidFileTest(){
 

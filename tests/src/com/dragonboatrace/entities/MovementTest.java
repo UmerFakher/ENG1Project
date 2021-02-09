@@ -9,11 +9,19 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+/**
+ * TI_ENTITY_MOVEMENT - Check that entities move the expected amount.
+ */
 @RunWith(GdxTestRunner.class)
 public class MovementTest {
 
     Lane l = new Lane(new Vector2(0, 0), 50, 0, 0);
 
+    /**
+     * TI_ENTITY_MOVEMENT - Check that entities move the expected amount.
+     *
+     * When moved at a velocity of 10m/s for 1s, the boat should move 10m.
+     */
     @Test
     public void boatMovementTest() {
         Boat b = new Boat(BoatType.FAST, l, "");

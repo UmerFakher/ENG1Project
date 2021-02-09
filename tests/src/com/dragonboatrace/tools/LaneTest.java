@@ -7,8 +7,19 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+/**
+ * TI_OBSTACLE_SPAWN - Check that more obstacles spawn on higher difficulties, with a preference for negative
+ * obstacles rather than powerups.
+ *
+ * The number of obstacles spawned should be always higher on higher difficulties.
+ * The number of powerups should always be smaller than the number of obstacles.
+ */
 @RunWith(GdxTestRunner.class)
 public class LaneTest {
+    /**
+     * Check that more obstacles spawn on higher difficulties, with a preference for negative
+     *  obstacles rather than powerups. The number of powerups should always be smaller than the number of obstacles.
+     */
     @Test
     public void obstacleSpawnRateTest() {
         Lane laneEasy = new Lane(new Vector2(0, 0), 50, 0, 0);
@@ -33,6 +44,9 @@ public class LaneTest {
         Assert.assertTrue(laneHard.getObstacles().size() <= laneUltra.getObstacles().size() + errorMargin);
     }
 
+    /**
+     * Checks to make sure the ratio of obstacles to powerups is in the correct bounds.
+     */
     @Test
     public void obstacleDistributionTest() {
         // make sure the distribution of obstacles to powerups is correct

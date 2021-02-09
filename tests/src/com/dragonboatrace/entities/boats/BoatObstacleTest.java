@@ -19,11 +19,25 @@ import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
 
+/**
+ * TI_BOAT_DAMAGE - Check that the boat takes damage when hitting an obstacle.
+ * TI_BOAT_BREAKING - Check the boat breaks when it has 0 health.
+ * TI_BOAT_STAMINA - Check that moving reduces stamina.
+ * TI_NEW_BOAT - Check that when new boat is created with a BoatType, the correct attributes are assigned.
+ */
 @RunWith(GdxTestRunner.class)
 public class BoatObstacleTest {
 
     Lane l = new Lane(new Vector2(0, 0), 50, 0, 0);
 
+    /**
+     * TI_NEW_BOAT - Check that when new boat is created with a BoatType, the correct attributes are assigned.
+     *
+     * A Boat of type FAST should have stats: health=50, stamina=120, agility=85, speed=275.
+     * A Boat of type AGILE should have stats: health=50, stamina=120, agility=95, speed=245.
+     * A Boat of type ENDURANCE should have stats: health=70, stamina=180, agility=90, speed=245.
+     * A Boat of type STRONG should have stats: health=100, stamina=105, agility=98, speed=200.
+     */
     @Test
     public void creationAttributeTest() {
         Boat fastBoat = new Boat(BoatType.FAST, l, "");
@@ -51,6 +65,11 @@ public class BoatObstacleTest {
         assertEquals(strongBoat.getSpeed(), 200, 0.01f);
     }
 
+    /**
+     * TI_BOAT_STAMINA - Check that moving reduces stamina.
+     *
+     * After moving, the stamina of a boat should always be less than before it moved unless the boat has had time to rest.
+     */
     @Test
     public void staminaUsageTest() {
         ComputerBoat boat = new ComputerBoat(BoatType.FAST, l, "", 1);
@@ -61,6 +80,11 @@ public class BoatObstacleTest {
         Assert.assertTrue(oldStamina > boat.getStamina());
     }
 
+    /**
+     * TI_BOAT_DAMAGE - Check that the boat takes damage when hitting an obstacle.
+     *
+     * The boat takes health is less after hitting an obstacle.
+     */
     @Test
     public void collisionTest() {
         Boat b = new Boat(BoatType.FAST, l, "");
@@ -74,6 +98,11 @@ public class BoatObstacleTest {
         Assert.assertTrue(initialHealth > b.getHealth());
     }
 
+    /**
+     *  TI_BOAT_BREAKING - Check the boat breaks when it has 0 health.
+     *
+     *  The boat gives a game over screen when it has 0 health.
+     */
     @Test
     public void gameOverTest() {
         DragonBoatRace game = new DragonBoatRace();

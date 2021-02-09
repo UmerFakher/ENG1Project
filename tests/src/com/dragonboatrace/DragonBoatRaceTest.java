@@ -18,15 +18,37 @@ import org.junit.runner.RunWith;
 
 import static org.junit.Assert.assertTrue;
 
+/**
+ * TUA_FRAMEWORK_TEST - Make sure the unit test framework is running and accurate.
+ *
+ */
 @RunWith(GdxTestRunner.class)
 public class DragonBoatRaceTest {
-    @Test // created to test the gradle test system works, useless otherwise
-    public void testTesting() throws Exception {
+
+    /**
+     * TUA_FRAMEWORK_TEST - Make sure the unit test framework is running and accurate.
+     * TI_FINISH_LINE - Check that the game finishes a round when the boat passes the finish line.
+     * TI_FINAL - Check the game correctly determines if you should be in the final or not.
+     * TI_RESULT_POSITIONS - Check the game gives awards to the correct boats at the end of the final race.
+
+     * Created to test the gradle test system works.
+     * @throws Exception
+     */
+    @Test
+    public void testingFrameworkInitialTest() throws Exception {
         Assert.assertEquals(0, 0);
     }
 
+    /**
+     * TI_FINISH_LINE - Check that the game finishes a round when the boat passes the finish line.
+     *
+     * The game screen is  changed when a boat comes into contact with the finish line.
+     * @throws NoSuchFieldException
+     * @throws IllegalAccessException
+     * @throws InterruptedException
+     */
     @Test
-    public void testFinishLine() throws NoSuchFieldException, IllegalAccessException, InterruptedException {
+    public void finishLineTest() throws NoSuchFieldException, IllegalAccessException, InterruptedException {
         // create a simple game version
         DragonBoatRace game = new DragonBoatRace();
         game.setDifficulty(0);
@@ -48,8 +70,15 @@ public class DragonBoatRaceTest {
 
     }
 
+    /**
+     * TI_FINAL - Check the game correctly determines if you should be in the final or not.
+     *
+     * If the player is within the top 4 the game screen is changed to the game screen.
+     * @throws NoSuchFieldException
+     * @throws IllegalAccessException
+     */
     @Test
-    public void testJoinFinal() throws NoSuchFieldException, IllegalAccessException {
+    public void joinFinalTest() throws NoSuchFieldException, IllegalAccessException {
         // Create a simple game
         DragonBoatRace game = new DragonBoatRace();
         game.setDifficulty(0);
@@ -73,8 +102,15 @@ public class DragonBoatRaceTest {
         assertTrue(game.getScreen() instanceof GameOverScreen);
     }
 
+    /**
+     * TI_RESULT_POSITIONS - Check the game gives awards to the correct boats at the end of the final race.
+     *
+     * If the player comes in first place in the final it reflects that in the reason string.
+     * @throws NoSuchFieldException
+     * @throws IllegalAccessException
+     */
     @Test
-    public void testResultPosition() throws NoSuchFieldException, IllegalAccessException {
+    public void resultPositionTest() throws NoSuchFieldException, IllegalAccessException {
         DragonBoatRace game = new DragonBoatRace();
         game.setDifficulty(0);
         game.setRound(1);

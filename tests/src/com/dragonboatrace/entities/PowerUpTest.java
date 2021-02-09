@@ -13,6 +13,13 @@ import org.junit.runner.RunWith;
 
 import java.util.ArrayList;
 
+/**
+ * TI_BOAT_POWERUP - Check that all the powerups function.
+ *
+ * Instantiate Obstacles for each powerup to ensure they are correctly created and check their attributes for effecting
+ * health, speed, agility and stamina for boats. Also test if Powerup's affect attributes of boat when a boat collides
+ * with a powerup.
+ */
 @RunWith(GdxTestRunner.class)
 public class PowerUpTest {
 
