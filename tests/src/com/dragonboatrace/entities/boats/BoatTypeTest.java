@@ -7,10 +7,16 @@ import java.lang.reflect.Field;
 
 import static org.junit.Assert.*;
 
+/**
+ * TUA_BOAT_TYPE - Tests to check all boat type variables are initialised to the correct values.
+ */
 public class BoatTypeTest {
 
+    /**
+     * Initial test to check save string returned for each boat type is as expected.
+     */
     @Test
-    public void getSaveString() {
+    public void getSaveStringTest() {
         BoatType b = BoatType.FAST;
         assertEquals("0\n",b.getSaveString());
         b = BoatType.AGILE;
@@ -21,6 +27,9 @@ public class BoatTypeTest {
         assertEquals("3\n",b.getSaveString());
     }
 
+    /**
+     * Check attribute values of this boat type are correctly stored in the Enum.
+     */
     @Test
     public void fastBoatTypeTest() {
         BoatType b = BoatType.FAST;
@@ -34,6 +43,9 @@ public class BoatTypeTest {
         // template index tested through BoatTypeTest.getSaveString()
     }
 
+    /**
+     * Check attribute values of this boat type are correctly stored in the Enum.
+     */
     @Test
     public void agileBoatTypeTest() {
         BoatType b = BoatType.AGILE;
@@ -47,6 +59,9 @@ public class BoatTypeTest {
         // template index tested through BoatTypeTest.getSaveString()
     }
 
+    /**
+     * Check attribute values of this boat type are correctly stored in the Enum.
+     */
     @Test
     public void enduranceBoatTypeTest() {
         BoatType b = BoatType.ENDURANCE;
@@ -60,6 +75,9 @@ public class BoatTypeTest {
         // template index tested through BoatTypeTest.getSaveString()
     }
 
+    /**
+     * Check attribute values of this boat type are correctly stored in the Enum.
+     */
     @Test
     public void strongBoatTypeTest() {
         BoatType b = BoatType.STRONG;

@@ -8,11 +8,19 @@ import org.junit.runner.RunWith;
 
 import static org.junit.Assert.*;
 
+/**
+ * TU_BUTTON_HOVER - Tests to check that the Button isHovering() method is accurate.
+ */
 @RunWith(GdxTestRunner.class)
 public class ButtonTest {
 
+    /**
+     * Test to check that the Button isHovering() method is accurate.
+     *
+     * isHovering() is true when a mouse is hovering and false when no mouse is hovering.
+     */
     @Test
-    public void isHovering() {
+    public void isHoveringTest() {
         // mouse is at 0,0 during testing, but a check just in case
         float mouseX = Gdx.input.getX();
         float mouseY = Gdx.input.getY();

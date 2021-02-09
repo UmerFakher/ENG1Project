@@ -11,10 +11,18 @@ import java.util.Scanner;
 
 import static org.junit.Assert.*;
 
+/**
+ * TU_SAVING - Check the saveToFile function produces the expected output.
+ */
 public class RoundsScreenTest {
 
+    /**
+     * Main test to check if the saveToFile function produces the expected output.
+     *
+     * A text file called "testfile.txt" should be created with the given string as contents.
+     */
     @Test
-    public void saveToFile() {
+    public void saveToFileTest() {
         BoatType b = BoatType.FAST;
         MainGamePauseScreen.saveToFile("testfile.txt", b, 4.3f, 1,0);
         File file = new File("testfile.txt");
