@@ -78,9 +78,6 @@ public class MainGameScreen implements Screen {
         this.background = new ScrollingBackground();
         this.background.resize(Gdx.graphics.getWidth());
 
-        System.out.println(this.game.getRound());
-
-
         /* Font related items */
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("osaka-re.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
