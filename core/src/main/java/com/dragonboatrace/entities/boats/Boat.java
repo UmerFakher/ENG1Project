@@ -14,7 +14,6 @@ import com.dragonboatrace.tools.Configuration;
 import com.dragonboatrace.tools.Hitbox;
 import com.dragonboatrace.tools.Lane;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -175,6 +174,7 @@ public class Boat extends Entity {
         layout.setText(nameFont, this.name);
         if (this.layout.width > this.laneBox.getWidth()) {
             parameter.size = (int) (50 / (this.layout.width / this.laneBox.getWidth()));
+            if (parameter.size <= 1) parameter.size = 50;
             nameFont = generator.generateFont(parameter);
         }
 
@@ -187,6 +187,7 @@ public class Boat extends Entity {
         layout.setText(healthFont, "Health:  XXX");
         if (this.layout.width > this.laneBox.getWidth()) {
             parameter.size = (int) (50 / (this.layout.width / this.laneBox.getWidth()));
+            if (parameter.size <= 1) parameter.size = 50;
             healthFont = generator.generateFont(parameter);
         }
 
@@ -199,6 +200,7 @@ public class Boat extends Entity {
         layout.setText(staminaFont, "Stamina: XXX");
         if (this.layout.width > this.laneBox.getWidth()) {
             parameter.size = (int) (50 / (this.layout.width / this.laneBox.getWidth()));
+            if (parameter.size <= 1) parameter.size = 50;
             staminaFont = generator.generateFont(parameter);
         }
 
@@ -452,6 +454,10 @@ public class Boat extends Entity {
      */
     public float getDistanceTravelled() {
         return this.distanceTravelled;
+    }
+
+    public void setDistanceTravelled(int distance) {
+        this.distanceTravelled = distance;
     }
 
     /**
