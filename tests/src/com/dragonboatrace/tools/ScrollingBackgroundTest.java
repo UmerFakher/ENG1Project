@@ -21,8 +21,8 @@ public class ScrollingBackgroundTest extends TestCase {
      *
      * The attributes are initialised correctly.
      *
-     * @throws NoSuchFieldException
-     * @throws IllegalAccessException
+     * @throws NoSuchFieldException No field found
+     * @throws IllegalAccessException Not able to access
      */
     @Test
     public void backgroundValuesTest() throws NoSuchFieldException, IllegalAccessException {
@@ -54,8 +54,8 @@ public class ScrollingBackgroundTest extends TestCase {
      * TU_SCROLLINGBG_UPDATE - Check the background moves on an update.
      *
      * The background should move x amount when updated with a delta of x.
-     * @throws NoSuchFieldException
-     * @throws IllegalAccessException
+     * @throws NoSuchFieldException No field found
+     * @throws IllegalAccessException Not able to access
      */
     @Test
     public void updateTest() throws NoSuchFieldException, IllegalAccessException {

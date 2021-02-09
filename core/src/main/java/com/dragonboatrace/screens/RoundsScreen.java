@@ -193,6 +193,7 @@ public class RoundsScreen implements Screen {
 
     /**
      * Created to allow testing without rendering
+     * @return the leaderboard string
      */
     public String getReason() {
         return reason;
