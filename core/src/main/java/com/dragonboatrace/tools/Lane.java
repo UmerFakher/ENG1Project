@@ -7,13 +7,14 @@ import com.dragonboatrace.entities.Obstacle;
 import com.dragonboatrace.entities.ObstacleType;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ListIterator;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Represents a Lane in a {@link Race}.
  *
- * @author Benji Garment, Joe Wrieden
+ * @author Benji Garment, Joe Wrieden, William Walton
  */
 public class Lane {
 
@@ -24,19 +25,23 @@ public class Lane {
     /**
      * A list of the obstacles currently in the lane.
      */
-    private final ArrayList<Obstacle> obstacles;
+    private final List<Obstacle> obstacles;
     /**
      * A list of times to wait before adding a new obstacle to the lane.
      */
-    private final ArrayList<Float> randomWaitTimes;
-
+    private final List<Float> randomWaitTimes;
+    /**
+     * The difficulty of the game added for FR_DIFFICULTY_SELECTION
+     */
     private final int difficulty;
 
     /**
      * Creates a new lane at a position and with a width and uses the round number to change the number of obstacles.
-     * @param pos The position of the lane in the screen.
+     *
+     * @param pos   The position of the lane in the screen.
      * @param width The width of the lane.
      * @param round The current round, used to increase difficulty.
+     * @param difficulty The difficulty of the game
      */
     public Lane(Vector2 pos, int width, int round, int difficulty) {
         this.area = new Hitbox(pos.x, pos.y, width, Gdx.graphics.getHeight() + 200);
@@ -94,7 +99,7 @@ public class Lane {
      *
      * @return An {@link ArrayList} of type {@link Obstacle} with all the obstacles in the lane.
      */
-    public ArrayList<Obstacle> getObstacles() {
+    public List<Obstacle> getObstacles() {
         return this.obstacles;
     }
 
@@ -121,7 +126,7 @@ public class Lane {
      * Create a random time at which to add an {@link Obstacle} to the lane.
      */
     public void replaceObstacle() {
-        randomWaitTimes.add((1.0f + 2 * ThreadLocalRandom.current().nextFloat()));
+        randomWaitTimes.add(1.0f + 2 * ThreadLocalRandom.current().nextFloat());
     }
 
     /**
@@ -130,36 +135,62 @@ public class Lane {
      * @return a new {@link Obstacle} in the lanes area.
      */
     private Obstacle randomObstacle() {
-        //int rand = ThreadLocalRandom.current().nextInt(0, ObstacleType.values().length);
-
         // CHANGED CODE
         // Made the first 3 elements in the ObstacleType class more likely to generate as these are the obstacles.
         // The remaining elements are ordered in rarity, with the 4th element being the least powerful power-up, hence
         // the most common, and the last being the most powerful, and least common
-        double randD = (ThreadLocalRandom.current().nextGaussian()*3+1); // random variable normally distributed with mean=1,sd=3
-        int rand = Math.min(Math.max((int)randD, 0), ObstacleType.values().length-1); // constrain value between 0 and max obstacleType index
-        return new Obstacle(ObstacleType.values()[rand], this.area.getX(), this.area.getWidth());
+        int randNumber = (ThreadLocalRandom.current().nextInt(0, 100));  // random variable from 0 to 99
+        int i = 0;  // index of new obstacle to make
+
+        //convert the random number into an index
+        if (randNumber < 20)
+            i = 0; // 20% chance of LEAF
+        else if (randNumber < 40)
+            i = 1; // 20% chance of ROCK
+        else if (randNumber < 60)
+            i = 2; // 20% chance of BRANCH
+        else if (randNumber < 70)
+            i = 3; // 10% chance of PU_HEALTH
+        else if (randNumber < 80)
+            i = 4; // 10% chance of PU_STAMINA
+        else if (randNumber < 90)
+            i = 5; // 10% chance of PU_AGILITY
+        else if (randNumber < 97)
+            i = 4; // 7% chance of PU_SPEED
+        else if (randNumber < 100)
+            i = 4; // 3% chance of PU_ALL
+
+        return new Obstacle(ObstacleType.values()[i], this.area.getX(), this.area.getWidth());
         // END CHANGED CODE
     }
 
     /**
      * Fill the list with obstacles that will start at random times.
+     *
      * @param round The current round increases the number of obstacles.
      */
     private void populateList(int round) {
-        // CHANGED CODE
+        // CHANGED CODE for FR_DIFFICULTY_SELECTION
         // Changed the rate at which new obstacles are spawned to be dependant on the difficulty as well as existing
         // factors such as round
         int difficulty_mod = 0;
 
-        switch (difficulty){
-            case 0: difficulty_mod = 0; break;
-            case 1: difficulty_mod = 2; break;
-            case 2: difficulty_mod = 10; break;
-            case 3: difficulty_mod = 30; break;
+        switch (difficulty) {
+            case 0:
+                difficulty_mod = 0;
+                break;
+            case 1:
+                difficulty_mod = 2;
+                break;
+            case 2:
+                difficulty_mod = 10;
+                break;
+            case 3:
+                difficulty_mod = 30;
+                break;
         }
 
-        for (int i = 0; i < (11 - Settings.PLAYER_COUNT + round - 1 + difficulty_mod); i++) {
+        for (int i = 0; i < (11 - Configuration.PLAYER_COUNT + round - 1 + difficulty_mod); i++) {
             replaceObstacle();
         }
         // END CHANGED CODE

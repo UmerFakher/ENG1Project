@@ -13,7 +13,7 @@ import com.dragonboatrace.DragonBoatRace;
 import com.dragonboatrace.entities.boats.BoatType;
 import com.dragonboatrace.tools.Race;
 import com.dragonboatrace.tools.ScrollingBackground;
-import com.dragonboatrace.tools.Settings;
+import com.dragonboatrace.tools.Configuration;
 
 /**
  * Represents the Main Game Screen where the game actually happens.
@@ -26,10 +26,6 @@ public class MainGameScreen implements Screen {
      * The game instance.
      */
     private final DragonBoatRace game;
-    /**
-     * Used to make sure the countdown happens at equal intervals.
-     */
-    private final Timer timer;
     /**
      * The race instance.
      */
@@ -51,6 +47,10 @@ public class MainGameScreen implements Screen {
      */
     private final BitmapFont font;
     /**
+     * Used to make sure the countdown happens at equal intervals.
+     */
+    private final Timer timer;
+    /**
      * Pause game, starts true.
      */
     private boolean paused = true;
@@ -66,7 +66,7 @@ public class MainGameScreen implements Screen {
     /**
      * Creates a new game screen with a game instance.
      *
-     * @param game The game instance.
+     * @param game       The game instance.
      * @param boatChosen The {@link BoatType} that the player chose.
      */
     public MainGameScreen(DragonBoatRace game, BoatType boatChosen) {
@@ -78,10 +78,13 @@ public class MainGameScreen implements Screen {
         this.background = new ScrollingBackground();
         this.background.resize(Gdx.graphics.getWidth());
 
+        System.out.println(this.game.getRound());
+
+
         /* Font related items */
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("osaka-re.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size *= 10.0 / Settings.SCALAR;
+        parameter.size *= 10.0 / Configuration.SCALAR;
         parameter.color = Color.BLACK;
         this.font = generator.generateFont(parameter);
         this.layout = new GlyphLayout();
@@ -111,6 +114,7 @@ public class MainGameScreen implements Screen {
         timer.scheduleTask(countDownTask, 0, 1);
         // We don't want the countdown to start before the screen has displayed.
         timer.stop();
+
     }
 
     /**
@@ -133,7 +137,7 @@ public class MainGameScreen implements Screen {
             //this.logger.log();
             this.background.update(deltaTime * this.race.getPlayer().getVelocity().y);
             this.background.render(game.getBatch());
-            this.race.update(deltaTime, this.game);
+            this.race.update(deltaTime, this.game, this);
             this.race.render(game.getBatch());
         } else {
             this.background.render(game.getBatch());
@@ -175,5 +179,9 @@ public class MainGameScreen implements Screen {
     @Override
     public void dispose() {
         this.game.getBatch().dispose();
+    }
+
+    public Race getRace() {
+        return race;
     }
 }

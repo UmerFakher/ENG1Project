@@ -10,7 +10,7 @@ public enum ObstacleType {
     LEAF("leaf.png", 75, 5, 0, 0, 0),
     ROCK("rock.png", 50, 20, 0, 0, 0),
     BRANCH("branch.png", 60, 10, 0, 0, 0),
-    // CHANGED CODE
+    // CHANGED CODE for UR_POWERUPS
     // Added power-ups to be a type of obstacle in order to reuse spawning and collision code
     PU_HEALTH("health_power_up.png", 30, -20, 0, 0, 0),
     PU_STAMINA("stamina_power_up.png", 30, 0, 20, 0, 0),
@@ -32,7 +32,7 @@ public enum ObstacleType {
      */
     private final float damage;
 
-    // CHANGED CODE
+    // CHANGED CODE for UR_POWERUPS
     // Added extra effects for hitting an obstacle to allow for positive effects such as a speed boost
     private final float staminaMod;
     private final float agilityMod;

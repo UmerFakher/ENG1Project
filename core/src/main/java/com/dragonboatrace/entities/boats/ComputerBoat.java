@@ -4,11 +4,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dragonboatrace.entities.Obstacle;
+import com.dragonboatrace.tools.Configuration;
 import com.dragonboatrace.tools.Hitbox;
 import com.dragonboatrace.tools.Lane;
-import com.dragonboatrace.tools.Settings;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -102,9 +103,9 @@ public class ComputerBoat extends Boat {
                 recentCollision = true;
             }
         } else {
-            this.velocity.set(0, Settings.OBSTACLE_COLLISION_PENALTY);
+            this.velocity.set(0, Configuration.OBSTACLE_COLLISION_PENALTY);
             collisionTime += deltaTime;
-            if (collisionTime > Settings.OBSTACLE_COLLISION_TIME) {
+            if (collisionTime > Configuration.OBSTACLE_COLLISION_TIME) {
                 collisionTime = 0;
                 recentCollision = false;
             }
@@ -166,7 +167,7 @@ public class ComputerBoat extends Boat {
      * @return The closest Obstacle in the area or null if no obstacles are in the area.
      */
     private Obstacle checkObstacles() {
-        ArrayList<Obstacle> obstacles = this.lane.getObstacles();
+        List<Obstacle> obstacles = this.lane.getObstacles();
         Obstacle closest = null;
         float smallest = Gdx.graphics.getHeight();
         for (Obstacle obstacle : obstacles) {
@@ -226,13 +227,13 @@ public class ComputerBoat extends Boat {
         double multi;
         switch (pos) {
             case 2:
-                multi = ThreadLocalRandom.current().nextDouble(0.95, 0.98);
+                multi = ThreadLocalRandom.current().nextDouble(0.85, 0.88);
                 break;
             case 3:
-                multi = ThreadLocalRandom.current().nextDouble(0.9, 0.97);
+                multi = ThreadLocalRandom.current().nextDouble(0.8, 0.87);
                 break;
             default:
-                multi = ThreadLocalRandom.current().nextDouble(0.85, 0.9);
+                multi = ThreadLocalRandom.current().nextDouble(0.75, 0.8);
         }
         return this.speed * (float) multi;
     }

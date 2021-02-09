@@ -36,7 +36,12 @@ public class Obstacle extends Entity {
         /* Entity creation */
         /* First vector is long as to start it at a random x position within the bounds of the screen */
         /* Form of Entity(Vector2 pos, Vector2 vel, EntityType type, String texture) */
-        super(new Vector2(((int) startX + width) / 2.0f + ThreadLocalRandom.current().nextInt(-((int) startX + width) / 2 + EntityType.OBSTACLE.getWidth() / 2, ((int) startX + width) / 2 + EntityType.OBSTACLE.getWidth() / 2), Gdx.graphics.getHeight()), new Vector2(), EntityType.OBSTACLE, type.getTexture());
+        super(new Vector2(
+                ((int) startX + width) / 2.0f +
+                        ThreadLocalRandom.current().nextInt(
+                                -((int) startX + width) / 2 + EntityType.OBSTACLE.getWidth() / 2,
+                                ((int) startX + width) / 2 + EntityType.OBSTACLE.getWidth() / 2),
+                Gdx.graphics.getHeight()), new Vector2(), EntityType.OBSTACLE, type.getTexture());
         this.speed = type.getSpeed();
         this.damage = type.getDamage();
         this.staminaMod = type.getStaminaMod();
@@ -68,15 +73,6 @@ public class Obstacle extends Entity {
     public void update(float deltaTime, float velY) {
         this.position.add(0, -1 * (velY + this.speed) * deltaTime);
         this.hitbox.move(this.position.x, this.position.y);
-    }
-
-    /**
-     * Get the obstacles speed attribute, not the velocity it is moving at currently.
-     *
-     * @return A float of the obstacles speed attribute.
-     */
-    public float getSpeed() {
-        return this.speed;
     }
 
     /**

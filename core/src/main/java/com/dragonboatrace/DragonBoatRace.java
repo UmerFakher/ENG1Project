@@ -3,14 +3,15 @@ package com.dragonboatrace;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dragonboatrace.screens.MainMenuScreen;
-import com.dragonboatrace.tools.Settings;
+import com.dragonboatrace.tools.Configuration;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Represents the Game itself and holds all the screens.
  *
- * @author Benji Garment, Joe Wrieden
+ * @author Benji Garment, Joe Wrieden, William Walton
  */
 public class DragonBoatRace extends Game {
 
@@ -25,28 +26,25 @@ public class DragonBoatRace extends Game {
     protected int round = 1;
 
     /**
-     * A list of cumulative times for all boats.
+     * A list of total times for all boats.
      */
-    protected ArrayList<Float> totalTimes = new ArrayList<>();
+    protected List<Float> totalTimes = new ArrayList<>();
 
     /**
      * The players total time.
      */
     protected float playerTotalTime = 0;
 
+    /**
+     * The difficulty chosen 0 = easiest, 3 = hardest
+     */
     protected int difficulty = 0;
 
     @Override
-    public void create(){
-        this.create(false);
-    }
-
-    public void create(boolean isTesting) {
-        if (!isTesting) {
-            batch = new SpriteBatch();
-        }
+    public void create() {
+        batch = new SpriteBatch();
         this.setScreen(new MainMenuScreen(this));
-        for (int i = 0; i < Settings.PLAYER_COUNT; i++)
+        for (int i = 0; i < Configuration.PLAYER_COUNT; i++)
             totalTimes.add((float) 0);
     }
 
@@ -69,7 +67,7 @@ public class DragonBoatRace extends Game {
     }
 
     public void setRound(int i) {
-        this.round += i;
+        this.round = i;
     }
 
     public void upRound() {
@@ -88,7 +86,7 @@ public class DragonBoatRace extends Game {
         this.playerTotalTime += t;
     }
 
-    public ArrayList<Float> getTotalTimes() {
+    public List<Float> getTotalTimes() {
         return this.totalTimes;
     }
 

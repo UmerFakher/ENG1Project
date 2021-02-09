@@ -10,11 +10,12 @@ import com.badlogic.gdx.math.Vector2;
 import com.dragonboatrace.entities.Entity;
 import com.dragonboatrace.entities.EntityType;
 import com.dragonboatrace.entities.Obstacle;
+import com.dragonboatrace.tools.Configuration;
 import com.dragonboatrace.tools.Hitbox;
 import com.dragonboatrace.tools.Lane;
-import com.dragonboatrace.tools.Settings;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Represents a generic Boat.
@@ -27,11 +28,6 @@ public class Boat extends Entity {
      * The rate at which the stamina is used or regenerated at.
      */
     private final float staminaRate = 10;
-
-    /**
-     * The minimum amount of speed gained from using stamina.
-     */
-    private final int minBoostSpeed = 5;
 
     /**
      * The formatter used to align the text on-screen.
@@ -166,63 +162,57 @@ public class Boat extends Entity {
         /* Store the lanes hit box to save time on using Getters. */
         laneBox = lane.getHitbox();
 
-        // font setup isn't possible in headless mode
-        if (!name.equals("__testing_boat__")) {
+        /* Setup fonts to use in the HUD */
+        this.generator = new FreeTypeFontGenerator(Gdx.files.internal("osaka-re.ttf"));
+        this.parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        this.layout = new GlyphLayout();
 
-            /* Setup fonts to use in the HUD */
-            this.generator = new FreeTypeFontGenerator(Gdx.files.internal("osaka-re.ttf"));
-            this.parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-            this.layout = new GlyphLayout();
+        /*Font for displaying the name */
+        parameter.size = 50;
+        parameter.color = Color.BLACK;
+        this.nameFont = generator.generateFont(parameter);
 
-            /*Font for displaying the name */
-            parameter.size = 50;
-            parameter.color = Color.BLACK;
-            this.nameFont = generator.generateFont(parameter);
-
-            layout.setText(nameFont, this.name);
-            if (this.layout.width > this.laneBox.getWidth()) {
-                parameter.size = (int) (50 / (this.layout.width / this.laneBox.getWidth()));
-                parameter.color = Color.BLACK;
-                nameFont = generator.generateFont(parameter);
-            }
-
-            /* Font for displaying the health */
-            Color customRed = new Color(197f/255f, 25f/255f, 77f/255f, 255f/255f);
-            parameter.size = 50;
-            parameter.color = Color.RED;
-            this.healthFont = generator.generateFont(parameter);
-
-            layout.setText(healthFont, "Health:  XXX");
-            if (this.layout.width > this.laneBox.getWidth()) {
-                parameter.size = (int) (50 / (this.layout.width / this.laneBox.getWidth()));
-                parameter.color = customRed;
-                healthFont = generator.generateFont(parameter);
-            }
-
-            /* Font for displaying the stamina */
-            Color customYellow = new Color(227f/255f, 246f/255f, 17f/255f, 255f/255f);
-            parameter.size = 50;
-            parameter.color = Color.GREEN;
-            this.staminaFont = generator.generateFont(parameter);
-
-            layout.setText(staminaFont, "Stamina: XXX");
-            if (this.layout.width > this.laneBox.getWidth()) {
-                parameter.size = (int) (50 / (this.layout.width / this.laneBox.getWidth()));
-                parameter.color = customYellow;
-                staminaFont = generator.generateFont(parameter);
-            }
+        layout.setText(nameFont, this.name);
+        if (this.layout.width > this.laneBox.getWidth()) {
+            parameter.size = (int) (50 / (this.layout.width / this.laneBox.getWidth()));
+            nameFont = generator.generateFont(parameter);
         }
+
+        /* Font for displaying the health */
+        Color customRed = new Color(197f / 255f, 25f / 255f, 77f / 255f, 1f);
+        parameter.size = 50;
+        parameter.color = customRed;
+        this.healthFont = generator.generateFont(parameter);
+
+        layout.setText(healthFont, "Health:  XXX");
+        if (this.layout.width > this.laneBox.getWidth()) {
+            parameter.size = (int) (50 / (this.layout.width / this.laneBox.getWidth()));
+            healthFont = generator.generateFont(parameter);
+        }
+
+        /* Font for displaying the stamina */
+        Color customYellow = new Color(227f / 255f, 246f / 255f, 17f / 255f, 1f);
+        parameter.size = 50;
+        parameter.color = customYellow;
+        this.staminaFont = generator.generateFont(parameter);
+
+        layout.setText(staminaFont, "Stamina: XXX");
+        if (this.layout.width > this.laneBox.getWidth()) {
+            parameter.size = (int) (50 / (this.layout.width / this.laneBox.getWidth()));
+            staminaFont = generator.generateFont(parameter);
+        }
+
 
     }
 
     /**
      * Return a scalar to multiply the velocity by when using stamina.
      *
-     * @return A float between 0.25 and 1 which is then scaled by {@link com.dragonboatrace.tools.Settings#STAMINA_SPEED_DIVISION}.
+     * @return A float between 0.25 and 1 which is then scaled by {@link Configuration#STAMINA_SPEED_DIVISION}.
      */
     protected float velocityPercentage() {
         double result = 0.25 + Math.log(this.stamina + 1) / 3;
-        return (float) result / Settings.STAMINA_SPEED_DIVISION;
+        return (float) result / Configuration.STAMINA_SPEED_DIVISION;
     }
 
     /**
@@ -234,7 +224,8 @@ public class Boat extends Entity {
      * @return A float of how much stamina will be used.
      */
     protected float useStamina() {
-        double result = Math.pow(this.maxStamina, -this.stamina / (2 * this.maxStamina)) * this.staminaRate + this.staminaRate + this.minBoostSpeed;
+        int minBoostSpeed = 5;
+        double result = Math.pow(this.maxStamina, -this.stamina / (2 * this.maxStamina)) * this.staminaRate + this.staminaRate + minBoostSpeed;
         return (float) result;
     }
 
@@ -302,11 +293,11 @@ public class Boat extends Entity {
      * @return True if a collision occurred, False if no collision.
      */
     public boolean checkCollisions() {
-        ArrayList<Obstacle> obstacles = this.lane.getObstacles();
+        List<Obstacle> obstacles = this.lane.getObstacles();
         return checkCollisions(obstacles);
     }
 
-    public boolean checkCollisions(ArrayList<Obstacle> obstacles) {
+    public boolean checkCollisions(List<Obstacle> obstacles) {
         int size = obstacles.size();
         for (int i = 0; i < size; i++) {
             Obstacle obstacle = obstacles.get(i);
@@ -333,7 +324,7 @@ public class Boat extends Entity {
      * @param raceDistance The length of the race.
      */
     public void updateYPosition(int lineHeight, int raceDistance) {
-
+        //dummy function for deriving classes
     }
 
     /* Adders */
@@ -346,24 +337,6 @@ public class Boat extends Entity {
      */
     public void addVelocity(float pushX, float pushY) {
         this.velocity.add(pushX, pushY);
-    }
-
-    /**
-     * Increase the current boat health.
-     *
-     * @param change The amount of health to be added.
-     */
-    public void addHealth(float change) {
-        this.health += change;
-    }
-
-    /**
-     * Increase the current boat stamina.
-     *
-     * @param change The amount of health to be added.
-     */
-    public void addStamina(float change) {
-        this.stamina += change;
     }
 
     /* Getters */
@@ -460,15 +433,6 @@ public class Boat extends Entity {
     }
 
     /**
-     * Get the total boat time
-     *
-     * @return A float of total boat time
-     */
-    public float getTotalTime() {
-        return this.totalTime;
-    }
-
-    /**
      * Set the total boat time.
      *
      * @param nowTime The time passed since last call.
@@ -497,9 +461,5 @@ public class Boat extends Entity {
 
         this.lane.dispose();
         super.dispose();
-    }
-
-    public void setDistanceTravelled(int distanceTravelled){
-        this.distanceTravelled = distanceTravelled;
     }
 }

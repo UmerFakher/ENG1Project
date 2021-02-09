@@ -47,8 +47,8 @@ public class Button extends Entity {
      * @return A boolean of if the mouse is hovering over the button.
      */
     public boolean isHovering() {
-        return (Gdx.input.getX() <= this.position.x + this.type.getWidth() && Gdx.input.getX() >= this.position.x
-                && Gdx.graphics.getHeight() - Gdx.input.getY() <= this.position.y + this.type.getHeight() && Gdx.graphics.getHeight() - Gdx.input.getY() >= this.position.y);
+        return (Gdx.input.getX() < this.position.x + this.type.getWidth() && Gdx.input.getX() > this.position.x
+                && Gdx.graphics.getHeight() - Gdx.input.getY() < this.position.y + this.type.getHeight() && Gdx.graphics.getHeight() - Gdx.input.getY() > this.position.y);
     }
 
 }

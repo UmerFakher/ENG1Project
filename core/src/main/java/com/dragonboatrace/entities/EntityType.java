@@ -1,6 +1,6 @@
 package com.dragonboatrace.entities;
 
-import com.dragonboatrace.tools.Settings;
+import com.dragonboatrace.tools.Configuration;
 
 /**
  * Represents a Type of Entity.
@@ -34,7 +34,7 @@ public enum EntityType {
      * @return An int representing the width.
      */
     public int getWidth() {
-        return this.width / Settings.SCALAR;
+        return this.width / Configuration.SCALAR;
     }
 
     /**
@@ -43,6 +43,6 @@ public enum EntityType {
      * @return An int representing the height.
      */
     public int getHeight() {
-        return this.height / Settings.SCALAR;
+        return this.height / Configuration.SCALAR;
     }
 }
